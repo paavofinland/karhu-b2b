@@ -54,3 +54,12 @@
   font-family: 'GTAmerica-Medium';
   text-transform: uppercase;
 }
+
+.text-body-lg,
+.text-body,
+.text-body-sm,
+.text-body-xs
+.text-detailed {
+  font-family: 'GTAmerica';
+}
+

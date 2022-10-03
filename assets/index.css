@@ -1,3 +1,6 @@
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./styles/main.css ***!
+  \*********************************************************************************************************************************************************************/
 .skip-to-content {
   background: #fff;
   box-shadow: 0 1.2rem 2.4rem -1rem rgba(#000, 0.16);
@@ -18,6 +21,69 @@
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
+}
+
+.hero {
+  position: relative;
+  text-align: center;
+  color: #FFF;
+  min-height: 32.875rem;
+}
+
+.hero-heading {
+  max-width: 30rem;
+}
+
+.hero-heading__btn {
+  padding: 1rem 2rem;
+  border: 1px solid #FFF;
+  margin-top: 2.5rem;
+  display: inline-block;
+}
+
+.hero__btn {
+  z-index: 1;
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  padding: 1.28125rem 1.0625rem;
+  bottom: 0;
+  transform: translateX(-50%);
+  margin: 1.75rem 0;
+}
+
+.hero__btn_left {
+  left: calc(50% - 36px);
+}
+
+.hero__btn_right {
+  left: calc(50% + 36px);
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    min-height: 50rem;
+  }
+
+  .hero-heading__btn {
+    padding: 1rem 3rem;
+  }
+
+  .hero__btn {
+    top: 50%;
+    bottom: initial;
+    transform: translateY(-50%);
+    margin: 0 3.75rem;
+  }
+
+  .hero__btn_left {
+    left: 0;
+  }
+  
+  .hero__btn_right {
+    right: 0;
+    left: initial;
+  }
 }
 
 /*
@@ -497,13 +563,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
-@media (min-width: 416px) {
-
-  .container {
-    max-width: 416px;
-  }
-}
-
 @media (min-width: 640px) {
 
   .container {
@@ -594,10 +653,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .z-10 {
   z-index: 10;
-}
-
-.z-\[1\] {
-  z-index: 1;
 }
 
 .z-\[-1\] {
@@ -830,10 +885,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   max-width: 24rem;
 }
 
-.max-w-\[275px\] {
-  max-width: 275px;
-}
-
 .flex-1 {
   flex: 1 1 0%;
 }
@@ -968,22 +1019,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
 }
 
-.space-y-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
-}
-
 .overflow-auto {
   overflow: auto;
 }
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.whitespace-pre-line {
-  white-space: pre-line;
 }
 
 .break-words {
@@ -1032,7 +1073,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-black {
   --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .border-gray-200 {
@@ -1047,12 +1088,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-black {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-grey-1 {
@@ -1173,12 +1214,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .from-black\/20 {
-  --tw-gradient-from: rgb(255 255 255 / 0.2);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
+  --tw-gradient-from: rgb(0 0 0 / 0.2);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(0 0 0 / 0));
 }
 
 .to-black\/40 {
-  --tw-gradient-to: rgb(255 255 255 / 0.4);
+  --tw-gradient-to: rgb(0 0 0 / 0.4);
 }
 
 .object-contain {
@@ -1419,7 +1460,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-white {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .text-gray-400 {
@@ -1434,7 +1475,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-black {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .text-gray-600 {
@@ -1510,14 +1551,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration: 150ms;
 }
 
-.transition {
-  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .transition-all {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -1528,6 +1561,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition {
+  transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1548,14 +1589,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .after\:absolute::after {
   content: var(--tw-content);
   position: absolute;
-}
-
-.after\:inset-0::after {
-  content: var(--tw-content);
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
 }
 
 .after\:top-\[1px\]::after {
@@ -1632,18 +1665,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 .after\:border-black::after {
   content: var(--tw-content);
   --tw-border-opacity: 1;
-  border-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-
-.after\:bg-black::after {
-  content: var(--tw-content);
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.after\:opacity-\[var\(--overlayOpacity\)\]::after {
-  content: var(--tw-content);
-  opacity: var(--overlayOpacity);
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .after\:content-\[\"\"\]::after {
@@ -1666,7 +1688,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .hover\:opacity-60:hover {
@@ -1751,18 +1773,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .open\:bg-opacity-40.open {
   --tw-bg-opacity: 0.4;
-}
-
-.display\:opacity-100.display {
-  opacity: 1;
-}
-
-@media (min-width: 416px) {
-
-  .\32 6rem\:mx-auto {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -1858,10 +1868,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .lg\:min-w-\[16rem\] {
     min-width: 16rem;
-  }
-
-  .lg\:max-w-5xl {
-    max-width: 64rem;
   }
 
   .lg\:max-w-6xl {
@@ -2001,6 +2007,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     padding-top: var(--desktop-ratio);
   }
 
+  .lg\:text-heading-2 {
+    font-size: 6.25rem;
+    line-height: 5rem;
+    letter-spacing: -0.01em;
+  }
+
   .lg\:text-\[40px\] {
     font-size: 40px;
   }
@@ -2067,4 +2079,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: 'GTAmerica';
 }
 
+.absolute-center {
+  z-index: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 

@@ -1,4 +1,5 @@
 @import 'components/skip-to-content.css';
+@import 'components/hero.css';
 
 @tailwind base;
 @tailwind components;
@@ -63,3 +64,10 @@
   font-family: 'GTAmerica';
 }
 
+.absolute-center {
+  z-index: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

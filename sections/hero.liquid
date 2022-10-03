@@ -1,204 +1,75 @@
 {%- liquid
-  assign s = section.settings
-
-  capture data_attr
-    if s.video_url or s.video_url_desktop
-      echo 'data-component="hero"'
-    endif
-  endcapture
-
-  capture video_class
-    if s.video_url
-      echo 'flex '
-    else
-      echo 'hidden '
-    endif
-    if s.video_url_desktop
-      echo 'lg:flex'
-    else
-      echo 'lg:hidden'
-    endif
-  endcapture
+  assign blocks = section.blocks
 -%}
 
-<section
-  class='after:opacity-[var(--overlayOpacity)] relative after:absolute after:inset-0 after:bg-black'
-  style='--overlayOpacity: {{ s.overlay_opacity | divided_by: 100.00 }};'
-  {{ data_attr }}
->
-  <div class='relative'>
-    {%- if s.image or s.image_desktop -%}
-      {%- render 'component.image',
-        img: s.image,
-        lazy: s.lazyload_image,
-        desktop_img: s.image_desktop
-      -%}
-    {%- endif -%}
-    {%- if s.video_url or s.video_url_desktop -%}
-      <video
-        data-video
-        class='
-          opacity-0 absolute inset-0 h-full w-full
-          display:opacity-100 transition duration-300
-          {{ video_class }}
-        '
-        playsinline
-        autoplay
-        loop
-        data-mobile-source='{{- s.video_url -}}'
-        data-desktop-source='{{- s.video_url_desktop -}}'
-        muted
-      >
-        <source data-source type='video/mp4'>
-      </video>
-    {%- endif -%}
+<section data-component="heroSlider" class="hero">
+  <div data-slider class="swiper">
+    <div class="swiper-wrapper">
+      {% for slide in blocks %}
+        {%- liquid
+          assign s = slide.settings
+        -%}
+        <div class="swiper-slide">
+          <div class="hero-heading absolute-center">
+            <h2 class="text-heading-3 lg:text-heading-2">{{- s.title -}}</h2>
+            <a class="hero-heading__btn text-body-sm" href="{{- s.button_url -}}">{{- s.button_text -}}</a>
+          </div>
+          <div>
+            {% render 'component.image'
+              desktop_img: s.desktop_image
+              img: s.image
+            %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-  <div class='text-white max-w-[275px] absolute inset-0 flex flex-col items-center justify-center space-y-4 lg:max-w-5xl mx-auto z-[1]'>
-    {%- if s.title -%}
-      <{{ s.title_tag }} class='text-2xl text-center whitespace-pre-line lg:text-8xl'>
-        {{- s.title | upcase -}}
-      </{{ s.title_tag }}>
-    {%- endif -%}
-    {%- if s.subtitle -%}
-      <p class='text-base text-center whitespace-pre-line'>
-        {{- s.subtitle -}}
-      </p>
-    {%- endif -%}
-    {%- if s.button_url -%}
-      {%- render 'component.button', text: s.button_text, style: 'primary', href: s.button_url -%}
-    {%- endif -%}
-  </div>
+  <button data-prev class="hero__btn hero__btn_left">
+    {% render 'component.icon'
+      type: 'arrow-left'
+    %}
+  </button>
+  <button data-next class="hero__btn hero__btn_right">
+    {% render 'component.icon'
+      type: 'arrow-right'
+    %}
+  </button>
 </section>
 
 {% schema %}
 {
   "name": "Hero",
-  "settings": [
+  "blocks": [
     {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "textarea",
-      "id": "title",
-      "label": "Title",
-      "default": "The crafted collection",
-      "info": "Use shift + enter to create a new line"
-    },
-    {
-      "type": "textarea",
-      "id": "subtitle",
-      "label": "Subtitle",
-      "default": "Core essentials that embody timeless design, quality and sustainability.",
-      "info": "Use shift + enter to create a new line"
-    },
-    {
-      "type": "header",
-      "content": "Button"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "shop collection"
-    },
-    {
-      "type": "url",
-      "id": "button_url",
-      "label": "Button url"
-    },
-    {
-      "type": "header",
-      "content": "Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Image",
-      "info": "Image height will determine the height of the hero. If you use a video please upload an image with the same dimensions"
-    },
-    {
-      "type": "image_picker",
-      "id": "image_desktop",
-      "label": "Image desktop",
-      "info": "Image height will determine the height of the hero. If you use a video please upload an image with the same dimensions"
-    },
-    {
-      "type": "header",
-      "content": "Video"
-    },
-    {
-      "type": "url",
-      "id": "video_url",
-      "label": "Video URL",
-      "info": "Please upload video file to [Shopify files](/admin/settings/files) and paste link here"
-    },
-    {
-      "type": "url",
-      "id": "video_url_desktop",
-      "label": "Desktop video URL",
-      "info": "Please upload video file to [Shopify files](/admin/settings/files) and paste link here"
-    },
-    {
-      "type": "header",
-      "content": "Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "lazyload_image",
-      "label": "Lazyload image",
-      "default": false,
-      "info": "Only lazyload the image when it's not the first image on the page"
-    },
-    {
-      "type": "select",
-      "id": "title_tag",
-      "label": "Title tag",
-      "default": "h4",
-      "options": [
+      "type": "category",
+      "name": "Section slide",
+      "settings": [
         {
-          "value": "h1",
-          "label": "H1"
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
         },
         {
-          "value": "h2",
-          "label": "H2"
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
         },
         {
-          "value": "h3",
-          "label": "H3"
+          "type": "text",
+          "id": "title",
+          "label": "Title"
         },
         {
-          "value": "h4",
-          "label": "H4"
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
         },
         {
-          "value": "h5",
-          "label": "H5"
-        },
-        {
-          "value": "h6",
-          "label": "H6"
-        },
-        {
-          "value": "p",
-          "label": "P"
+          "type": "url",
+          "id": "button_url",
+          "label": "Button Link"
         }
       ]
-    },
-    {
-      "type": "header",
-      "content": "Appearance"
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "label": "Overlay opacity",
-      "info": "Add a see through black layer between your image/video and the content",
-      "default": 20
     }
   ],
   "presets": [

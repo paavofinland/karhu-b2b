@@ -8,16 +8,58 @@
 /* When adding fonts also preload fonts in theme.liquid */
 @layer base {
   @font-face {
+    font-family: "GTAmerica-Bold";
+    src: url("../assets/GT-America-Compressed-Bold.woff2") format("woff2"),
+        url("../assets/GT-America-Compressed-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
     font-display: swap;
-    font-family: 'Circular';
-    font-weight: 300;
-    src: url('circular-book.woff2') format('woff2'), url('circular-book.woff') format('woff')
   }
   @font-face {
-    font-display: swap;
-    font-family: 'Circular';
-    font-style: italic;
+    font-family: "GTAmerica-Medium";
+    src: url('../assets/GT-America-Compressed-Medium.woff2') format("woff2"),
+        url('../assets/GT-America-Compressed-Medium.woff') format("woff");
     font-weight: 500;
-    src: url('circular-medium-italic.woff2') format('woff2'), url('circular-medium-italic.woff') format('woff');
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "GTAmerica-Compressed";
+    src: url("../assets/GT-America-Compressed-Regular.woff2") format("woff2"),
+         url("../assets/GT-America-Compressed-Regular.woff") format("woff");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "GTAmerica";
+    src: url("../assets/GT-America-Regular.woff2") format("woff2"),
+         url("../assets/GT-America-Regular.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
   }
 }
+.text-heading-1,
+.text-heading-2,
+.text-heading-3,
+.text-heading-4,
+.text-heading-5,
+.text-heading-6 {
+  font-family: 'GTAmerica-Bold';
+  text-transform: uppercase;
+}
+
+.text-heading-7 {
+  font-family: 'GTAmerica-Medium';
+  text-transform: uppercase;
+}
+
+.text-body-lg,
+.text-body,
+.text-body-sm,
+.text-body-xs
+.text-detailed {
+  font-family: 'GTAmerica';
+}
+

@@ -1,0 +1,32 @@
+{
+  "current": {
+    "payment_ideal": false,
+    "payment_klarna": true,
+    "payment_paypal": true,
+    "payment_mastercard": true,
+    "payment_visa": true,
+    "payment_applepay": true,
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "nav": "main-menu"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "navigation": ""
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  }
+}

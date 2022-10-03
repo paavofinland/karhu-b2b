@@ -1,0 +1,31 @@
+{%- liquid
+  unless collection
+    assign collection_handle = section.settings.collection | default: 'all'
+    assign collection = collections[collection_handle]
+  endunless
+-%}
+
+<div class='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1 gap-y-4 xl:px-16'>
+  {%- for product in collection.products -%}
+    {% render 'component.product-item', product: product %}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product grid",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Get products from",
+      "info": "If this section is rendered, on a collection page - ignore this"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product grid"
+    }
+  ]
+}
+{% endschema %}

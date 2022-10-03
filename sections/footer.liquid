@@ -1,0 +1,29 @@
+{%- liquid
+  assign s = section.settings
+  assign year = 'today' | date: '%Y'
+  assign menu = linklists[s.navigation]
+-%}
+<footer class='py-6 px-6 xl:px-16 border-t border-gray-200 flex justify-between mt-32'>
+  <span>{{- 'general.footer.copyright' | t: store: shop.name, year: year -}}</span>
+  <ul class='flex flex-wrap gap-2'>
+    {%- for link in menu.links -%}
+      <li>
+        <a href='{{- link.url -}}'>{{- link.title -}}</a>
+      </li>
+    {%- endfor -%}
+  </ul>
+  {%- render : 'component.payment-icons' -%}
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "navigation",
+      "label": "Navigation"
+    }
+  ]
+}
+{% endschema %}

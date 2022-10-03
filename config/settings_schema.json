@@ -1,0 +1,108 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ask Phill Starter",
+    "theme_version": "1.0.0",
+    "theme_author": "Shopify",
+    "theme_documentation_url": "https://www.askphill.com",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social media links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest_link",
+        "label": "Pintrest"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "Tik tok"
+      },
+      {
+        "type": "text",
+        "id": "social_snapchat_link",
+        "label": "Snapchat link"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "Youtube link"
+      }
+    ]
+  },
+  {
+    "name": "Payment icons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Show Payment icons"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_ideal",
+        "label": "Ideal"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_klarna",
+        "label": "Klarna"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_paypal",
+        "label": "Paypal"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_mastercard",
+        "label": "Mastercard"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_visa",
+        "label": "Visa"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_googlepay",
+        "label": "Google pay"
+      },
+      {
+        "type": "checkbox",
+        "id": "payment_applepay",
+        "label": "Apple pay"
+      }
+    ]
+  },
+  {
+    "name": "favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "favicon"
+      }
+    ]
+  }
+]

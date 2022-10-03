@@ -1,0 +1,98 @@
+{%- liquid
+  assign s = section.settings
+  assign eager_loading = s.eager | default: false
+-%}
+
+<div class='text-image'>
+  <div class='text-image__wrapper'>
+    <{{ s.title_tag }}>
+      {{- s.title -}}
+    </{{ s.title_tag }}>
+    {%-
+      render 'component.image',
+      img: s.image,
+      desktop_img: s.desktop_image,
+      max_width: 2560,
+      alt: s.title,
+      eager: eager_loading,
+      placeholder: true
+    -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Text image",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop image"
+    },
+    {
+      "type": "checkbox",
+      "id": "eager",
+      "label": "Eager Loaded",
+      "default": false,
+      "info": "Only use on top image, 1 per page"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title tag picker",
+      "default": "p",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "p",
+          "label": "p"
+        }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text image"
+    }
+  ]
+}
+{% endschema %}

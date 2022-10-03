@@ -1032,12 +1032,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .border-black {
   --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
-}
-
-.border-primary {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .border-gray-200 {
@@ -1052,12 +1047,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .bg-black {
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .bg-white {
   --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-grey-1 {
@@ -1140,11 +1135,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   background-color: rgb(220 129 6 / var(--tw-bg-opacity));
 }
 
-.bg-primary {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
 .bg-transparent {
   background-color: transparent;
 }
@@ -1183,12 +1173,12 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 .from-black\/20 {
-  --tw-gradient-from: rgb(0 0 0 / 0.2);
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(0 0 0 / 0));
+  --tw-gradient-from: rgb(255 255 255 / 0.2);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(255 255 255 / 0));
 }
 
 .to-black\/40 {
-  --tw-gradient-to: rgb(0 0 0 / 0.4);
+  --tw-gradient-to: rgb(255 255 255 / 0.4);
 }
 
 .object-contain {
@@ -1429,11 +1419,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-white {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-primary {
-  --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
@@ -1449,7 +1434,7 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-black {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .text-gray-600 {
@@ -1503,10 +1488,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
-.ring-primary\/60 {
-  --tw-ring-color: rgb(0 0 0 / 0.6);
 }
 
 .ring-transparent {
@@ -1651,13 +1632,13 @@ Ensure the default browser behavior of the `hidden` attribute.
 .after\:border-black::after {
   content: var(--tw-content);
   --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .after\:bg-black::after {
   content: var(--tw-content);
   --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
 .after\:opacity-\[var\(--overlayOpacity\)\]::after {
@@ -1683,18 +1664,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   display: block;
 }
 
-.hover\:bg-primary\/90:hover {
-  background-color: rgb(0 0 0 / 0.9);
-}
-
-.hover\:bg-primary:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
 .hover\:text-white:hover {
   --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .hover\:opacity-60:hover {
@@ -1708,10 +1680,6 @@ Ensure the default browser behavior of the `hidden` attribute.
 .focus\:translate-y-0:focus {
   --tw-translate-y: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.focus\:bg-primary\/90:focus {
-  background-color: rgb(0 0 0 / 0.9);
 }
 
 .focus\:opacity-100:focus {
@@ -2090,4 +2058,13 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: 'GTAmerica-Medium';
   text-transform: uppercase;
 }
+
+.text-body-lg,
+.text-body,
+.text-body-sm,
+.text-body-xs
+.text-detailed {
+  font-family: 'GTAmerica';
+}
+
 

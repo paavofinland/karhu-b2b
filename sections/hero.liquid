@@ -12,7 +12,12 @@
         <div class="swiper-slide">
           <div class="hero-heading absolute-center">
             <h2 class="text-heading-3 lg:text-heading-2">{{- s.title -}}</h2>
-            <a class="hero-heading__btn text-body-sm" href="{{- s.button_url -}}">{{- s.button_text -}}</a>
+            {% render 'component.button'
+              text: s.button_text
+              href: s.button_url
+              class: "hero-heading__btn",
+              style: "transparent"
+            %}
           </div>
           <div>
             {% render 'component.image'

@@ -2,7 +2,7 @@
   assign blocks = section.blocks
 -%}
 
-<section data-component="heroSlider" class="hero">
+<section data-component="heroSlider" class="relative text-center text-white min-height-[32.875rem] lg:min-height-[50rem]">
   <div data-slider class="swiper">
     <div class="swiper-wrapper">
       {% for slide in blocks %}
@@ -10,35 +10,42 @@
           assign s = slide.settings
         -%}
         <div class="swiper-slide">
-          <div class="hero-heading absolute-center">
-            <h2 class="text-heading-3 lg:text-heading-2">{{- s.title -}}</h2>
-            {% render 'component.button'
-              text: s.button_text
-              href: s.button_url
-              class: "hero-heading__btn",
-              style: "transparent"
-            %}
+          <div class="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-width-[30rem]">
+            {%- if s.title -%}
+              <{{ s.title_tag }} class="text-heading-3 lg:text-heading-2">{{- s.title -}}</{{ s.title_tag }}>
+            {%- endif -%}
+            {%- if s.button_text or s.button_url -%}
+              {% render 'component.button'
+                text: s.button_text
+                href: s.button_url
+                class: "inline-block mt-7 lg:mt-10",
+                style: "transparent"
+              %}
+            {%- endif -%}
           </div>
-          <div>
-            {% render 'component.image'
-              desktop_img: s.desktop_image
-              img: s.image
-            %}
-          </div>
+          {%- if s.image or s.desktop_image -%}
+            <div>
+              {% render 'component.image'
+                desktop_img: s.desktop_image
+                img: s.image,
+                lazy: s.lazyload_image
+              %}
+            </div>
+          {%- endif -%}
         </div>
       {% endfor %}
     </div>
   </div>
-  <button data-prev class="hero__btn hero__btn_left">
-    {% render 'component.icon'
-      type: 'arrow-left'
-    %}
-  </button>
-  <button data-next class="hero__btn hero__btn_right">
-    {% render 'component.icon'
-      type: 'arrow-right'
-    %}
-  </button>
+  {%- render 'component.slider-button'
+    attributes: 'data-prev'
+    icon_type: 'arrow-left'
+    class: 'left-[calc(50%-36px)] lg:left-0'
+  -%}
+  {%- render 'component.slider-button'
+    attributes: 'data-next'
+    icon_type: 'arrow-right'
+    class: 'left-[calc(50%+36px)] lg:right-0 lg:left-[initial]'
+  -%}
 </section>
 
 {% schema %}
@@ -50,6 +57,13 @@
       "name": "Section slide",
       "settings": [
         {
+          "type": "checkbox",
+          "id": "lazyload_image",
+          "label": "Lazyload image",
+          "default": false,
+          "info": "Only lazyload the image when it's not the first image on the page"
+        },
+        {
           "type": "image_picker",
           "id": "image",
           "label": "Image"
@@ -58,6 +72,42 @@
           "type": "image_picker",
           "id": "desktop_image",
           "label": "Desktop Image"
+        },
+        {
+          "type": "select",
+          "id": "title_tag",
+          "label": "Title tag",
+          "default": "h2",
+          "options": [
+            {
+              "value": "h1",
+              "label": "H1"
+            },
+            {
+              "value": "h2",
+              "label": "H2"
+            },
+            {
+              "value": "h3",
+              "label": "H3"
+            },
+            {
+              "value": "h4",
+              "label": "H4"
+            },
+            {
+              "value": "h5",
+              "label": "H5"
+            },
+            {
+              "value": "h6",
+              "label": "H6"
+            },
+            {
+              "value": "p",
+              "label": "P"
+            }
+          ]
         },
         {
           "type": "text",

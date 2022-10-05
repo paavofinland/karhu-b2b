@@ -783,6 +783,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 2rem;
 }
 
+.h-\[32\.875rem\] {
+  height: 32.875rem;
+}
+
 .h-0 {
   height: 0px;
 }
@@ -1842,6 +1846,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
   .lg\:hidden {
     display: none;
+  }
+
+  .lg\:h-\[50rem\] {
+    height: 50rem;
   }
 
   .lg\:w-full {

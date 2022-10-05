@@ -2,14 +2,14 @@
   assign blocks = section.blocks
 -%}
 
-<section data-component="heroSlider" class="relative text-center text-white min-height-[32.875rem] lg:min-height-[50rem]">
+<section data-component="heroSlider" class="relative text-center text-white h-[32.875rem] lg:h-[50rem]">
   <div data-slider class="swiper">
     <div class="swiper-wrapper">
       {% for slide in blocks %}
         {%- liquid
           assign s = slide.settings
         -%}
-        <div class="swiper-slide">
+        <div data-slide class="swiper-slide">
           <div class="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-width-[30rem]">
             {%- if s.title -%}
               <{{ s.title_tag }} class="text-heading-3 lg:text-heading-2">{{- s.title -}}</{{ s.title_tag }}>
@@ -24,11 +24,13 @@
             {%- endif -%}
           </div>
           {%- if s.image or s.desktop_image -%}
-            <div>
+            <div class="h-[32.875rem] lg:h-[50rem]">
               {% render 'component.image'
                 desktop_img: s.desktop_image
-                img: s.image,
+                img: s.image
                 lazy: s.lazyload_image
+                class: 'h-full'
+                img_class: 'object-cover'
               %}
             </div>
           {%- endif -%}
@@ -36,16 +38,18 @@
       {% endfor %}
     </div>
   </div>
-  {%- render 'component.slider-button'
-    attributes: 'data-prev'
-    icon_type: 'arrow-left'
-    class: 'left-[calc(50%-36px)] lg:left-0'
-  -%}
-  {%- render 'component.slider-button'
-    attributes: 'data-next'
-    icon_type: 'arrow-right'
-    class: 'left-[calc(50%+36px)] lg:right-0 lg:left-[initial]'
-  -%}
+  {%- if blocks.size > 1 -%}
+    {%- render 'component.slider-button'
+      attributes: 'data-prev'
+      icon_type: 'arrow-left'
+      class: 'left-[calc(50%-36px)] lg:left-0'
+    -%}
+    {%- render 'component.slider-button'
+      attributes: 'data-next'
+      icon_type: 'arrow-right'
+      class: 'left-[calc(50%+36px)] lg:right-0 lg:left-[initial]'
+    -%}
+  {%- endif -%}
 </section>
 
 {% schema %}

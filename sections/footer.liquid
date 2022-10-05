@@ -1,29 +1,93 @@
 {%- liquid
   assign s = section.settings
   assign year = 'today' | date: '%Y'
-  assign menu = linklists[s.navigation]
+
+  capture socials_string
+    for s in settings
+      if s contains 'social_'
+        echo s | append: ','
+      endif
+    endfor
+  endcapture
+  assign socials = socials_string | split: ','
 -%}
-<footer class='py-6 px-6 xl:px-16 border-t border-gray-200 flex justify-between mt-32'>
-  <span>{{- 'general.footer.copyright' | t: store: shop.name, year: year -}}</span>
-  <ul class='flex flex-wrap gap-2'>
-    {%- for link in menu.links -%}
-      <li>
-        <a href='{{- link.url -}}'>{{- link.title -}}</a>
-      </li>
-    {%- endfor -%}
-  </ul>
-  {%- render : 'component.payment-icons' -%}
+
+<footer class="border-t border-grey-1">
+  <div class="flex">
+    <div class="flex flex-col justify-center items-center flex-1 border-r border-grey-1 px-2 lg:pt-[135px] lg:pb-[120px]">
+      <a href="{{- routes.root_url -}}">
+        {%-
+          render 'component.icon',
+          type: 'karhu-logo-footer',
+          class: 'w-[78px] h-[55px] lg:w-[120px] lg:h-[85px]'
+        -%}
+      </a>
+      <ul class="flex flex-wrap justify-center mt-12 lg:mt-9 gap-[30px] lg:gap-9">
+        {%- for s in socials -%}
+          {%- liquid
+            assign split_string = s | split: '_'
+            assign link = settings[s] | default: nil
+          -%}
+          {%- if link != nil -%}
+            <li>
+              <a target='_blank' href='{{- link -}}'>
+                {%-
+                  render 'component.icon',
+                  type: split_string[1],
+                  class: "transition md:hover:opacity-70"
+                -%}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div class="lg:flex lg:justify-center lg:gap-[60px] lg:pt-[120px] flex-1 px-[31px] py-12 lg:p-0">
+      {% if s.navigation_first.links.size > 0 %}
+        <ul class="w-[172px] lg:w-[180px] mb-7 lg:mb-0">
+          <li class="text-heading-7">{{- s.navigation_first.title -}}</li>
+          {%- for link in s.navigation_first.links -%}
+          <li class="text-body-sm mt-[2px]">
+            <a target='_blank' href='{{- link.url -}}'>
+              {{- link.title -}}
+            </a>
+          </li>
+          {%- endfor -%}
+        </ul>
+      {% endif %}
+      {% if s.navigation_second.links.size > 0 %}
+        <ul class="w-[172px] lg:w-[180px]">
+          <li class="text-heading-7">{{- s.navigation_second.title -}}</li>
+          {%- for link in s.navigation_second.links -%}
+          <li class="text-body-sm mt-[2px]">
+            <a target='_blank' href='{{- link.url -}}'>
+              {{- link.title -}}
+            </a>
+          </li>
+          {%- endfor -%}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+  {%- render 'component.footer-bar'
+    is_menu: false
+  -%}
 </footer>
 
 {% schema %}
-{
-  "name": "Footer",
-  "settings": [
-    {
-      "type": "link_list",
-      "id": "navigation",
-      "label": "Navigation"
-    }
-  ]
-}
+  {
+    "name": "Footer",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "navigation_first",
+        "label": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "navigation_second",
+        "label": "Navigation Bottom"
+      }
+    ]
+  }
 {% endschema %}

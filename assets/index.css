@@ -1,3 +1,6 @@
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./styles/main.css ***!
+  \*********************************************************************************************************************************************************************/
 .skip-to-content {
   background: #fff;
   box-shadow: 0 1.2rem 2.4rem -1rem rgba(#000, 0.16);
@@ -708,8 +711,8 @@ html {
   margin-bottom: 66px;
 }
 
-.mt-32 {
-  margin-top: 8rem;
+.mt-\[2px\] {
+  margin-top: 2px;
 }
 
 .mr-6 {
@@ -800,6 +803,10 @@ html {
   height: 348px;
 }
 
+.h-\[55px\] {
+  height: 55px;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -850,6 +857,14 @@ html {
 
 .w-\[250px\] {
   width: 250px;
+}
+
+.w-\[78px\] {
+  width: 78px;
+}
+
+.w-\[172px\] {
+  width: 172px;
 }
 
 .w-32 {
@@ -992,8 +1007,8 @@ html {
   gap: 0.25rem;
 }
 
-.gap-2 {
-  gap: 0.5rem;
+.gap-\[30px\] {
+  gap: 30px;
 }
 
 .gap-0 {
@@ -1002,6 +1017,10 @@ html {
 
 .gap-6 {
   gap: 1.5rem;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-16 {
@@ -1074,6 +1093,10 @@ html {
   border-top-width: 1px;
 }
 
+.border-r {
+  border-right-width: 1px;
+}
+
 .border-t-0 {
   border-top-width: 0px;
 }
@@ -1090,6 +1113,11 @@ html {
 .border-gray-200 {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
+}
+
+.border-grey-1 {
+  --tw-border-opacity: 1;
+  border-color: rgb(41 41 41 / var(--tw-border-opacity));
 }
 
 .border-gray-100 {
@@ -1293,6 +1321,16 @@ html {
 .px-2 {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
+}
+
+.px-\[31px\] {
+  padding-left: 31px;
+  padding-right: 31px;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
 .py-6 {
@@ -1586,16 +1624,16 @@ html {
   transition-duration: 150ms;
 }
 
-.transition-all {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
 .transition {
   transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.transition-all {
+  transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -1890,6 +1928,10 @@ html {
   .md\:block {
     display: block;
   }
+
+  .md\:hover\:opacity-70:hover {
+    opacity: 0.7;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1960,6 +2002,12 @@ html {
   .lg\:mb-\[143px\] {
     margin-bottom: 143px;
   }
+  .lg\:mt-9 {
+    margin-top: 2.25rem;
+  }
+  .lg\:mb-0 {
+    margin-bottom: 0px;
+  }
   .lg\:mt-10 {
     margin-top: 2.5rem;
   }
@@ -1993,6 +2041,9 @@ html {
   .lg\:h-\[524px\] {
     height: 524px;
   }
+  .lg\:h-\[85px\] {
+    height: 85px;
+  }
   .lg\:h-\[50rem\] {
     height: 50rem;
   }
@@ -2007,6 +2058,12 @@ html {
   }
   .lg\:w-\[378px\] {
     width: 378px;
+  }
+  .lg\:w-\[120px\] {
+    width: 120px;
+  }
+  .lg\:w-\[180px\] {
+    width: 180px;
   }
   .lg\:w-6\/12 {
     width: 50%;
@@ -2073,6 +2130,12 @@ html {
   .lg\:justify-between {
     justify-content: space-between;
   }
+  .lg\:gap-9 {
+    gap: 2.25rem;
+  }
+  .lg\:gap-\[60px\] {
+    gap: 60px;
+  }
   .lg\:gap-16 {
     gap: 4rem;
   }
@@ -2091,6 +2154,9 @@ html {
   .lg\:border-l {
     border-left-width: 1px;
   }
+  .lg\:p-0 {
+    padding: 0px;
+  }
   .lg\:p-14 {
     padding: 3.5rem;
   }
@@ -2099,6 +2165,10 @@ html {
   }
   .lg\:p-6 {
     padding: 1.5rem;
+  }
+  .lg\:px-5 {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
   .lg\:px-16 {
     padding-left: 4rem;
@@ -2116,10 +2186,6 @@ html {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-  .lg\:px-5 {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
   .lg\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -2129,6 +2195,15 @@ html {
   }
   .lg\:pl-\[60px\] {
     padding-left: 60px;
+  }
+  .lg\:pt-\[135px\] {
+    padding-top: 135px;
+  }
+  .lg\:pb-\[120px\] {
+    padding-bottom: 120px;
+  }
+  .lg\:pt-\[120px\] {
+    padding-top: 120px;
   }
   .lg\:pb-10 {
     padding-bottom: 2.5rem;

@@ -611,6 +611,10 @@ html {
   right: 1rem;
 }
 
+.-right-4 {
+  right: -1rem;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -857,6 +861,14 @@ html {
   width: 1.25rem;
 }
 
+.w-\[calc\(100\%\+1rem\)\] {
+  width: calc(100% + 1rem);
+}
+
+.w-4 {
+  width: 1rem;
+}
+
 .w-12 {
   width: 3rem;
 }
@@ -867,6 +879,10 @@ html {
 
 .max-w-sm {
   max-width: 24rem;
+}
+
+.max-w-\[75px\] {
+  max-width: 75px;
 }
 
 .flex-1 {
@@ -1267,6 +1283,11 @@ html {
   padding-bottom: 0.75rem;
 }
 
+.px-5 {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1632,6 +1653,11 @@ html {
   right: 1rem;
 }
 
+.after\:block::after {
+  content: var(--tw-content);
+  display: block;
+}
+
 .after\:hidden::after {
   content: var(--tw-content);
   display: none;
@@ -1642,6 +1668,11 @@ html {
   height: 0.75rem;
 }
 
+.after\:h-full::after {
+  content: var(--tw-content);
+  height: 100%;
+}
+
 .after\:h-\[10px\]::after {
   content: var(--tw-content);
   height: 10px;
@@ -1650,6 +1681,11 @@ html {
 .after\:w-\[6px\]::after {
   content: var(--tw-content);
   width: 6px;
+}
+
+.after\:w-full::after {
+  content: var(--tw-content);
+  width: 100%;
 }
 
 .after\:w-\[10px\]::after {
@@ -1698,10 +1734,23 @@ html {
 .after\:opacity-\[var\(--overlayOpacity\)\]::after {
   content: var(--tw-content);
   opacity: var(--overlayOpacity);
+.after\:bg-\[url\(\'icon\.select\.svg\'\)\]::after {
+  content: var(--tw-content);
+  background-image: url('icon.select.svg');
+}
+
+.after\:bg-no-repeat::after {
+  content: var(--tw-content);
+  background-repeat: no-repeat;
 }
 
 .after\:content-\[\"\"\]::after {
   --tw-content: "";
+  content: var(--tw-content);
+}
+
+.after\:content-\[\'\'\]::after {
+  --tw-content: '';
   content: var(--tw-content);
 }
 
@@ -1769,6 +1818,16 @@ html {
   --tw-ring-color: transparent;
 }
 
+.focus-visible\:border-black:focus-visible {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.focus-visible\:outline-none:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 .group:hover .group-hover\:scale-105 {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -1803,6 +1862,13 @@ html {
 
 .open\:bg-opacity-40.open {
   --tw-bg-opacity: 0.4;
+}
+
+@media (min-width: 768px) {
+
+  .md\:block {
+    display: block;
+  }
 }
 
 @media (min-width: 1024px) {

@@ -2,25 +2,38 @@
   "sections": {
     "16603126701019178e": {
       "type": "hero",
+      "blocks": {
+        "4756b347-1ec5-4b5f-883d-bfbda2903985": {
+          "type": "category",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Image.png",
+            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "title": "New apparel collection",
+            "button_text": "Shop Collection",
+            "button_url": ""
+          }
+        },
+        "73d6483a-d42f-48e0-acc9-26cf82d4d3bc": {
+          "type": "category",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Image.png",
+            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "title": "Another collection",
+            "button_text": "Shop another collection",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "4756b347-1ec5-4b5f-883d-bfbda2903985",
+        "73d6483a-d42f-48e0-acc9-26cf82d4d3bc"
+      ],
       "settings": {
-        "title": "The crafted collection",
-        "subtitle": "Core essentials that embody timeless design, quality and sustainability.",
-        "button_text": "shop collection",
-        "button_url": "\/",
-        "image": "shopify:\/\/shop_images\/M_L_V1440X680_STILL_10.jpg",
-        "image_desktop": "shopify:\/\/shop_images\/D_L_V1440X680_STILL_10_a284b682-5015-47e5-a9df-b42bb368c279.jpg",
-        "video_url": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/7e4f536dfd774041992434e74d221513.mp4",
-        "video_url_desktop": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/d378d9d1c2b6481caa34dbdaaeef29bb.mp4",
-        "lazyload_image": false,
-        "title_tag": "h4",
-        "overlay_opacity": 20
       }
     },
     "1660314562378c6867": {
       "type": "text-image",
       "settings": {
-        "image": "shopify:\/\/shop_images\/Left.png",
-        "desktop_image": "shopify:\/\/shop_images\/text-image.png",
         "eager": false,
         "title": "",
         "title_tag": "p",

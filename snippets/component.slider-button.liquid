@@ -1,0 +1,31 @@
+{%- comment -%}
+  Expected behaviour:
+    Renders a slider button
+
+  About:
+    Render a slider button with an icon inside.
+
+  Accepts:
+    - icon_type: {String} The icon type from 'component.icon'.
+
+  OPTIONAL:
+    - attributes: {String} A list with attributes
+    - class: {String} Classnames for the component
+
+  Usage:
+    {% render 'component.slider-button',
+      icon_type: 'arrow-left',
+      attributes: 'data-prev',
+      class: 'flex'
+    %}
+{%- endcomment -%}
+
+{%- liquid
+  assign btn_class = 'bg-white rounded-full z-10 my-7 absolute bottom-0 transform -translate-x-1/2 py-[20.5px] px-[17px] lg:top-[50%] lg:bottom-[initial] lg:-translate-x-0 lg:-translate-y-1/2 lg:mx-[3.75rem] lg:my-0 ' | append: class
+-%}
+
+<button {{ attributes }} class="{{- btn_class -}}">
+  {% render 'component.icon'
+    type: icon_type
+  %}
+</button>

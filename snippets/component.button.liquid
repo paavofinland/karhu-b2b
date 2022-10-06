@@ -15,7 +15,10 @@
     - attributes: {String} Additional attributes you want to add, like data-attributes
     - type: {String} (Default: button) Button type attribute i.e. button || submit || reset [Only applicable if <button>]
     - name: {String} Name of button [Only applicable if <button>]
-    - style: {String} Add one of the predefined button styles primary || secondary
+    - style: {String} Add one of the predefined button styles primary || secondary || transparent
+    - size: {String} Add one of the predefined button sizes sm || lg
+    - icon: {String} Icon type from 'component.icon'
+    - icon_class: {String} Icon element classname
 
 
   Usage:
@@ -43,18 +46,32 @@
     assign text = translated_text
   endunless
 
+  assign button_size = size | default: 'md'
 
   capture button_style
     case style
       when 'primary'
-        echo 'bg-primary text-white hover:bg-primary/90 focus:bg-primary/90 '
+        echo 'text-white bg-black border border-black hover:bg-white hover:text-black  '
       when 'secondary'
-        echo 'bg-transparent text-primary border border-primary hover:bg-primary hover:text-white '
+        echo 'text-black bg-white border border-grey-4 hover:text-white hover:bg-grey-4 '
+      when 'transparent'
+        echo 'text-white border border-white px-8 lg:px-12 hover:text-black hover:bg-white '
     endcase
   endcapture
 
-  assign default_class = 'focus:outline-none focus:ring ring-primary/60 px-7 py-3 font-semibold disabled:bg-gray-300 disabled:text-gray-500 transition-colors duration-300 '
-  assign classes = button_style | append: default_class | append: class
+  capture button_size_style
+    case button_size
+      when 'sm'
+        echo 'py-3 '
+      when 'md'
+        echo 'py-4 '
+      when 'lg'
+        echo 'py-6 '
+    endcase
+  endcapture
+
+  assign default_class = 'text-body-sm duration-[400ms] '
+  assign classes = button_size_style | append: button_style | append: default_class | append: class
 -%}
 
 {% liquid
@@ -73,4 +90,10 @@
 
 <{{ tag }} {{ tag_extras }} id='{{- id -}}' class='{{- classes -}}' {{ attributes -}}>
   {{- text -}}
+  {%- if icon -%}
+    {%- render 'component.icon'
+      type: icon
+      class: icon_class
+    -%}
+  {%- endif -%}
 </{{ tag }}>

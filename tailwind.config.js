@@ -91,7 +91,6 @@ module.exports = {
       ],
     },
     screens: {
-      '26rem': '416px',
       xs: '375px',
       sm: '640px',
       md: '768px',
@@ -100,8 +99,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        white: '#000000',
-        black: '#FFFFFF',
+        black: '#000000',
+        white: '#FFFFFF',
         'grey-1': '#292929',
         'grey-2': '#5C5C5C',
         'grey-3': '#8F8F8F',

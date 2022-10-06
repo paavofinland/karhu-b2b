@@ -1,5 +1,12 @@
 {
   "current": {
+    "social_twitter_link": "twitter",
+    "social_facebook_link": "facebook",
+    "social_pinterest_link": "pinterest",
+    "social_instagram_link": "instagra,",
+    "social_tiktok_link": "tikitok",
+    "social_snapchat_link": "snap",
+    "social_youtube_link": "youtube",
     "payment_ideal": false,
     "payment_klarna": true,
     "payment_paypal": true,

@@ -56,3 +56,24 @@
     @apply font-medium;
   }
 }
+
+#shopify-section-header {
+  position: sticky;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.header_scrolled {
+  background-color: white;
+  color: black;
+}
+
+.header_scrolled .underlined {
+  background-color: black;
+}
+
+.header_scrolled path {
+  fill: black;
+}

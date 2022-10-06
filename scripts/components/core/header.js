@@ -1,19 +1,48 @@
+/* eslint-disable consistent-return */
 import choozy from '../../lib/choozy';
 
-export default window.component((node, ctx) => {
-  const { cartCount, cartToggle } = choozy(node, null);
+const SCREEN_MD = 768;
 
-  const updateCartCount = cart => {
-    if (!cart?.token) return;
-    cartCount.textContent = cart.item_count;
+export default window.component(node => {
+  const { hamburger, hamburgerOpened, hamburgerClosed, mobileMenu } = choozy(node, null);
+
+  const announcementBarHeight = document.querySelector('#announcement-bar')?.offsetHeight || 0;
+
+  const setHeaderWhiteTheme = () => {
+    node.classList.add('header_scrolled', 'border-grey-5');
+    node.classList.remove('border-opacity-20');
   };
 
-  ctx.on('cart:updated', ({ cart }) => updateCartCount(cart));
+  const setHeaderBasicTheme = () => {
+    node.classList.remove('header_scrolled', 'border-grey-5');
+    node.classList.add('border-opacity-20');
+  };
 
-  cartToggle.addEventListener('click', e => {
-    e.preventDefault();
-    ctx.emit('cart:toggle', ({ cartOpen }) => ({ cartOpen: !cartOpen ?? true }));
+  const isMenuClosed = () => hamburgerOpened.classList.contains('hidden');
+  const isHeaderScrolled = () => window.scrollY > announcementBarHeight;
+
+  const handleScrollHeader = () =>
+    isMenuClosed() && (isHeaderScrolled() ? setHeaderWhiteTheme() : setHeaderBasicTheme());
+
+  const handleClickHamburgerMenu = () =>
+    !isHeaderScrolled() && (isMenuClosed() ? setHeaderBasicTheme() : setHeaderWhiteTheme());
+
+  window.addEventListener('scroll', handleScrollHeader);
+  window.addEventListener('load', handleScrollHeader);
+  node.addEventListener('mouseover', setHeaderWhiteTheme);
+  node.addEventListener('mouseleave', () => !isHeaderScrolled() && setHeaderBasicTheme());
+
+  hamburger.addEventListener('click', () => {
+    hamburgerOpened.classList.toggle('hidden');
+    hamburgerClosed.classList.toggle('hidden');
+    document.body.classList.toggle('overflow-hidden');
+    mobileMenu.classList.toggle('left-0');
+    handleClickHamburgerMenu();
   });
 
-  updateCartCount(ctx.getState()?.cart);
+  if (window.innerWidth <= SCREEN_MD) {
+    mobileMenu.style.height = `${
+      window.innerHeight - announcementBarHeight - mobileMenu.parentElement.offsetHeight
+    }px`;
+  }
 });

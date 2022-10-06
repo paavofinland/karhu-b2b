@@ -1,72 +1,89 @@
-{%- liquid
-  assign s = section.settings
-  assign navigation = linklists[s.nav] | default: null
--%}
+{%- assign headerMenu = linklists[section.settings.menu].links -%}
 
-<div
-  class='flex items-center py-6 w-full border-b border-gray-100 bg-white'
+<header
+  class='flex justify-between border-b border-white border-opacity-20 h-[56px] md:h-[68px] text-white duration-200'
   data-component='header'
 >
-  <div class='container-content flex w-full items-center'>
-    {%- if s.logo != blank -%}
-      <a href='{{- routes.root_url -}}' class='h-8 w-auto flex'>
-        <img
-          class='h-full w-auto'
-          src='{{- s.logo | img_url: 'x64' -}}'
-          width='{{- s.logo.width -}}'
-          height='{{- s.logo.height -}}'
-          loading='lazy'
-          alt='{{- s.logo.alt -}}'
-        >
-      </a>
-    {%- else -%}
-      <a class='text-xs lg:text-xl  xl:text-2xl font-medium italic' href='{{- routes.root_url -}}'>
-        <h1>{{- shop.name -}}</h1>
-      </a>
-    {%- endif -%}
-
-    {%- if navigation -%}
-      <ul class='flex flex-wrap items-center ml-auto'>
-        {%- for link in navigation.links -%}
-          <li class='flex mr-6 last:mr-0'>
-            <a href='{{- link.url -}}'>{{- link.title -}}</a>
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- else -%}
-      <p class='ml-auto bg-indigo-100 py-2 px-4 rounded-md text-indigo-600'>
-        Please select a navigation
-      </p>
-    {%- endif -%}
-    <a
-      class='ml-6 text-black font-bold'
-      href='{% if customer %}{{- routes.account_url -}}{% else %}{{- routes.account_login_url -}}{% endif %}'
-      >Account</a
-    >
-    <a
-      class='ml-6 text-primary font-bold'
-      href='{{- routes.cart_url -}}'
-      data-cart-toggle
-      >Cart (<span data-cart-count>{{- cart.item_count -}}</span>)</a
-    >
+  <a href='/' class='h-min p-4 md:py-5 md:px-[60px]'>
+    {%- render 'component.icon',
+      type: 'karhu-header-logo',
+      class: 'w-[152px] h-6 md:w-[177px] md:h-7'
+    -%}
+  </a>
+  <ul class='hidden md:flex flex-grow-[4] justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
+    {%- for link in headerMenu -%}
+      <li class='group transition duration-200'>
+        <a href='{{- link.url -}}'>
+          {{- link.title -}}
+        </a>
+        <span
+          class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 underlined'
+        ></span>
+      </li>
+    {%- endfor -%}
+  </ul>
+  <ul class='hidden md:flex justify-center items-center gap-9 px-[60px] text-heading-7'>
+    <li class='cursor-pointer group transition duration-200'>
+      Search
+      <span
+        class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 underlined'
+      ></span>
+    </li>
+    <li class='cursor-pointer group transition duration-200'>
+      Bag (0)
+      <span
+        class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 underlined'
+      ></span>
+    </li>
+  </ul>
+  <div class='flex items-center md:hidden p-4 gap-4'>
+    <div data-hamburger>
+      <div data-hamburger-closed>
+        {%- render 'component.icon', type: 'hamburger-menu' -%}
+      </div>
+      <div data-hamburger-opened class='hidden'>
+        {%- render 'component.icon', type: 'hamburger-menu-opened' -%}
+      </div>
+    </div>
+    <div>
+      {%- render 'component.icon', type: 'cart' -%}
+    </div>
   </div>
-</div>
+  <nav
+    class='md:hidden absolute bg-white text-black w-screen top-full -left-full duration-200'
+    data-mobile-menu
+  >
+    <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
+      <li>Search</li>
+      <li>Bag (0)</li>
+    </ul>
+    <ul class='px-4 text-heading-4'>
+      {%- for link in headerMenu -%}
+        <li class='py-5 border-b border-grey-5'>
+          <a class='flex justify-between items-center' href='{{- link.url -}}'>
+            {{- link.title -}}
+            <span class='flex items-center justify-center w-10 h-10'>
+              {%- render 'component.icon', type: 'arrow-right' -%}
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+    <div class='absolute left-0 right-0 bottom-0'>
+      {%- render 'component.footer-bar', is_menu: true -%}
+    </div>
+  </nav>
+</header>
 
 {% schema %}
 {
   "name": "Header",
-  "class": "sticky top-0 lef-0 z-10",
-  "tag": "header",
   "settings": [
     {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
       "type": "link_list",
-      "id": "nav",
-      "label": "Navigation"
+      "id": "menu",
+      "label": "Menu",
+      "info": "You can change the menu items in /admin/menus"
     }
   ]
 }

@@ -21,10 +21,10 @@
     -%}
 {%- endcomment -%}
 
-<div class="flex-1 {{ class }}">
+<div class="{{ class }}">
   <div class="relative max-w-[75px]">
     <label for="store_switcher" class="hidden">Store switcher</label>
-    <select class="bg-black appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none">
+    <select class="bg-black cursor-pointer appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none">
       {%- for country in countriesName -%}
         {%- assign index = forloop.index | minus: 1  -%}
         <option data-url="{{- countriesURL[index] -}}?no-redirect"

@@ -28,7 +28,7 @@
         "label": "Country name",
         "id": "country_name__eu",
         "type": "text",
-        "default": "Europe"
+        "default": "Europe / €"
       },
       {
         "label": "Country name",
@@ -50,7 +50,7 @@
         "label": "Country name",
         "id": "country_name__us",
         "type": "text",
-        "default": "United States"
+        "default": "United States / $"
       },
       {
         "label": "Country name",

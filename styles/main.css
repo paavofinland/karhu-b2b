@@ -62,3 +62,8 @@
 .text-detailed {
   font-family: 'GTAmerica';
 }
+
+#category-overview .swiper-slide {
+  width: auto;
+  height: auto;
+}

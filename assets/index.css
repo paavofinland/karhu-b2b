@@ -1,3 +1,6 @@
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./styles/main.css ***!
+  \*********************************************************************************************************************************************************************/
 .skip-to-content {
   background: #fff;
   box-shadow: 0 1.2rem 2.4rem -1rem rgba(#000, 0.16);
@@ -787,8 +790,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.5rem;
 }
 
-.\!h-\[348px\] {
-  height: 348px !important;
+.h-\[348px\] {
+  height: 348px;
 }
 
 .h-8 {
@@ -831,8 +834,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   width: auto;
 }
 
-.\!w-\[250px\] {
-  width: 250px !important;
+.w-\[250px\] {
+  width: 250px;
 }
 
 .w-32 {
@@ -1903,12 +1906,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     display: none;
   }
 
-  .lg\:\!h-\[554px\] {
-    height: 554px !important;
+  .lg\:h-\[554px\] {
+    height: 554px;
   }
 
-  .lg\:\!h-\[524px\] {
-    height: 524px !important;
+  .lg\:h-\[524px\] {
+    height: 524px;
   }
 
   .lg\:h-\[50rem\] {
@@ -1923,12 +1926,12 @@ Ensure the default browser behavior of the `hidden` attribute.
     width: 24rem;
   }
 
-  .lg\:\!w-\[400px\] {
-    width: 400px !important;
+  .lg\:w-\[400px\] {
+    width: 400px;
   }
 
-  .lg\:\!w-\[378px\] {
-    width: 378px !important;
+  .lg\:w-\[378px\] {
+    width: 378px;
   }
 
   .lg\:w-6\/12 {
@@ -2196,3 +2199,7 @@ Ensure the default browser behavior of the `hidden` attribute.
   font-family: 'GTAmerica';
 }
 
+#category-overview .swiper-slide {
+  width: auto;
+  height: auto;
+}

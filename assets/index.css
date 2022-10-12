@@ -850,6 +850,10 @@ html {
   height: 1.25rem;
 }
 
+.h-\[400px\] {
+  height: 400px;
+}
+
 .h-12 {
   height: 3rem;
 }
@@ -2061,6 +2065,9 @@ html {
   }
   .lg\:h-\[640px\] {
     height: 640px;
+  }
+  .lg\:h-\[600px\] {
+    height: 600px;
   }
   .lg\:w-full {
     width: 100%;

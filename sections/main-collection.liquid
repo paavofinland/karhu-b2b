@@ -4,19 +4,14 @@
   assign desktop_image = s.desktop_image | default: collection.featured_image
 -%}
 
-<div class="relative overflow-hidden h-[404px] lg:h-[640px]">
-  <{{- s.title_tag }} class="text-heading-3 lg:text-heading-2 text-center text-white absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-    {{- s.title | default: collection.title -}}
-  </{{- s.title_tag -}}>
-  <div class="h-[404px] lg:h-[640px]">
-    {%- render 'component.image'
-      img: image
-      desktop_img: desktop_image
-      lazy: s.lazyload_image
-      img_class: 'object-cover'
-    -%}
-  </div>
-</div>
+{%- render 'component.header'
+  title_tag: s.title_tag
+  title: s.title | default: collection.title
+  image: image
+  desktop_image: desktop_image
+  lazyload_image: s.lazyload_image
+  class: 'h-[404px] lg:h-[640px]'
+-%}
 
 {%- schema -%}
 {

@@ -1,0 +1,37 @@
+{%- comment -%}
+  Expected behaviour:
+    Renders hero section
+
+  Accepts:
+    - title_tag: {String} Title tag for SEO
+    - title: {String} Title to display
+    - image: {Image} Mobile image
+    - desktop_image: {Image} Desktop image
+    - lazyload_image: {Boolean} Should lazyload image
+    - class: {String} Section classname
+
+  Usage:
+    {%- render 'component.header'
+      title_tag: 'h1'
+      title: 'Test title'
+      image: section.settings.image
+      desktop_image: section.settings.desktop_image
+      lazyload_image: true
+      class: 'h-[400px] lg:h-[600px]'
+    -%}
+{%- endcomment -%}
+
+<div class="relative overflow-hidden {{ class -}}">
+  <{{- title_tag }} class="text-heading-3 lg:text-heading-2 text-center text-white absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    {{- title -}}
+  </{{- title_tag -}}>
+  <div class="{{- class -}}">
+    {%- render 'component.image'
+      img: image
+      desktop_img: desktop_image
+      lazy: lazyload_image
+      class: 'w-full h-full'
+      img_class: 'object-cover'
+    -%}
+  </div>
+</div>

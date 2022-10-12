@@ -1,4 +1,8 @@
 {%- liquid
+  assign s = section.settings
+  assign image = s.image | default: collection.featured_image
+  assign desktop_image = s.desktop_image | default: collection.featured_image
+
   if canonical_url contains 'addresses'
     assign is_address_template = true
   else
@@ -6,67 +10,116 @@
   endif
 -%}
 
-<div
-  class='my-7 mx-4 lg:mx-16 lg:my-32 lg:flex lg:gap-16 xl:mx-auto lg:max-w-6xl'
-  data-component='account'
->
-  <div class='flex justify-between items-end lg:flex-col lg:justify-start lg:items-start lg:gap-12 lg:min-w-[16rem]'>
-    <h2 class='text-3xl lg:text-[40px] break-words'>
-      {{ 'customer.account.greeting' | t: first_name: customer.first_name }}
-    </h2>
-    <ul class='hidden lg:flex lg:flex-col lg:gap-3'>
-      <li>
-        <a
-          class='text-2xl {% if is_address_template %}opacity-50{% endif %}'
-          href='{{ routes.account_url }}'
-        >
-          {{- 'customer.account.orders.tab_title_desktop' | t -}}
-        </a>
-      </li>
-      <li>
-        <a
-          class='text-2xl {% unless is_address_template %}opacity-50{% endunless %}'
-          href='{{ routes.account_addresses_url }}'
-        >
-          {{- 'customer.account.addresses.tab_title_desktop' | t -}}
-        </a>
-      </li>
-    </ul>
-    <a class='underline text-base lg:text-xl' href='{{ routes.account_logout_url }}'>
-      {{- 'customer.account.logout' | t -}}
-    </a>
-  </div>
-
-  {% capture account_tab_options %}
-    <option
-      {% unless is_address_template %}
-        selected
-      {% endunless %}
-      value='{{ routes.account_url }}'
-    >
-      {{ 'customer.account.orders.tab_title_desktop' | t }}
-    </option>
-    <option
-      {% if is_address_template %}
-        selected
-      {% endif %}
-      value='{{ routes.account_addresses_url }}'
-    >
-      {{ 'customer.account.addresses.tab_title_mobile' | t }}
-    </option>
-  {% endcapture %}
-
-  {%-
-    render 'component.select',
-    options: account_tab_options,
-    container_class: 'flex flex-col mt-4 lg:hidden',
-    select_class: 'mt-2 py-3 px-4 border border-black appearance-none',
-    attributes: 'data-account-page-switcher'
+<div data-component='account'>
+  {%- render 'component.header'
+    title_tag: s.title_tag
+    title: s.title | default: collection.title
+    image: image
+    desktop_image: desktop_image
+    lazyload_image: s.lazyload_image
+    class: 'h-[256px] lg:h-[468px]'
   -%}
-
-  {% if is_address_template %}
-    {% render 'account.addresses' %}
-  {% else %}
-    {% render 'account.orders' %}
-  {% endif %}
+  <div class='flex flex-col lg:flex-row lg:gap-[60px] lg:p-[60px] lg:pb-0'>
+    <div class="text-heading-7 border-b border-grey-5 lg:border-none">
+      <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px]'>
+        <li class="{%- if is_address_template -%} text-grey-4 {%- endif %} lg:mb-3">
+          <a
+            class=''
+            href='{{ routes.account_url }}'
+          >
+            Order history
+          </a>
+        </li>
+        <li class="{%- unless is_address_template -%} text-grey-4 {%- endunless %} lg:mb-3">
+          <a
+            class=''
+            href='{{ routes.account_addresses_url }}'
+          >
+            Your information
+          </a>
+        </li>
+        <li>
+          <a class='text-grey-4' href='{{ routes.account_logout_url }}'>Logout</a>
+        </li>
+      </ul>
+    </div>
+    <div class="pt-7 px-4 pb-[60px] lg:p-0 lg:pb-[100px] w-full">
+      {% if is_address_template %}
+        {% render 'account.addresses' %}
+      {% else %}
+        {% render 'account.orders' %}
+      {% endif %}
+    </div>
+  </div>
 </div>
+
+{%- schema -%}
+{
+  "name": "Account",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "lazyload_image",
+      "label": "Lazyload image",
+      "default": false,
+      "info": "Only lazyload the image when it's not the first image on the page"
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title tag",
+      "default": "h2",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "p",
+          "label": "P"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Account"
+    }
+  ]
+}
+{%- endschema -%}

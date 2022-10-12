@@ -1,27 +1,36 @@
 <section data-info>
-  {%-
-    render 'component.input',
-    container_class: 'mt-7 lg:mt-12',
-    id: 'InfoFirstName',
-    placeholder: customer.first_name,
-    label: 'customer.account.addresses.info.first_name',
-    attributes: 'disabled'
-  -%}
-  {%-
-    render 'component.input',
-    container_class: 'mt-4',
-    id: 'InfoLastName',
-    placeholder: customer.last_name,
-    label: 'customer.account.addresses.info.last_name',
-    attributes: 'disabled'
-  -%}
-  {%-
-    render 'component.input',
-    container_class: 'mt-4',
-    id: 'InfoEmail',
-    placeholder: customer.email,
-    label: 'customer.account.addresses.info.email',
-    attributes: 'disabled'
-  -%}
-  <p class='mt-6'>{{ 'customer.account.addresses.info.password_change_not_possible' | t }}</p>
+  <h5 class='text-heading-5 pb-5 border-b border-black'>Account information</h5>
+  <div class="max-w-[480px]">
+    {%-
+      render 'component.input',
+      id: 'InfoFirstName',
+      container_class: 'mt-10',
+      input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+      placeholder: customer.first_name,
+      label: 'customer.account.addresses.info.first_name',
+      label_class: 'hidden',
+      attributes: 'disabled'
+    -%}
+    {%-
+      render 'component.input',
+      container_class: 'mt-3',
+      input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+      id: 'InfoLastName',
+      placeholder: customer.last_name,
+      label: 'customer.account.addresses.info.last_name',
+      label_class: 'hidden',
+      attributes: 'disabled'
+    -%}
+    {%-
+      render 'component.input',
+      container_class: 'mt-3',
+      input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+      id: 'InfoEmail',
+      placeholder: customer.email,
+      label: 'customer.account.addresses.info.email',
+      label_class: 'hidden',
+      attributes: 'disabled'
+    -%}
+    <p class='mt-4 mb-[60px] text-detailed'>{{ 'customer.account.addresses.info.password_change_not_possible' | t }}</p>
+  </div>
 </section>

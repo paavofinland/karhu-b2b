@@ -133,6 +133,7 @@
           "company": "Company",
           "street_name": "Streetname and housenumber",
           "zipcode": "Zipcode",
+          "postal_code": "Postal Code",
           "city": "City",
           "country": "Country",
           "phone": "Phone number"

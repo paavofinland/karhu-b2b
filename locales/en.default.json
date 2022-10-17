@@ -5,6 +5,10 @@
     },
     "footer": {
       "copyright": "&copy; Copyright {{ store }} {{ year }} – All Rights Reserved"
+    },
+    "header": {
+      "account": "Account",
+      "select_customer": "Select customer"
     }
   },
   "accessibility": {

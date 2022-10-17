@@ -19,18 +19,19 @@
   {%- endif -%}
 
   {%- unless agent -%}
-    <a href='/' class='flex-1 text-right hidden md:block'>Account</a>
+    <a href='/account' class='flex-1 text-right hidden md:block'>
+      {{- 'general.header.account' | t -}}
+    </a>
   {%- endunless -%}
 
   {%- if agent -%}
     <div class='relative max-w-[110px]'>
       <label for='store_switcher' class='hidden'>Customer switcher</label>
       <select class='bg-black appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none'>
-        <option selected disabled>Select customer</option>
-        {%- for country in countriesName -%}
-          {%- assign index = forloop.index | minus: 1 -%}
-          <option data-url='{{- countriesURL[index] -}}?no-redirect'>
-            {{- country -}}
+        <option selected disabled>{{- 'general.header.select_customer' | t -}}</option>
+        {%- for i in (0..5) -%}
+          <option>
+            {{- i -}}
           </option>
         {%- endfor -%}
       </select>

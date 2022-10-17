@@ -8,57 +8,58 @@
 /* When adding fonts also preload fonts in theme.liquid */
 @layer base {
   @font-face {
-    font-family: "GTAmerica-Bold";
-    src: url("../assets/GT-America-Compressed-Bold.woff2") format("woff2"),
-        url("../assets/GT-America-Compressed-Bold.woff") format("woff");
+    font-display: swap;
+    font-family: "GTAmericaCompressed";
+    font-style: normal;
     font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+    src: url("../assets/GT-America-Compressed-Bold.woff2") format("woff2"),
+      url("../assets/GT-America-Compressed-Bold.woff") format("woff");
   }
+
   @font-face {
-    font-family: "GTAmerica-Medium";
-    src: url('../assets/GT-America-Compressed-Medium.woff2') format("woff2"),
-        url('../assets/GT-America-Compressed-Medium.woff') format("woff");
+    font-display: swap;
+    font-family: "GTAmericaCompressed";
+    font-style: normal;
     font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+    src: url('../assets/GT-America-Compressed-Medium.woff2') format("woff2"),
+      url('../assets/GT-America-Compressed-Medium.woff') format("woff");
   }
+
   @font-face {
-    font-family: "GTAmerica-Compressed";
-    src: url("../assets/GT-America-Compressed-Regular.woff2") format("woff2"),
-         url("../assets/GT-America-Compressed-Regular.woff") format("woff");
+    font-display: swap;
+    font-family: "GTAmericaCompressed";
+    font-style: normal;
     font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    src: url("../assets/GT-America-Compressed-Regular.woff2") format("woff2"),
+      url("../assets/GT-America-Compressed-Regular.woff") format("woff");
   }
+
   @font-face {
-    font-family: "GTAmerica";
-    src: url("../assets/GT-America-Regular.woff2") format("woff2"),
-         url("../assets/GT-America-Regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
     font-display: swap;
+    font-family: "GTAmerica";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../assets/GT-America-Regular.woff2") format("woff2"),
+      url("../assets/GT-America-Regular.woff") format("woff");
+  }
+
+  html {
+    @apply font-body;
   }
 }
-.text-heading-1,
-.text-heading-2,
-.text-heading-3,
-.text-heading-4,
-.text-heading-5,
-.text-heading-6 {
-  font-family: 'GTAmerica-Bold';
-  text-transform: uppercase;
-}
 
-.text-heading-7 {
-  font-family: 'GTAmerica-Medium';
-  text-transform: uppercase;
-}
-
-.text-body-lg,
-.text-body,
-.text-body-sm,
-.text-body-xs
-.text-detailed {
-  font-family: 'GTAmerica';
+@layer components {
+  .text-heading-1,
+  .text-heading-2,
+  .text-heading-3,
+  .text-heading-4,
+  .text-heading-5,
+  .text-heading-6,
+  .text-heading-7 {
+    @apply font-headings font-bold uppercase;
+  }
+  
+  .text-heading-7 {
+    @apply font-medium;
+  }
 }

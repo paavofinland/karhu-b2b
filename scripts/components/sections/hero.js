@@ -1,31 +1,27 @@
+import waitToLoad from '../../lib/waitToLoad';
 import choozy from '../../lib/choozy';
 
 export default window.component(async node => {
-  const { video, source } = choozy(node, null);
+  const { slider, slide, prev, next } = choozy(node, null);
 
-  const { desktopSource, mobileSource } = video.dataset;
+  if (slide.length > 1) {
+    await waitToLoad('Swiper');
 
-  const addSource = async () => {
-    if (window.innerWidth >= 1024 && desktopSource && source.src !== desktopSource) {
-      source.src = desktopSource;
-      video.load();
-      await video.play();
-      video.classList.add('display');
-    } else if (window.innerWidth < 1024 && mobileSource && source.src !== mobileSource) {
-      source.src = mobileSource;
-      video.load();
-      await video.play();
-      video.classList.add('display');
-    }
-  };
+    /** @type {import('swiper').SwiperOptions} */
+    const swiperOptions = {
+      slidesPerView: 1,
+      loop: true,
+      on: {
+        afterInit: s => {
+          s.wrapperEl.classList.remove('overflow-hidden', 'flex');
+        },
+      },
+    };
 
-  window.addEventListener('resize', addSource, { passive: true });
+    // eslint-disable-next-line no-undef
+    const swiper = new Swiper(slider, swiperOptions);
 
-  window.addEventListener(
-    'load',
-    () => {
-      addSource();
-    },
-    { passive: true }
-  );
+    prev.addEventListener('click', () => swiper.slidePrev());
+    next.addEventListener('click', () => swiper.slideNext());
+  }
 });

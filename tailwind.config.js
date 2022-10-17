@@ -127,10 +127,8 @@ module.exports = {
         orange: '#DC8106',
       },
       fontFamily: {
-        'GTAmerica-bold': "'GTAmerica-Bold', sans-serif",
-        'GTAmerica-medium': "'GTAmerica-Medium', sans-serif",
-        'GTAmerica-Compressed-regular': "'GTAmerica-Compressed', sans-serif",
-        GTAmerica: "'GTAmerica', sans-serif",
+        headings: ['GTAmericaCompressed', 'sans-serif'],
+        body: ['GTAmerica', 'sans-serif'],
       },
     },
   },

@@ -406,40 +406,44 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @font-face {
-    font-family: "GTAmerica-Bold";
-    src: url("../assets/GT-America-Compressed-Bold.woff2") format("woff2"),
-        url("../assets/GT-America-Compressed-Bold.woff") format("woff");
+    font-display: swap;
+    font-family: "GTAmericaCompressed";
+    font-style: normal;
     font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+    src: url("../assets/GT-America-Compressed-Bold.woff2") format("woff2"),
+      url("../assets/GT-America-Compressed-Bold.woff") format("woff");
   }
 
 @font-face {
-    font-family: "GTAmerica-Medium";
-    src: url('../assets/GT-America-Compressed-Medium.woff2') format("woff2"),
-        url('../assets/GT-America-Compressed-Medium.woff') format("woff");
+    font-display: swap;
+    font-family: "GTAmericaCompressed";
+    font-style: normal;
     font-weight: 500;
-    font-style: normal;
-    font-display: swap;
+    src: url('../assets/GT-America-Compressed-Medium.woff2') format("woff2"),
+      url('../assets/GT-America-Compressed-Medium.woff') format("woff");
   }
 
 @font-face {
-    font-family: "GTAmerica-Compressed";
-    src: url("../assets/GT-America-Compressed-Regular.woff2") format("woff2"),
-         url("../assets/GT-America-Compressed-Regular.woff") format("woff");
+    font-display: swap;
+    font-family: "GTAmericaCompressed";
+    font-style: normal;
     font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    src: url("../assets/GT-America-Compressed-Regular.woff2") format("woff2"),
+      url("../assets/GT-America-Compressed-Regular.woff") format("woff");
   }
 
 @font-face {
-    font-family: "GTAmerica";
-    src: url("../assets/GT-America-Regular.woff2") format("woff2"),
-         url("../assets/GT-America-Regular.woff") format("woff");
-    font-weight: 400;
-    font-style: normal;
     font-display: swap;
+    font-family: "GTAmerica";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../assets/GT-America-Regular.woff2") format("woff2"),
+      url("../assets/GT-America-Regular.woff") format("woff");
   }
+
+html {
+  font-family: GTAmerica, sans-serif;
+}
 
 *, ::before, ::after {
   --tw-translate-x: 0;
@@ -525,6 +529,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   }
 }
 
+.text-heading-1, .text-heading-2, .text-heading-3, .text-heading-4, .text-heading-5, .text-heading-6, .text-heading-7 {
+  font-family: GTAmericaCompressed, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.text-heading-7 {
+  font-weight: 500;
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
@@ -561,12 +575,16 @@ Ensure the default browser behavior of the `hidden` attribute.
   right: 0px;
 }
 
-.top-1\/2 {
-  top: 50%;
-}
-
 .left-1\/2 {
   left: 50%;
+}
+
+.bottom-8 {
+  bottom: 2rem;
+}
+
+.top-1\/2 {
+  top: 50%;
 }
 
 .left-\[calc\(50\%-36px\)\] {
@@ -691,6 +709,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-top: auto;
 }
 
+.mb-\[66px\] {
+  margin-bottom: 66px;
+}
+
 .mt-32 {
   margin-top: 8rem;
 }
@@ -779,6 +801,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   height: 1.5rem;
 }
 
+.h-\[348px\] {
+  height: 348px;
+}
+
 .h-8 {
   height: 2rem;
 }
@@ -817,6 +843,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .w-auto {
   width: auto;
+}
+
+.w-\[250px\] {
+  width: 250px;
 }
 
 .w-32 {
@@ -1286,6 +1316,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1.5rem;
 }
 
+.pt-4 {
+  padding-top: 1rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
+}
+
 .pb-6 {
   padding-bottom: 1.5rem;
 }
@@ -1310,10 +1348,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-right: 1rem;
 }
 
-.pl-4 {
-  padding-left: 1rem;
-}
-
 .pt-\[var\(--mobile-ratio\)\] {
   padding-top: var(--mobile-ratio);
 }
@@ -1330,8 +1364,8 @@ Ensure the default browser behavior of the `hidden` attribute.
   vertical-align: middle;
 }
 
-.font-GTAmerica {
-  font-family: 'GTAmerica', sans-serif;
+.font-headings {
+  font-family: GTAmericaCompressed, sans-serif;
 }
 
 .text-heading-2 {
@@ -1570,6 +1604,14 @@ Ensure the default browser behavior of the `hidden` attribute.
   position: absolute;
 }
 
+.after\:inset-0::after {
+  content: var(--tw-content);
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+}
+
 .after\:top-\[1px\]::after {
   content: var(--tw-content);
   top: 1px;
@@ -1647,6 +1689,17 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.after\:bg-black::after {
+  content: var(--tw-content);
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.after\:opacity-\[var\(--overlayOpacity\)\]::after {
+  content: var(--tw-content);
+  opacity: var(--overlayOpacity);
+}
+
 .after\:content-\[\"\"\]::after {
   --tw-content: "";
   content: var(--tw-content);
@@ -1658,6 +1711,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .last\:mr-0:last-child {
   margin-right: 0px;
+}
+
+.last-of-type\:mr-8:last-of-type {
+  margin-right: 2rem;
 }
 
 .checked\:after\:block:checked::after {
@@ -1749,295 +1806,276 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 @media (min-width: 1024px) {
-
+  .text-heading-1, .lg\:text-heading-2, .text-heading-3, .text-heading-4, .text-heading-5, .text-heading-6, .text-heading-7 {
+    font-family: GTAmericaCompressed, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .text-heading-1, .text-heading-2, .lg\:text-heading-3, .text-heading-4, .text-heading-5, .text-heading-6, .text-heading-7 {
+    font-family: GTAmericaCompressed, sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .lg\:bottom-12 {
+    bottom: 3rem;
+  }
   .lg\:left-0 {
     left: 0px;
   }
-
   .lg\:right-0 {
     right: 0px;
   }
-
   .lg\:left-\[initial\] {
     left: initial;
   }
-
   .lg\:top-6 {
     top: 1.5rem;
   }
-
   .lg\:top-\[50\%\] {
     top: 50%;
   }
-
   .lg\:bottom-\[initial\] {
     bottom: initial;
   }
-
   .lg\:col-span-2 {
     grid-column: span 2 / span 2;
   }
-
   .lg\:row-start-2 {
     grid-row-start: 2;
   }
-
   .lg\:my-32 {
     margin-top: 8rem;
     margin-bottom: 8rem;
   }
-
   .lg\:mx-16 {
     margin-left: 4rem;
     margin-right: 4rem;
   }
-
   .lg\:my-0 {
     margin-top: 0px;
     margin-bottom: 0px;
   }
-
   .lg\:my-16 {
     margin-top: 4rem;
     margin-bottom: 4rem;
   }
-
   .lg\:my-12 {
     margin-top: 3rem;
     margin-bottom: 3rem;
   }
-
   .lg\:mx-\[3\.75rem\] {
     margin-left: 3.75rem;
     margin-right: 3.75rem;
   }
-
+  .lg\:mr-\[60px\] {
+    margin-right: 60px;
+  }
+  .lg\:mb-\[143px\] {
+    margin-bottom: 143px;
+  }
   .lg\:mt-10 {
     margin-top: 2.5rem;
   }
-
   .lg\:mt-0 {
     margin-top: 0px;
   }
-
   .lg\:mt-12 {
     margin-top: 3rem;
   }
-
   .lg\:mt-28 {
     margin-top: 7rem;
   }
-
   .lg\:mb-7 {
     margin-bottom: 1.75rem;
   }
-
   .lg\:mt-7 {
     margin-top: 1.75rem;
   }
-
   .lg\:block {
     display: block;
   }
-
   .lg\:flex {
     display: flex;
   }
-
   .lg\:hidden {
     display: none;
   }
-
+  .lg\:h-\[554px\] {
+    height: 554px;
+  }
+  .lg\:h-\[524px\] {
+    height: 524px;
+  }
   .lg\:h-\[50rem\] {
     height: 50rem;
   }
-
   .lg\:w-full {
     width: 100%;
   }
-
   .lg\:w-96 {
     width: 24rem;
   }
-
+  .lg\:w-\[400px\] {
+    width: 400px;
+  }
+  .lg\:w-\[378px\] {
+    width: 378px;
+  }
   .lg\:w-6\/12 {
     width: 50%;
   }
-
   .lg\:w-1\/3 {
     width: 33.333333%;
   }
-
   .lg\:w-auto {
     width: auto;
   }
-
   .lg\:min-w-\[16rem\] {
     min-width: 16rem;
   }
-
   .lg\:max-w-6xl {
     max-width: 72rem;
   }
-
   .lg\:max-w-4xl {
     max-width: 56rem;
   }
-
   .lg\:-translate-x-0 {
     --tw-translate-x: -0px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .lg\:-translate-y-1\/2 {
     --tw-translate-y: -50%;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
-
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
   .lg\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-
   .lg\:grid-cols-\[24rem\2c 1px\2c 24rem\] {
     grid-template-columns: 24rem 1px 24rem;
   }
-
   .lg\:grid-rows-none {
     grid-template-rows: none;
   }
-
   .lg\:grid-rows-\[1fr\2c auto\] {
     grid-template-rows: 1fr auto;
   }
-
   .lg\:flex-row {
     flex-direction: row;
   }
-
   .lg\:flex-col {
     flex-direction: column;
   }
-
   .lg\:items-start {
     align-items: flex-start;
   }
-
   .lg\:items-center {
     align-items: center;
   }
-
   .lg\:justify-start {
     justify-content: flex-start;
   }
-
   .lg\:justify-end {
     justify-content: flex-end;
   }
-
+  .lg\:justify-center {
+    justify-content: center;
+  }
+  .lg\:justify-between {
+    justify-content: space-between;
+  }
   .lg\:gap-16 {
     gap: 4rem;
   }
-
   .lg\:gap-12 {
     gap: 3rem;
   }
-
   .lg\:gap-3 {
     gap: 0.75rem;
   }
-
   .lg\:gap-7 {
     gap: 1.75rem;
   }
-
   .lg\:border-t-0 {
     border-top-width: 0px;
   }
-
   .lg\:border-l {
     border-left-width: 1px;
   }
-
   .lg\:p-14 {
     padding: 3.5rem;
   }
-
   .lg\:p-5 {
     padding: 1.25rem;
   }
-
   .lg\:p-6 {
     padding: 1.5rem;
   }
-
   .lg\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
   }
-
   .lg\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
   }
-
   .lg\:py-0 {
     padding-top: 0px;
     padding-bottom: 0px;
   }
-
   .lg\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
   }
-
   .lg\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
   }
-
   .lg\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
   }
-
+  .lg\:pt-\[60px\] {
+    padding-top: 60px;
+  }
+  .lg\:pl-\[60px\] {
+    padding-left: 60px;
+  }
   .lg\:pb-10 {
     padding-bottom: 2.5rem;
   }
-
   .lg\:pb-12 {
     padding-bottom: 3rem;
   }
-
   .lg\:pt-12 {
     padding-top: 3rem;
   }
-
   .lg\:pr-5 {
     padding-right: 1.25rem;
   }
-
   .lg\:pl-5 {
     padding-left: 1.25rem;
   }
-
   .lg\:pt-\[var\(--desktop-ratio\)\] {
     padding-top: var(--desktop-ratio);
   }
-
+  .lg\:text-heading-3 {
+    font-size: 3.75rem;
+    line-height: 3.75rem;
+  }
   .lg\:text-heading-2 {
     font-size: 6.25rem;
     line-height: 5rem;
     letter-spacing: -0.01em;
   }
-
   .lg\:text-\[40px\] {
     font-size: 40px;
   }
-
+  .lg\:last-of-type\:mr-\[120px\]:last-of-type {
+    margin-right: 120px;
+  }
   .group:hover .lg\:group-hover\:scale-105 {
     --tw-scale-x: 1.05;
     --tw-scale-y: 1.05;
@@ -2076,27 +2114,3 @@ Ensure the default browser behavior of the `hidden` attribute.
 }
 
 /* When adding fonts also preload fonts in theme.liquid */
-
-.text-heading-1,
-.text-heading-2,
-.text-heading-3,
-.text-heading-4,
-.text-heading-5,
-.text-heading-6 {
-  font-family: 'GTAmerica-Bold';
-  text-transform: uppercase;
-}
-
-.text-heading-7 {
-  font-family: 'GTAmerica-Medium';
-  text-transform: uppercase;
-}
-
-.text-body-lg,
-.text-body,
-.text-body-sm,
-.text-body-xs
-.text-detailed {
-  font-family: 'GTAmerica';
-}
-

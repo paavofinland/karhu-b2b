@@ -1,0 +1,161 @@
+{%- liquid
+  assign s = section.settings
+  assign blocks = section.blocks
+  assign slide_size_class = 'lg:h-[554px] lg:w-[400px]'
+  assign container_size_class = 'lg:justify-center'
+  if blocks.size >= 4
+    assign slide_size_class = 'lg:h-[524px] lg:w-[378px]'
+    assign container_size_class = 'lg:justify-between'
+  endif
+-%}
+
+<section data-component="categoryOverview" class="text-white pt-4 lg:pt-[60px]">
+  <div data-slider class="swiper">
+    <div id="category-overview" class="swiper-wrapper pl-4 lg:pl-[60px] {{ container_size_class -}}">
+      {%- for category in blocks -%}
+        {%- liquid
+          assign c = category.settings
+        -%}
+        <div class="swiper-slide w-[250px] h-[348px] {{ slide_size_class }} mr-4 lg:mr-[60px] last-of-type:mr-8 lg:last-of-type:mr-[120px] bg-black">
+          <div class="absolute text-center z-10 left-1/2 -translate-x-1/2 bottom-8 lg:bottom-12 w-full">
+            <{{- s.title_tag }} class="text-heading-4 lg:text-heading-3 mb-[66px] lg:mb-[143px]">{{- c.title | default: c.collection.title -}}</{{- s.title_tag -}}>
+            {%- if c.button_url and c.button_text -%}
+              {%- render 'component.button'
+                text: c.button_text
+                href: c.button_url
+                class: "inline-block",
+                style: "transparent"
+              -%}
+            {%- endif -%}
+          </div>
+          <div class='w-[250px] h-[348px] {{ slide_size_class }} after:opacity-[var(--overlayOpacity)] relative after:absolute after:inset-0 after:bg-black'
+            style='--overlayOpacity: {{- s.overlay_opacity | divided_by: 100.00 -}};'>
+            {%- liquid
+              assign image = c.image | default: c.collection.featured_image
+              assign desktop_image = c.desktop_image | default: c.collection.featured_image
+            -%}
+            {%- render 'component.image'
+              desktop_img: desktop_image
+              img: image
+              lazy: s.lazyload_image
+              class: "w-full h-full"
+              img_class: "object-cover"
+            -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{%- schema -%}
+{
+  "name": "Category Overview",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "lazyload_image",
+      "label": "Lazyload image",
+      "default": false,
+      "info": "Only lazyload the image when it's not the first image on the page"
+    },
+    {
+      "type": "select",
+      "id": "title_tag",
+      "label": "Title tag",
+      "default": "h4",
+      "options": [
+        {
+          "value": "h1",
+          "label": "H1"
+        },
+        {
+          "value": "h2",
+          "label": "H2"
+        },
+        {
+          "value": "h3",
+          "label": "H3"
+        },
+        {
+          "value": "h4",
+          "label": "H4"
+        },
+        {
+          "value": "h5",
+          "label": "H5"
+        },
+        {
+          "value": "h6",
+          "label": "H6"
+        },
+        {
+          "value": "p",
+          "label": "P"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "Overlay opacity",
+      "info": "Add a see through black layer between your image/video and the content",
+      "default": 20
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Item",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category Overview"
+    }
+  ]
+}
+{%- endschema -%}

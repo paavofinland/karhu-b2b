@@ -2,34 +2,39 @@
   assign blocks = section.blocks
 -%}
 
-<section data-component="heroSlider" class="relative text-center text-white h-[32.875rem] lg:h-[50rem]">
-  <div data-slider class="swiper">
-    <div class="swiper-wrapper">
+<section
+  data-component='heroSlider'
+  class='relative text-center text-white h-[32.875rem] lg:h-[50rem]'
+>
+  <div data-slider class='swiper'>
+    <div class='swiper-wrapper flex overflow-hidden'>
       {% for slide in blocks %}
         {%- liquid
           assign s = slide.settings
         -%}
-        <div data-slide class="swiper-slide">
-          <div class="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-width-[30rem]">
+        <div data-slide class='swiper-slide'>
+          <div class='absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-width-[30rem]'>
             {%- if s.title -%}
-              <{{ s.title_tag }} class="text-heading-3 lg:text-heading-2">{{- s.title -}}</{{ s.title_tag }}>
+              <{{ s.title_tag }} class='text-heading-3 lg:text-heading-2'>
+                {{- s.title -}}
+              </{{ s.title_tag }}>
             {%- endif -%}
             {%- if s.button_text or s.button_url -%}
-              {% render 'component.button'
-                text: s.button_text
-                href: s.button_url
-                class: "inline-block mt-7 lg:mt-10",
-                style: "transparent"
+              {% render 'component.button',
+                text: s.button_text,
+                href: s.button_url,
+                class: 'inline-block mt-7 lg:mt-10',
+                style: 'transparent'
               %}
             {%- endif -%}
           </div>
           {%- if s.image or s.desktop_image -%}
-            <div class="h-[32.875rem] lg:h-[50rem]">
-              {% render 'component.image'
-                desktop_img: s.desktop_image
-                img: s.image
-                lazy: s.lazyload_image
-                class: 'h-full'
+            <div class='h-[32.875rem] lg:h-[50rem]'>
+              {% render 'component.image',
+                desktop_img: s.desktop_image,
+                img: s.image,
+                lazy: s.lazyload_image,
+                class: 'h-full',
                 img_class: 'object-cover'
               %}
             </div>
@@ -39,14 +44,14 @@
     </div>
   </div>
   {%- if blocks.size > 1 -%}
-    {%- render 'component.slider-button'
-      attributes: 'data-prev'
-      icon_type: 'arrow-left'
+    {%- render 'component.slider-button',
+      attributes: 'data-prev',
+      icon_type: 'arrow-left',
       class: 'left-[calc(50%-36px)] lg:left-0'
     -%}
-    {%- render 'component.slider-button'
-      attributes: 'data-next'
-      icon_type: 'arrow-right'
+    {%- render 'component.slider-button',
+      attributes: 'data-next',
+      icon_type: 'arrow-right',
       class: 'left-[calc(50%+36px)] lg:right-0 lg:left-[initial]'
     -%}
   {%- endif -%}

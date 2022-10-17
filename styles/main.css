@@ -63,8 +63,3 @@
     @apply font-medium;
   }
 }
-
-#category-overview .swiper-slide {
-  height: auto;
-  width: auto;
-}

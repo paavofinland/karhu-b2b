@@ -1,63 +1,68 @@
 {%- comment -%}
-    Function to get the store names and urls back
-    Returns: 
-        currentURL
-        currentName
-        currentPossesive
-        countriesName [array]
-        countriesURL [array]
-        countriesPossesive [array]
+  Function to get the store names and urls back
+  Returns:
+      currentURL
+      currentName
+      currentPossesive
+      countriesName [array]
+      countriesURL [array]
+      countriesPossesive [array]
 {%- endcomment -%}
 
-{%- assign ISOcurrent = shop.permanent_domain | remove: 'karhu-b2b-' | remove: '.myshopify.com' | remove: ' ' -%}
-{%- assign ISOcodes = "eu,us" | split: ',' -%}
+{%- liquid
+  assign ISOcurrent = shop.permanent_domain | remove: 'karhu-b2b-' | remove: '.myshopify.com' | remove: ' '
+  assign ISOcodes = 'eu,us' | split: ','
 
-{%- if ISOcurrent == 'dev' or ISOcurrent == 'stage' -%}
-    {%- assign ISOcurrent = 'eu' -%}
-{%- endif -%}
+  if ISOcurrent == 'dev' or ISOcurrent == 'stage'
+    assign ISOcurrent = 'eu'
+  endif
 
-{%- assign url = 'country_url__' -%}
-{%- assign url = url | append: ISOcurrent -%}
-{%- assign currentURL = settings[url] -%}
+  assign url = 'country_url__'
+  assign url = url | append: ISOcurrent
+  assign currentURL = settings[url]
 
-{%- assign url = 'country_name__' -%}
-{%- assign url = url | append: ISOcurrent -%}
-{%- assign currentName = settings[url] -%}
+  assign url = 'country_name__'
+  assign url = url | append: ISOcurrent
+  assign currentName = settings[url]
 
-{%- assign url = 'country_possesive__' -%}
-{%- assign url = url | append: ISOcurrent -%}
-{%- assign currentPossesive = settings[url] -%}
+  assign url = 'country_possesive__'
+  assign url = url | append: ISOcurrent
+  assign currentPossesive = settings[url]
 
-{%- capture countriesName -%}
-    {%- for iso in ISOcodes -%}
-        {%- assign name = 'country_name__' -%}
-        {%- assign name = name | append: iso -%}
-        {%- unless settings[name] == "" -%}
-            {{- settings[name] -}},
-        {%- endunless-%}
-    {%- endfor -%}
-{%- endcapture -%}
+  capture countriesName
+    for iso in ISOcodes
+      assign name = 'country_name__'
+      assign name = name | append: iso
+      unless settings[name] == ''
+        echo settings[name]
+        echo ','
+      endunless
+    endfor
+  endcapture
 
-{%- capture countriesPossesive -%}
-    {%- for iso in ISOcodes -%}
-        {%- assign possesive = 'country_possesive__' -%}
-        {%- assign possesive = possesive | append: iso -%}
-        {%- unless settings[possesive] == "" -%}
-            {{- settings[possesive] -}},
-        {%- endunless-%}
-    {%- endfor -%}
-{%- endcapture -%}
+  capture countriesPossesive
+    for iso in ISOcodes
+      assign possesive = 'country_possesive__'
+      assign possesive = possesive | append: iso
+      unless settings[possesive] == ''
+        echo settings[possesive]
+        echo ','
+      endunless
+    endfor
+  endcapture
 
-{%- capture countriesURL -%}
-    {%- for iso in ISOcodes -%}
-        {%- assign url = 'country_url__' -%}
-        {%- assign url = url | append: iso -%}
-        {%- unless settings[name] == "" -%}
-            {{- settings[url] -}},
-        {%- endunless -%}
-    {%- endfor -%}
-{%- endcapture -%}
+  capture countriesURL
+    for iso in ISOcodes
+      assign url = 'country_url__'
+      assign url = url | append: iso
+      unless settings[name] == ''
+        echo settings[url]
+        echo ','
+      endunless
+    endfor
+  endcapture
 
-{%- assign countriesName = countriesName | split: ',' -%}
-{%- assign countriesURL = countriesURL | split: ',' -%}
-{%- assign countriesPossesive = countriesPossesive | split: ',' -%}
+  assign countriesName = countriesName | split: ','
+  assign countriesURL = countriesURL | split: ','
+  assign countriesPossesive = countriesPossesive | split: ','
+-%}

@@ -30,6 +30,13 @@
         "settings": {
           "navigation": ""
         }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "announcement_text": "",
+          "is_agent": false
+        }
       }
     },
     "content_for_index": [

@@ -1,8 +1,8 @@
-{%- render 'function.multistore' -%}
+{%- include 'function.multistore' -%}
 {%- assign announcement_text = section.settings.announcement_text -%}
-{%- assign agent = true -%}
+{%- assign agent = false -%}
 
-<div class='bg-black text-white flex {% if agent %} justify-center {% else %} justify-between {% endif %} text-detailed py-3 px-5'>
+<div class='bg-black text-white text-detailed py-3 px-5 {% if agent -%}justify-center{%- else -%}justify-between{%- endif %} {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'>
   {%- unless agent -%}
     {%- render 'component.country-switcher',
       currentName: currentName,
@@ -13,7 +13,9 @@
   {%- endunless -%}
 
   {%- if announcement_text and agent == false -%}
-    <p class='flex-1 text-center'>{{- announcement_text | upcase -}}</p>
+    <p class='flex-1 text-center'>
+      {{- announcement_text | upcase -}}
+    </p>
   {%- endif -%}
 
   {%- unless agent -%}

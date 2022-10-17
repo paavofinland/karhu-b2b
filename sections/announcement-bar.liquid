@@ -1,6 +1,6 @@
 {%- render 'function.multistore' -%}
 {%- assign announcement_text = section.settings.announcement_text -%}
-{%- assign agent = section.settings.is_agent -%}
+{%- assign agent = true -%}
 
 <div class='bg-black text-white flex {% if agent %} justify-center {% else %} justify-between {% endif %} text-detailed py-3 px-5'>
   {%- unless agent -%}
@@ -47,12 +47,6 @@
       "type": "text",
       "id": "announcement_text",
       "label": "Announcement Text"
-    },
-    {
-      "type": "checkbox",
-      "id": "is_agent",
-      "label": "Is customer - agent",
-      "default": false
     }
   ]
 }

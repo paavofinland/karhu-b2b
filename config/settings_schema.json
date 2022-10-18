@@ -8,6 +8,65 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
+    "name": "Multistore setup",
+    "settings": [
+      {
+        "type": "header",
+        "content": "current store"
+      },
+      {
+        "type": "checkbox",
+        "id": "development_store",
+        "label": "Development store",
+        "info": "Check if the store is a development store"
+      },
+      {
+        "type": "header",
+        "content": "Europe"
+      },
+      {
+        "label": "Country name",
+        "id": "country_name__eu",
+        "type": "text",
+        "default": "Europe / €"
+      },
+      {
+        "label": "Country name",
+        "id": "country_possesive__eu",
+        "type": "text",
+        "default": "European"
+      },
+      {
+        "label": "Country link",
+        "id": "country_url__eu",
+        "type": "text",
+        "default": "https://karhu-b2b.com/"
+      },
+      {
+        "type": "header",
+        "content": "United States"
+      },
+      {
+        "label": "Country name",
+        "id": "country_name__us",
+        "type": "text",
+        "default": "United States / $"
+      },
+      {
+        "label": "Country name",
+        "id": "country_possesive__us",
+        "type": "text",
+        "default": "United States"
+      },
+      {
+        "label": "Country link",
+        "id": "country_url__us",
+        "type": "text",
+        "default": "https://us.karhu-b2b.com/"
+      }
+    ]
+  },
+  {
     "name": "Social media",
     "settings": [
       {

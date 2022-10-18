@@ -28,14 +28,21 @@
     <link
       rel='preload'
       as='font'
-      href='{{ 'circular-book.woff2' | asset_url | split: '?' | first }}'
+      href='{{ 'GT-America-Regular.woff2' | asset_url | split: '?' | first }}'
       type='font/woff2'
       crossorigin
     >
     <link
       rel='preload'
       as='font'
-      href='{{ 'circular-medium-italic.woff2' | asset_url | split: '?' | first }}'
+      href='{{ 'GT-America-Compressed-Medium.woff2' | asset_url | split: '?' | first }}'
+      type='font/woff2'
+      crossorigin
+    >
+    <link
+      rel='preload'
+      as='font'
+      href='{{ 'GT-America-Compressed-Bold.woff2' | asset_url | split: '?' | first }}'
       type='font/woff2'
       crossorigin
     >
@@ -44,6 +51,7 @@
   <body class='min-h-screen antialiased'>
     {%- render 'component.skip-to-content' -%}
 
+    {%- section 'announcement-bar' -%}
     {%- section 'header' -%}
     {%- section 'cart-drawer' -%}
 

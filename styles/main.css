@@ -27,15 +27,6 @@
 
   @font-face {
     font-display: swap;
-    font-family: "GTAmericaCompressed";
-    font-style: normal;
-    font-weight: normal;
-    src: url("../assets/GT-America-Compressed-Regular.woff2") format("woff2"),
-      url("../assets/GT-America-Compressed-Regular.woff") format("woff");
-  }
-
-  @font-face {
-    font-display: swap;
     font-family: "GTAmerica";
     font-style: normal;
     font-weight: 400;

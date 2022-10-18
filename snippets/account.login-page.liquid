@@ -18,6 +18,7 @@
       required: true
       placeholder: 'Email Adress*'
       attributes: 'data-email-list'
+      autocomplete: 'email'
     -%}
     {%- render 'component.input'
       id: 'CustomerPassword'
@@ -28,6 +29,7 @@
       type: 'password'
       required: true
       placeholder: 'Password*'
+      autocomplete: 'current-password'
     -%}
     {%- render 'component.button'
       text: 'Sign in'
@@ -62,6 +64,7 @@
       type: 'email'
       required: true
       placeholder: 'Email Adress*'
+      autocomplete: 'email'
       attributes: 'data-email-list'
     -%}
     {%- render 'component.button'

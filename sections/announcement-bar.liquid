@@ -1,71 +1,11 @@
 {%- liquid
   assign announcement_text = section.settings.announcement_text
   assign agent = false
-  assign ISOcurrent = shop.permanent_domain | remove: 'karhu-b2b-' | remove: '.myshopify.com' | remove: ' '
-  assign ISOcodes = 'eu,us' | split: ','
-
-  if ISOcurrent == 'dev' or ISOcurrent == 'stage'
-    assign ISOcurrent = 'eu'
-  endif
-
-  assign url = 'country_url__'
-  assign url = url | append: ISOcurrent
-  assign currentURL = settings[url]
-
-  assign url = 'country_name__'
-  assign url = url | append: ISOcurrent
-  assign currentName = settings[url]
-
-  assign url = 'country_possesive__'
-  assign url = url | append: ISOcurrent
-  assign currentPossesive = settings[url]
-
-  capture countriesName
-    for iso in ISOcodes
-      assign name = 'country_name__'
-      assign name = name | append: iso
-      unless settings[name] == ''
-        echo settings[name]
-        echo ','
-      endunless
-    endfor
-  endcapture
-
-  capture countriesPossesive
-    for iso in ISOcodes
-      assign possesive = 'country_possesive__'
-      assign possesive = possesive | append: iso
-      unless settings[possesive] == ''
-        echo settings[possesive]
-        echo ','
-      endunless
-    endfor
-  endcapture
-
-  capture countriesURL
-    for iso in ISOcodes
-      assign url = 'country_url__'
-      assign url = url | append: iso
-      unless settings[name] == ''
-        echo settings[url]
-        echo ','
-      endunless
-    endfor
-  endcapture
-
-  assign countriesName = countriesName | split: ','
-  assign countriesURL = countriesURL | split: ','
-  assign countriesPossesive = countriesPossesive | split: ','
 -%}
 
 <div class='bg-black text-white text-detailed py-3 px-5 {% if agent -%}justify-center{%- else -%}justify-between{%- endif %} {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'>
   {%- unless agent -%}
-    {%- render 'component.country-switcher',
-      currentName: currentName,
-      countriesURL: countriesURL,
-      countriesName: countriesName,
-      class: 'flex-1 hidden md:block'
-    -%}
+    {%- render 'component.country-switcher', class: 'flex-1 hidden md:block' -%}
   {%- endunless -%}
 
   {%- if announcement_text and agent == false -%}

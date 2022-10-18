@@ -5,25 +5,71 @@
   About:
     Render a select list with country names
 
-  Accepts:
-    - currentName: {String} Current country
-    - countriesName: {Array} List of available countries
-    - countriesURL: {Array} List of country URLs
-
   Optional:
     - class: {String} Container classname
-
-  Usage:
-    {%- render 'component.country-switcher'
-      currentName: currentName
-      countriesURL: countriesURL
-      countriesName: countriesName
-    -%}
 {%- endcomment -%}
 
-<div class="{{ class }}">
-  <div class="relative flex">
-    <select class="max-w-fit pr-4 bg-black cursor-pointer appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none">
+{%- liquid
+  assign ISOcurrent = shop.permanent_domain | remove: 'karhu-b2b-' | remove: '.myshopify.com' | remove: ' '
+  assign ISOcodes = 'eu,us' | split: ','
+
+  if ISOcurrent == 'dev' or ISOcurrent == 'stage'
+    assign ISOcurrent = 'eu'
+  endif
+
+  assign url = 'country_url__'
+  assign url = url | append: ISOcurrent
+  assign currentURL = settings[url]
+
+  assign url = 'country_name__'
+  assign url = url | append: ISOcurrent
+  assign currentName = settings[url]
+
+  assign url = 'country_possesive__'
+  assign url = url | append: ISOcurrent
+  assign currentPossesive = settings[url]
+
+  capture countriesName
+    for iso in ISOcodes
+      assign name = 'country_name__'
+      assign name = name | append: iso
+      unless settings[name] == ''
+        echo settings[name]
+        echo ','
+      endunless
+    endfor
+  endcapture
+
+  capture countriesPossesive
+    for iso in ISOcodes
+      assign possesive = 'country_possesive__'
+      assign possesive = possesive | append: iso
+      unless settings[possesive] == ''
+        echo settings[possesive]
+        echo ','
+      endunless
+    endfor
+  endcapture
+
+  capture countriesURL
+    for iso in ISOcodes
+      assign url = 'country_url__'
+      assign url = url | append: iso
+      unless settings[name] == ''
+        echo settings[url]
+        echo ','
+      endunless
+    endfor
+  endcapture
+
+  assign countriesName = countriesName | split: ','
+  assign countriesURL = countriesURL | split: ','
+  assign countriesPossesive = countriesPossesive | split: ','
+-%}
+
+<div class='{{ class }}'>
+  <div class='relative flex'>
+    <select class='max-w-fit pr-4 bg-black cursor-pointer appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none'>
       {%- for country in countriesName -%}
         {%- assign index = forloop.index | minus: 1 -%}
         <option
@@ -36,6 +82,8 @@
         </option>
       {%- endfor -%}
     </select>
-    <span class="after:content-[''] after:block after:bg-[url('icon.select.svg')] after:bg-no-repeat after:absolute after:w-4 after:h-4 after:-translate-y-[1px] after:-translate-x-4 after:pointer-events-none"></span>
+    <span
+      class="after:content-[''] after:block after:bg-[url('icon.select.svg')] after:bg-no-repeat after:absolute after:w-4 after:h-4 after:-translate-y-[1px] after:-translate-x-4 after:pointer-events-none"
+    ></span>
   </div>
 </div>

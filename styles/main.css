@@ -55,16 +55,3 @@
     @apply font-medium;
   }
 }
-
-.header_scrolled {
-  background-color: white;
-  color: black;
-}
-
-.header_scrolled .underlined {
-  background-color: black;
-}
-
-.header_scrolled path {
-  fill: black;
-}

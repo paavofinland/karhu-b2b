@@ -1,78 +1,84 @@
 {%- assign headerMenu = linklists[section.settings.menu].links -%}
 
 <header
-  class='flex justify-between border-b border-white border-opacity-20 h-[56px] md:h-[68px] text-white duration-200'
   data-component='header'
+  class='
+    text-white border-b border-white border-opacity-20 h-[56px] lg:h-[68px] overflow-visible transition-colors duration-200
+    is-active:border-opacity-100 is-active:bg-white is-active:text-black is-active:border-grey-5
+    hover:border-opacity-100 hover:bg-white hover:text-black hover:border-grey-5
+  '
 >
-  <a href='/' class='h-min p-4 md:py-5 md:px-[60px]'>
-    {%- render 'component.icon',
-      type: 'karhu-header-logo',
-      class: 'w-[152px] h-6 md:w-[177px] md:h-7'
-    -%}
-  </a>
-  <ul class='hidden md:flex flex-grow-[4] justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
-    {%- for link in headerMenu -%}
-      <li class='group transition duration-200'>
-        <a href='{{- link.url -}}'>
-          {{- link.title -}}
-        </a>
-        <span
-          class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 underlined'
-        ></span>
-      </li>
-    {%- endfor -%}
-  </ul>
-  <ul class='hidden md:flex justify-center items-center gap-9 px-[60px] text-heading-7'>
-    <li class='cursor-pointer group transition duration-200'>
-      Search
-      <span
-        class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 underlined'
-      ></span>
-    </li>
-    <li class='cursor-pointer group transition duration-200'>
-      Bag (0)
-      <span
-        class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 underlined'
-      ></span>
-    </li>
-  </ul>
-  <div class='flex items-center md:hidden p-4 gap-4'>
-    <div data-hamburger>
-      <div data-hamburger-closed>
-        {%- render 'component.icon', type: 'hamburger-menu' -%}
-      </div>
-      <div data-hamburger-opened class='hidden'>
-        {%- render 'component.icon', type: 'hamburger-menu-opened' -%}
-      </div>
-    </div>
-    <div>
-      {%- render 'component.icon', type: 'cart' -%}
-    </div>
-  </div>
-  <nav
-    class='md:hidden absolute bg-white text-black w-screen top-full -left-full duration-200'
-    data-mobile-menu
-  >
-    <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
-      <li>Search</li>
-      <li>Bag (0)</li>
-    </ul>
-    <ul class='px-4 text-heading-4'>
+  <div class='container-content flex justify-between h-full border-opacity-[inherit] border-inherit xxl:border-x'>
+    <a href='/' class='h-min py-4 pr-content'>
+      {%- render 'component.icon',
+        type: 'karhu-header-logo',
+        class: 'w-[152px] h-6 lg:w-[177px] lg:h-7'
+      -%}
+    </a>
+    <ul class='hidden lg:flex flex-grow justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
       {%- for link in headerMenu -%}
-        <li class='py-5 border-b border-grey-5'>
-          <a class='flex justify-between items-center' href='{{- link.url -}}'>
+        <li class='group'>
+          <a href='{{- link.url -}}'>
             {{- link.title -}}
-            <span class='flex items-center justify-center w-10 h-10'>
-              {%- render 'component.icon', type: 'arrow-right' -%}
-            </span>
           </a>
+          <span
+            class='block max-w-0 transition-all duration-200 h-0.5 bg-current group-hover:max-w-full'
+          ></span>
         </li>
       {%- endfor -%}
     </ul>
-    <div class='absolute left-0 right-0 bottom-0'>
-      {%- render 'component.footer-bar', is_menu: true -%}
+    <ul class='hidden lg:flex justify-center items-center gap-9 pl-content text-heading-7'>
+      <li class='cursor-pointer group'>
+        Search
+        <span
+          class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+        ></span>
+      </li>
+      <li class='cursor-pointer group'>
+        Bag (0)
+        <span
+          class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+        ></span>
+      </li>
+    </ul>
+    <div class='flex items-center lg:hidden py-4 pl-content gap-4'>
+      <div data-hamburger>
+        <div data-hamburger-closed>
+          {%- render 'component.icon', type: 'hamburger-menu' -%}
+        </div>
+        <div data-hamburger-opened class='hidden'>
+          {%- render 'component.icon', type: 'hamburger-menu-opened' -%}
+        </div>
+      </div>
+      <div>
+        {%- render 'component.icon', type: 'cart' -%}
+      </div>
     </div>
-  </nav>
+    <nav
+      class='lg:hidden absolute bg-white text-black w-screen top-full -left-full duration-200'
+      data-mobile-menu
+    >
+      <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
+        <li>Search</li>
+        <li>Bag (0)</li>
+      </ul>
+      <ul class='px-4 text-heading-4'>
+        {%- for link in headerMenu -%}
+          <li class='py-5 border-b border-grey-5'>
+            <a class='flex justify-between items-center' href='{{- link.url -}}'>
+              {{- link.title -}}
+              <span class='flex items-center justify-center w-10 h-10'>
+                {%- render 'component.icon', type: 'arrow-right' -%}
+              </span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+      <div class='absolute left-0 right-0 bottom-0'>
+        {%- render 'component.footer-bar', is_menu: true -%}
+      </div>
+    </nav>
+  </div>
 </header>
 
 {% schema %}

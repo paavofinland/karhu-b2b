@@ -5,7 +5,6 @@ assets
 assets/*
 .dev/
 .github/
-.vscode/
 config/
 locales/
 templates/*.json

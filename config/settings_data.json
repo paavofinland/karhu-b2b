@@ -2,10 +2,10 @@
   "current": {
     "social_twitter_link": "twitter",
     "social_facebook_link": "facebook",
-    "social_pinterest_link": "pinterest",
-    "social_instagram_link": "instagra,",
-    "social_tiktok_link": "tikitok",
-    "social_snapchat_link": "snap",
+    "social_pinterest_link": "",
+    "social_instagram_link": "instagram",
+    "social_tiktok_link": "",
+    "social_snapchat_link": "",
     "social_youtube_link": "youtube",
     "payment_ideal": false,
     "payment_klarna": true,
@@ -28,7 +28,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation": ""
+          "navigation_first": "",
+          "navigation_second": ""
         }
       },
       "announcement-bar": {

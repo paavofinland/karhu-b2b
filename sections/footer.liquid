@@ -12,29 +12,27 @@
   assign socials = socials_string | split: ','
 -%}
 
-<footer class="border-t border-grey-1">
-  <div class="flex">
-    <div class="flex flex-col justify-center items-center flex-1 border-r border-grey-1 px-2 lg:pt-[135px] lg:pb-[120px]">
-      <a href="{{- routes.root_url -}}">
-        {%-
-          render 'component.icon',
+<footer class='border-t border-grey-1'>
+  <div class='flex'>
+    <div class='flex flex-col justify-center items-center flex-1 border-r border-grey-1 px-2 lg:pt-[135px] lg:pb-[120px]'>
+      <a href='{{- routes.root_url -}}'>
+        {%- render 'component.icon',
           type: 'karhu-logo-footer',
           class: 'w-[78px] h-[55px] lg:w-[120px] lg:h-[85px]'
         -%}
       </a>
-      <ul class="flex flex-wrap justify-center mt-12 lg:mt-9 gap-[30px] lg:gap-9">
+      <ul class='flex flex-wrap justify-center mt-12 lg:mt-9 gap-[30px] lg:gap-9'>
         {%- for s in socials -%}
           {%- liquid
             assign split_string = s | split: '_'
-            assign link = settings[s] | default: nil
+            assign link = settings[s] | default: null
           -%}
-          {%- if link != nil -%}
+          {%- if link != null -%}
             <li>
               <a target='_blank' href='{{- link -}}'>
-                {%-
-                  render 'component.icon',
+                {%- render 'component.icon',
                   type: split_string[1],
-                  class: "transition md:hover:opacity-70"
+                  class: 'transition md:hover:opacity-70'
                 -%}
               </a>
             </li>
@@ -42,52 +40,50 @@
         {%- endfor -%}
       </ul>
     </div>
-    <div class="lg:flex lg:justify-center lg:gap-[60px] lg:pt-[120px] flex-1 px-[31px] py-12 lg:p-0">
+    <div class='lg:flex lg:justify-center lg:gap-[60px] lg:pt-[120px] flex-1 px-[31px] py-12 lg:p-0'>
       {% if s.navigation_first.links.size > 0 %}
-        <ul class="w-[172px] lg:w-[180px] mb-7 lg:mb-0">
-          <li class="text-heading-7">{{- s.navigation_first.title -}}</li>
+        <ul class='w-[172px] lg:w-[180px] mb-7 lg:mb-0'>
+          <li class='text-heading-7'>{{- s.navigation_first.title -}}</li>
           {%- for link in s.navigation_first.links -%}
-          <li class="text-body-sm mt-[2px]">
-            <a target='_blank' href='{{- link.url -}}'>
-              {{- link.title -}}
-            </a>
-          </li>
+            <li class='text-body-sm mt-[2px]'>
+              <a target='_blank' href='{{- link.url -}}'>
+                {{- link.title -}}
+              </a>
+            </li>
           {%- endfor -%}
         </ul>
       {% endif %}
       {% if s.navigation_second.links.size > 0 %}
-        <ul class="w-[172px] lg:w-[180px]">
-          <li class="text-heading-7">{{- s.navigation_second.title -}}</li>
+        <ul class='w-[172px] lg:w-[180px]'>
+          <li class='text-heading-7'>{{- s.navigation_second.title -}}</li>
           {%- for link in s.navigation_second.links -%}
-          <li class="text-body-sm mt-[2px]">
-            <a target='_blank' href='{{- link.url -}}'>
-              {{- link.title -}}
-            </a>
-          </li>
+            <li class='text-body-sm mt-[2px]'>
+              <a target='_blank' href='{{- link.url -}}'>
+                {{- link.title -}}
+              </a>
+            </li>
           {%- endfor -%}
         </ul>
       {% endif %}
     </div>
   </div>
-  {%- render 'component.footer-bar'
-    is_menu: false
-  -%}
+  {%- render 'component.footer-bar', is_menu: false -%}
 </footer>
 
 {% schema %}
-  {
-    "name": "Footer",
-    "settings": [
-      {
-        "type": "link_list",
-        "id": "navigation_first",
-        "label": "Navigation"
-      },
-      {
-        "type": "link_list",
-        "id": "navigation_second",
-        "label": "Navigation Bottom"
-      }
-    ]
-  }
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "navigation_first",
+      "label": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "navigation_second",
+      "label": "Navigation Bottom"
+    }
+  ]
+}
 {% endschema %}

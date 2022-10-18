@@ -1,4 +1,6 @@
 /* eslint-disable global-require */
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './templates/*.liquid',
@@ -9,6 +11,9 @@ module.exports = {
     './styles/**/*.css',
     './scripts/**/*.js',
   ],
+  corePlugins: {
+    container: false,
+  },
   theme: {
     fontSize: {
       'heading-1': [
@@ -16,6 +21,7 @@ module.exports = {
         {
           lineHeight: '11.25rem',
           letterSpacing: '-0.02em',
+          fontWeight: '700',
         },
       ],
       'heading-2': [
@@ -23,12 +29,14 @@ module.exports = {
         {
           lineHeight: '5rem',
           letterSpacing: '-0.01em',
+          fontWeight: '700',
         },
       ],
       'heading-3': [
         '3.75rem',
         {
           lineHeight: '3.75rem',
+          fontWeight: '700',
         },
       ],
       'heading-4': [
@@ -36,6 +44,7 @@ module.exports = {
         {
           lineHeight: '2.5rem',
           letterSpacing: '0.01em',
+          fontWeight: '700',
         },
       ],
       'heading-5': [
@@ -43,6 +52,7 @@ module.exports = {
         {
           lineHeight: '1.5rem',
           letterSpacing: '0.01em',
+          fontWeight: '700',
         },
       ],
       'heading-6': [
@@ -50,6 +60,7 @@ module.exports = {
         {
           lineHeight: '1.25rem',
           letterSpacing: '0.01em',
+          fontWeight: '700',
         },
       ],
       'heading-7': [
@@ -57,6 +68,7 @@ module.exports = {
         {
           lineHeight: '1.25rem',
           letterSpacing: '0.02em',
+          fontWeight: '500',
         },
       ],
       'body-lg': [
@@ -96,8 +108,13 @@ module.exports = {
       md: '768px',
       lg: '1024px',
       xl: '1280px',
+      xxl: '2560px',
     },
     extend: {
+      spacing: {
+        content: 'var(--content-padding)',
+        'content-wide': 'var(--content-padding-wide)',
+      },
       colors: {
         black: '#000000',
         white: '#FFFFFF',
@@ -132,5 +149,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('./.dev/tailwind.variants')],
+  plugins: [require('./.dev/tailwind.variants'), require('./.dev/tailwind.containers')],
 };

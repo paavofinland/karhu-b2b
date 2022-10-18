@@ -1,50 +1,55 @@
 {%- liquid
   assign s = section.settings
-  assign navigation = linklists[s.nav] | default: nil
+  assign navigation = linklists[s.nav] | default: null
 -%}
 
 <div
-  class='flex items-center py-6 w-full border-b border-gray-100 bg-white px-6 xl:px-16'
+  class='flex items-center py-6 w-full border-b border-gray-100 bg-white'
   data-component='header'
 >
-  {%- if s.logo != blank -%}
-    <a href='{{- routes.root_url -}}' class='h-8 w-auto flex'>
-      <img
-        class='h-full w-auto'
-        src='{{- s.logo | img_url: 'x64' -}}'
-        width='{{- s.logo.width -}}'
-        height='{{- s.logo.height -}}'
-        loading='lazy'
-        alt='{{- s.logo.alt -}}'
-      >
-    </a>
-  {%- else -%}
-    <a class='text-xs lg:text-xl  xl:text-2xl font-medium italic' href='{{- routes.root_url -}}'>
-      <h1>{{- shop.name -}}</h1>
-    </a>
-  {%- endif -%}
+  <div class='container-content flex w-full items-center'>
+    {%- if s.logo != blank -%}
+      <a href='{{- routes.root_url -}}' class='h-8 w-auto flex'>
+        <img
+          class='h-full w-auto'
+          src='{{- s.logo | img_url: 'x64' -}}'
+          width='{{- s.logo.width -}}'
+          height='{{- s.logo.height -}}'
+          loading='lazy'
+          alt='{{- s.logo.alt -}}'
+        >
+      </a>
+    {%- else -%}
+      <a class='text-xs lg:text-xl  xl:text-2xl font-medium italic' href='{{- routes.root_url -}}'>
+        <h1>{{- shop.name -}}</h1>
+      </a>
+    {%- endif -%}
 
-  {%- if navigation -%}
-    <ul class='flex flex-wrap items-center ml-auto'>
-      {%- for link in navigation.links -%}
-        <li class='flex mr-6 last:mr-0'>
-          <a href='{{- link.url -}}'>{{- link.title -}}</a>
-        </li>
-      {%- endfor -%}
-    </ul>
-  {%- else -%}
-    <p class='ml-auto bg-indigo-100 py-2 px-4 rounded-md text-indigo-600'>
-      Please select a navigation
-    </p>
-  {%- endif -%}
-  <a
-    class='ml-6 text-black font-bold'
-    href='{% if customer %}{{- routes.account_url -}}{% else %}{{- routes.account_login_url -}}{% endif %}'
-    >Account</a
-  >
-  <a class='ml-6 text-primary font-bold' href='{{- routes.cart_url -}}' data-cart-toggle
-    >Cart (<span data-cart-count>{{- cart.item_count -}}</span>)</a
-  >
+    {%- if navigation -%}
+      <ul class='flex flex-wrap items-center ml-auto'>
+        {%- for link in navigation.links -%}
+          <li class='flex mr-6 last:mr-0'>
+            <a href='{{- link.url -}}'>{{- link.title -}}</a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <p class='ml-auto bg-indigo-100 py-2 px-4 rounded-md text-indigo-600'>
+        Please select a navigation
+      </p>
+    {%- endif -%}
+    <a
+      class='ml-6 text-black font-bold'
+      href='{% if customer %}{{- routes.account_url -}}{% else %}{{- routes.account_login_url -}}{% endif %}'
+      >Account</a
+    >
+    <a
+      class='ml-6 text-primary font-bold'
+      href='{{- routes.cart_url -}}'
+      data-cart-toggle
+      >Cart (<span data-cart-count>{{- cart.item_count -}}</span>)</a
+    >
+  </div>
 </div>
 
 {% schema %}

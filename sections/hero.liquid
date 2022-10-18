@@ -4,7 +4,7 @@
 
 <section
   data-component='hero'
-  class='relative text-center text-white h-[32.875rem] lg:h-[50rem]'
+  class='container relative text-center text-white h-[32.875rem] lg:h-[50rem]'
 >
   <div data-slider class='swiper'>
     <div class='swiper-wrapper flex overflow-hidden'>
@@ -42,19 +42,19 @@
         </div>
       {% endfor %}
     </div>
+    {%- if blocks.size > 1 -%}
+      {%- render 'component.slider-button',
+        attributes: 'data-prev',
+        icon_type: 'arrow-left',
+        class: 'left-[calc(50%-36px)] lg:left-content'
+      -%}
+      {%- render 'component.slider-button',
+        attributes: 'data-next',
+        icon_type: 'arrow-right',
+        class: 'left-[calc(50%+36px)] lg:right-content lg:left-[initial]'
+      -%}
+    {%- endif -%}
   </div>
-  {%- if blocks.size > 1 -%}
-    {%- render 'component.slider-button',
-      attributes: 'data-prev',
-      icon_type: 'arrow-left',
-      class: 'left-[calc(50%-36px)] lg:left-0'
-    -%}
-    {%- render 'component.slider-button',
-      attributes: 'data-next',
-      icon_type: 'arrow-right',
-      class: 'left-[calc(50%+36px)] lg:right-0 lg:left-[initial]'
-    -%}
-  {%- endif -%}
 </section>
 
 {% schema %}

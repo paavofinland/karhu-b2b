@@ -4,7 +4,7 @@
       "search": "Search"
     },
     "footer": {
-      "copyright": "&copy; Copyright {{ store }} {{ year }} – All Rights Reserved"
+      "copyright": "&copy; {{ year }} {{ store }}. All Rights Reserved."
     },
     "header": {
       "account": "Account",

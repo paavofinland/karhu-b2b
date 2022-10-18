@@ -113,6 +113,7 @@ module.exports = {
     extend: {
       spacing: {
         content: 'var(--content-padding)',
+        'content-wide': 'var(--content-padding-wide)',
       },
       colors: {
         black: '#000000',
@@ -156,7 +157,10 @@ module.exports = {
           '@apply max-w-full xxl:max-w-screen-xxl lg:mx-auto': {},
         },
         '.container-content': {
-          '@apply px-content mx-auto xxl:max-w-screen-xxl': {},
+          '@apply w-full px-content mx-auto xxl:max-w-screen-xxl': {},
+        },
+        '.container-content-wide': {
+          '@apply container-content px-content-wide': {},
         },
       });
     },

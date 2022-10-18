@@ -1,8 +1,9 @@
 @layer base {
   :root {
     --content-padding: 2rem;
+    --content-padding-wide: 1.25rem;
   }
-  
+
   @screen lg {
     :root {
       --content-padding: 3.75rem;

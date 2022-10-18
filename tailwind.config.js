@@ -149,20 +149,5 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    require('./.dev/tailwind.variants'),
-    ({ addComponents }) => {
-      addComponents({
-        '.container': {
-          '@apply max-w-full xxl:max-w-screen-xxl lg:mx-auto': {},
-        },
-        '.container-content': {
-          '@apply w-full px-content mx-auto xxl:max-w-screen-xxl': {},
-        },
-        '.container-content-wide': {
-          '@apply container-content px-content-wide': {},
-        },
-      });
-    },
-  ],
+  plugins: [require('./.dev/tailwind.variants'), require('./.dev/tailwind.containers')],
 };

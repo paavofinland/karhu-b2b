@@ -10,13 +10,13 @@
   endif
 -%}
 
-<div data-component='account'>
+<div data-component='account' class="container">
   {%- render 'component.header'
-    title_tag: s.title_tag
+    title_tag: 'h2'
     title: s.title | default: collection.title
     image: image
     desktop_image: desktop_image
-    lazyload_image: s.lazyload_image
+    lazyload_image: false
     class: 'h-[256px] lg:h-[468px]'
   -%}
   <div class='flex flex-col lg:flex-row lg:gap-[60px] lg:p-[60px] lg:pb-0'>
@@ -24,22 +24,25 @@
       <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px]'>
         <li class="{%- if is_address_template -%} text-grey-4 {%- endif %} lg:mb-3">
           <a
-            class=''
+            class='hidden lg:inline'
             href='{{ routes.account_url }}'
           >
-            Order history
+            {{- 'customer.account.orders.tab_title_desktop' | t -}}
+          </a>
+          <a
+            class='lg:hidden inline'
+            href='{{ routes.account_url }}'
+          >
+            {{- 'customer.account.orders.tab_title_mobile' | t -}}
           </a>
         </li>
         <li class="{%- unless is_address_template -%} text-grey-4 {%- endunless %} lg:mb-3">
-          <a
-            class=''
-            href='{{ routes.account_addresses_url }}'
-          >
-            Your information
+          <a href='{{ routes.account_addresses_url }}'>
+            {{- 'customer.account.addresses.your_info' | t -}}
           </a>
         </li>
         <li>
-          <a class='text-grey-4' href='{{ routes.account_logout_url }}'>Logout</a>
+          <a class='text-grey-4' href='{{ routes.account_logout_url }}'>{{- 'customer.account.logout' | t -}}</a>
         </li>
       </ul>
     </div>
@@ -57,49 +60,6 @@
 {
   "name": "Account",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "lazyload_image",
-      "label": "Lazyload image",
-      "default": false,
-      "info": "Only lazyload the image when it's not the first image on the page"
-    },
-    {
-      "type": "select",
-      "id": "title_tag",
-      "label": "Title tag",
-      "default": "h2",
-      "options": [
-        {
-          "value": "h1",
-          "label": "H1"
-        },
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        },
-        {
-          "value": "h4",
-          "label": "H4"
-        },
-        {
-          "value": "h5",
-          "label": "H5"
-        },
-        {
-          "value": "h6",
-          "label": "H6"
-        },
-        {
-          "value": "p",
-          "label": "P"
-        }
-      ]
-    },
     {
       "type": "text",
       "id": "title",

@@ -1,12 +1,12 @@
 <div data-component='address' class="border-b border-grey-5 pb-10 pt-10">
   {% if address == customer.default_address %} 
     <h6 class='text-heading-6 mb-4 hidden lg:block'>
-      Default address
+      {{- 'customer.account.addresses.address_details.edit' | t -}}
     </h6>
   {% endif -%}
   <div class="flex justify-between">
     <div class="flex flex-col gap-1">
-      <h7 class='text-heading-7 mb-[10px] lg:hidden'>Addresses</h7>
+      <h7 class='text-heading-7 mb-[10px] lg:hidden'>{{- 'customer.account.addresses.page_title' | t -}}</h7>
       {%- if address.first_name or address.last_name -%}
         <p>{{- address.first_name }}{{ address.last_name -}}</p>
       {%- endif -%}
@@ -26,16 +26,16 @@
     <div class="flex flex-col items-end">
       {% if address == customer.default_address %} 
         <p class='mb-[10px] lg:hidden'>
-          Default address
+          {{- 'customer.account.addresses.address_details.default_address' | t -}}
         </p>
       {% endif -%}
       {% if address != customer.default_address %}
-        <button class="text-grey-3 underline mb-1" data-make-default-button data-address-id="{{- address.id -}}">Make default</button>
+        <button class="text-grey-3 underline mb-1" data-make-default-button data-address-id="{{- address.id -}}">{{- 'customer.account.addresses.address_details.make_default' | t -}}</button>
       {% endif -%}
       {% assign edit_button_attributes = "data-edit-address-button data-address-id='" | append: address.id | append: "'" %}
-      <button class="text-grey-3 underline mb-1" {{ edit_button_attributes -}}>Edit</button>
+      <button class="text-grey-3 underline mb-1" {{ edit_button_attributes -}}>{{- 'customer.account.addresses.address_details.edit' | t -}}</button>
       {% unless customer.addresses_count == 1 %}
-        <button class="text-grey-3 underline" data-delete-address-button>Delete</button>
+        <button class="text-grey-3 underline" data-delete-address-button>{{- 'customer.account.addresses.address_details.delete' | t -}}</button>
 
         <form
           class='hidden'

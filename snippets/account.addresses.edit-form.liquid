@@ -38,7 +38,6 @@
           <div class='max-w-[480px] text-body-xs'>
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.first_name',
               id: 'addressFirstName',
               name: 'address[first_name]',
               placeholder: 'customer.account.addresses.address_form.first_name',
@@ -51,7 +50,6 @@
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.last_name',
               id: 'addressLastName',
               name: 'address[last_name]',
               placeholder: 'customer.account.addresses.address_form.last_name',
@@ -65,7 +63,6 @@
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.company',
               id: 'addressCompany',
               name: 'address[company]',
               placeholder: 'customer.account.addresses.address_form.company',
@@ -76,7 +73,6 @@
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.street_name',
               id: 'addressStreetName',
               name: 'address[address1]',
               placeholder: 'customer.account.addresses.address_form.street_name',
@@ -90,7 +86,6 @@
             -%}
             {%-
               render 'component.input',
-              label: 'Extension',
               placeholder: 'Extension',
               id: 'extension',
               name: 'address[extension]',
@@ -117,19 +112,18 @@
               name: 'address[country]',
               options: options,
               id: "AddressCountryNew",
-              label: 'customer.account.addresses.address_form.country',
               autocomplete: 'country',
               label_class: 'hidden',
               placeholder_class: 'text-grey-3',
               container_class: 'mt-4 border border-grey-4 after:rotate-0 after:w-[8px] after:h-[6px] after:border-l-transparent after:border-b-transparent after:border-r-transparent after:border-t-[6px] after:border-l-[4px] after:border-r-[4px] after:border-t-black',
               select_class: 'px-4 py-[18px] w-full appearance-none',
               autocomplete: 'country',
-              placeholder: 'Country*',
-              required: true
+              placeholder: 'customer.account.addresses.address_form.country',
+              required: true,
+              requiredStar: true
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.zipcode',
               id: 'addressZip',
               name: 'address[zip]',
               placeholder: 'customer.account.addresses.address_form.zipcode',
@@ -143,7 +137,6 @@
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.city',
               id: 'addressCity',
               name: 'address[city]',
               placeholder: 'customer.account.addresses.address_form.city',
@@ -157,7 +150,6 @@
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.phone',
               id: 'addressTelephone',
               name: 'address[phone]',
               placeholder: 'customer.account.addresses.address_form.phone',

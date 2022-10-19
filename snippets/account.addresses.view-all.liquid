@@ -1,7 +1,7 @@
 <section data-addresses>
-  <h5 class='text-heading-5 pb-5 border-b border-black'>Addresses</h5>
+  <h5 class='text-heading-5 pb-5 border-b border-black'>{{- 'customer.account.addresses.addresses' | t -}}</h5>
   {% if customer.addresses_count == 0 %}
-    <p class='text-body-small mt-10 mb-7 lg:mb-9'>You haven't saved any addresses yet.</p>
+    <p class='text-body-small mt-10 mb-7 lg:mb-9'>{{- 'customer.account.addresses.no_addresses_text' | t -}}</p>
   {% else %}
     <div>
       {%- render 'component.address'
@@ -18,7 +18,7 @@
   {% endif %}
 
   {%- render 'component.button',
-    text: 'Add address',
+    text: 'customer.account.addresses.add_address.submit_button',
     class: 'px-8 lg:px-12 mt-10',
     style: 'primary',
     attributes: 'data-add-address-button'

@@ -2,11 +2,12 @@
   assign s = section.settings
   assign image = s.image | default: collection.featured_image
   assign desktop_image = s.desktop_image | default: collection.featured_image
+  assign title = s.title | default: collection.title 
 -%}
 
 {%- render 'component.header'
   title_tag: s.title_tag
-  title: s.title | default: collection.title
+  title: title
   image: image
   desktop_image: desktop_image
   lazyload_image: s.lazyload_image

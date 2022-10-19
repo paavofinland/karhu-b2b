@@ -1,0 +1,44 @@
+{%- comment -%}
+  Expected behaviour:
+    Renders the product item
+
+  About:
+    Render the product item with default styling.
+
+  Accepts:
+    - product: {Object} The product object
+
+  Usage:
+    {% render 'component.product', product: product %}
+{%- endcomment -%}
+
+<div class="relative">
+  {%- render 'component.image'
+    img: product.featured_image
+    img_class: 'object-cover'
+    class: 'w-full h-[343px] lg:h-[320px]'
+  -%}
+  <div class="flex justify-between gap-2 mt-4">
+    <p class="truncate" title="{{- product.title -}}">{{- product.title -}}</p>
+    <p>
+      <span class="{%- if product.compare_at_price -%} text-red-light {%- endif -%}">{{- product.price | money -}}</span>
+      {%- if product.compare_at_price -%}
+        &nbsp;<span class="line-through">{{- product.compare_at_price | money -}}</span>
+      {%- endif -%}
+    </p>
+  </div>
+  <div class="flex justify-between mb-5 text-grey-3">
+    <p>{{- product.metafields.color.value -}}</p>
+    <p>{{- product.selected_or_first_available_variant.sku -}}</p>
+  </div>
+  {%- render 'component.button'
+    style: 'primary'
+    icon: 'add'
+    text: 'collections.quick_add'
+    class: 'w-full grid grid-cols-[1fr_22px] items-center px-4 group'
+    icon_class: 'stroke-white group-hover:stroke-black'
+  -%}
+  <span class="absolute text-detailed top-4 left-4 py-[3.5px] px-3 text-white bg-red-light rounded-[100px]">
+    -{{- product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max -}}%
+  </span>
+</div>

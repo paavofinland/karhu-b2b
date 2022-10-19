@@ -1,6 +1,6 @@
 
 <div>
-  <h2 class="text-heading-3 lg:text-heading-2 mb-9 lg:mb-12">Activate account</h2>
+  <h2 class="text-heading-3 lg:text-heading-2 mb-9 lg:mb-12">{{- 'customer.activate.heading' | t -}}</h2>
   {%- form 'reset_customer_password', class: "mb-4 lg:mb-5 flex flex-col" -%}
     {%- if form.errors -%}
       <div class="text-red-light mb-4">
@@ -31,7 +31,7 @@
       class: 'py-[17px] text-body-xs'
     -%}
     <div class="text-center mt-4 lg:mt-5">
-      <button type="submit" name="decline" class="text-grey-3 underline">Decline invitation</button>
+      <button type="submit" name="decline" class="text-grey-3 underline">{{- 'customer.activate.cancel_button' | t -}}</button>
     </div>
   {%- endform -%}
 </div>

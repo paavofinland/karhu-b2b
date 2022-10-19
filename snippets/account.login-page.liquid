@@ -1,7 +1,7 @@
 
 <div data-login-form>
-  <h2 class="text-heading-3 lg:text-heading-2">Have a B2B account?</h2>
-  <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">Access it now to shop for your business.</p>
+  <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.login.heading' | t -}}</h2>
+  <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">{{- 'customer.login.subheading' | t -}}</p>
   {%- form 'customer_login', class: "mb-4 lg:mb-5 flex flex-col" -%}
     {%- if form.errors -%}
       <div class="text-red-light mb-4">
@@ -40,12 +40,12 @@
     -%}
   {%- endform -%}
   <div class="text-center">
-    <a href="#recover" data-toggle-recover-password-btns class="text-grey-3 underline">Forgot your password?</a>
+    <a href="#recover" data-toggle-recover-password-btns class="text-grey-3 underline">{{- 'customer.login.forgot_button' | t -}}</a>
   </div>
 </div>
 <div data-recover-password-form class="hidden">
-  <h2 class="text-heading-3 lg:text-heading-2">Forgot your password?</h2>
-  <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">We will send you an email with instructions.</p>
+  <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.forgot.heading' | t -}}</h2>
+  <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">{{- 'customer.forgot.subheading' | t -}}</p>
   {%- form 'recover_customer_password', class: "mb-4 lg:mb-5 flex flex-col" -%}
     {% if form.posted_successfully? %}
       <span class="hide" data-recover-message-sent></span>
@@ -76,10 +76,10 @@
     -%}
   {%- endform -%}
   <div class="text-center">
-    <a href="#" data-toggle-recover-password-btns class="text-grey-3 underline">Back to login</a>
+    <a href="#" data-toggle-recover-password-btns class="text-grey-3 underline">{{- 'customer.forgot.back_to_login_button' | t -}}</a>
   </div>
 </div>
 <div data-recover-password-success class="hidden">
-  <h2 class="text-heading-3 lg:text-heading-2">Check your mailbox</h2>
-  <p class="text-body mt-4 lg:mt-9">If you have a B2B account, you will receive instructions in your mailbox.</p>
+  <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.recover_success.heading' | t -}}</h2>
+  <p class="text-body mt-4 lg:mt-9">{{- 'customer.recover_success.subheading' | t -}}</p>
 </div>

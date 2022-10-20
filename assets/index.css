@@ -1516,9 +1516,9 @@ html {
   padding-right: 0.5rem;
 }
 
-.px-\[31px\] {
-  padding-left: 31px;
-  padding-right: 31px;
+.px-8 {
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .py-12 {
@@ -1539,11 +1539,6 @@ html {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
 .py-2 {

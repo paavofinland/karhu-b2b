@@ -17,7 +17,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "nav": "main-menu"
+          "menu": "header"
         }
       },
       "cart-drawer": {

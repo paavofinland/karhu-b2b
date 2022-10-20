@@ -13,8 +13,8 @@
 -%}
 
 <footer class='border-t border-grey-1'>
-  <div class='flex'>
-    <div class='flex flex-col justify-center items-center flex-1 border-r border-grey-1 px-2 lg:pt-[135px] lg:pb-[120px]'>
+  <div class='flex container'>
+    <div class='flex flex-col justify-center items-center flex-1 border-r border-grey-1 px-8 lg:pt-[135px] lg:pb-[120px]'>
       <a href='{{- routes.root_url -}}'>
         {%- render 'component.icon',
           type: 'karhu-logo-footer',
@@ -40,7 +40,7 @@
         {%- endfor -%}
       </ul>
     </div>
-    <div class='lg:flex lg:justify-center lg:gap-[60px] lg:pt-[120px] flex-1 px-[31px] py-12 lg:p-0'>
+    <div class='lg:flex lg:justify-center lg:gap-[60px] lg:pt-[120px] flex-1 px-8 py-12 lg:p-0'>
       {% if s.navigation_first.links.size > 0 %}
         <ul class='w-[172px] lg:w-[180px] mb-7 lg:mb-0'>
           <li class='text-heading-7'>{{- s.navigation_first.title -}}</li>

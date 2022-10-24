@@ -57,8 +57,8 @@ export default window.component(node => {
     });
 
   makeDefaultButton &&
-    makeDefaultButton.forEach(btn => {
-      btn.addEventListener('click', e => {
+    [].concat(makeDefaultButton).forEach(button => {
+      button.addEventListener('click', e => {
         const { addressId } = e.target.dataset;
         const editForm = editAddressForm.find(form => form.dataset.addressId === addressId);
         const formElement = editForm.querySelector('form');

@@ -50,17 +50,21 @@
       "password": "Password",
       "login_button": "Login",
       "forgot_button": "Forgot your password?",
-      "heading": "Don't have an account?",
-      "subheading": "Create your own account today. It makes shopping smoother and faster, while also earning you reward points on every purchase.",
+      "heading": "Have a B2B account?",
+      "subheading": "Access it now to shop for your business.",
       "register_button": "Create your account"
     },
     "forgot": {
-      "heading": "Forgot password",
+      "heading": "Forgot your password?",
       "subheading": "Please enter the email address you used to create your account. We’ll send you an email to reset your password.",
       "email": "Email",
       "submit_button": "Submit",
       "back_to_login_button": "Back to login",
       "success": "We have sent an email to reset your password!"
+    },
+    "recover_success": {
+      "heading": "Check your mailbox",
+      "subheading": "If you have a B2B account, you will receive instructions in your mailbox."
     },
     "register": {
       "heading": "Create your account",
@@ -76,7 +80,7 @@
       "submit_button": "Create account"
     },
     "activate": {
-      "heading": "Activate your account",
+      "heading": "Activate account",
       "subheading": "Create your password to activate account.",
       "password": "Password",
       "password_confirm": "Confirm password",

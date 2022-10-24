@@ -1,0 +1,85 @@
+
+<div data-login-form>
+  <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.login.heading' | t -}}</h2>
+  <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">{{- 'customer.login.subheading' | t -}}</p>
+  {%- form 'customer_login', class: "mb-4 lg:mb-5 flex flex-col" -%}
+    {%- if form.errors -%}
+      <div class="text-red-light mb-4">
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+    {%- render 'component.input'
+      id: 'CustomerEmail'
+      name: 'customer[email]'
+      label: 'Email Adress'
+      label_class: 'hidden'
+      input_class: 'mb-3 lg:mb-4 mt-0'
+      type: 'email'
+      required: true
+      placeholder: 'Email Adress*'
+      attributes: 'data-email-list'
+      autocomplete: 'email'
+    -%}
+    {%- render 'component.input'
+      id: 'CustomerPassword'
+      name: 'customer[password]'
+      label: 'Password'
+      label_class: 'hidden'
+      input_class: 'mb-4 lg:mb-5 mt-0'
+      type: 'password'
+      required: true
+      placeholder: 'Password*'
+      autocomplete: 'current-password'
+    -%}
+    {%- render 'component.button'
+      text: 'Sign in'
+      id: 'sign-in'
+      style: 'primary'
+      type: 'submit'
+      class: 'py-[17px] text-body-xs'
+    -%}
+  {%- endform -%}
+  <div class="text-center">
+    <a href="#recover" data-toggle-recover-password-btns class="text-grey-3 underline">{{- 'customer.login.forgot_button' | t -}}</a>
+  </div>
+</div>
+<div data-recover-password-form class="hidden">
+  <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.forgot.heading' | t -}}</h2>
+  <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">{{- 'customer.forgot.subheading' | t -}}</p>
+  {%- form 'recover_customer_password', class: "mb-4 lg:mb-5 flex flex-col" -%}
+    {% if form.posted_successfully? %}
+      <span class="hide" data-recover-message-sent></span>
+    {% endif %}
+    {%- if form.errors -%}
+      <div class="text-red-light mb-4">
+        {{ form.errors | default_errors }}
+      </div>
+    {%- endif -%}
+    {%- render 'component.input'
+      id: 'RecoverEmail'
+      name: 'email'
+      label: 'Email Adress'
+      label_class: 'hidden'
+      input_class: 'mb-3 lg:mb-4 mt-0'
+      type: 'email'
+      required: true
+      placeholder: 'Email Adress*'
+      autocomplete: 'email'
+      attributes: 'data-email-list'
+    -%}
+    {%- render 'component.button'
+      text: 'Submit'
+      id: 'submit-recover-password'
+      style: 'primary'
+      type: 'submit'
+      class: 'py-[17px] text-body-xs'
+    -%}
+  {%- endform -%}
+  <div class="text-center">
+    <a href="#" data-toggle-recover-password-btns class="text-grey-3 underline">{{- 'customer.forgot.back_to_login_button' | t -}}</a>
+  </div>
+</div>
+<div data-recover-password-success class="hidden">
+  <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.recover_success.heading' | t -}}</h2>
+  <p class="text-body mt-4 lg:mt-9">{{- 'customer.recover_success.subheading' | t -}}</p>
+</div>

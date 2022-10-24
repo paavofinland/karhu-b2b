@@ -1039,16 +1039,20 @@ html {
   width: 3rem;
 }
 
-.max-w-sm {
-  max-width: 24rem;
-}
-
 .max-w-\[110px\] {
   max-width: 110px;
 }
 
 .max-w-0 {
   max-width: 0rem;
+}
+
+.max-w-\[480px\] {
+  max-width: 480px;
+}
+
+.max-w-sm {
+  max-width: 24rem;
 }
 
 .max-w-fit {
@@ -1423,10 +1427,6 @@ html {
   background-color: rgb(220 129 6 / var(--tw-bg-opacity));
 }
 
-.bg-transparent {
-  background-color: transparent;
-}
-
 .bg-current {
   background-color: currentColor;
 }
@@ -1539,6 +1539,11 @@ html {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
+}
+
+.py-\[17px\] {
+  padding-top: 17px;
+  padding-bottom: 17px;
 }
 
 .py-2 {

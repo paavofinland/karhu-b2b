@@ -98,7 +98,7 @@
       "greeting": "Hi, {{ first_name }}",
       "orders": {
         "tab_title_mobile": "Orders",
-        "tab_title_desktop": "Orders",
+        "tab_title_desktop": "Order History",
         "page_title": "Latest Orders",
         "no_orders_yet": "You haven't placed any orders yet.",
         "shop_now_button": "Shop now",
@@ -113,12 +113,21 @@
         "tab_title_mobile": "Personal information",
         "tab_title_desktop": "Personal info",
         "page_title": "Addresses",
-        "your_info": "Your info",
+        "your_info": "Your information",
+        "account_info": "Account information",
         "no_addresses_yet": "You haven't saved any addresses yet.",
         "back_to_info": "Back to personal information",
         "add_address_button": "Add address",
         "edit_address_button": "Edit",
         "delete_address_button": "Delete",
+        "addresses": "Addresses",
+        "no_addresses_text": "You haven't saved any addresses yet.",
+        "address_details": {
+          "default_address": "Default address",
+          "edit": "Edit",
+          "delete": "Delete",
+          "make_default": "Make default"
+        },
         "delete_address_confirmation": {
           "title": "Delete address",
           "text": "Are you sure you want to delete this address? \n This cannot be undone.",
@@ -136,7 +145,7 @@
           "last_name": "Last name",
           "company": "Company",
           "street_name": "Streetname and housenumber",
-          "zipcode": "Zipcode",
+          "zipcode": "Postal Code",
           "city": "City",
           "country": "Country",
           "phone": "Phone number"

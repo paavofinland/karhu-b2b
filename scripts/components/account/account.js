@@ -11,12 +11,8 @@ export default window.component(node => {
     addresses,
     editAddresses,
     editAddressForm,
-    accountPageSwitcher,
+    makeDefaultButton,
   } = choozy(node, null);
-
-  accountPageSwitcher.addEventListener('change', () => {
-    window.location.href = accountPageSwitcher.value;
-  });
 
   const resetPage = e => {
     e.preventDefault();
@@ -57,6 +53,18 @@ export default window.component(node => {
         targetEditAddressForm.classList.remove('hidden');
 
         window.scrollTo(0, 0);
+      });
+    });
+
+  makeDefaultButton &&
+    [].concat(makeDefaultButton).forEach(button => {
+      button.addEventListener('click', e => {
+        const { addressId } = e.target.dataset;
+        const editForm = editAddressForm.find(form => form.dataset.addressId === addressId);
+        const formElement = editForm.querySelector('form');
+        const makeDefaultCheckbox = formElement.querySelector('input[type="checkbox"]');
+        makeDefaultCheckbox.click();
+        formElement.submit();
       });
     });
 });

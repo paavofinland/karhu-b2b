@@ -21,8 +21,12 @@
   assign switcher_class = switcher_class | append: ' flex-1'
 -%}
 
-<div class="flex justify-center text-detailed items-center bg-black text-white py-3 px-4 lg:px-5">
-  {%- render 'component.country-switcher', class: switcher_class -%}
-  <a href="/account" class="{{- account_link_class -}}">Account</a>
-  <p class="{%- if is_menu %} hidden {% endif -%}">{{- 'general.footer.copyright' | t: year: year, store: shop.name -}}</p>
+<div class='bg-black text-white '>
+  <div class='container-content flex justify-center text-detailed items-center py-3 px-4 lg:px-5'>
+    {%- render 'component.country-switcher', class: switcher_class -%}
+    <a href='/account' class='{{- account_link_class -}}'>Account</a>
+    <p class='{%- if is_menu %} hidden {% endif -%}'>
+      {{- 'general.footer.copyright' | t: year: year, store: shop.name -}}
+    </p>
+  </div>
 </div>

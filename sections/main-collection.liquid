@@ -39,7 +39,7 @@
       attributes: 'data-open-filter-btn'
     -%}
     <div class='w-full'>
-      <div class='grid grid-cols-1 lg:grid-cols-3 gap-7 lg:gap-[60px] mt-7 lg:mt-[60px]' data-product-grid>
+      <div class='grid grid-cols-1 lg:grid-cols-3 gap-7 lg:gap-[60px]' data-product-grid>
         {% paginate collection.products by 15 %}
           {%- if collection.products.size == 0 -%}
             <div>

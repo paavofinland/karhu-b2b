@@ -13,11 +13,13 @@
 {%- endcomment -%}
 
 <div class="relative">
-  {%- render 'component.image'
-    img: product.featured_image
-    img_class: 'object-cover'
-    class: 'w-full h-[343px] lg:h-[320px]'
-  -%}
+  <div class="h-[343px] lg:h-[320px] overflow-hidden">
+    {%- render 'component.image'
+      img: product.featured_image
+      img_class: 'object-cover'
+      class: 'w-full h-full'
+    -%}
+  </div>
   <div class="flex justify-between gap-2 mt-4">
     <p class="truncate" title="{{- product.title -}}">{{- product.title -}}</p>
     <p>
@@ -38,7 +40,9 @@
     class: 'w-full grid grid-cols-[1fr_22px] items-center px-4 group'
     icon_class: 'stroke-white group-hover:stroke-black'
   -%}
-  <span class="absolute text-detailed top-4 left-4 py-[3.5px] px-3 text-white bg-red-light rounded-[100px]">
-    -{{- product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max -}}%
-  </span>
+  {%- if product.compare_at_price_max != 0 -%}
+    <span class="absolute text-detailed top-4 left-4 py-[3.5px] px-3 text-white bg-red-light rounded-[100px]">
+      -{{- product.compare_at_price_max | minus: product.price | times: 100 | divided_by: product.compare_at_price_max -}}%
+    </span>
+  {%- endif -%}
 </div>

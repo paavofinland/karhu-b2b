@@ -10,7 +10,7 @@
   title: title
   image: image
   desktop_image: desktop_image
-  lazyload_image: s.lazyload_image
+  lazyload_image: true
   class: 'h-[404px] lg:h-[640px]'
 -%}
 
@@ -18,13 +18,6 @@
 {
   "name": "Collection",
   "settings": [
-    {
-      "type": "checkbox",
-      "id": "lazyload_image",
-      "label": "Lazyload image",
-      "default": false,
-      "info": "Only lazyload the image when it's not the first image on the page"
-    },
     {
       "type": "select",
       "id": "title_tag",

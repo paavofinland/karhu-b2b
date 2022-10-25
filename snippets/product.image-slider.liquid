@@ -1,0 +1,11 @@
+<div class='swiper overflow-hidden {{ class -}}' {{ data_attributes -}}>
+  <div class='swiper-wrapper'>
+    {%- for image in product.images -%}
+      <div {{ data_attribute }} class='swiper-slide {{ slide_class -}}'>
+        <div class='overflow-hidden bg-grey-6 {{ img_container_class }}'>
+          {%- render 'component.image', img: image, class: 'w-full h-full', img_class: img_class -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>

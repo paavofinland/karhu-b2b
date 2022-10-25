@@ -1,51 +1,31 @@
+{%- include 'product.tags' -%}
+{%- liquid
+  assign navigation = linklists[settings.breadcrumbs] | default: null
+
+  for link in navigation.links
+    assign linkHandle = link.url | split: '/' | last | split: '?' | first
+    unless first_link
+      for collection in product.collections
+        if linkHandle == collection.handle
+          assign first_link = collection
+          break
+        endif
+      endfor
+    endunless
+  endfor
+
+  assign currentProduct = product.handle
+-%}
+
 <div class='container grid grid-cols-1 lg:grid-cols-[840px_1fr]' data-component='productData'>
-  <div class='bg-grey-6 relative p-4 lg:p-[60px] lg:pb-7'>
-    <div class='swiper' data-main-image-slider>
-      <div class='swiper-wrapper'>
-        {%- for image in product.images -%}
-          <div class='swiper-slide'>
-            <div class='overflow-hidden h-[548px] bg-grey-6'>
-              {%- render 'component.image',
-                img: image,
-                class: 'w-full h-full',
-                img_class: 'object-contain'
-              -%}
-            </div>
-          </div>
-        {%- endfor -%}
-      </div>
-    </div>
-    {%- render 'component.slider-button',
-      icon_type: 'arrow-left',
-      attributes: 'data-prev',
-      class: 'hidden lg:block lg:left-7'
+  {%- render 'product.image-section' -%}
+  <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[101px] overflow-hidden'>
+    {%- render 'component.breadcrumbs',
+      first_link: first_link,
+      second_link: product,
+      active_link: product,
+      class: 'mb-7 text-detailed'
     -%}
-    {%- render 'component.slider-button',
-      icon_type: 'arrow-right',
-      attributes: 'data-next',
-      class: 'hidden lg:block lg:right-7'
-    -%}
-    <div class='swiper lg:mt-14' data-sub-image-slider>
-      <div class='swiper-wrapper'>
-        {%- for image in product.images -%}
-          <div class='swiper-slide cursor-pointer slide:w-auto is-slide-active:opacity-40'>
-            <div class='w-[104px] lg:w-[120px] h-[100px]'>
-              {%- render 'component.image',
-                img: image,
-                class: 'h-full',
-                img_class: 'object-cover'
-              -%}
-            </div>
-          </div>
-        {%- endfor -%}
-      </div>
-    </div>
-  </div>
-  <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[101px]'>
-    <nav class='mb-7 text-detailed'>
-      <a class='text-grey-4' href='/'>Legend /</a>
-      <a href='/'>{{- product.title -}}</a>
-    </nav>
     <h5 class='text-heading-5 mb-1'>{{- product.title -}}</h5>
     <div class='flex items-center justify-between text-grey-3 mb-1 uppercase'>
       <p>{{- product.metafields.color.value -}}</p>
@@ -59,37 +39,28 @@
         &nbsp;<span class='line-through'>{{- product.compare_at_price | money -}}</span>
       {%- endif -%}
     </p>
-    <div class='mt-7'>
-      <p class='text-heading-7 text-grey-1 mb-3'>Select colour</p>
-      <div>test divs with images slider</div>
-    </div>
-    <div class='mt-7'>
-      <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-5'>
-        <p>Select amount</p>
-        <p>Switcher of sizing country</p>
-      </div>
-      <div>Select lists with sizing</div>
-    </div>
+    {%- render 'product.colors', currentProduct: currentProduct, familyTag: familyTag -%}
+    {%- render 'product.sizes' -%}
     {%- render 'component.button',
-      text: 'Add to cart',
+      text: 'products.product.add_to_cart',
       style: 'primary',
       size: 'lg',
       class: 'w-full mt-10'
     -%}
     <div class='mt-8'>
-      {%- render 'component.accordion'
-        title: 'Description'
-        content: product.description
+      {%- render 'component.accordion',
+        title: 'Description',
+        content: product.description,
         group: 'description'
       -%}
-      {%- render 'component.accordion'
-        title: 'Delivery & Returns'
-        content: product.description
+      {%- render 'component.accordion',
+        title: 'Delivery & Returns',
+        content: 'Hardcoded content',
         group: 'delivery'
       -%}
-      {%- render 'component.accordion'
-        title: 'Size Guide'
-        content: product.description
+      {%- render 'component.accordion',
+        title: 'Size Guide',
+        content: 'Hardcoded content',
         group: 'size'
       -%}
     </div>

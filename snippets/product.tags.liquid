@@ -1,0 +1,7 @@
+{%- assign familyTag = '' -%}
+
+{%- for tag in product.tags -%}
+  {%- if tag contains 'product-family' -%}
+    {%- assign familyTag = tag -%}
+  {%- endif -%}
+{%- endfor -%}

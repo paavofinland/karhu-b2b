@@ -1,17 +1,19 @@
 <div
-  class='group {% if active %}open{% endif %} py-7'
+  class='border-b border-b-grey-5 group {% if active -%}open{%- endif -%}'
   data-component='accordion'
   data-group='{{ group }}'
 >
-  <button type='button' class='flex w-full items-center justify-between' data-toggle>
+  <button type='button' class='flex w-full items-center justify-between py-7' data-toggle>
     <p class='text-heading-7'>{{- title -}}</p>
     <div data-expand-btn>
       {%- render 'component.icon', type: 'plus' -%}
     </div>
-    <span data-shrink-btn class='px-[5px] py-[9.5px] w-[10px] h-[1px] bg-black hidden'></span>
+    <div data-shrink-btn class='w-5 h-5 items-center justify-center hidden'>
+      <span class='w-[10px] h-[1px] bg-black inline-block'></span>
+    </div>
   </button>
   <article
-    class='group-is-open:h-[var(--innerHeight)] h-0 overflow-hidden transition-all duration-500 prose'
+    class='h-0 overflow-hidden transition-all duration-500 prose group-is-open:h-[var(--innerHeight)] group-is-open:mb-7'
     data-inner
   >
     {{- content -}}

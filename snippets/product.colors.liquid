@@ -1,0 +1,35 @@
+<div class='mt-7'>
+  <p class='text-heading-7 text-grey-1 mb-3'>Select colour</p>
+  <div class='relative'>
+    <div class='swiper overflow-hidden max-w-[428px] h-20 swiper:m-0' data-color-slider>
+      <div class='swiper-wrapper'>
+        {%- render 'product.color-option', content_class: 'opacity-60' -%}
+        {%- for product in collections.all.products -%}
+          {%- if product.tags contains familyTag -%}
+            {%- unless product.handle == currentProduct -%}
+              {%- if product.available -%}
+                {%- render 'product.color-option',
+                  slide_class: 'last-of-type:mr-0',
+                  link: true,
+                  product: product
+                -%}
+              {%- endif -%}
+            {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+    {%- render 'component.slider-button',
+      icon_type: 'arrow-left',
+      attributes: 'data-color-prev',
+      type: 'product',
+      class: 'hidden -left-[14px]'
+    -%}
+    {%- render 'component.slider-button',
+      icon_type: 'arrow-right',
+      attributes: 'data-color-next',
+      type: 'product',
+      class: 'right-[14px]'
+    -%}
+  </div>
+</div>

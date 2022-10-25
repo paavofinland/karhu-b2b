@@ -1,0 +1,30 @@
+<div class='bg-grey-6 relative p-4 lg:p-[60px] lg:pb-7 h-min overflow-hidden'>
+  {%- render 'product.image-slider',
+    product: product,
+    data_attributes: 'data-main-image-slider',
+    img_container_class: 'w-[343px] lg:w-[720px] h-[263px] lg:h-[548px]',
+    img_class: 'object-contain',
+    data_attribute: 'data-main-slide',
+    class: 'h-[263px] lg:h-[548px]'
+  -%}
+  {%- if product.images.size > 1 -%}
+    {%- render 'component.slider-button',
+      icon_type: 'arrow-left',
+      attributes: 'data-prev',
+      class: 'hidden lg:block lg:left-7'
+    -%}
+    {%- render 'component.slider-button',
+      icon_type: 'arrow-right',
+      attributes: 'data-next',
+      class: 'hidden lg:block lg:right-7'
+    -%}
+  {%- endif -%}
+  {%- render 'product.image-slider',
+    product: product,
+    data_attributes: 'data-sub-image-slider',
+    class: 'lg:mt-14 h-[80px] lg:h-[100px] overflow-hidden',
+    img_container_class: 'w-[104px] h-[80px] lg:w-[120px] lg:h-[100px]',
+    slide_class: 'cursor-pointer slide:w-auto is-slide-active:opacity-40',
+    img_class: 'object-cover'
+  -%}
+</div>

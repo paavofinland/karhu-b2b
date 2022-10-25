@@ -26,7 +26,7 @@ export default window.component((node, ctx) => {
     if (group !== a.group) return;
     node.classList[a.open && a.node === node ? 'add' : 'remove'](activeClass);
     shrinkBtn.classList.toggle('hidden');
-    shrinkBtn.classList.toggle('inline-block');
+    shrinkBtn.classList.toggle('flex');
     expandBtn.classList.toggle('hidden');
     expandBtn.classList.toggle('block');
   });

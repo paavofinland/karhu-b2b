@@ -1,10 +1,17 @@
 import choozy from '../../lib/choozy';
 
-export default window.component(async node => {
-  const { customerSelect } = choozy(node, null);
+const LOADING_EVENT = 'agent-stores:loading';
+
+export default window.component(async (node, ctx) => {
+  const { customerSelect, customerSelectContainer } = choozy(node, null);
   const { customerId, customerSecret, store, selectedStoreCustomer } = node.dataset;
 
   if (!customerId || !customerSecret || !store) return;
+
+  ctx.on(LOADING_EVENT, (_, isLoading = true) => {
+    console.log(customerSelectContainer);
+    customerSelectContainer.classList[isLoading ? 'add' : 'remove']('is-loading');
+  });
 
   const appendSelect = data => {
     const documentFragment = document.createDocumentFragment();
@@ -28,7 +35,13 @@ export default window.component(async node => {
 
   const agentStores = await fetch(
     `${process.env.API_URL}/customer/list-agent-stores?${query}`
-  ).then(res => res.json());
+  ).then(async res => {
+    if (res.status === 200) return res.json();
+    console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
+    return [];
+  });
+
+  ctx.emit(LOADING_EVENT, null, false);
 
   if (!agentStores.length) {
     customerSelect.setAttribute('disabled', true);
@@ -37,9 +50,16 @@ export default window.component(async node => {
 
   appendSelect(agentStores);
   customerSelect.addEventListener('change', async e => {
-    query.set('storeCustomerId', e.target.value);
-    fetch(`${process.env.API_URL}/customer/set-selected-store?${query}`).then(() =>
-      window.location.reload()
-    );
+    ctx.emit(LOADING_EVENT, null, true);
+    await fetch(
+      `${process.env.API_URL}/customer/set-selected-store?${query}&storeCustomerId=${e.target.value}`
+    ).then(async r => {
+      if (r.status === 201) {
+        window.location.reload();
+      } else {
+        console.error(`Could not set selected store [${(await r.json()).message}]`);
+      }
+    });
+    ctx.emit(LOADING_EVENT, null, false);
   });
 });

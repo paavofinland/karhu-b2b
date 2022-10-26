@@ -23,7 +23,12 @@
           class='flex items-start gap-6 border-b first:pt-0 border-gray-100 py-6'
         >
           <div class='w-20'>
-            {% render 'component.image', img: item.image, aspect_ratio: 100, img_class: 'object-contain', placeholder: 'image' %}
+            {% render 'component.image',
+              img: item.image,
+              aspect_ratio: 100,
+              img_class: 'object-contain',
+              placeholder: 'image'
+            %}
           </div>
           <div class='flex-1 flex flex-wrap justify-between items-end lg:items-center my-auto'>
             <div class='w-full lg:w-6/12'>
@@ -65,11 +70,11 @@
           {{ cart.item_count | pluralize: string_item, string_items }}
         </p>
       </div>
+      {%- render 'component.cart-store-attribute' -%}
       {% comment %} theme-check-disable SpaceInsideBraces {% endcomment %}
-      {%-
-        render 'component.button',
+      {%- render 'component.button',
         text: 'cart.general.checkout',
-        type: 'submit'
+        type: 'submit',
         name: 'checkout',
         class: 'lg:w-full'
       -%}

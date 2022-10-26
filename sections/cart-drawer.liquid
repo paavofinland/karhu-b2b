@@ -30,7 +30,13 @@
           data-component='cartItem'
         >
           <div class='w-20 overflow-hidden mr-4'>
-            {% render 'component.image', img: item.image, max_width: 240, img_class: 'object-contain' aspect_ratio: 100, placeholder: 'image' %}
+            {% render 'component.image',
+              img: item.image,
+              max_width: 240,
+              img_class: 'object-contain',
+              aspect_ratio: 100,
+              placeholder: 'image'
+            %}
           </div>
           <div class='flex flex-1 my-auto'>
             <div>
@@ -62,7 +68,10 @@
               </div>
             </div>
             <div class='ml-auto text-right flex flex-col'>
-              {%- render 'component.price', price: item.final_line_price, compare_at: item.original_line_price -%}
+              {%- render 'component.price',
+                price: item.final_line_price,
+                compare_at: item.original_line_price
+              -%}
               <button
                 type='button'
                 class='text-xs mt-auto font-semibold relative z-20'
@@ -77,11 +86,10 @@
         </li>
       {%- endfor -%}
     </ul>
-
+    {%- render 'component.cart-store-attribute' -%}
     <div class='p-6'>
       {% comment %} theme-check-disable SpaceInsideBraces {% endcomment %}
-      {%-
-        render 'component.button',
+      {%- render 'component.button',
         type: 'submit',
         style: 'primary',
         name: 'checkout',

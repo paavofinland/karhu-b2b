@@ -6,7 +6,7 @@
   data-component='mainCollection'
   class='container filters_opened:after:content-[""] filters_opened:after:absolute filters_opened:after:inset-0 filters_opened:after:z-10 filters_opened:after:bg-black filters_opened:after:opacity-40'
 >
-  <ul class='flex justify-center gap-9 py-[22px] lg:py-[31px] text-heading-5 border-b border-b-grey-5'>
+  <ul class='flex justify-center gap-9 py-6 lg:py-8 text-heading-5 border-b border-b-grey-5'>
     {%- for collection_data in collections -%}
       {%- if collection_data.title != collection.title -%}
         <li class='hover:underline'>
@@ -59,7 +59,7 @@
 
 {% schema %}
 {
-  "name": "test",
+  "name": "Collection",
   "settings": [
     {
       "type": "image_picker",
@@ -74,7 +74,7 @@
   ],
   "presets": [
     {
-      "name": "test"
+      "name": "Collection"
     }
   ]
 }

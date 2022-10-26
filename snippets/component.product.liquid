@@ -13,12 +13,14 @@
 {%- endcomment -%}
 
 <div class="relative">
-  <div class="h-[343px] lg:h-[320px] overflow-hidden">
-    {%- render 'component.image'
-      img: product.featured_image
-      img_class: 'object-cover'
-      class: 'w-full h-full'
-    -%}
+  <div class="aspect-square h-[343px] lg:h-[320px] overflow-hidden">
+    <a href="{{- product.url -}}">
+      {%- render 'component.image'
+        img: product.featured_image
+        img_class: 'object-cover'
+        class: 'w-full h-full'
+      -%}
+    </a>
   </div>
   <div class="flex justify-between gap-2 mt-4">
     <p class="truncate" title="{{- product.title -}}">{{- product.title -}}</p>

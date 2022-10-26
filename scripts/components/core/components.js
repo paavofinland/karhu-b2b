@@ -4,6 +4,7 @@ import accordion from './accordion';
 import header from './header';
 import cartDrawer from './cart-drawer';
 import cartItem from './cart-item';
+import announcementBar from './announcement-bar';
 
 export default {
   sectionRendering,
@@ -12,4 +13,5 @@ export default {
   header,
   cartDrawer,
   cartItem,
+  announcementBar,
 };

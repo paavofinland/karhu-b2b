@@ -1,0 +1,6 @@
+{%- liquid
+  assign agent = false
+  if customer.tags contains 'agent'
+    assign agent = true
+  endif
+-%}

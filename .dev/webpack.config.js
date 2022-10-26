@@ -1,5 +1,6 @@
 const path = require('path');
 const ExtractCSS = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const files = require('../phill.compiler');
 
@@ -50,5 +51,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [new ExtractCSS()],
+  plugins: [new ExtractCSS(), new Dotenv()],
 };

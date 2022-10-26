@@ -28,6 +28,7 @@
     "webpack": "^5.44.0"
   },
   "dependencies": {
+    "dotenv-webpack": "^8.0.1",
     "picoapp": "^3.6.2",
     "webpack-cli": "^4.7.2"
   }

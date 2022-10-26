@@ -1,9 +1,18 @@
+{%- include 'function.agent' -%}
 {%- liquid
+  assign store = request.host | split: '.' | first | split: '-' | last
   assign announcement_text = section.settings.announcement_text
-  assign agent = false
 -%}
 
-<div class='bg-black text-white text-detailed py-3 {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'>
+<div
+  data-component='announcementBar'
+  data-customer-id='{{- customer.id -}}'
+  data-customer-secret='{{- customer.metafields.functions.secret -}}'
+  data-store='{{- store -}}'
+  data-selected-store-customer="{{- customer.metafields.agent.selected_store_customer -}}"
+  class='bg-black text-white text-detailed py-3 {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'
+>
+  {{customer.metafield}}
   <div class='container-content-wide flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
     {%- unless agent -%}
       {%- render 'component.country-switcher', class: 'flex-1 hidden md:block' -%}
@@ -23,13 +32,11 @@
 
     {%- if agent -%}
       <div class='relative max-w-[110px]'>
-        <select class='bg-black appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none'>
+        <select
+          data-customer-select
+          class='bg-black appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none'
+        >
           <option selected disabled>{{- 'general.header.select_customer' | t -}}</option>
-          {%- for i in (0..5) -%}
-            <option>
-              {{- i -}}
-            </option>
-          {%- endfor -%}
         </select>
         <span
           class="after:content-[''] after:block after:h-full after:w-full after:bg-[url('icon.select.svg')] after:bg-no-repeat absolute w-4 top-0 bottom-0 -right-4 pointer-events-none"

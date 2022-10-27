@@ -17,9 +17,9 @@
   assign currentProduct = product.handle
 -%}
 
-<div class='container grid grid-cols-1 lg:grid-cols-[840px_1fr]' data-component='productData'>
+<div class='container grid grid-cols-1 lg:grid-cols-[1fr_600px]' data-component='productData'>
   {%- render 'product.image-section' -%}
-  <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[101px] overflow-hidden'>
+  <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[100px] overflow-hidden'>
     {%- render 'component.breadcrumbs',
       first_link: first_link,
       second_link: product,

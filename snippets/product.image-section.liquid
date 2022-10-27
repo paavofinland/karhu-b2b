@@ -1,11 +1,11 @@
 <div class='bg-grey-6 relative p-4 lg:p-[60px] lg:pb-7 h-min overflow-hidden'>
   {%- render 'product.image-slider',
     product: product,
-    data_attributes: 'data-main-image-slider',
-    img_container_class: 'w-[343px] lg:w-[720px] h-[263px] lg:h-[548px]',
+    class: 'h-[263px] lg:h-[548px]',
+    img_container_class: 'mx-auto w-[343px] lg:w-[720px] h-[263px] lg:h-[548px]',
     img_class: 'object-contain',
-    data_attribute: 'data-main-slide',
-    class: 'h-[263px] lg:h-[548px]'
+    swiper_attribute: 'data-main-image-slider',
+    slide_attribute: 'data-main-slide'
   -%}
   {%- if product.images.size > 1 -%}
     {%- render 'component.slider-button',
@@ -21,10 +21,10 @@
   {%- endif -%}
   {%- render 'product.image-slider',
     product: product,
-    data_attributes: 'data-sub-image-slider',
-    class: 'lg:mt-14 h-[80px] lg:h-[100px] overflow-hidden',
-    img_container_class: 'w-[104px] h-[80px] lg:w-[120px] lg:h-[100px]',
+    class: 'lg:mt-14 h-[80px] lg:h-[100px]',
     slide_class: 'cursor-pointer slide:w-auto is-slide-active:opacity-40',
-    img_class: 'object-cover'
+    img_container_class: 'w-[104px] h-[80px] lg:w-[120px] lg:h-[100px]',
+    img_class: 'object-cover',
+    swiper_attribute: 'data-sub-image-slider'
   -%}
 </div>

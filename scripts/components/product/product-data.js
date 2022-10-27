@@ -20,13 +20,7 @@ export default window.component(async node => {
     /** @type {import('swiper').SwiperOptions} */
     const subSwiperOptions = {
       slidesPerView: 'auto',
-      freeMode: true,
       watchSlidesProgress: true,
-      breakpoints: {
-        1024: {
-          slidesPerView: 6,
-        },
-      },
     };
 
     // eslint-disable-next-line no-undef
@@ -47,22 +41,29 @@ export default window.component(async node => {
     const colorSwiper = new Swiper(colorSlider, {
       slidesPerView: 'auto',
       spaceBetween: 0,
-      simulateTouch: false,
+      breakpoints: {
+        1024: {
+          touchStartForcePreventDefault: true,
+          touchMoveStopPropagation: true,
+          allowTouchMove: false,
+        },
+      },
     });
 
     colorPrev.addEventListener('click', () => {
       colorSwiper.slidePrev();
       if (colorSwiper.activeIndex === 0) {
-        colorPrev.classList.add('hidden');
+        colorPrev.classList.remove('lg:block');
       }
-      colorNext.classList.remove('hidden');
+      colorNext.classList.add('lg:block');
     });
     colorNext.addEventListener('click', () => {
       colorSwiper.slideNext();
       if (colorSlide.length - colorSwiper.activeIndex === 4) {
-        colorNext.classList.add('hidden');
+        colorNext.classList.remove('lg:block');
       }
-      colorPrev.classList.remove('hidden');
+      colorPrev.classList.add('lg:block');
     });
+    colorNext.classList.add('lg:block');
   }
 });

@@ -11,6 +11,7 @@
   OPTIONAL:
     - attributes: {String} A list with attributes
     - class: {String} Classnames for the component
+    - type: {String} Apply one of the type classes (product | default)
 
   Usage:
     {% render 'component.slider-button',
@@ -21,7 +22,8 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign btn_class = 'bg-white rounded-full z-[1] my-7 absolute bottom-0 transform -translate-x-1/2 py-[20.5px] px-[17px] lg:top-[50%] lg:bottom-[initial] lg:-translate-x-0 lg:-translate-y-1/2 lg:mx-0 lg:my-0 ' | append: class
+  assign btn_class = 'bg-white rounded-full z-[1] my-7 absolute bottom-0 transform -translate-x-1/2 py-[20.5px] px-[17px] lg:top-[50%] lg:bottom-[initial] lg:-translate-x-0 lg:-translate-y-1/2 lg:mx-0 lg:my-0 disabled:hidden '
+  assign btn_class = btn_class | append: class
 -%}
 
 <button {{ attributes }} class='{{- btn_class -}}'>

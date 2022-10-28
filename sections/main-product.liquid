@@ -1,133 +1,71 @@
+{%- include 'product.tags' -%}
 {%- liquid
-  assign current_variant = product.selected_or_first_available_variant
-  render 'product.head', current_variant: current_variant
+  assign navigation = linklists[settings.breadcrumbs] | default: null
+
+  for link in navigation.links
+    assign linkHandle = link.url | split: '/' | last | split: '?' | first
+    unless first_link
+      for collection in product.collections
+        if linkHandle == collection.handle
+          assign first_link = collection
+          break
+        endif
+      endfor
+    endunless
+  endfor
+
+  assign currentProduct = product.handle
 -%}
 
-<div class='product px-6 xl:px-16' data-component='productSelection'>
-  <div class='grid grid-cols-4 gap-1'>
-    {%- for image in product.images -%}
-      {% render 'component.image', img: image, max_width: 1280 %}
-    {%- endfor -%}
+<div
+  class='container grid grid-cols-1 lg:grid-cols-[1fr_min(40%,800px)]'
+  data-component='productData'
+>
+  {%- render 'product.images' -%}
+  <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[100px] overflow-hidden'>
+    {%- render 'component.breadcrumbs',
+      first_link: first_link,
+      second_link: product,
+      active_link: product,
+      class: 'mb-7 text-detailed'
+    -%}
+    <h5 class='text-heading-5 mb-1'>{{- product.title -}}</h5>
+    <div class='flex items-center justify-between text-grey-3 mb-1 uppercase'>
+      <p>{{- product.metafields.color.value -}}</p>
+      <p>{{- product.selected_or_first_available_variant.sku -}}</p>
+    </div>
+    <p class='text-body'>
+      <span class='{%- if product.compare_at_price -%} text-red-light {%- endif -%}'>
+        {{- product.price | money -}}
+      </span>
+      {%- if product.compare_at_price -%}
+        &nbsp;<span class='line-through'>{{- product.compare_at_price | money -}}</span>
+      {%- endif -%}
+    </p>
+    {%- render 'product.colors', currentProduct: currentProduct, familyTag: familyTag -%}
+    {%- render 'product.sizes' -%}
+    {%- render 'component.button',
+      text: 'products.product.add_to_cart',
+      style: 'primary',
+      size: 'lg',
+      class: 'w-full mt-10'
+    -%}
+    <div class='mt-8'>
+      {%- render 'component.accordion',
+        title: 'Description',
+        content: product.description,
+        group: 'description'
+      -%}
+      {%- render 'component.accordion',
+        title: 'Delivery & Returns',
+        content: 'Hardcoded content',
+        group: 'delivery'
+      -%}
+      {%- render 'component.accordion',
+        title: 'Size Guide',
+        content: 'Hardcoded content',
+        group: 'size'
+      -%}
+    </div>
   </div>
-
-  {%- form 'product', product, class: 'product__form', data-component: "productForm", novalidate: true -%}
-    <input type='hidden' name='quantity' value='1'>
-
-    {% for block in section.blocks %}
-      {%- case block.type -%}
-        {%- when 'title' -%}
-          <h1 class='text-xl font-semibold'>{{- product.title -}}</h1>
-        {%- when 'prices' -%}
-          {%- render 'component.price', product: current_variant, has_data_attributes: true -%}
-        {%- when 'string' -%}
-          <p class='text-xs uppercase tracking-wider font-semibold text-gray-400'>
-            {{- block.settings.text -}}
-          </p>
-        {%- when 'cta' -%}
-          {%-
-            render 'component.button',
-            text: 'products.product.add_to_cart',
-            type: 'submit',
-            attributes: 'data-submit'
-          -%}
-        {%- when 'variants' -%}
-          {%-
-            render 'product.options',
-            option_type: block.settings.type,
-            current_variant: current_variant
-          -%}
-        {%- when 'tab' -%}
-          {%-
-            render 'component.accordion',
-            title: block.settings.title,
-            content: block.settings.content,
-            active: block.settings.open,
-            group: section.id
-          -%}
-        {%- when 'app' -%}
-          {%- render block -%}
-      {%- endcase -%}
-    {% endfor %}
-  {%- endform -%}
 </div>
-
-{% schema %}
-{
-  "name": "Product",
-  "blocks": [
-    {
-      "name": "Title",
-      "type": "title",
-      "limit": 1
-    },
-    {
-      "name": "Prices",
-      "type": "prices",
-      "limit": 1
-    },
-    {
-      "name": "Call-To-Action",
-      "type": "cta",
-      "limit": 1
-    },
-    {
-      "name": "String",
-      "type": "string",
-      "settings": [
-        {
-          "type": "text",
-          "id": "text",
-          "label": "Text"
-        }
-      ]
-    },
-    {
-      "name": "Variants",
-      "type": "variants",
-      "settings": [
-        {
-          "type": "select",
-          "id": "type",
-          "label": "Type",
-          "options": [
-            {
-              "value": "radio",
-              "label": "Radio"
-            },
-            {
-              "value": "select",
-              "label": "Select"
-            }
-          ],
-          "default": "select"
-        }
-      ]
-    },
-    {
-      "name": "Tab",
-      "type": "tab",
-      "settings": [
-        {
-          "type": "text",
-          "id": "title",
-          "label": "Title"
-        },
-        {
-          "type": "richtext",
-          "id": "content",
-          "label": "Content"
-        },
-        {
-          "type": "checkbox",
-          "id": "open",
-          "label": "Open by default?",
-          "info": "Only 1 tab can be open at a time"
-        }
-      ]
-    },
-    {
-      "type": "@app"
-    }
-  ]
-}
-{% endschema %}

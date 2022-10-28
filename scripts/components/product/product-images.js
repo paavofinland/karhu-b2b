@@ -40,6 +40,11 @@ export default window.component(async node => {
       nextEl: next,
       prevEl: prev,
     },
+    on: {
+      beforeInit(s) {
+        s.$el.removeClass('is-loading');
+      },
+    },
   };
 
   // eslint-disable-next-line no-undef, no-new

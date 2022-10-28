@@ -11,14 +11,17 @@
   class='bg-grey-6 relative overflow-hidden'
 >
   <div
-    class='swiper flex overflow-hidden'
+    class='group swiper flex is-loading'
     {% if enable_swiper == 1 -%}
       data-slider
     {%- endif -%}
   >
-    <div class='swiper-wrapper w-full flex justify-center items-center'>
+    <div class='swiper-wrapper w-full flex items-center {% unless enable_swiper == 1 -%}justify-center{%- endunless -%}'>
       {%- for image in product.images -%}
-        <div data-slide class='swiper-slide flex w-full'>
+        <div
+          data-slide
+          class='swiper-slide group-is-loading:w-full {% unless forloop.index0 == 0 -%}group-is-loading:hidden{%- endunless -%}'
+        >
           <div class='flex flex-none items-center w-full justify-center lg:p-content bg-grey-6'>
             {%- render 'component.image',
               img: image,

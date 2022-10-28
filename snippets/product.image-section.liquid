@@ -1,52 +1,48 @@
 <div class='bg-grey-6 relative overflow-hidden'>
-  <div class='swiper overflow-hidden {{ class -}}' data-main-image-slider>
+  <div class='swiper overflow-hidden' data-main-image-slider>
     <div class='swiper-wrapper items-center'>
       {%- for image in product.images -%}
         <div data-main-slide class='swiper-slide h-full {{ slide_class -}}'>
-          <div class='flex h-full items-center justify-center overflow-hidden bg-grey-6'>
+          <div class='flex flex-none h-full items-center justify-center p-content bg-grey-6'>
             {%- render 'component.image',
               img: image,
-              class: 'w-full mix-blend-darken h-full',
-              width: 1960
+              class: 'w-full mix-blend-darken h-full max-w-screen-xl',
+              width: 1280
             -%}
           </div>
         </div>
       {%- endfor -%}
     </div>
+    {%- if product.images.size > 1 -%}
+      {%- render 'component.slider-button',
+        icon_type: 'arrow-left',
+        attributes: 'data-prev',
+        class: 'hidden lg:block lg:left-content-wide disabled:hidden'
+      -%}
+      {%- render 'component.slider-button',
+        icon_type: 'arrow-right',
+        attributes: 'data-next',
+        class: 'hidden lg:block lg:right-content-wide disabled:hidden'
+      -%}
+    {%- endif -%}
   </div>
   {%- if product.images.size > 1 -%}
-    {%- render 'component.slider-button',
-      icon_type: 'arrow-left',
-      attributes: 'data-prev',
-      class: 'hidden lg:block lg:left-content-wide disabled:hidden'
-    -%}
-    {%- render 'component.slider-button',
-      icon_type: 'arrow-right',
-      attributes: 'data-next',
-      class: 'hidden lg:block lg:right-content-wide disabled:hidden'
-    -%}
-  {%- endif -%}
-
-  {% comment %}
-     {%- render 'product.image-slider',
-      product: product,
-      class: 'lg:mt-14 h-[80px] lg:h-[100px]',
-      slide_class: 'cursor-pointer slide:w-auto is-slide-active:opacity-40',
-      img_container_class: 'w-[104px] h-[80px] lg:w-[120px] lg:h-[100px]',
-      img_class: 'object-cover',
-      swiper_attribute: 'data-sub-image-slider'
-    -%}
-
-    <div class='swiper overflow-hidden {{ class -}}' {{ swiper_attribute -}}>
-      <div class='swiper-wrapper'>
-        {%- for image in product.images -%}
-          <div {{ slide_attribute }} class='swiper-slide {{ slide_class -}}'>
-            <div class='overflow-hidden bg-grey-6 {{ img_container_class }}'>
-              {%- render 'component.image', img: image, class: 'w-full h-full', img_class: img_class -%}
+    <div class='flex lg:max-w-[80%] py-7 mx-auto'>
+      <div class='swiper overflow-hidden w-full' data-sub-image-slider>
+        <div class='swiper-wrapper items-center h-full'>
+          {%- for image in product.images -%}
+            <div class='swiper-slide cursor-pointer h-full slide:w-auto is-active:opacity-40 bg-grey-6'>
+              <div class='flex flex-none h-full items-center justify-center'>
+                {%- render 'component.image',
+                  img: image,
+                  class: 'w-full mix-blend-darken h-full',
+                  width: 400
+                -%}
+              </div>
             </div>
-          </div>
-        {%- endfor -%}
+          {%- endfor -%}
+        </div>
       </div>
     </div>
-  {% endcomment %}
+  {%- endif -%}
 </div>

@@ -19,22 +19,34 @@ export default window.component(async node => {
   if (mainSlide.length > 1) {
     /** @type {import('swiper').SwiperOptions} */
     const subSwiperOptions = {
-      slidesPerView: 'auto',
+      slidesPerView: 3.25,
       watchSlidesProgress: true,
+      breakpoints: {
+        1024: {
+          slidesPerView: Math.max(Math.min(mainSlide.length, 9.5), 5),
+        },
+      },
     };
 
     // eslint-disable-next-line no-undef
-    // const subSwiper = new Swiper(subImageSlider, subSwiperOptions);
-    // eslint-disable-next-line no-undef
-    const swiper = new Swiper(mainImageSlider, {
+    const subSwiper = new Swiper(subImageSlider, subSwiperOptions);
+
+    /** @type {import('swiper').SwiperOptions} */
+    const swiperOptions = {
+      resizeObserver: true,
       thumbs: {
-        // swiper: subSwiper,
+        swiper: subSwiper,
+        multipleActiveThumbs: false,
+        slideThumbActiveClass: 'is-active',
       },
       navigation: {
         nextEl: next,
         prevEl: prev,
       },
-    });
+    };
+
+    // eslint-disable-next-line no-undef, no-new
+    new Swiper(mainImageSlider, swiperOptions);
   }
 
   if (colorSlide.length > 4) {

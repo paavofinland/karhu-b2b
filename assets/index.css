@@ -640,15 +640,9 @@ html {
   .text-heading-3, 
   .text-heading-4, 
   .text-heading-5, 
-  .text-heading-6 {
+  .text-heading-6, 
+  .text-heading-7 {
   font-family: GTAmericaCompressed, sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.text-heading-7 {
-  font-family: GTAmericaCompressed, sans-serif;
-  font-weight: 500;
   text-transform: uppercase;
 }
 
@@ -2520,12 +2514,10 @@ html {
 @media (min-width: 1024px) {
   .lg\:text-heading-2 {
     font-family: GTAmericaCompressed, sans-serif;
-    font-weight: 700;
     text-transform: uppercase;
   }
   .lg\:text-heading-3 {
     font-family: GTAmericaCompressed, sans-serif;
-    font-weight: 700;
     text-transform: uppercase;
   }
   .lg\:static {

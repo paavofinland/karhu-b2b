@@ -1,6 +1,6 @@
 {%- liquid
   assign enable_swiper = 0
-  if product.images.size > 0
+  if product.images.size > 1
     assign enable_swiper = 1
   endif
 -%}
@@ -16,13 +16,13 @@
       data-slider
     {%- endif -%}
   >
-    <div class='swiper-wrapper items-center'>
+    <div class='swiper-wrapper w-full flex justify-center items-center'>
       {%- for image in product.images -%}
-        <div data-slide class='swiper-slide'>
-          <div class='flex flex-none items-center justify-center lg:p-content bg-grey-6'>
+        <div data-slide class='swiper-slide flex w-full'>
+          <div class='flex flex-none items-center w-full justify-center lg:p-content bg-grey-6'>
             {%- render 'component.image',
               img: image,
-              class: 'w-full mix-blend-darken max-w-screen-xl',
+              class: 'max-w-full mix-blend-darken lg:max-w-screen-xl',
               width: 1280
             -%}
           </div>

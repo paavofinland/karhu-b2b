@@ -9,18 +9,14 @@ export default window.component(async node => {
 
   const desktopSlidesPerView = 4;
 
-  if (slides > 4) {
+  if (slides > 3) {
     /** @type {import('swiper').SwiperOptions} */
     const swiperConfig = {
       slidesPerView: 3.5,
       spaceBetween: 4,
-      navigation: {
-        nextEl: next,
-        prevEl: prev,
-      },
+
       on: {
         beforeInit(s) {
-          console.log('inittt');
           s.$el.removeClass('is-loading');
         },
         navigationNext(s) {
@@ -38,6 +34,10 @@ export default window.component(async node => {
         },
         1024: {
           slidesPerView: desktopSlidesPerView,
+          navigation: {
+            nextEl: next,
+            prevEl: prev,
+          },
         },
       },
     };

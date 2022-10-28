@@ -16,6 +16,11 @@
     "refresh_page": "Refresh page",
     "of": "of"
   },
+  "collections": {
+    "close": "Close",
+    "quick_add": "Quick add",
+    "collection_empty": "There are no products in this collection"
+  },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",

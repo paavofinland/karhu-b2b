@@ -13,10 +13,13 @@ const entries = files.reduce((total, item) => {
   }
 }, {})
 
-module.exports = {
+module.exports = ({development}) => {
+  const env = development ? 'development' : 'production';
+  
+  return {
   entry: entries,
   stats: 'errors-only',
-  mode: process.env.NODE_ENV || 'development',
+  mode: env || 'production',
   target: 'web',
   output: {
     path: path.resolve(__dirname, '../assets'),
@@ -51,5 +54,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [new ExtractCSS(), new Dotenv()],
+  plugins: [new ExtractCSS(), new Dotenv({ path: env === 'production' ? './.env.production' : './.env.development'})],
 };
+}

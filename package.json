@@ -1,8 +1,8 @@
 {
   "scripts": {
     "build": "webpack b --node-env production --config .dev/webpack.config.js",
-    "watch:offline": "webpack watch --config .dev/webpack.config.js",
-    "watch": "shopify theme serve & webpack w --config .dev/webpack.config.js",
+    "watch:offline": "webpack watch --config .dev/webpack.config.js --env=development",
+    "watch": "shopify theme serve & webpack w --config .dev/webpack.config.js --env=development",
     "dev": "npm run watch",
     "start": "npm run watch"
   },

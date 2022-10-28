@@ -1,5 +1,11 @@
 /* eslint-disable */
-export default function (container = document.body, prefix = 'js-') {
+
+/**
+ * @param {Element} container 
+ * @param {string} prefix 
+ * @returns {Object.<string, Element | Array<Element>} components
+ */
+ export default function (container = document.body, prefix) {
   const elements = [...container.querySelectorAll(!prefix ? '*' : `[class*="${prefix}"]`)];
   const property = !prefix ? 'dataset' : 'classList';
   return elements.reduce((res, el) => {

@@ -1,9 +1,25 @@
-<div class='bg-grey-6 relative overflow-hidden'>
-  <div class='swiper overflow-hidden' data-main-image-slider>
+{%- liquid
+  assign enable_swiper = 0
+  if product.images.size > 0
+    assign enable_swiper = 1
+  endif
+-%}
+
+<div
+  data-component='productImages'
+  data-slides='{{ product.images.size }}'
+  class='bg-grey-6 relative overflow-hidden'
+>
+  <div
+    class='swiper flex overflow-hidden'
+    {% if enable_swiper == 1 -%}
+      data-slider
+    {%- endif -%}
+  >
     <div class='swiper-wrapper items-center'>
       {%- for image in product.images -%}
-        <div data-main-slide class='swiper-slide h-full {{ slide_class -}}'>
-          <div class='flex flex-none h-full items-center justify-center p-content bg-grey-6'>
+        <div data-slide class='swiper-slide h-full'>
+          <div class='flex flex-none h-full items-center justify-center lg:p-content bg-grey-6'>
             {%- render 'component.image',
               img: image,
               class: 'w-full mix-blend-darken h-full max-w-screen-xl',
@@ -13,10 +29,10 @@
         </div>
       {%- endfor -%}
     </div>
-    {%- if product.images.size > 1 -%}
+    {%- if enable_swiper == 1 -%}
       {%- render 'component.slider-button',
         icon_type: 'arrow-left',
-        attributes: 'data-prev',
+        attributes: 'data-prev disabled',
         class: 'hidden lg:block lg:left-content-wide disabled:hidden'
       -%}
       {%- render 'component.slider-button',
@@ -26,12 +42,12 @@
       -%}
     {%- endif -%}
   </div>
-  {%- if product.images.size > 1 -%}
+  {%- if enable_swiper == 1 -%}
     <div class='flex lg:max-w-[80%] py-7 mx-auto'>
-      <div class='swiper overflow-hidden w-full' data-sub-image-slider>
-        <div class='swiper-wrapper items-center h-full'>
+      <div class='group swiper flex overflow-hidden w-full is-loading' data-thumbnail-slider>
+        <div class='swiper-wrapper flex items-center w-full h-full'>
           {%- for image in product.images -%}
-            <div class='swiper-slide cursor-pointer h-full slide:w-auto is-active:opacity-40 bg-grey-6'>
+            <div class='swiper-slide cursor-pointer h-full w-full shrink-0 max-w-[calc(100%/3.25)] lg:max-w-[20%] group-is-loading:lg:!shrink bg-grey-6 is-active:opacity-40'>
               <div class='flex flex-none h-full items-center justify-center'>
                 {%- render 'component.image',
                   img: image,

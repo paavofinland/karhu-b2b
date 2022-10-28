@@ -1,5 +1,5 @@
 <div
-  class='border-b border-b-grey-5 group {% if active -%}open{%- endif -%}'
+  class='border-b border-b-grey-5 group {% if active -%}is-active{%- endif -%}'
   data-component='accordion'
   data-group='{{ group }}'
 >
@@ -13,7 +13,7 @@
     </div>
   </button>
   <article
-    class='h-0 overflow-hidden transition-all duration-500 prose group-is-open:h-[var(--innerHeight)] group-is-open:mb-7'
+    class='h-0 overflow-hidden transition-all duration-500 prose group-is-active:h-[var(--innerHeight)] group-is-active:mb-7'
     data-inner
   >
     {{- content -}}

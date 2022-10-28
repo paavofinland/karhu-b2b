@@ -1,0 +1,67 @@
+{%- liquid
+  assign enable_swiper = 0
+  if product.images.size > 1
+    assign enable_swiper = 1
+  endif
+-%}
+
+<div
+  data-component='productImages'
+  data-slides='{{ product.images.size }}'
+  class='bg-grey-6 relative overflow-hidden'
+>
+  <div
+    class='group swiper flex is-loading'
+    {% if enable_swiper == 1 -%}
+      data-slider
+    {%- endif -%}
+  >
+    <div class='swiper-wrapper w-full flex items-center {% unless enable_swiper == 1 -%}justify-center{%- endunless -%}'>
+      {%- for image in product.images -%}
+        <div
+          data-slide
+          class='swiper-slide group-is-loading:w-full {% unless forloop.index0 == 0 -%}group-is-loading:hidden{%- endunless -%}'
+        >
+          <div class='flex flex-none items-center w-full justify-center lg:p-content bg-grey-6'>
+            {%- render 'component.image',
+              img: image,
+              class: 'max-w-full mix-blend-darken lg:max-w-screen-xl',
+              width: 1280
+            -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if enable_swiper == 1 -%}
+      {%- render 'component.slider-button',
+        icon_type: 'arrow-left',
+        attributes: 'data-prev disabled',
+        class: 'hidden lg:block lg:left-content-wide disabled:hidden'
+      -%}
+      {%- render 'component.slider-button',
+        icon_type: 'arrow-right',
+        attributes: 'data-next',
+        class: 'hidden lg:block lg:right-content-wide disabled:hidden'
+      -%}
+    {%- endif -%}
+  </div>
+  {%- if enable_swiper == 1 -%}
+    <div class='flex lg:max-w-[80%] py-7 mx-auto'>
+      <div class='group swiper flex overflow-hidden w-full is-loading' data-thumbnail-slider>
+        <div class='swiper-wrapper flex items-center w-full h-full'>
+          {%- for image in product.images -%}
+            <div class='swiper-slide cursor-pointer h-full w-full shrink-0 max-w-[calc(100%/3.25)] lg:max-w-[20%] group-is-loading:lg:!shrink bg-grey-6 is-active:opacity-40'>
+              <div class='flex flex-none h-full items-center justify-center'>
+                {%- render 'component.image',
+                  img: image,
+                  class: 'w-full mix-blend-darken',
+                  width: 400
+                -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+</div>

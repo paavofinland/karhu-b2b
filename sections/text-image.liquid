@@ -2,23 +2,10 @@
   assign s = section.settings
   assign eager_loading = s.eager | default: false
 -%}
+{% comment %}
 
-<div class='text-image'>
-  <div class='text-image__wrapper'>
-    <{{ s.title_tag }}>
-      {{- s.title -}}
-    </{{ s.title_tag }}>
-    {%-
-      render 'component.image',
-      img: s.image,
-      desktop_img: s.desktop_image,
-      max_width: 2560,
-      alt: s.title,
-      eager: eager_loading,
-      placeholder: true
-    -%}
-  </div>
-</div>
+
+{% endcomment %}
 
 {% schema %}
 {

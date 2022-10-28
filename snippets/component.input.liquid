@@ -75,7 +75,11 @@
 
 <div class='flex flex-col {{ container_class }}'>
   <label for='{{ id }}' class='text-xs {{ label_class }}'>
-    {{- label -}}{%- if requiredStar -%}*{%- endif -%}
+    {%- if label_prefix_class -%}
+      <span class='inline-block {{ label_prefix_class }}'></span>
+    {%- endif -%}
+    {{- label -}}
+    {%- if requiredStar -%}*{%- endif -%}
   </label>
   <input
     type='{{ type }}'
@@ -90,6 +94,10 @@
     {% endif %}
     {% if required %}
       required aria-required='true'
+    {% endif %}
+    {% if type == 'number' %}
+      max='{{- maxValue -}}'
+      min='{{- minValue -}}'
     {% endif %}
     autocomplete='{{ autocomplete }}'
     autocapitalize='{{ autocapitalize }}'

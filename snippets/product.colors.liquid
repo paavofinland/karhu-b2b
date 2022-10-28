@@ -1,35 +1,40 @@
-<div class='mt-7'>
+<div data-component='productColors' class='mt-7'>
   <p class='text-heading-7 text-grey-1 mb-3'>Select colour</p>
   <div class='relative'>
-    <div class='swiper overflow-hidden max-w-[428px] h-20 swiper:m-0' data-color-slider>
-      <div class='swiper-wrapper'>
-        {%- render 'product.color-option', content_class: 'opacity-60' -%}
+    <div class='group swiper is-loading' data-slider>
+      <div class='swiper-wrapper flex items-center group-is-loading:gap-1'>
+        {% comment %} {%- render 'product.color-option', content_class: 'opacity-60' -%} {% endcomment %}
         {%- for product in collections.all.products -%}
           {%- if product.tags contains familyTag -%}
-            {%- unless product.handle == currentProduct -%}
               {%- if product.available -%}
-                {%- render 'product.color-option',
-                  slide_class: 'last-of-type:mr-0',
-                  link: true,
-                  product: product
-                -%}
+                <div class='swiper-slide group-is-loading:!grow-0' data-slide>
+                  {%- unless product.handle == currentProduct -%}
+                    <a href='{{- product.url -}}' >
+                  {%- endunless -%}
+                    {%- render 'component.image',
+                      img: product.featured_image,
+                      class: 'w-full',
+                      width: 200,
+                    -%}
+                  {%- unless product.handle == currentProduct -%} 
+                    </a>
+                  {%- endunless -%}
+                </div>
               {%- endif -%}
-            {%- endunless -%}
           {%- endif -%}
         {%- endfor -%}
       </div>
     </div>
     {%- render 'component.slider-button',
       icon_type: 'arrow-left',
-      attributes: 'data-color-prev',
-      type: 'product',
-      class: '-left-content-wide'
+      attributes: 'data-prev disabled',
+      class: 'hidden lg:block -left-12'
     -%}
     {%- render 'component.slider-button',
       icon_type: 'arrow-right',
-      attributes: 'data-color-next',
-      type: 'product',
-      class: 'right-content-wide'
+      attributes: 'data-next',
+      class: 'hidden lg:block -right-12'
     -%}
+
   </div>
 </div>

@@ -18,11 +18,11 @@
   >
     <div class='swiper-wrapper items-center'>
       {%- for image in product.images -%}
-        <div data-slide class='swiper-slide h-full'>
-          <div class='flex flex-none h-full items-center justify-center lg:p-content bg-grey-6'>
+        <div data-slide class='swiper-slide'>
+          <div class='flex flex-none items-center justify-center lg:p-content bg-grey-6'>
             {%- render 'component.image',
               img: image,
-              class: 'w-full mix-blend-darken h-full max-w-screen-xl',
+              class: 'w-full mix-blend-darken max-w-screen-xl',
               width: 1280
             -%}
           </div>
@@ -51,7 +51,7 @@
               <div class='flex flex-none h-full items-center justify-center'>
                 {%- render 'component.image',
                   img: image,
-                  class: 'w-full mix-blend-darken h-full',
+                  class: 'w-full mix-blend-darken',
                   width: 400
                 -%}
               </div>

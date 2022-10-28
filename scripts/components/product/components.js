@@ -1,9 +1,9 @@
-import productData from './product-data';
 import productForm from './product-form';
 import productImages from './product-images';
+import productColors from './product-colors';
 
 export default {
-  productData,
   productForm,
   productImages,
+  productColors,
 };

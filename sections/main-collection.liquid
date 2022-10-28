@@ -2,11 +2,8 @@
   assign s = section.settings
 %}
 
-<div
-  data-component='mainCollection'
-  class='container filters_opened:after:content-[""] filters_opened:after:absolute filters_opened:after:inset-0 filters_opened:after:z-10 filters_opened:after:bg-black filters_opened:after:opacity-40'
->
-  <ul class='flex justify-center gap-9 py-6 lg:py-8 text-heading-5 border-b border-b-grey-5'>
+<div class='border-b-grey-5 border-b'>
+  <ul class='container-content flex justify-center gap-9 py-6 lg:py-8 text-heading-5'>
     {%- for collection_data in collections -%}
       {%- if collection_data.title != collection.title -%}
         <li class='hover:underline'>
@@ -15,12 +12,20 @@
       {%- endif -%}
     {%- endfor -%}
   </ul>
+</div>
+
+<div
+  data-component='mainCollection'
+  class='container filters_opened:after:absolute filters_opened:after:inset-0 filters_opened:after:z-10 filters_opened:after:bg-black filters_opened:after:opacity-40'
+>
   <div class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-[60px]'>
     <aside
       class='absolute top-0 left-0 bottom-0 z-20 px-4 py-7 bg-white w-[313px] duration-300 -translate-x-[313px] filters_opened:translate-x-0 lg:translate-x-0 lg:z-0 lg:p-0 lg:w-[initial] lg:static lg:block min-w-[180px]'
       data-filters
     >
-      <button data-close-filters-btn class="text-grey-3 mb-[30px] lg:hidden">{{- 'collections.close' | t -}}</button>
+      <button data-close-filters-btn class='text-grey-3 mb-[30px] lg:hidden'>
+        {{- 'collections.close' | t -}}
+      </button>
       <div class='mb-10'>
         {%- comment -%} TODO: get the filters shopify way? {%- endcomment -%}
         <p class='text-heading-7 mb-3 font-medium'>Category</p>
@@ -39,7 +44,10 @@
       attributes: 'data-open-filter-btn'
     -%}
     <div class='w-full'>
-      <div class='grid grid-cols-1 lg:grid-cols-3 gap-7 lg:gap-[60px]' data-product-grid>
+      <div
+        class='grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+        data-product-grid
+      >
         {% paginate collection.products by 15 %}
           {%- if collection.products.size == 0 -%}
             <div>

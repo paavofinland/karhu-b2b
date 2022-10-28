@@ -24,16 +24,17 @@ export default window.component(async node => {
     };
 
     // eslint-disable-next-line no-undef
-    const subSwiper = new Swiper(subImageSlider, subSwiperOptions);
+    // const subSwiper = new Swiper(subImageSlider, subSwiperOptions);
     // eslint-disable-next-line no-undef
     const swiper = new Swiper(mainImageSlider, {
       thumbs: {
-        swiper: subSwiper,
+        // swiper: subSwiper,
+      },
+      navigation: {
+        nextEl: next,
+        prevEl: prev,
       },
     });
-
-    prev.addEventListener('click', () => swiper.slidePrev());
-    next.addEventListener('click', () => swiper.slideNext());
   }
 
   if (colorSlide.length > 4) {

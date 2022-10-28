@@ -67,23 +67,18 @@
   assign countriesPossesive = countriesPossesive | split: ','
 -%}
 
-<div class='{{ class }}'>
-  <div class='relative flex'>
-    <select class='max-w-fit pr-4 bg-black cursor-pointer appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none'>
-      {%- for country in countriesName -%}
-        {%- assign index = forloop.index | minus: 1 -%}
-        <option
-          data-url='{{- countriesURL[index] -}}?no-redirect'
-          {%- if country == currentName -%}
-            selected
-          {%- endif -%}
-        >
-          {{- country -}}
-        </option>
-      {%- endfor -%}
-    </select>
-    <span
-      class="after:content-[''] after:block after:bg-[url('icon.select.svg')] after:bg-no-repeat after:absolute after:w-4 after:h-4 after:-translate-y-[1px] after:-translate-x-4 after:pointer-events-none"
-    ></span>
-  </div>
-</div>
+{%- capture options -%}
+  {%- for country in countriesName -%}
+    {%- assign index = forloop.index | minus: 1 -%}
+    <option
+      data-url='{{- countriesURL[index] -}}?no-redirect'
+      {%- if country == currentName -%}
+        selected
+      {%- endif -%}
+    >
+      {{- country -}}
+    </option>
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- render 'select', class: 'w-[120px] h-[1.3em]', options: options -%}

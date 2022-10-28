@@ -46,11 +46,8 @@
   .text-heading-3,
   .text-heading-4,
   .text-heading-5,
-  .text-heading-6 {
-    @apply font-headings font-bold uppercase;
-  }
-
+  .text-heading-6,
   .text-heading-7 {
-    @apply font-headings font-medium uppercase;
+    @apply font-headings uppercase;
   }
 }

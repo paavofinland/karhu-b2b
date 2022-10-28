@@ -15,17 +15,17 @@
   {{ customer.metafield }}
   <div class='container-content-wide flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
     {%- unless agent -%}
-      {%- render 'component.country-switcher', class: 'flex-1 hidden md:block' -%}
+      {%- render 'country-select' -%}
     {%- endunless -%}
 
-    {%- if announcement_text and agent == false -%}
+    {%- if announcement_text != blank and agent == false -%}
       <p class='flex-1 text-center'>
         {{- announcement_text | upcase -}}
       </p>
     {%- endif -%}
 
     {%- unless agent -%}
-      <a href='/account' class='flex-1 text-right hidden md:block'>
+      <a href='/account' class='hidden md:block'>
         {{- 'general.header.account' | t -}}
       </a>
     {%- endunless -%}

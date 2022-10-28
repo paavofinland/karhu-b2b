@@ -1,0 +1,19 @@
+<div
+  {{ attributes }}
+  class='group flex gap-4 justify-center items-center flex-none {{ class -}}'
+>
+  {%- render 'loading-indicator', class: 'hidden h-[1em] group-is-loading:flex' -%}
+  <div class='relative cursor-pointer group-is-loading:hidden'>
+    <select
+      data-select
+      class='bg-inherit appearance-none w-[calc(100%+1em)] cursor-pointer'
+    >
+      {%- if placeholder != blank -%}
+        <option selected disabled>{{- placeholder | t -}}</option>
+      {%- endif -%}
+    </select>
+    <span
+      class="after:block after:h-full after:w-full after:bg-[url('icon.select.svg')] after:bg-no-repeat absolute w-[1em] top-0 bottom-0 -right-[1em] pointer-events-none"
+    ></span>
+  </div>
+</div>

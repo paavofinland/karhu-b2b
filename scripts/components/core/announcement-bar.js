@@ -3,14 +3,14 @@ import choozy from '../../lib/choozy';
 const LOADING_EVENT = 'agent-stores:loading';
 
 export default window.component(async (node, ctx) => {
-  const { customerSelect, customerSelectContainer } = choozy(node, null);
+  const { selectCustomer } = choozy(node, null);
+  const { select: customerSelect } = choozy(selectCustomer, null);
   const { customerId, customerSecret, store, selectedStoreCustomer } = node.dataset;
 
   if (!customerId || !customerSecret || !store) return;
 
   ctx.on(LOADING_EVENT, (_, isLoading = true) => {
-    console.log(customerSelectContainer);
-    customerSelectContainer.classList[isLoading ? 'add' : 'remove']('is-loading');
+    selectCustomer.classList[isLoading ? 'add' : 'remove']('is-loading');
   });
 
   const appendSelect = data => {
@@ -26,6 +26,8 @@ export default window.component(async (node, ctx) => {
     });
     customerSelect.appendChild(documentFragment);
   };
+
+  ctx.emit(LOADING_EVENT, null, true);
 
   const query = new URLSearchParams({
     store,

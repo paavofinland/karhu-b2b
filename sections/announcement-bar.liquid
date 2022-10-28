@@ -31,23 +31,11 @@
     {%- endunless -%}
 
     {%- if agent -%}
-      <div
-        data-customer-select-container
-        class='group flex gap-4 is-loading flex-none'
-      >
-        {%- render 'loading-indicator', class: 'hidden h-4 group-is-loading:flex' -%}
-        <div class='relative max-w-[110px] group-is-loading:hidden'>
-          <select
-            data-customer-select
-            class='bg-black appearance-none w-[calc(100%+1rem)] focus-visible:border-black focus-visible:outline-none'
-          >
-            <option selected disabled>{{- 'general.header.select_customer' | t -}}</option>
-          </select>
-          <span
-            class="after:content-[''] after:block after:h-full after:w-full after:bg-[url('icon.select.svg')] after:bg-no-repeat absolute w-4 top-0 bottom-0 -right-4 pointer-events-none"
-          ></span>
-        </div>
-      </div>
+      {%- render 'select',
+        placeholder: 'general.header.select_customer',
+        attributes: 'data-select-customer',
+        class: 'w-[110px] h-[1.4em]'
+      -%}
     {%- endif -%}
   </div>
 </div>

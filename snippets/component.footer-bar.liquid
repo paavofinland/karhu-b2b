@@ -23,8 +23,10 @@
 
 <div class='bg-black text-white '>
   <div class='container-content flex justify-center text-detailed items-center py-3 px-4 lg:px-5'>
-    <div class='{{- switcher_class -}}'>{%- render 'country-select' -%}</div>
-    <a href='/account' class='{{- account_link_class -}}'>Account</a>
+    {%- render 'component.country-switcher', class: switcher_class -%}
+    {%- if customer -%}
+      <a href='/account' class='{{- account_link_class -}}'>Account</a>
+    {%- endif -%}
     <p class='{%- if is_menu %} hidden {% endif -%}'>
       {{- 'general.footer.copyright' | t: year: year, store: shop.name -}}
     </p>

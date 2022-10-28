@@ -1,4 +1,3 @@
-
 <div data-login-form>
   <h2 class="text-heading-3 lg:text-heading-2">{{- 'customer.login.heading' | t -}}</h2>
   <p class="text-body mt-4 mb-9 lg:mb-12 lg:mt-9">{{- 'customer.login.subheading' | t -}}</p>
@@ -38,6 +37,7 @@
       type: 'submit'
       class: 'py-[17px] text-body-xs'
     -%}
+    <input data-redirect-to type="hidden" name="return_to" value="{{- redirect_path -}}">
   {%- endform -%}
   <div class="text-center">
     <a href="#recover" data-toggle-recover-password-btns class="text-grey-3 underline">{{- 'customer.login.forgot_button' | t -}}</a>

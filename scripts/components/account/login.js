@@ -8,7 +8,14 @@ export default window.component(node => {
     recoverMessageSent,
     recoverPasswordSuccess,
     emailList,
+    redirectTo,
   } = choozy(node, null);
+
+  if (window.location.search) {
+    const params = new URLSearchParams(window.location.search);
+    const redirectPath = params.get('redirectPath');
+    redirectTo.value = redirectPath;
+  }
 
   const toggleRecoverPasswordPage = () => {
     loginForm.classList.toggle('hidden');

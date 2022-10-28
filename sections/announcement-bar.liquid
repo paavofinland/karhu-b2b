@@ -24,11 +24,11 @@
       </p>
     {%- endif -%}
 
-    {%- unless agent -%}
-      <a href='/account' class='hidden md:block'>
+    {%- if customer -%}
+      <a href='/account' class='flex-1 text-right hidden md:block'>
         {{- 'general.header.account' | t -}}
       </a>
-    {%- endunless -%}
+    {%- endif -%}
 
     {%- if agent -%}
       {%- render 'select',

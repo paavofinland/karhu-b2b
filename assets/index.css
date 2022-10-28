@@ -991,12 +991,6 @@ html {
   height: 56px;
 }
 
-.h-min {
-  height: -webkit-min-content;
-  height: -moz-min-content;
-  height: min-content;
-}
-
 .h-0\.5 {
   height: 0.125rem;
 }
@@ -1411,11 +1405,6 @@ html {
   border-width: 1px;
 }
 
-.border-x {
-  border-left-width: 1px;
-  border-right-width: 1px;
-}
-
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1434,6 +1423,10 @@ html {
 
 .border-r {
   border-right-width: 1px;
+}
+
+.border-l {
+  border-left-width: 1px;
 }
 
 .border-b-\[1px\] {
@@ -2777,6 +2770,9 @@ html {
   }
   .lg\:gap-7 {
     gap: 1.75rem;
+  }
+  .lg\:border-r {
+    border-right-width: 1px;
   }
   .lg\:border-none {
     border-style: none;

@@ -24,18 +24,20 @@
       </p>
     {%- endif -%}
 
+    {%- if agent -%}
+      <div class='absolute mx-auto'>
+        {%- render 'select',
+          placeholder: 'general.header.select_customer',
+          attributes: 'data-select-customer',
+          class: 'w-[110px] h-[1.4em]'
+        -%}
+      </div>
+    {%- endif -%}
+
     {%- if customer -%}
       <a href='/account' class='flex-1 text-right hidden md:block'>
         {{- 'general.header.account' | t -}}
       </a>
-    {%- endif -%}
-
-    {%- if agent -%}
-      {%- render 'select',
-        placeholder: 'general.header.select_customer',
-        attributes: 'data-select-customer',
-        class: 'w-[110px] h-[1.4em]'
-      -%}
     {%- endif -%}
   </div>
 </div>

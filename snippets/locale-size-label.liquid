@@ -1,0 +1,66 @@
+{% comment %}
+  Renders span with all available size formats
+
+    Accepts:
+      - size: {String} Size
+      - locales: {String} Comma seperated locales in lowercase
+      - default_size_index: {Number} Default index in size locales
+{% endcomment %}
+
+{%- capture sizes_string -%}
+  <!-- prettier-ignore -->
+  35|4|3-
+  36|4.5|3.5-
+  37|5|4-
+  38|5.5|4.5-
+  39|6|5-
+  39.5|6.5|5.5-
+  40|7|6-
+  40.5|7.5|6.5-
+  41.5|8|7-
+  42|8.5|7.5-
+  42.5|9|8-
+  43.5|9.5|8.5-
+  44|10|9-
+  44.5|10.5|9.5-
+  45|11|10-
+  46|11.5|10.5-
+  46.5|12|11-
+  47|12.5|11.5-
+  48|13|12-
+  49|14|13-
+  50.5|15|14-
+  51.5|16|15-
+{%- endcapture -%}
+
+{%- liquid
+  assign size_strings = sizes_string | strip_html | strip_newlines | split: '-'
+
+  for size_string in size_strings
+    assign sizes = size_string | split: '|'
+    assign default_size = sizes[default_index] | default: sizes[0]
+
+    if default_size == size
+      break
+    endif
+  endfor
+-%}
+
+{%- capture data_attributes -%}
+  {%- for l in locales -%}
+    {%- liquid
+      assign index = forloop.index0
+      assign s = sizes[index] | default: default_size
+    -%}
+    data-
+    {{- l }}="
+    {{- s -}}
+    "
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if sizes %}
+  <span data-size {{ data_attributes -}}>
+    {{- default_size -}}
+  </span>
+{%- endif -%}

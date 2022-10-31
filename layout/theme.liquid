@@ -1,11 +1,6 @@
 <!doctype html>
 <html class='no-js' lang='{{ request.locale.iso_code }}'>
   {%- assign send_to_login = true -%}
-
-  {%- if customer -%}
-    {%- assign send_to_login = false -%}
-  {%- endif -%}
-
   {%- liquid
     if customer
       assign send_to_login = false
@@ -13,14 +8,13 @@
     if template contains 'customers'
       assign send_to_login = false
     endif
-    if request.path == '/' or request.path == '/challenge'
+    if request.path == '/challenge'
       assign send_to_login = false
     endif
     if request.design_mode == true
       assign send_to_login = false
     endif
   -%}
-
   {%- if send_to_login -%}
     {%- liquid
       assign redirectParam = '?return_url=' | append: request.path

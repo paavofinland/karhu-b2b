@@ -1,7 +1,8 @@
 import choozy from '../../lib/choozy';
 
 export default window.component(node => {
-  const { hamburger, hamburgerOpened, hamburgerClosed, mobileMenu } = choozy(node, null);
+  const { hamburger, hamburgerOpened, hamburgerClosed, mobileMenu, main } = choozy(node);
+  const { clear } = node.dataset;
 
   const announcementBarHeight =
     document.querySelector('#shopify-section-announcement-bar').offsetHeight || 0;
@@ -9,8 +10,10 @@ export default window.component(node => {
   const isMenuClosed = () => hamburgerOpened.classList.contains('hidden');
   const isHeaderScrolled = () => window.scrollY > announcementBarHeight;
 
-  const toggleTheme = () =>
-    node.classList[!isMenuClosed() || isHeaderScrolled() ? 'add' : 'remove']('is-active');
+  const toggleTheme = () => {
+    if (clear !== undefined)
+      main.classList[!isMenuClosed() || isHeaderScrolled() ? 'add' : 'remove']('is-active');
+  };
 
   window.addEventListener('scroll', toggleTheme, { passive: true });
   window.addEventListener('load', toggleTheme);

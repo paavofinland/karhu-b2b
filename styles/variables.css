@@ -2,11 +2,14 @@
   :root {
     --content-padding: 2rem;
     --content-padding-wide: 1.25rem;
+
+    --header-height: 3.5rem;
   }
 
   @screen lg {
     :root {
       --content-padding: 3.75rem;
+      --header-height: 4.25rem;
     }
   }
 }

@@ -1,83 +1,108 @@
-{%- assign headerMenu = linklists[section.settings.menu].links -%}
+{%- liquid
+  assign s = section.settings
+  assign headerMenu = linklists[section.settings.menu].links
+
+  assign currentTemplate = template.name | downcase
+  assign currentHandle = collection.handle | default: page.handle
+  assign clearTemplates = s.clear_background | split: ','
+
+  if clearTemplates contains currentTemplate or clearTemplates contains currentHandle
+    assign clearBackground = true
+  endif
+
+  if currentTemplate == 'product' and clearBackground == true
+    assign textBorderClasses = 'text-black border-black'
+  else
+    assign textBorderClasses = 'text-white border-white'
+  endif
+-%}
 
 <header
   data-component='header'
-  class='
-    text-white border-b border-white border-opacity-20 h-[56px] lg:h-[68px] overflow-visible transition-colors duration-200
-    is-active:border-opacity-100 is-active:bg-white is-active:text-black is-active:border-grey-5
-    hover:border-opacity-100 hover:bg-white hover:text-black hover:border-grey-5
-  '
+  {% if clearBackground -%}
+    data-clear
+  {%- endif -%}
 >
-  <div class='container-content flex justify-between h-full border-opacity-[inherit] border-inherit xxl:border-x'>
-    <a href='/' class='h-min py-4 pr-content'>
-      {%- render 'component.icon',
-        type: 'karhu-header-logo',
-        class: 'w-[152px] h-6 lg:w-[177px] lg:h-7'
-      -%}
-    </a>
-    <ul class='hidden lg:flex flex-grow justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
-      {%- for link in headerMenu -%}
-        <li class='group'>
-          <a href='{{- link.url -}}'>
-            {{- link.title -}}
-          </a>
-          <span
-            class='block max-w-0 transition-all duration-200 h-0.5 bg-current group-hover:max-w-full'
-          ></span>
-        </li>
-      {%- endfor -%}
-    </ul>
-    <ul class='hidden lg:flex justify-center items-center gap-9 pl-content text-heading-7'>
-      <li class='cursor-pointer group'>
-        Search
-        <span
-          class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
-        ></span>
-      </li>
-      <li class='cursor-pointer group'>
-        Bag (0)
-        <span
-          class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
-        ></span>
-      </li>
-    </ul>
-    <div class='flex items-center lg:hidden py-4 pl-content gap-4'>
-      <div data-hamburger>
-        <div data-hamburger-closed>
-          {%- render 'component.icon', type: 'hamburger-menu' -%}
-        </div>
-        <div data-hamburger-opened class='hidden'>
-          {%- render 'component.icon', type: 'hamburger-menu-opened' -%}
-        </div>
-      </div>
-      <div>
-        {%- render 'component.icon', type: 'cart' -%}
-      </div>
-    </div>
-    <nav
-      class='lg:hidden absolute bg-white text-black w-screen top-full -left-full duration-200'
-      data-mobile-menu
-    >
-      <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
-        <li>Search</li>
-        <li>Bag (0)</li>
-      </ul>
-      <ul class='px-4 text-heading-4'>
+  <div
+    data-main
+    class='
+      border-b border-opacity-20 h-[var(--header-height)] overflow-visible transition-colors duration-200
+      is-active:border-opacity-100 is-active:bg-white is-active:text-black is-active:border-grey-5
+      hover:border-opacity-100 hover:bg-white hover:text-black hover:border-grey-5
+      {% if clearBackground -%}{{- textBorderClasses }} -mb-[var(--header-height)]{%- else -%}is-active{%- endif -%}
+    '
+  >
+    <div class='container-content flex justify-between h-full border-opacity-[inherit] border-inherit xxl:border-x'>
+      <a href='/' class='h-min py-4 pr-content'>
+        {%- render 'component.icon',
+          type: 'karhu-header-logo',
+          class: 'w-[152px] h-6 lg:w-[177px] lg:h-7'
+        -%}
+      </a>
+      <ul class='hidden lg:flex flex-grow justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
         {%- for link in headerMenu -%}
-          <li class='py-5 border-b border-grey-5'>
-            <a class='flex justify-between items-center' href='{{- link.url -}}'>
+          <li class='group'>
+            <a href='{{- link.url -}}'>
               {{- link.title -}}
-              <span class='flex items-center justify-center w-10 h-10'>
-                {%- render 'component.icon', type: 'arrow-right' -%}
-              </span>
             </a>
+            <span
+              class='block max-w-0 transition-all duration-200 h-0.5 bg-current group-hover:max-w-full'
+            ></span>
           </li>
         {%- endfor -%}
       </ul>
-      <div class='absolute left-0 right-0 bottom-0'>
-        {%- render 'component.footer-bar', is_menu: true -%}
+      <ul class='hidden lg:flex justify-center items-center gap-9 pl-content text-heading-7'>
+        <li class='cursor-pointer group'>
+          Search
+          <span
+            class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+          ></span>
+        </li>
+        <li class='cursor-pointer group'>
+          Bag (0)
+          <span
+            class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+          ></span>
+        </li>
+      </ul>
+      <div class='flex items-center lg:hidden py-4 pl-content gap-4'>
+        <div data-hamburger>
+          <div data-hamburger-closed>
+            {%- render 'component.icon', type: 'hamburger-menu' -%}
+          </div>
+          <div data-hamburger-opened class='hidden'>
+            {%- render 'component.icon', type: 'hamburger-menu-opened' -%}
+          </div>
+        </div>
+        <div>
+          {%- render 'component.icon', type: 'cart' -%}
+        </div>
       </div>
-    </nav>
+      <nav
+        class='lg:hidden absolute bg-white text-black w-screen top-full -left-full duration-200'
+        data-mobile-menu
+      >
+        <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
+          <li>Search</li>
+          <li>Bag (0)</li>
+        </ul>
+        <ul class='px-4 text-heading-4'>
+          {%- for link in headerMenu -%}
+            <li class='py-5 border-b border-grey-5'>
+              <a class='flex justify-between items-center' href='{{- link.url -}}'>
+                {{- link.title -}}
+                <span class='flex items-center justify-center w-10 h-10'>
+                  {%- render 'component.icon', type: 'arrow-right' -%}
+                </span>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+        <div class='absolute left-0 right-0 bottom-0'>
+          {%- render 'component.footer-bar', is_menu: true -%}
+        </div>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -91,6 +116,18 @@
       "id": "menu",
       "label": "Menu",
       "info": "You can change the menu items in /admin/menus"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "textarea",
+      "id": "clear_background",
+      "label": "Clear background",
+      "default": "index,collection,product",
+      "info": "Insert the template name or handle of collection / page, divided by commas",
+      "placeholder": "index,collection,product"
     }
   ]
 }

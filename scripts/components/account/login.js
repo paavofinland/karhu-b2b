@@ -1,26 +1,45 @@
 import choozy from '../../lib/choozy';
 
 export default window.component(node => {
-  const { loginForm, toForgot, toLogin, forgotForm, forgotErrors, forgotSuccess } = choozy(
-    node,
-    null
-  );
+  const {
+    loginForm,
+    recoverPasswordForm,
+    toggleRecoverPasswordBtns,
+    recoverMessageSent,
+    recoverPasswordSuccess,
+    emailList,
+  } = choozy(node, null);
 
-  // Show forgot form when there's a success or error message on the form
-  if (forgotErrors || forgotSuccess) {
+  const toggleRecoverPasswordPage = () => {
+    loginForm.classList.toggle('hidden');
+    recoverPasswordForm.classList.toggle('hidden');
+  };
+
+  toggleRecoverPasswordBtns.forEach(button => {
+    button.addEventListener('click', toggleRecoverPasswordPage);
+  });
+
+  const hideError = () => {
+    const errorField = document.querySelector('.errors');
+    // eslint-disable-next-line prettier/prettier, no-unused-expressions
+    errorField ? errorField.style.display = "none" : "";
+  };
+
+  emailList.forEach(input => {
+    input.addEventListener('focus', hideError);
+    input.addEventListener('keyup', hideError);
+  });
+
+  const isUrlRecoverHash = () => {
+    const { hash } = window.location;
+    return hash === '#recover';
+  };
+
+  if (isUrlRecoverHash() && !recoverMessageSent) toggleRecoverPasswordPage();
+
+  if (recoverMessageSent) {
     loginForm.classList.add('hidden');
-    forgotForm.classList.remove('hidden');
+    recoverPasswordForm.classList.add('hidden');
+    recoverPasswordSuccess.classList.remove('hidden');
   }
-
-  toForgot.addEventListener('click', e => {
-    e.preventDefault();
-    loginForm.classList.add('hidden');
-    forgotForm.classList.remove('hidden');
-  });
-
-  toLogin.addEventListener('click', e => {
-    e.preventDefault();
-    loginForm.classList.remove('hidden');
-    forgotForm.classList.add('hidden');
-  });
 });

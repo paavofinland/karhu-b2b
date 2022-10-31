@@ -1,0 +1,31 @@
+<div class='mt-7'>
+  <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-5'>
+    <p>Select amount</p>
+    <p>EU US UK</p>
+  </div>
+  <div class='grid grid-cols-3 lg:grid-cols-4 gap-4'>
+    {%- for variant in product.variants -%}
+      {%- liquid
+        assign quantity = variant.inventory_quantity
+        assign label_prefix_class = 'w-2 h-2 mr-2 rounded '
+        if quantity > 1
+          assign label_prefix_class = label_prefix_class | append: 'bg-green-light'
+        elsif quantity == 1
+          assign label_prefix_class = label_prefix_class | append: 'bg-orange'
+        else
+          assign label_prefix_class = label_prefix_class | append: 'bg-red-light'
+        endif
+      -%}
+      {%- render 'component.input',
+        label: variant.option1,
+        input_class: 'appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0',
+        container_class: 'flex flex-col gap-1 text-body-xs',
+        label_prefix_class: label_prefix_class,
+        type: 'number',
+        default_value: 0,
+        maxValue: quantity,
+        minValue: 0
+      -%}
+    {%- endfor -%}
+  </div>
+</div>

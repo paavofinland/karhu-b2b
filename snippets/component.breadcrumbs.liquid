@@ -1,0 +1,36 @@
+{%- comment -%}
+  Expected behaviour:
+    Renders a breadcrumb used for navigation in the collection and product pages
+  About:
+    Render the breadcrumbs with links
+  Accepts:
+    - first_link: {Object} Link object for the first link in the breadcrumb
+    - second_link: {Object} Link object for the second link in the breadcrumb
+    - active_link: {Object} Link object for the active link in the breadcrumb
+  OPTIONAL:
+    - text_color: {String} tailwind color class - overrides the color metafield allocated into the header
+    - class: {String} Class
+  Usage:
+    {%-
+      render 'component.breadcrumbs'
+      first_link: first_link,
+      second_link: second_link,
+      active_link: active_link,
+      text_color: text_color,
+      class: 'px-4'
+    -%}
+{%- endcomment -%}
+
+<nav class='flex items-center gap-3 text-grey-4 {{ class -}}'>
+  {%- liquid
+    if first_link
+      render 'component.breadcrumbs.link', link: first_link, title: first_link_title, active_link: active_link, text_color: text_color
+    endif
+    if second_link
+      if first_link
+        echo '/'
+      endif
+      render 'component.breadcrumbs.link', link: second_link, active_link: active_link, text_color: text_color
+    endif
+  %}
+</nav>

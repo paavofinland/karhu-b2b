@@ -6,34 +6,33 @@
 @tailwind utilities;
 @tailwind screens;
 
-
 /* When adding fonts also preload fonts in theme.liquid */
 @layer base {
   @font-face {
     font-display: swap;
-    font-family: "GTAmericaCompressed";
+    font-family: 'GTAmericaCompressed';
     font-style: normal;
     font-weight: 700;
-    src: url("../assets/GT-America-Compressed-Bold.woff2") format("woff2"),
-      url("../assets/GT-America-Compressed-Bold.woff") format("woff");
+    src: url('../assets/GT-America-Compressed-Bold.woff2') format('woff2'),
+      url('../assets/GT-America-Compressed-Bold.woff') format('woff');
   }
 
   @font-face {
     font-display: swap;
-    font-family: "GTAmericaCompressed";
+    font-family: 'GTAmericaCompressed';
     font-style: normal;
     font-weight: 500;
-    src: url('../assets/GT-America-Compressed-Medium.woff2') format("woff2"),
-      url('../assets/GT-America-Compressed-Medium.woff') format("woff");
+    src: url('../assets/GT-America-Compressed-Medium.woff2') format('woff2'),
+      url('../assets/GT-America-Compressed-Medium.woff') format('woff');
   }
 
   @font-face {
     font-display: swap;
-    font-family: "GTAmerica";
+    font-family: 'GTAmerica';
     font-style: normal;
     font-weight: 400;
-    src: url("../assets/GT-America-Regular.woff2") format("woff2"),
-      url("../assets/GT-America-Regular.woff") format("woff");
+    src: url('../assets/GT-America-Regular.woff2') format('woff2'),
+      url('../assets/GT-America-Regular.woff') format('woff');
   }
 
   html {
@@ -49,10 +48,6 @@
   .text-heading-5,
   .text-heading-6,
   .text-heading-7 {
-    @apply font-headings font-bold uppercase;
-  }
-  
-  .text-heading-7 {
-    @apply font-medium;
+    @apply font-headings uppercase;
   }
 }

@@ -4,7 +4,7 @@
 
 <section
   data-component='hero'
-  class='container relative text-center text-white h-[32.875rem] lg:h-[50rem]'
+  class='container relative text-center text-white h-[32.875rem] lg:h-[50rem] -mt-[56px] md:-mt-[68px]'
 >
   <div data-slider class='swiper'>
     <div class='swiper-wrapper flex overflow-hidden'>
@@ -31,11 +31,15 @@
           {%- if s.image or s.desktop_image -%}
             <div class='h-[32.875rem] lg:h-[50rem]'>
               {% render 'component.image',
-                desktop_img: s.desktop_image,
                 img: s.image,
                 lazy: s.lazyload_image,
-                class: 'h-full',
-                img_class: 'object-cover'
+                width: 1024,
+                class: 'h-full w-full object-cover lg:hidden'
+              %}
+              {% render 'component.image',
+                img: s.desktop_image,
+                lazy: s.lazyload_image,
+                class: 'h-full w-full object-cover hidden lg:block'
               %}
             </div>
           {%- endif -%}

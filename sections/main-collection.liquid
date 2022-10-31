@@ -1,59 +1,86 @@
-{%- liquid
+{% liquid
   assign s = section.settings
   assign image = s.image | default: collection.featured_image
   assign desktop_image = s.desktop_image | default: collection.featured_image
-  assign title = s.title | default: collection.title 
+  assign title = s.title | default: collection.title
 -%}
 
-{%- render 'component.header'
-  title_tag: s.title_tag
-  title: title
-  image: image
-  desktop_image: desktop_image
-  lazyload_image: true
+{%- render 'component.header',
+  title_tag: 'h2',
+  title: title,
+  image: image,
+  desktop_image: desktop_image,
+  lazyload_image: true,
   class: 'h-[404px] lg:h-[640px]'
 -%}
 
-{%- schema -%}
+<div class='border-b-grey-5 border-b'>
+  <ul class='container-content flex justify-center gap-9 py-6 lg:py-8 text-heading-5'>
+    {%- for collection_data in collections -%}
+      {%- if collection_data.title != collection.title -%}
+        <li class='hover:underline'>
+          {{- collection_data.title | link_to: collection_data.url -}}
+        </li>
+      {%- endif -%}
+    {%- endfor -%}
+  </ul>
+</div>
+
+<div
+  data-component='mainCollection'
+  class='container filters_opened:after:absolute filters_opened:after:inset-0 filters_opened:after:z-10 filters_opened:after:bg-black filters_opened:after:opacity-40'
+>
+  <div class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-[60px]'>
+    <aside
+      class='absolute top-0 left-0 bottom-0 z-20 px-4 py-7 bg-white w-[313px] duration-300 -translate-x-[313px] filters_opened:translate-x-0 lg:translate-x-0 lg:z-0 lg:p-0 lg:w-[initial] lg:static lg:block min-w-[180px]'
+      data-filters
+    >
+      <button data-close-filters-btn class='text-grey-3 mb-[30px] lg:hidden'>
+        {{- 'collections.close' | t -}}
+      </button>
+      <div class='mb-10'>
+        {%- comment -%} TODO: get the filters shopify way? {%- endcomment -%}
+        <p class='text-heading-7 mb-3 font-medium'>Category</p>
+        <ul class='flex flex-col gap-2'>
+          <li>Test</li>
+          <li>Test</li>
+          <li>Test</li>
+        </ul>
+      </div>
+    </aside>
+    {%- render 'component.button',
+      text: 'Filter',
+      style: 'primary_reversed',
+      size: 'sm',
+      class: 'lg:hidden',
+      attributes: 'data-open-filter-btn'
+    -%}
+    <div class='w-full'>
+      <div
+        class='grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+        data-product-grid
+      >
+        {% paginate collection.products by 15 %}
+          {%- if collection.products.size == 0 -%}
+            <div>
+              <p data-empty>{{- 'collections.collection_empty' | t -}}</p>
+            </div>
+          {%- else -%}
+            {% for product in collection.products %}
+              {%- render 'component.product', product: product -%}
+            {% endfor %}
+          {%- endif -%}
+        {% endpaginate %}
+      </div>
+      <div data-load-more></div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
 {
   "name": "Collection",
   "settings": [
-    {
-      "type": "select",
-      "id": "title_tag",
-      "label": "Title tag",
-      "default": "h2",
-      "options": [
-        {
-          "value": "h1",
-          "label": "H1"
-        },
-        {
-          "value": "h2",
-          "label": "H2"
-        },
-        {
-          "value": "h3",
-          "label": "H3"
-        },
-        {
-          "value": "h4",
-          "label": "H4"
-        },
-        {
-          "value": "h5",
-          "label": "H5"
-        },
-        {
-          "value": "h6",
-          "label": "H6"
-        },
-        {
-          "value": "p",
-          "label": "P"
-        }
-      ]
-    },
     {
       "type": "text",
       "id": "title",
@@ -76,4 +103,4 @@
     }
   ]
 }
-{%- endschema -%}
+{% endschema %}

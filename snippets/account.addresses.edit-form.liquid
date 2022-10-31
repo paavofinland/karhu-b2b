@@ -1,10 +1,5 @@
-<section data-edit-addresses class='hidden'>
-  <a class='block mt-7 mb-9 lg:my-12 text-xl opacity-50 cursor-pointer' data-reset-page-button>
-    {{- 'customer.account.addresses.back_to_info' | t -}}
-  </a>
-  <h1 class='text-2xl lg:text-3xl'>
-    {{ 'customer.account.addresses.edit_address.page_title' | t }}
-  </h1>
+<section data-edit-addresses class="hidden">
+  <h5 class='text-heading-5 pb-5 border-b border-black mb-[42px] lg:mb-10'>{{ 'customer.account.addresses.edit_address.page_title' | t }}</h5>
   {% if customer.addresses_count != 0 %}
     {% for address in customer.addresses %}
       {% liquid
@@ -38,49 +33,66 @@
           assign address_default_phone = blank
         endif
       %}
-      <div data-edit-address-form data-address-id='{{ address.id }}' class='mt-9 hidden'>
+      <div data-edit-address-form data-address-id='{{ address.id }}' class='hidden'>
         {% form 'customer_address', address %}
-          <div class=''>
+          <div class='max-w-[480px] text-body-xs'>
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.first_name',
               id: 'addressFirstName',
               name: 'address[first_name]',
               placeholder: 'customer.account.addresses.address_form.first_name',
               default_value: address_default_first_name,
               autocomplete: 'given-name',
-              container_class: 'mt-4',
-              required: true
+              label_class: 'hidden',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+              required: true,
+              requiredStar: true
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.last_name',
               id: 'addressLastName',
               name: 'address[last_name]',
               placeholder: 'customer.account.addresses.address_form.last_name',
               default_value: address_default_last_name,
               autocomplete: 'family-name',
-              container_class: 'mt-4'
+              label_class: 'hidden',
+              container_class: 'mt-4',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+              required: true,
+              requiredStar: true
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.company',
               id: 'addressCompany',
               name: 'address[company]',
               placeholder: 'customer.account.addresses.address_form.company',
               default_value: address_default_company,
-              container_class: 'mt-4'
+              label_class: 'hidden',
+              container_class: 'mt-4',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4'
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.street_name',
               id: 'addressStreetName',
               name: 'address[address1]',
               placeholder: 'customer.account.addresses.address_form.street_name',
               default_value: address_default_street_name,
               autocomplete: 'street-address',
+              label_class: 'hidden',
               container_class: 'mt-4',
-              required: true
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+              required: true,
+              requiredStar: true
+            -%}
+            {%-
+              render 'component.input',
+              placeholder: 'Extension',
+              id: 'extension',
+              name: 'address[extension]',
+              autocomplete: 'extension',
+              label_class: 'hidden',
+              container_class: 'mt-4',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
             -%}
             {%- comment -%}Liquid way of getting the default country option without JS{%- endcomment -%}
             {%- liquid
@@ -100,43 +112,52 @@
               name: 'address[country]',
               options: options,
               id: "AddressCountryNew",
-              label: 'customer.account.addresses.address_form.country',
-              label_class: 'text-xs',
-              container_class: 'flex flex-col mt-4',
-              select_class: 'mt-2 py-3 px-4 border border-black appearance-none after:content-[""]',
               autocomplete: 'country',
-              required: true
+              label_class: 'hidden',
+              placeholder_class: 'text-grey-3',
+              container_class: 'mt-4 border border-grey-4 after:rotate-0 after:w-[8px] after:h-[6px] after:border-l-transparent after:border-b-transparent after:border-r-transparent after:border-t-[6px] after:border-l-[4px] after:border-r-[4px] after:border-t-black',
+              select_class: 'px-4 py-[18px] w-full appearance-none',
+              autocomplete: 'country',
+              placeholder: 'customer.account.addresses.address_form.country',
+              required: true,
+              requiredStar: true
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.city',
-              id: 'addressCity',
-              name: 'address[city]',
-              placeholder: 'customer.account.addresses.address_form.city',
-              default_value: address_default_city,
-              autocomplete: 'address-level2',
-              container_class: 'mt-4',
-              required: true
-            -%}
-            {%-
-              render 'component.input',
-              label: 'customer.account.addresses.address_form.zipcode',
               id: 'addressZip',
               name: 'address[zip]',
               placeholder: 'customer.account.addresses.address_form.zipcode',
               default_value: address_default_zipcode,
               autocomplete: 'postal-code',
-              container_class: 'mt-4'
+              label_class: 'hidden',
+              container_class: 'mt-4',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+              required: true,
+              requiredStar: true
             -%}
             {%-
               render 'component.input',
-              label: 'customer.account.addresses.address_form.phone',
+              id: 'addressCity',
+              name: 'address[city]',
+              placeholder: 'customer.account.addresses.address_form.city',
+              default_value: address_default_city,
+              autocomplete: 'address-level2',
+              label_class: 'hidden',
+              container_class: 'mt-4',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
+              required: true,
+              requiredStar: true
+            -%}
+            {%-
+              render 'component.input',
               id: 'addressTelephone',
               name: 'address[phone]',
               placeholder: 'customer.account.addresses.address_form.phone',
               default_value: address_default_phone,
               autocomplete: 'tel',
-              container_class: 'mt-4'
+              label_class: 'hidden',
+              container_class: 'mt-4',
+              input_class: 'mt-0 px-4 py-[18px] border-grey-4',
             -%}
             {% unless address == customer.default_address %}
               {% liquid
@@ -148,18 +169,19 @@
                 id: edit_address_checkbox_id,
                 name: 'address[default]',
                 default_value: "1",
-                container_class: 'mt-6 mb-3'
+                container_class: 'mt-4 lg:mt-5 text-detailed',
+                input_class: 'border-grey-4'
               -%}
             {% endunless %}
-            <input
-              type='submit'
-              value='{{ 'customer.account.addresses.edit_address.submit_button' | t }}'
-              class='w-full py-3 mt-6 cursor-pointer font-normal bg-primary text-white hover:bg-primary/90 focus:bg-primary/90'
-            >
-            <a
-              data-reset-page-button
-              class='block text-center underline cursor-pointer mx-auto my-4'
-            >
+          </div>
+          <div class="flex flex-col lg:flex-row mt-[26px] lg:mt-[30px] items-center gap-4 lg:gap-10">
+            {%- render 'component.button'
+              type: 'submit'
+              text: 'customer.account.addresses.edit_address.submit_button'
+              style: 'primary'
+              class: 'w-full px-8 lg:px-12 lg:max-w-[189px]'
+            -%}
+            <a data-reset-page-button class='cursor-pointer text-grey-3 text-center underline text-body-sm'>
               {{- 'customer.account.addresses.edit_address.cancel_button' | t -}}
             </a>
           </div>

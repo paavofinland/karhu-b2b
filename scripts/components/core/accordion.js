@@ -2,8 +2,8 @@ import choozy from '../../lib/choozy';
 
 export default window.component((node, ctx) => {
   const { group } = node.dataset;
-  const { inner, toggle } = choozy(node, null);
-  const activeClass = 'open';
+  const { inner, toggle, shrinkBtn, expandBtn } = choozy(node, null);
+  const activeClass = 'is-active';
 
   const updateHeight = () => {
     node.style.setProperty('--innerHeight', `auto`);
@@ -25,5 +25,9 @@ export default window.component((node, ctx) => {
   ctx.on('accordion:toggle', (state, a = {}) => {
     if (group !== a.group) return;
     node.classList[a.open && a.node === node ? 'add' : 'remove'](activeClass);
+    shrinkBtn.classList.toggle('hidden');
+    shrinkBtn.classList.toggle('flex');
+    expandBtn.classList.toggle('hidden');
+    expandBtn.classList.toggle('block');
   });
 });

@@ -3,79 +3,48 @@
     Renders picture element
 
   About:
-    Render a responsive image on both mobile and desktop
+    Render a responsive image
 
   Accepts:
-    - img: {Object} Mobile image
+    - img: {Object} image
 
-    OPTIONAL
-    - desktop_img: {Object} (Default: img) Desktop image
-    - max_width: {Integer} (Default: 1920) The maximum size this image should render in, this can optimise the site speed.
+  OPTIONAL:
+    - width: {Integer} (Default: 1920) The maximum size this image should render in, this can optimise the site speed.
     - lazy: {Boolean} (Default: true) In case you would like to disable the lazy loading
-    - placeholder: {Boolean} (Default: true) In case you would like to show a placeholder bg-primary before image load
+    - preload: {Boolean} (Default: true) In case you would like to disable the preloading
     - class: {String} Class to add to the picture element
-    - img_class: {String} Class to add to the img element
 
   Usage:
     {%- render 'component.image',
       img: s.image,
-      desktop_img: s.desktop_image,
-      max_width: 2560,
-      alt: s.title,
-      placeholder: true
+      width: 2560,
+      placeholder: true,
+      class: 'w-full'
     -%}
 {%- endcomment -%}
 
 {%- liquid
-  assign max_width = max_width | default: 1920
-  assign desktop_img = desktop_img | default: img
+  assign width = width | default: 1940 | plus: 1
 
-  assign img_ratio = 1.00 | divided_by: img.aspect_ratio | times: 100
-  assign desktop_ratio = 1.00 | divided_by: desktop_img.aspect_ratio | times: 100
+  assign fallback_widths = '390, 512, 768, 1280, 1440, 1920, 2140, 2560'
 
-  assign lazy = lazy | default: true, allow_false: true
+  assign img = img | default: fallback_img
 
-  assign placeholder = placeholder | default: true, allow_false: true
-
-  if eager
-    assign lazy = false
+  if aspect_ratio
+    assign height = width | times: aspect_ratio
   endif
--%}
-{% comment %} theme-check-disable ImgLazyLoading,RemoteAsset {% endcomment %}
 
-<picture
-  style='--mobile-ratio: {{ aspect_ratio | default: img_ratio }}%; --desktop-ratio: {{ desktop_ratio | default: aspect_ratio }}%;'
-  class='{{- class }} relative w-full overflow-hidden block pt-[var(--mobile-ratio)] lg:pt-[var(--desktop-ratio)]'
->
-  <source
-    media='(max-width: 1023px)'
-    sizes='(-webkit-min-device-pixel-ratio: 1),(max-resolution: 191dpi) 50vw, (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) 50vw'
-    srcset='
-      {{ img | image_url: width: 165 }} 165w,
-      {%- if max_width >= 360 -%}{{ img | image_url: width: 360 }} 360w,{%- endif -%}
-      {%- if max_width >= 535 -%}{{ img | image_url: width: 535 }} 535w,{%- endif -%}
-      {%- if max_width >= 767 -%}{{ img | image_url: width: 767 }} 767w,{%- endif -%}
-    '
-  >
-  <source
-    media='(min-width: 1024px)'
-    sizes='(-webkit-min-device-pixel-ratio: 1),(max-resolution: 191dpi) 50vw, (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) 100vw'
-    srcset='
-      {{ desktop_img | image_url: width: 768 }} 768w,
-      {%- if max_width >= 1070 -%}{{ desktop_img | image_url: width: 1070 }} 1070w,{%- endif -%}
-      {%- if max_width >= 1500 -%}{{ desktop_img | image_url: width: 1500 }} 1500w,{%- endif -%}
-      {%- if max_width >= 2560 -%}{{ desktop_img | image_url: width: 2560 }} 2560vw,{%- endif -%}
-    '
-  >
-  <img
-    src='{{ img | image_url: width: 1500 }}'
-    class='{{- img_class }} peer absolute inset-0 w-full h-full'
-    alt='{{- alt | default: img.alt | default: shop.name -}}'
-    loading='{% if lazy %}lazy{% else %}eager{% endif %}'
-    width='{{- img.width -}}'
-    height='{{- img.height -}}'
-  >
-  {%- if placeholder -%}
-    <div class='absolute inset-0 z-[-1] w-full h-full bg-primary'></div>
-  {%- endif -%}
-</picture>
+  assign width_string = width | append: 'px'
+
+  assign sizes = '(max-width: [width]) 100vw, [width]' | replace: '[width]', width_string
+
+  capture loading
+    if eager == true
+      echo 'eager'
+    else
+      echo 'lazy'
+    endif
+  endcapture
+
+  echo img | image_url: width: width, height: height | image_tag: loading: loading, preload: preload, class: class, sizes: sizes, alt: img.alt, widths: fallback_widths
+-%}

@@ -1,0 +1,23 @@
+{%- liquid 
+  if link == active_link
+    assign tag = 'span'
+    assign close_tag = 'span'
+  else
+    assign tag = 'a href="' | append: link.url | append: '" '
+    assign close_tag = 'a'
+    assign attr = 'alt="' | append: link.title | append: '"'
+  endif
+
+  assign translated_text = title | t
+
+  unless translated_text contains 'translation missing:'
+    assign title = translated_text
+  endunless
+  assign title = title | default: link.title
+-%}
+<{{- tag }}
+  {{ attr }}
+  class='{{ class }} {% if link == active_link and text_color == nil %}text-black{% endif %} relative whitespace-nowrap {% unless link == active_link %} after:bottom-0 after:left-0 after:w-full after:transition-transform after:duration-300 after:absolute after:h-[1px] after:bg-current after:scale-x-0 after:origin-bottom-left hover:after:scale-100 {% endunless %}'
+>
+  {%- render 'function.render-collection-title', title: title -%}
+</{{- close_tag -}}>

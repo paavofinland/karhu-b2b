@@ -16,6 +16,11 @@
     "refresh_page": "Refresh page",
     "of": "of"
   },
+  "collections": {
+    "close": "Close",
+    "quick_add": "Quick add",
+    "collection_empty": "There are no products in this collection"
+  },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",
@@ -50,17 +55,21 @@
       "password": "Password",
       "login_button": "Login",
       "forgot_button": "Forgot your password?",
-      "heading": "Don't have an account?",
-      "subheading": "Create your own account today. It makes shopping smoother and faster, while also earning you reward points on every purchase.",
+      "heading": "Have a B2B account?",
+      "subheading": "Access it now to shop for your business.",
       "register_button": "Create your account"
     },
     "forgot": {
-      "heading": "Forgot password",
+      "heading": "Forgot your password?",
       "subheading": "Please enter the email address you used to create your account. We’ll send you an email to reset your password.",
       "email": "Email",
       "submit_button": "Submit",
       "back_to_login_button": "Back to login",
       "success": "We have sent an email to reset your password!"
+    },
+    "recover_success": {
+      "heading": "Check your mailbox",
+      "subheading": "If you have a B2B account, you will receive instructions in your mailbox."
     },
     "register": {
       "heading": "Create your account",
@@ -76,7 +85,7 @@
       "submit_button": "Create account"
     },
     "activate": {
-      "heading": "Activate your account",
+      "heading": "Activate account",
       "subheading": "Create your password to activate account.",
       "password": "Password",
       "password_confirm": "Confirm password",
@@ -94,7 +103,7 @@
       "greeting": "Hi, {{ first_name }}",
       "orders": {
         "tab_title_mobile": "Orders",
-        "tab_title_desktop": "Orders",
+        "tab_title_desktop": "Order History",
         "page_title": "Latest Orders",
         "no_orders_yet": "You haven't placed any orders yet.",
         "shop_now_button": "Shop now",
@@ -109,12 +118,21 @@
         "tab_title_mobile": "Personal information",
         "tab_title_desktop": "Personal info",
         "page_title": "Addresses",
-        "your_info": "Your info",
+        "your_info": "Your information",
+        "account_info": "Account information",
         "no_addresses_yet": "You haven't saved any addresses yet.",
         "back_to_info": "Back to personal information",
         "add_address_button": "Add address",
         "edit_address_button": "Edit",
         "delete_address_button": "Delete",
+        "addresses": "Addresses",
+        "no_addresses_text": "You haven't saved any addresses yet.",
+        "address_details": {
+          "default_address": "Default address",
+          "edit": "Edit",
+          "delete": "Delete",
+          "make_default": "Make default"
+        },
         "delete_address_confirmation": {
           "title": "Delete address",
           "text": "Are you sure you want to delete this address? \n This cannot be undone.",
@@ -132,7 +150,7 @@
           "last_name": "Last name",
           "company": "Company",
           "street_name": "Streetname and housenumber",
-          "zipcode": "Zipcode",
+          "zipcode": "Postal Code",
           "city": "City",
           "country": "Country",
           "phone": "Phone number"

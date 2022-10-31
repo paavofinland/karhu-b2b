@@ -1,0 +1,15 @@
+<div data-color-slide class='swiper-slide mr-1 {{ slide_class }} slide:w-auto'>
+  <div class='overflow-hidden w-[104px] h-[80px] {{ content_class }}'>
+    {%- if link -%}
+      <a href='{{- product.url -}}'>
+    {%- endif -%}
+      {%- render 'component.image',
+        img: product.featured_image,
+        class: 'w-full h-full',
+        img_class: 'object-cover'
+      -%}
+    {%- if link -%}
+      </a>
+    {%- endif -%}
+  </div>
+</div>

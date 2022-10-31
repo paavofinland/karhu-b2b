@@ -20,6 +20,7 @@
     - placeholder_class: {String} Placeholder option's class
     - attributes: {String} Additional attributes you want to add, like data-attributes
     - autocomplete: {String} Autocomplete value for the input
+    - requiredStar: {Boolean} Display 'required' star in placeholder
 
   Usage:
     {%- capture options -%}
@@ -49,9 +50,11 @@
   endunless
 %}
 
-<div class='relative after:absolute after:w-[10px] after:h-[10px] after:border-2 after:border-l-0 after:border-t-0 after:border-black after:rotate-45 after:pointer-events-none after:bottom-[1.4rem] after:right-4 {{ container_class }}'>
+<div class='relative after:absolute after:bg-[url("icon.select-black.svg")] after:w-[18px] after:h-4 after:pointer-events-none after:right-1 after:bottom-3 {{ container_class }}'>
   {% if label %}
-    <label for='{{ id }}' class='{{ label_class }}'>{{ label }}</label>
+    <label for='{{ id }}' class='{{ label_class }}'>
+      {{- label -}}
+    </label>
   {% endif %}
   <select
     id='{{ id }}'
@@ -64,7 +67,10 @@
     {% endif %}
   >
     {% if placeholder -%}
-      <option class='{{ placeholder_class }}' disabled selected>{{ placeholder }}</option>
+      <option class='{{ placeholder_class }}' disabled selected>
+        {{ placeholder }}
+        {%- if requiredStar -%}*{%- endif -%}
+      </option>
     {%- endif %}
     {{ options }}
   </select>

@@ -1,18 +1,29 @@
 <!doctype html>
 <html class='no-js' lang='{{ request.locale.iso_code }}'>
-  {%- unless customer -%}
-    {%- if template contains 'customers' -%}
-      {%- assign send_to_login = false -%}
-    {%- else -%}
-      {%- assign send_to_login = true -%}
-    {%- endif -%}
-  {%- endunless -%}
+  {%- assign send_to_login = true -%}
 
-  {%- if send_to_login and request.path != '/challenge' -%}
+  {%- if customer -%}
+    {%- assign send_to_login = false -%}
+  {%- endif -%}
+
+  {%- liquid
+    if customer
+      assign send_to_login = false
+    endif
+    if template contains 'customers'
+      assign send_to_login = false
+    endif
+    if request.path == '/' or request.path == '/challenge'
+      assign send_to_login = false
+    endif
+    if request.design_mode == true
+      assign send_to_login = false
+    endif
+  -%}
+
+  {%- if send_to_login -%}
     {%- liquid
-      unless request.path == '/'
-        assign redirectParam = '?return_url=' | append: request.path
-      endunless
+      assign redirectParam = '?return_url=' | append: request.path
     -%}
     <meta content='0; url=/account/login{{- redirectParam -}}' http-equiv='refresh'>
   {%- else -%}

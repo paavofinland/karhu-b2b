@@ -21,17 +21,28 @@
     -%}
 {%- endcomment -%}
 
-<div class="relative overflow-hidden {{ class -}}">
-  <{{- title_tag }} class="text-heading-3 lg:text-heading-2 text-center text-white absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+{%- liquid
+  if lazyload_image == false
+    assign eager = 1
+  endif
+-%}
+
+<div class='container relative overflow-hidden {{ class -}}'>
+  <{{ title_tag }} class='text-heading-3 lg:text-heading-2 text-center text-white absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2'>
     {{- title -}}
-  </{{- title_tag -}}>
-  <div class="{{- class -}}">
-    {%- render 'component.image'
-      img: image
-      desktop_img: desktop_image
-      lazy: lazyload_image
-      class: 'w-full h-full'
-      img_class: 'object-cover'
+  </{{ title_tag }}>
+  <div class='{{- class -}}'>
+    {%- render 'component.image',
+      img: image,
+      eager: eager,
+      width: 1024,
+      class: 'w-full h-full object-cover object-top lg:hidden'
+    -%}
+    {%- render 'component.image',
+      img: desktop_image,
+      eager: eager,
+      width: 1920,
+      class: 'w-full h-full object-cover object-top hidden lg:block'
     -%}
   </div>
 </div>

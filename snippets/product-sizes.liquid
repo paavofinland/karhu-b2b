@@ -1,0 +1,57 @@
+{%- liquid
+  assign default_size_index = 1
+  assign size_locales = 'eu|us|uk' | split: '|'
+-%}
+<div data-component='productSizes' class='mt-7'>
+  <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-5'>
+    <p>Select amount</p>
+    <div class='flex lg:gap-2'>
+      {%- for l in size_locales -%}
+        <button
+          data-size-button
+          type='button'
+          class='
+            text-grey-4 w-9 h-9 lg:h-fit lg:w-fit is-active:text-inherit {% if forloop.index0 == default_size_index -%}
+              is-active
+            {%- endif -%}
+          '
+        >
+          {{ l | upcase }}
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+  <div class='grid grid-cols-3 lg:grid-cols-4 gap-4'>
+    {%- for variant in product.variants -%}
+      {%- liquid
+        assign quantity = variant.inventory_quantity
+        assign label_prefix_class = 'w-2 h-2 mr-2 rounded '
+        if quantity > 1
+          assign label_prefix_class = label_prefix_class | append: 'bg-green-light'
+        elsif quantity == 1
+          assign label_prefix_class = label_prefix_class | append: 'bg-orange'
+        else
+          assign label_prefix_class = label_prefix_class | append: 'bg-red-light'
+        endif
+      -%}
+      <fieldset class='flex flex-col gap-1 text-body-xs'>
+        <label for='{{- variant.option1 -}}'
+          ><span class='inline-block {{ label_prefix_class }}'></span>
+          {%- render 'locale-size-label',
+            size: variant.option1,
+            locales: size_locales,
+            default_index: default_size_index
+          -%}
+        </label>
+        <input
+          id='{{- variant.option1 -}}'
+          class='w-full appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0'
+          type='number'
+          value='0'
+          min='0'
+          max='{{- quantity -}}'
+        >
+      </fieldset>
+    {%- endfor -%}
+  </div>
+</div>

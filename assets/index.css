@@ -934,10 +934,6 @@ html {
   margin-right: 0.25rem;
 }
 
-.-mt-\[56px\] {
-  margin-top: -56px;
-}
-
 .block {
   display: block;
 }
@@ -2533,10 +2529,6 @@ html {
 }
 
 @media (min-width: 768px) {
-
-  .md\:-mt-\[68px\] {
-    margin-top: -68px;
-  }
 
   .md\:block {
     display: block;

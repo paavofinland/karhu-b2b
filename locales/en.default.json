@@ -28,7 +28,13 @@
       "adding_to_cart": "Adding to cart",
       "added_to_cart": "Added to cart",
       "unavailable": "Unavailable",
-      "sold_out": "Sold out"
+      "sold_out": "Sold out",
+      "details": {
+        "description": "Description",
+        "delivery_and_returns": "Delivery & Returns",
+        "delivery_and_returns_content": "Your order is prepared for shipment on business days the next morning after you placed your order. Typically, the warehouse is able to manage and send out your order the same day, or the next morning after they start processing it!",
+        "size_guide": "Size guide"
+      }
     }
   },
   "cart": {

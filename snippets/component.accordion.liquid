@@ -1,3 +1,17 @@
+{%- liquid
+  assign translated_text = title | t
+
+  unless translated_text contains 'translation missing:'
+    assign title = translated_text
+  endunless
+
+  assign translated_content = content | t
+
+  unless translated_content contains 'translation missing:'
+    assign content = translated_content
+  endunless
+-%}
+
 <div
   class='border-b border-b-grey-5 group {% if active -%}is-active{%- endif -%}'
   data-component='accordion'

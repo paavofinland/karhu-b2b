@@ -33,7 +33,9 @@
         "description": "Description",
         "delivery_and_returns": "Delivery & Returns",
         "delivery_and_returns_content": "Your order is prepared for shipment on business days the next morning after you placed your order. Typically, the warehouse is able to manage and send out your order the same day, or the next morning after they start processing it!",
-        "size_guide": "Size guide"
+        "delivery_and_returns_more": "View Full Details",
+        "size_guide": "Size guide",
+        "size_guide_more": "View Full Guide"
       }
     }
   },

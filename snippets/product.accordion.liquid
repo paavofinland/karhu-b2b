@@ -4,12 +4,6 @@
   unless translated_text contains 'translation missing:'
     assign title = translated_text
   endunless
-
-  assign translated_content = content | t
-
-  unless translated_content contains 'translation missing:'
-    assign content = translated_content
-  endunless
 -%}
 
 <div
@@ -27,9 +21,16 @@
     </div>
   </button>
   <article
-    class='h-0 overflow-hidden transition-all duration-500 prose group-is-active:h-[var(--innerHeight)] group-is-active:mb-7'
+    class='h-0 overflow-hidden transition-all duration-500 prose group-is-active:h-[var(--innerHeight)] group-is-active:mb-7 text-body-sm'
     data-inner
   >
-    {{- content -}}
+    {%- if content -%}
+      <div class="mb-8">
+        {{- content -}}
+      </div>
+    {%- endif -%}
+    {%- if view_more_text -%}
+      <button data-modal-type="{{ group }}" data-toggle-modal-btn class="text-grey-4">{{- view_more_text | t -}}</button>
+    {%- endif -%}
   </article>
 </div>

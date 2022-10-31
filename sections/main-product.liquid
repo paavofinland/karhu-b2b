@@ -15,11 +15,35 @@
   endfor
 
   assign currentProduct = product.handle
+
+  for block in section.blocks
+    assign guide = block.settings.title
+    if guide == sizeGuide
+      assign sizeNote = block.settings.text | strip_html
+    endif
+    if block.type == 'size-guide'
+      if block.settings.title contains sizeGuide
+        assign sizeGuideContent = pages[block.settings.size_guide_page]
+      endif
+    endif
+  endfor
 -%}
+
+{%- for block in section.blocks -%}
+  {%- assign guide = block.settings.title -%}
+  {%- if guide == sizeGuide -%}
+    {%- assign sizeNote = block.settings.text | strip_html -%}
+  {%- endif -%}
+  {% if block.type == 'size-guide' %}
+    {%- if block.settings.title contains sizeGuide -%}
+      {%- assign sizeGuideContent = pages[block.settings.size_guide_page] -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
 
 <div
   class='container grid grid-cols-1 lg:grid-cols-[1fr_min(40%,800px)]'
-  data-component='productData'
+  data-component='productDetails'
 >
   {%- render 'product.images' -%}
   <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[100px] overflow-hidden lg:mt-[var(--header-height)]'>
@@ -50,22 +74,81 @@
       size: 'lg',
       class: 'w-full mt-10'
     -%}
-    <div class='mt-8'>
-      {%- render 'component.accordion',
-        title: 'products.product.details.description',
-        content: product.description,
-        group: 'description'
-      -%}
-      {%- render 'component.accordion',
+    <div class='mt-8 product-details'>
+      {%- if product.description != '' -%}
+        {%- render 'product.accordion',
+          title: 'products.product.details.description',
+          content: product.description,
+          group: 'description'
+        -%}
+      {%- endif -%}
+      {%- assign content = 'products.product.details.delivery_and_returns_content' | t -%}
+      {%- render 'product.accordion',
         title: 'products.product.details.delivery_and_returns',
-        content: 'products.product.details.delivery_and_returns_content',
+        content: content,
+        group: 'delivery',
+        view_more_text: 'products.product.details.delivery_and_returns_more'
+      -%}
+      {%- render 'component.modal',
+        title: pages[section.settings.delivery_page].title,
+        content: pages[section.settings.delivery_page].content,
         group: 'delivery'
       -%}
-      {%- render 'component.accordion',
-        title: 'products.product.details.size_guide',
-        content: 'Hardcoded content',
-        group: 'size'
-      -%}
+      {%- if sizeNote != '' or sizeGuideContent != '' or sizeGuideContent != '' -%}
+        {%- render 'product.accordion',
+          title: 'products.product.details.size_guide',
+          content: sizeNote,
+          group: 'size',
+          view_more_text: 'products.product.details.size_guide_more'
+        -%}
+        {%- render 'component.modal',
+          title: sizeGuideContent.title,
+          content: sizeGuideContent.content,
+          group: 'size'
+        -%}
+      {%- endif -%}
     </div>
   </div>
 </div>
+
+{%- schema -%}
+{
+  "name": "Product page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Delivery & returns"
+    },
+    {
+      "type": "page",
+      "label": "Delivery and returns content",
+      "id": "delivery_page"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "size-guide",
+      "name": "Size guide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "placeholder": "size_guide: one, size_guide: two",
+          "label": "Matching tag"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>New to the Fusion 2.0? We recommend to order 0.5 up in size compared to your regular size.</p>"
+        },
+        {
+          "type": "page",
+          "id": "size_guide_page",
+          "label": "Size guide page"
+        }
+      ]
+    }
+  ]
+}
+{%- endschema -%}

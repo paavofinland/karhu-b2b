@@ -48,13 +48,14 @@
   unless translated_label contains 'translation missing:'
     assign label = translated_label
   endunless
+
   assign translated_placeholder = placeholder | t
   unless translated_placeholder contains 'translation missing:'
     assign placeholder = translated_placeholder
   endunless
 %}
 
-<div class='relative after:absolute after:bg-[url("icon.select-black.svg")] after:w-[18px] after:h-4 after:pointer-events-none after:right-1 after:bottom-3 {{ container_class }}'>
+<div class='relative after:absolute after:bg-[url("icon.select-black.svg")] after:w-[18px] after:h-4 after:pointer-events-none after:right-1 after:top-1/2 after:-translate-y-1/2 {{ container_class }}'>
   {% if label %}
     <label for='{{ id }}' class='{{ label_class }}'>
       {{- label -}}

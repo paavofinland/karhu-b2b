@@ -1,6 +1,18 @@
 {% liquid
   assign s = section.settings
-%}
+  assign image = s.image | default: collection.featured_image
+  assign desktop_image = s.desktop_image | default: collection.featured_image
+  assign title = s.title | default: collection.title
+-%}
+
+{%- render 'component.header',
+  title_tag: 'h2',
+  title: title,
+  image: image,
+  desktop_image: desktop_image,
+  lazyload_image: true,
+  class: 'h-[404px] lg:h-[640px]'
+-%}
 
 <div class='border-b-grey-5 border-b'>
   <ul class='container-content flex justify-center gap-9 py-6 lg:py-8 text-heading-5'>
@@ -69,6 +81,11 @@
 {
   "name": "Collection",
   "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
     {
       "type": "image_picker",
       "id": "image",

@@ -1,16 +1,17 @@
 {%- assign s = section.settings -%}
 
-<section class="pt-7 lg:pt-0 flex flex-col-reverse lg:flex-row container" data-component='login'>
-  <div class="lg:flex-1 h-[348px] lg:h-[752px] overflow-hidden">
-    {%- render 'component.image'
-      img: s.image
-      desktop_img: s.desktop_image
-      class: 'h-full'
-      img_class: 'object-cover'
-    -%}
-  </div>
-  <div class="flex items-center justify-center flex-col lg:flex-1 mb-10 lg:mb-0">
-    <div class="mx-4 lg:mx-0 max-w-[480px]">
+<section class='lg:pt-0 flex flex-col-reverse lg:flex-row container' data-component='login'>
+  {%- if true -%}
+    <div class='lg:flex-1 h-[348px] lg:h-[752px] overflow-hidden'>
+      {%- render 'component.image',
+        img: s.image,
+        desktop_img: s.desktop_image,
+        class: 'w-full h-full object-cover object-top'
+      -%}
+    </div>
+  {%- endif -%}
+  <div class='flex items-center justify-center flex-col lg:flex-1 py-7'>
+    <div class='mx-4 lg:mx-0 max-w-[480px]'>
       {%- if canonical_url contains 'login' -%}
         {%- render 'account.login-page' -%}
       {%- elsif canonical_url contains 'account/reset' -%}
@@ -23,28 +24,28 @@
 </section>
 
 {% schema %}
-  {
-    "name": "Login page",
-    "settings": [
-      {
-          "type": "header",
-          "content": "Images"
-      },
-      {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-      },
-      {
-          "type": "image_picker",
-          "id": "desktop_image",
-          "label": "Desktop Image"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Login page"
-      }
-    ]
-  }
+{
+  "name": "Login page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Login page"
+    }
+  ]
+}
 {% endschema %}

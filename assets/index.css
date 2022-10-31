@@ -1017,6 +1017,10 @@ html {
   height: 256px;
 }
 
+.h-\[404px\] {
+  height: 404px;
+}
+
 .h-5 {
   height: 1.25rem;
 }
@@ -1628,6 +1632,11 @@ html {
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
+}
+
+.object-top {
+  -o-object-position: top;
+     object-position: top;
 }
 
 .p-4 {
@@ -2648,6 +2657,9 @@ html {
   }
   .lg\:h-\[468px\] {
     height: 468px;
+  }
+  .lg\:h-\[640px\] {
+    height: 640px;
   }
   .lg\:h-\[752px\] {
     height: 752px;

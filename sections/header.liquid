@@ -26,7 +26,7 @@
   <div
     data-main
     class='
-      border-b border-opacity-20 h-[var(--header-height)] overflow-visible transition-colors duration-200
+      border-b border-opacity-20 w-full h-[var(--header-height)] overflow-visible transition-colors duration-200
       is-active:border-opacity-100 is-active:bg-white is-active:text-black is-active:border-grey-5
       hover:border-opacity-100 hover:bg-white hover:text-black hover:border-grey-5
       {% if clearBackground -%}{{- textBorderClasses }} -mb-[var(--header-height)]{%- else -%}is-active{%- endif -%}
@@ -40,30 +40,43 @@
         -%}
       </a>
       <ul class='hidden lg:flex flex-grow justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
-        {%- for link in headerMenu -%}
-          <li class='group'>
-            <a href='{{- link.url -}}'>
-              {{- link.title -}}
-            </a>
-            <span
-              class='block max-w-0 transition-all duration-200 h-0.5 bg-current group-hover:max-w-full'
-            ></span>
-          </li>
-        {%- endfor -%}
+        {%- if customer -%}
+          {%- for link in headerMenu -%}
+            <li class='group'>
+              <a href='{{- link.url -}}'>
+                {{- link.title -}}
+              </a>
+              <span
+                class='block max-w-0 transition-all duration-200 h-0.5 bg-current group-hover:max-w-full'
+              ></span>
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
       </ul>
       <ul class='hidden lg:flex justify-center items-center gap-9 pl-content text-heading-7'>
-        <li class='cursor-pointer group'>
-          Search
-          <span
-            class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
-          ></span>
-        </li>
-        <li class='cursor-pointer group'>
-          Bag (0)
-          <span
-            class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
-          ></span>
-        </li>
+        {%- if customer -%}
+          <li class='cursor-pointer group'>
+            Search
+            <span
+              class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+            ></span>
+          </li>
+          <li class='cursor-pointer group'>
+            Bag (0)
+            <span
+              class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+            ></span>
+          </li>
+        {%- else -%}
+          <li class='cursor-pointer group'>
+            <a href='/'>
+              {{- 'general.header.back_to_karhu' | t -}}
+            </a>
+            <span
+              class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
+            ></span>
+          </li>
+        {%- endif -%}
       </ul>
       <div class='flex items-center lg:hidden py-4 pl-content gap-4'>
         <div data-hamburger>
@@ -74,30 +87,42 @@
             {%- render 'component.icon', type: 'hamburger-menu-opened' -%}
           </div>
         </div>
-        <div>
-          {%- render 'component.icon', type: 'cart' -%}
-        </div>
+        {%- if customer -%}
+          <div>
+            {%- render 'component.icon', type: 'cart' -%}
+          </div>
+        {%- endif -%}
       </div>
       <nav
         class='lg:hidden absolute bg-white text-black w-screen top-full -left-full duration-200'
         data-mobile-menu
       >
         <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
-          <li>Search</li>
-          <li>Bag (0)</li>
-        </ul>
-        <ul class='px-4 text-heading-4'>
-          {%- for link in headerMenu -%}
-            <li class='py-5 border-b border-grey-5'>
-              <a class='flex justify-between items-center' href='{{- link.url -}}'>
-                {{- link.title -}}
-                <span class='flex items-center justify-center w-10 h-10'>
-                  {%- render 'component.icon', type: 'arrow-right' -%}
-                </span>
+          {%- if customer -%}
+            <li>Search</li>
+            <li>Bag (0)</li>
+          {%- else -%}
+            <li class='mx-auto'>
+              <a href='/'>
+                {{- 'general.header.back_to_karhu' | t -}}
               </a>
             </li>
-          {%- endfor -%}
+          {%- endif -%}
         </ul>
+        {%- if customer -%}
+          <ul class='px-4 text-heading-4'>
+            {%- for link in headerMenu -%}
+              <li class='py-5 border-b border-grey-5'>
+                <a class='flex justify-between items-center' href='{{- link.url -}}'>
+                  {{- link.title -}}
+                  <span class='flex items-center justify-center w-10 h-10'>
+                    {%- render 'component.icon', type: 'arrow-right' -%}
+                  </span>
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
         <div class='absolute left-0 right-0 bottom-0'>
           {%- render 'component.footer-bar', is_menu: true -%}
         </div>

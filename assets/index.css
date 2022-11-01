@@ -1513,20 +1513,20 @@ html {
   left: calc(50% + 36px);
 }
 
-.right-7 {
-  right: 1.75rem;
-}
-
-.top-7 {
-  top: 1.75rem;
-}
-
 .top-4 {
   top: 1rem;
 }
 
 .right-4 {
   right: 1rem;
+}
+
+.top-3 {
+  top: 0.75rem;
+}
+
+.right-3 {
+  right: 0.75rem;
 }
 
 .left-4 {
@@ -1553,8 +1553,13 @@ html {
   z-index: 10;
 }
 
+<<<<<<< HEAD
 .z-\[100\] {
   z-index: 100;
+=======
+.z-\[10000\] {
+  z-index: 10000;
+>>>>>>> 7f86cf5 (feat: create cart page layout)
 }
 
 .z-\[1\] {
@@ -1668,6 +1673,10 @@ html {
   margin-right: 0.5rem;
 }
 
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .mb-\[30px\] {
   margin-bottom: 30px;
 }
@@ -1702,10 +1711,6 @@ html {
 
 .mt-0 {
   margin-top: 0px;
-}
-
-.mt-4 {
-  margin-top: 1rem;
 }
 
 .mb-\[42px\] {
@@ -2018,6 +2023,10 @@ html {
 
 .min-w-\[180px\] {
   min-width: 180px;
+}
+
+.min-w-\[340px\] {
+  min-width: 340px;
 }
 
 .max-w-0 {
@@ -2700,6 +2709,10 @@ html {
 
 .pb-3 {
   padding-bottom: 0.75rem;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
 }
 
 .pb-5 {
@@ -3420,6 +3433,7 @@ html {
     left: initial;
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
   .lg\:top-6 {
     top: 1.5rem;
   }
@@ -3428,6 +3442,14 @@ html {
   }
 =======
 >>>>>>> 6553585 (wip: create empty cart page layout)
+=======
+  .lg\:right-7 {
+    right: 1.75rem;
+  }
+  .lg\:top-7 {
+    top: 1.75rem;
+  }
+>>>>>>> 7f86cf5 (feat: create cart page layout)
   .lg\:top-\[50\%\] {
     top: 50%;
   }
@@ -3618,6 +3640,9 @@ html {
   .lg\:min-w-\[120px\] {
     min-width: 120px;
   }
+  .lg\:min-w-\[480px\] {
+    min-width: 480px;
+  }
   .lg\:max-w-\[300px\] {
     max-width: 300px;
   }
@@ -3729,8 +3754,13 @@ html {
   .lg\:p-6 {
     padding: 1.5rem;
   }
+<<<<<<< HEAD
   .lg\:p-3 {
     padding: 0.75rem;
+=======
+  .lg\:p-8 {
+    padding: 2rem;
+>>>>>>> 7f86cf5 (feat: create cart page layout)
   }
   .lg\:p-content {
     padding: var(--content-padding);
@@ -3786,6 +3816,9 @@ html {
   }
   .lg\:pb-5 {
     padding-bottom: 1.25rem;
+  }
+  .lg\:pt-5 {
+    padding-top: 1.25rem;
   }
   .lg\:pb-7 {
     padding-bottom: 1.75rem;

@@ -12,6 +12,7 @@ export default window.component(node => {
     editAddresses,
     editAddressForm,
     makeDefaultButton,
+    links,
   } = choozy(node, null);
 
   const resetPage = e => {
@@ -67,4 +68,11 @@ export default window.component(node => {
         formElement.submit();
       });
     });
+
+  if (window.location.href.includes('carts')) {
+    links.forEach(linkElem => {
+      const isCartLink = linkElem.href.includes('carts');
+      linkElem.parentNode.classList[isCartLink ? 'remove' : 'add']('text-grey-4');
+    });
+  }
 });

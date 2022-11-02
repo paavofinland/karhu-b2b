@@ -1,17 +1,19 @@
+{%- include 'function.agent' -%}
 {%- liquid
   assign s = section.settings
   assign image = s.image | default: collection.featured_image
   assign desktop_image = s.desktop_image | default: collection.featured_image
 
-  if canonical_url contains 'addresses'
-    assign is_address_template = true
+  if request.path == '/account/addresses'
+    assign template = 'address'
   else
-    assign is_address_template = false
+    assign template = 'account'
   endif
 -%}
 
-<div data-component='account' class="container">
-  {%- render 'component.header'
+<div data-component='account' class='container'>
+  {%-
+    render 'component.header'
     title_tag: 'h2'
     title: s.title | default: collection.title
     image: image
@@ -20,37 +22,48 @@
     class: 'h-[256px] lg:h-[468px]'
   -%}
   <div class='flex flex-col lg:flex-row lg:gap-[60px] lg:p-[60px] lg:pb-0'>
-    <div class="text-heading-7 border-b border-grey-5 lg:border-none">
+    <div class='text-heading-7 border-b border-grey-5 lg:border-none'>
       <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px]'>
-        <li class="{%- if is_address_template -%} text-grey-4 {%- endif %} lg:mb-3">
-          <a
-            class='hidden lg:inline'
-            href='{{ routes.account_url }}'
-          >
-            {{- 'customer.account.orders.tab_title_desktop' | t -}}
-          </a>
-          <a
-            class='lg:hidden inline'
-            href='{{ routes.account_url }}'
-          >
-            {{- 'customer.account.orders.tab_title_mobile' | t -}}
-          </a>
-        </li>
-        <li class="{%- unless is_address_template -%} text-grey-4 {%- endunless %} lg:mb-3">
-          <a href='{{ routes.account_addresses_url }}'>
+        {%- if agent -%}
+          <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3'>
+            <a data-links href='{{ routes.account_url }}'> Customers </a>
+          </li>
+          <li class='text-grey-4 lg:mb-3'>
+            <a data-links href='{{ routes.account_url | append: "?menu=carts" }}'> Saved carts </a>
+          </li>
+        {%- else -%}
+          <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3'>
+            <a
+              class='hidden lg:inline'
+              href='{{ routes.account_url }}'
+            >
+              {{- 'customer.account.orders.tab_title_desktop' | t -}}
+            </a>
+            <a
+              class='lg:hidden inline'
+              href='{{ routes.account_url }}'
+            >
+              {{- 'customer.account.orders.tab_title_mobile' | t -}}
+            </a>
+          </li>
+        {%- endif -%}
+        <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3'>
+          <a data-links href='{{ routes.account_addresses_url }}'>
             {{- 'customer.account.addresses.your_info' | t -}}
           </a>
         </li>
         <li>
-          <a class='text-grey-4' href='{{ routes.account_logout_url }}'>{{- 'customer.account.logout' | t -}}</a>
+          <a class='text-grey-4' href='{{ routes.account_logout_url }}'>
+            {{- 'customer.account.logout' | t -}}
+          </a>
         </li>
       </ul>
     </div>
-    <div class="pt-7 px-4 pb-[60px] lg:p-0 lg:pb-[100px] w-full">
-      {% if is_address_template %}
+    <div class='pt-7 px-4 pb-[60px] lg:p-0 lg:pb-[100px] w-full'>
+      {% if template == 'address' %}
         {% render 'account.addresses' %}
       {% else %}
-        {% render 'account.orders' %}
+        {% render 'account.orders', agent: agent %}
       {% endif %}
     </div>
   </div>

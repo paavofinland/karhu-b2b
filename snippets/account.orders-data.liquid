@@ -1,0 +1,69 @@
+<div data-orders-container class='hidden'>
+  <h5 class='text-heading-5 pb-5 border-b border-black'>Orders</h5>
+  <table class='w-full hidden lg:table'>
+    <thead>
+      <tr class='text-heading-7 border-b border-grey-5'>
+        <td class='py-7'>Order number</td>
+        <td class='py-7'>Date</td>
+        <td class='py-7'>Payment status</td>
+        <td class='py-7'>Order status</td>
+        <td class='py-7'>Total</td>
+        <td class='py-7'>Invoice</td>
+      </tr>
+    </thead>
+    <tbody data-orders-table>
+      {%- if orders != null -%}
+        {%- for order in orders -%}
+          <tr class='border-b border-grey-5'>
+            <td class='py-7'>{{- order.order_number -}}</td>
+            <td class='py-7'>{{- order.created_at | date: '%b %e, %Y' -}}</td>
+            <td class='py-7'>{{- order.financial_status_label -}}</td>
+            <td class='py-7'>{{- order.fulfillment_status_label -}}</td>
+            <td class='py-7'>{{- order.total_price | money -}}</td>
+            <td class='py-7'>
+              <button class='underline'>View details</button>
+            </td>
+          </tr>
+        {%- endfor -%}
+      {%- endif -%}
+    </tbody>
+  </table>
+  <div data-orders-block class='block lg:hidden'>
+    {%- if orders != null -%}
+      {%- for order in orders -%}
+        <div class='grid grid-cols-2 gap-4 py-10'>
+          <div>
+            <p class='text-heading-7'>Order number</p>
+            <p>{{- order.order_number -}}</p>
+          </div>
+          <div>
+            <p class='text-heading-7'>Date</p>
+            <p>{{- order.created_at | date: '%b %e, %Y' -}}</p>
+          </div>
+          <div>
+            <p class='text-heading-7'>Payment Status</p>
+            <p>{{- order.financial_status_label -}}</p>
+          </div>
+          <div>
+            <p class='text-heading-7'>Order status</p>
+            <p>{{- order.fulfillment_status_label -}}</p>
+          </div>
+          <div>
+            <p class='text-heading-7'>Total</p>
+            <p>{{- order.total_price | money -}}</p>
+          </div>
+          <div>
+            <p class='text-heading-7'>Invoice</p>
+            <button class='underline'>View details</button>
+          </div>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+  {%- comment -%} TODO: Pagination for performance {%- endcomment -%}
+  {%- render 'component.button',
+    text: 'View previous orders',
+    style: 'secondary',
+    class: 'w-full mt-10 hidden'
+  -%}
+</div>

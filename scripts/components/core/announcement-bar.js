@@ -7,7 +7,7 @@ export default window.component(async (node, ctx) => {
   const { select: customerSelect } = choozy(selectCustomer, null);
   const { customerId, customerSecret, store, selectedStoreCustomer } = node.dataset;
 
-  if (!customerId || !customerSecret || !store) return;
+  if (!customerId || !customerSecret || !store || !selectCustomer) return;
 
   ctx.on(LOADING_EVENT, (_, isLoading = true) => {
     selectCustomer.classList[isLoading ? 'add' : 'remove']('is-loading');

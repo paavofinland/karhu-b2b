@@ -37,8 +37,8 @@
         endif
       -%}
       <fieldset class='flex flex-col gap-1 text-body-xs'>
-        <label for='{{- variant.option1 -}}'
-          ><span class='inline-block {{ label_prefix_class }}'></span>
+        <label for='{{- variant.id -}}'>
+          <span class='inline-block {{ label_prefix_class }}'></span>
           {%- render 'locale-size-label',
             size: variant.option1,
             locales: size_locales,
@@ -46,12 +46,20 @@
           -%}
         </label>
         <input
-          id='{{- variant.option1 -}}'
+          type='hidden'
+          name='items[{{- forloop.index | minus: 1 -}}][id]'
+          value='{{- variant.id -}}'
+        >
+        <input
+          data-quantity-inputs
+          id='{{- variant.id -}}'
+          name='items[{{- forloop.index | minus: 1 -}}][quantity]'
           class='w-full appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0'
           type='number'
           value='0'
           min='0'
           max='{{- quantity -}}'
+          pattern="^[0-9]*$"
         >
       </fieldset>
     {%- endfor -%}

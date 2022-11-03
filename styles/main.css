@@ -51,3 +51,20 @@
     @apply font-headings uppercase;
   }
 }
+
+.product-details table {
+  width: 100% !important;
+  table-layout: fixed;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.product-details tr {
+  border-bottom: 0.1rem solid #dbdbdb;
+}
+
+.product-details tr td,
+.product-details tr th {
+  padding: 1.5rem 0 2rem;
+  text-align: left;
+}

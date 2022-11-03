@@ -2354,6 +2354,11 @@ html {
   display: block;
 }
 
+.invalid\:text-grey-3:invalid {
+  --tw-text-opacity: 1;
+  color: rgb(143 143 143 / var(--tw-text-opacity));
+}
+
 .hover\:border-grey-5:hover {
   --tw-border-opacity: 1;
   border-color: rgb(219 219 219 / var(--tw-border-opacity));

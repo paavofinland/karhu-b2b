@@ -8,7 +8,7 @@ const orderPropertyNames = {
   price: 'Price',
 };
 
-export default window.component(async node => {
+export default window.component(async (node, ctx) => {
   const {
     selectCustomer,
     ordersContainer,
@@ -18,10 +18,10 @@ export default window.component(async node => {
     ordersBlock,
   } = choozy(node, null);
 
-  const announcementBar = document.querySelector('[data-store]');
-  const { customerId, customerSecret, store } = announcementBar.dataset;
+  let storeData = {};
 
   const getCustomerOrders = async e => {
+    const { store, customerSecret, customerId } = storeData;
     const query = new URLSearchParams({
       store,
       secret: customerSecret,
@@ -112,20 +112,6 @@ export default window.component(async node => {
     appendOrdersBlock(orderList);
   };
 
-  const getAgentStores = () => {
-    const query = new URLSearchParams({
-      store,
-      customerId,
-      secret: customerSecret,
-    });
-
-    return fetch(`${process.env.API_URL}/customer/list-agent-stores?${query}`).then(async res => {
-      if (res.status === 200) return res.json();
-      console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
-      return [];
-    });
-  };
-
   const appendCustomerSelect = data => {
     const documentFragment = document.createDocumentFragment();
     data.forEach(customer => {
@@ -139,9 +125,14 @@ export default window.component(async node => {
 
   if (selectCustomer) {
     selectCustomer.addEventListener('change', onSelectCustomer);
-    const agentStores = await getAgentStores();
-    appendCustomerSelect(agentStores);
+    ctx.on('agent-stores:received', ({ data }) => {
+      appendCustomerSelect(data);
+    });
   } else {
     onSelectCustomer();
   }
+
+  ctx.on('store-data:send', data => {
+    storeData = data;
+  });
 });

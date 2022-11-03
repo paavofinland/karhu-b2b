@@ -5,21 +5,23 @@
 <div data-component='productSizes' class='mt-7'>
   <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-5'>
     <p>Select amount</p>
-    <div class='flex lg:gap-2'>
-      {%- for l in size_locales -%}
-        <button
-          data-size-button
-          type='button'
-          class='
-            text-grey-4 w-9 h-9 lg:h-fit lg:w-fit is-active:text-inherit {% if forloop.index0 == default_size_index -%}
-              is-active
-            {%- endif -%}
-          '
-        >
-          {{ l | upcase }}
-        </button>
-      {%- endfor -%}
-    </div>
+    {% comment %}
+       <div class='flex lg:gap-2'>
+        {%- for l in size_locales -%}
+          <button
+            data-size-button
+            type='button'
+            class='
+              text-grey-4 w-9 h-9 lg:h-fit lg:w-fit is-active:text-inherit {% if forloop.index0 == default_size_index -%}
+                is-active
+              {%- endif -%}
+            '
+          >
+            {{ l | upcase }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {% endcomment %}
   </div>
   <div class='grid grid-cols-3 lg:grid-cols-4 gap-4'>
     {%- for variant in product.variants -%}

@@ -21,11 +21,11 @@
     </div>
   </button>
   <article
-    class='h-0 overflow-hidden transition-all duration-500 prose group-is-active:h-[var(--innerHeight)] group-is-active:mb-7 text-body-sm'
+    class='h-0 overflow-hidden transition-all duration-500 group-is-active:h-[var(--innerHeight)] group-is-active:mb-7 text-body-sm'
     data-inner
   >
     {%- if content -%}
-      <div class='mb-8'>
+      <div class='mb-8 prose'>
         {{- content -}}
       </div>
     {%- endif -%}

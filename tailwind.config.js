@@ -150,5 +150,10 @@ module.exports = {
       },
     },
   },
-  plugins: [require('./.dev/tailwind.variants'), require('./.dev/tailwind.containers')],
+  plugins: [
+    // eslint-disable-next-line import/no-extraneous-dependencies
+    require('@tailwindcss/typography'),
+    require('./.dev/tailwind.variants'),
+    require('./.dev/tailwind.containers'),
+  ],
 };

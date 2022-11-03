@@ -1,3 +1,6 @@
+/*!*********************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[0].use[2]!./styles/main.css ***!
+  \*********************************************************************************************************************************************************************/
 .skip-to-content {
   background: #fff;
   box-shadow: 0 1.2rem 2.4rem -1rem rgba(#000, 0.16);
@@ -1644,7 +1647,7 @@ html {
   background-color: currentColor;
 }
 
-.bg-\[\#0003\] {
+.bg-dark {
   background-color: #0003;
 }
 
@@ -1660,10 +1663,6 @@ html {
   background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
 }
 
-.bg-\[url\(\'\.\/close\.svg\'\)\] {
-  background-image: url('./close.svg');
-}
-
 .from-black\/20 {
   --tw-gradient-from: rgb(0 0 0 / 0.2);
   --tw-gradient-to: rgb(0 0 0 / 0);
@@ -1672,10 +1671,6 @@ html {
 
 .to-black\/40 {
   --tw-gradient-to: rgb(0 0 0 / 0.4);
-}
-
-.bg-contain {
-  background-size: contain;
 }
 
 .fill-current {
@@ -2827,6 +2822,12 @@ html {
   }
   .lg\:max-w-\[20\%\] {
     max-width: 20%;
+  }
+  .lg\:max-w-\[\%\] {
+    max-width: %;
+  }
+  .lg\:max-w-\[1200px\] {
+    max-width: 1200px;
   }
   .lg\:flex-1 {
     flex: 1 1 0%;

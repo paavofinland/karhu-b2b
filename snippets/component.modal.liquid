@@ -1,21 +1,22 @@
 <div
   data-component='modal'
-  data-modal-type="{{- group -}}"
-  class='modal fixed inset-0 z-[100] hidden justify-center bg-[#0003] overflow-auto pointer-events-auto px-4'
+  data-modal-type='{{- group -}}'
+  class='modal fixed inset-0 z-[100] hidden justify-center bg-dark overflow-auto pointer-events-auto px-4'
 >
-  <div class='w-full lg:max-w-[80%] bg-white h-max my-16 flex justify-between items-start gap-10'>
+  <div class='w-full lg:max-w-[1200px] bg-white h-max my-16 flex justify-between items-start gap-10'>
     <div class='flex-1 overflow-auto lg:max-w-[60rem] py-8 pl-7 lg:py-20 lg:pl-24'>
       {%- if title -%}
-        <h4 class="text-heading-4 mb-8">{{- title -}}</h4>
+        <h4 class='text-heading-4 mb-8'>{{- title -}}</h4>
       {%- endif -%}
       <div>
         {{- content -}}
       </div>
     </div>
-    <button data-close-modal-btn class="sticky top-4 mt-4 mr-5 lg:top-8 lg:mt-8 lg:mr-10 w-8 h-8 lg:w-12 lg:h-12 border-grey-5 border p-2 lg:p-3 rounded-full bg-[url('./close.svg')] bg-contain">
-      {%- render 'component.icon'
-        type: 'close'
-      -%}
+    <button
+      data-close-modal-btn
+      class='sticky top-4 mt-4 mr-5 lg:top-8 lg:mt-8 lg:mr-10 w-8 h-8 lg:w-12 lg:h-12 border-grey-5 border p-2 lg:p-3 rounded-full'
+    >
+      {%- render 'component.icon', type: 'close' -%}
     </button>
   </div>
 </div>

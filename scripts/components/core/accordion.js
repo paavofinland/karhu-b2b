@@ -24,10 +24,7 @@ export default window.component((node, ctx) => {
 
   if (toggleModalBtn) {
     toggleModalBtn.addEventListener('click', e => {
-      const modal = document.querySelector(`.modal[data-modal-type=${e.target.dataset.modalType}]`);
-      modal.classList.add('flex');
-      modal.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
+      ctx.emit('modal:open', { type: e.target.dataset.modalType });
     });
   }
 

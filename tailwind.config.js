@@ -142,6 +142,7 @@ module.exports = {
         },
         pink: '#DDBAB4',
         orange: '#DC8106',
+        dark: '#0003',
       },
       fontFamily: {
         headings: ['GTAmericaCompressed', 'sans-serif'],

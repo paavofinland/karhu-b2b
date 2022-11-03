@@ -82,24 +82,40 @@
           group: 'description'
         -%}
       {%- endif -%}
-      {%- assign content = 'products.product.details.delivery_and_returns_content' | t -%}
+      {%- liquid
+        assign content = 'products.product.details.delivery_and_returns_content' | t
+        assign view_more_text = ''
+        if content != null
+          assign view_more_text = 'products.product.details.delivery_and_returns_more'
+        endif
+      -%}
       {%- render 'product.accordion',
         title: 'products.product.details.delivery_and_returns',
         content: content,
         group: 'delivery',
-        view_more_text: 'products.product.details.delivery_and_returns_more'
+        view_more_text: view_more_text
       -%}
-      {%- render 'component.modal',
-        title: pages[section.settings.delivery_page].title,
-        content: pages[section.settings.delivery_page].content,
-        group: 'delivery'
+      {%- if pages[section.settings.delivery_page].content != null
+        or pages[section.settings.delivery_page].content != ''
       -%}
-      {%- if sizeNote != '' or sizeGuideContent != '' or sizeGuideContent != '' -%}
+        {%- render 'component.modal',
+          title: pages[section.settings.delivery_page].title,
+          content: pages[section.settings.delivery_page].content,
+          group: 'delivery'
+        -%}
+      {%- endif -%}
+      {%- liquid
+        assign view_more_text = ''
+        if sizeGuideContent.content != null
+          assign view_more_text = 'products.product.details.size_guide_more'
+        endif
+      -%}
+      {%- if sizeNote != null or sizeGuideContent.content != null -%}
         {%- render 'product.accordion',
           title: 'products.product.details.size_guide',
           content: sizeNote,
           group: 'size',
-          view_more_text: 'products.product.details.size_guide_more'
+          view_more_text: view_more_text
         -%}
         {%- render 'component.modal',
           title: sizeGuideContent.title,

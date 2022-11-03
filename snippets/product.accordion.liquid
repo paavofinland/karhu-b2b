@@ -25,12 +25,14 @@
     data-inner
   >
     {%- if content -%}
-      <div class="mb-8">
+      <div class='mb-8'>
         {{- content -}}
       </div>
     {%- endif -%}
-    {%- if view_more_text -%}
-      <button data-modal-type="{{ group }}" data-toggle-modal-btn class="text-grey-4">{{- view_more_text | t -}}</button>
+    {%- if view_more_text != '' -%}
+      <button data-modal-type='{{ group }}' data-toggle-modal-btn class='text-grey-4'>
+        {{- view_more_text | t -}}
+      </button>
     {%- endif -%}
   </article>
 </div>

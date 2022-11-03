@@ -9,11 +9,11 @@
   {%- endunless -%}
 
   {%- if send_to_login and request.path != '/challenge' -%}
-  {%- liquid
-    unless request.path == '/'
-      assign redirectParam = '?return_url=' | append: request.path
-    endunless
-  -%}
+    {%- liquid
+      unless request.path == '/'
+        assign redirectParam = '?return_url=' | append: request.path
+      endunless
+    -%}
     <meta content='0; url=/account/login{{- redirectParam -}}' http-equiv='refresh'>
   {%- else -%}
     <head>
@@ -73,7 +73,7 @@
 
       <main
         id='MainContent'
-        class='content-for-layout focus-none -mt-[56px] md:-mt-[68px]'
+        class='content-for-layout focus-none'
         role='main'
         tabindex='-1'
       >

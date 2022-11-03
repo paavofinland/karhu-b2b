@@ -26,10 +26,12 @@
       <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px]'>
         {%- if agent -%}
           <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3'>
-            <a data-links href='{{ routes.account_url }}'> Customers </a>
+            <a data-links href='{{ routes.account_url }}'>{{- 'customer.account.customers' -}}</a>
           </li>
           <li class='text-grey-4 lg:mb-3'>
-            <a data-links href='{{ routes.account_url | append: "?menu=carts" }}'> Saved carts </a>
+            <a data-links href='{{ routes.account_url | append: "?menu=carts" }}'>
+              {{- 'customer.account.saved_carts' -}}
+            </a>
           </li>
         {%- else -%}
           <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3'>

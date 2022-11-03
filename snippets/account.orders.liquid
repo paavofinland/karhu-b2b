@@ -2,9 +2,10 @@
   {%- unless agent -%}
     {%- render 'account.orders-data' -%}
     <div data-no-orders class='hidden'>
-      <p class='mt-10'>You haven't places any orders yet.</p>
-      {%- render 'component.button',
-        text: 'Go shopping',
+      <p class='mt-10'>{{- 'customer.account.orders.no_orders_yet' -}}</p>
+      {%-
+        render 'component.button',
+        text: '{{- 'customer.account.orders.shop_now_button' -}}',
         style: 'primary',
         class: 'mt-7 lg:mt-9 px-8 lg:px-12 inline-block',
         href: routes.collections_url
@@ -13,7 +14,7 @@
   {%- else -%}
     {%- render 'component.select',
       id: 'selectCustomer',
-      label: 'Select customer',
+      label: 'customer.account.orders.select_customer',
       label_class: 'text-heading-7',
       placeholder_class: 'text-grey-3',
       container_class: 'mb-3 max-w-[480px]',
@@ -21,8 +22,12 @@
       placeholder: 'Select customer',
       attributes: 'data-select-customer'
     -%}
-    <p data-customer-select-text class='mt-10 mb-[100px]'>Select a customer to see any orders.</p>
-    <p data-no-orders class='mt-10 mb-[100px] hidden'>This customer doesn't have any orders.</p>
+    <p data-customer-select-text class='mt-10 mb-[100px]'>
+      {{- 'customer.account.orders.select_customer_info' -}}
+    </p>
+    <p data-no-orders class='mt-10 mb-[100px] hidden'>
+      {{- 'customer.account.orders.customer_no_orders' -}}
+    </p>
     <div class='mt-7 lg:mt-[60px]'>
       {%- render 'account.orders-data' -%}
     </div>

@@ -112,18 +112,31 @@
     "account": {
       "logout": "Logout",
       "greeting": "Hi, {{ first_name }}",
+      "customers": "Customers",
+      "saved_carts": "Saved carts",
       "orders": {
+        "title": "Orders",
         "tab_title_mobile": "Orders",
         "tab_title_desktop": "Order History",
         "page_title": "Latest Orders",
         "no_orders_yet": "You haven't placed any orders yet.",
-        "shop_now_button": "Shop now",
+        "shop_now_button": "Go shopping",
         "order_title": "Order {{ name }}",
         "order_items_count": {
           "one": "{{ count }} item",
           "other": "{{ count }} items"
         },
-        "view_order": "View Details"
+        "view_order": "View Details",
+        "select_customer": "Select customer",
+        "select_customer_info": "Select a customer to see any orders.",
+        "customer_no_orders": "This customer doesn't have any orders.",
+        "number": "Order number",
+        "date": "Date",
+        "payment_status": "Payment status",
+        "order_status": "Order status",
+        "total": "Total",
+        "invoice": "Invoice",
+        "view_previous_orders": "View previous orders"
       },
       "addresses": {
         "tab_title_mobile": "Personal information",

@@ -66,19 +66,19 @@
   assign countriesURL = countriesURL | split: ','
   assign countriesPossesive = countriesPossesive | split: ','
 -%}
+{% form 'localization' %}
+  <select name='country_code'>
+    {% for country in localization.available_countries %}
+      <option
+        value='{{ country.currency.iso_code }}'
+        {%- if country == localization.country %}
+          selected='selected'
+        {% endif %}
+      >
+        {{ country.name }} ({{ country.currency.iso_code }}) - {{ country.currency.symbol }}
+      </option>
+    {% endfor %}
+  </select>
 
-{%- capture options -%}
-  {%- for country in countriesName -%}
-    {%- assign index = forloop.index | minus: 1 -%}
-    <option
-      data-url='{{- countriesURL[index] -}}?no-redirect'
-      {%- if country == currentName -%}
-        selected
-      {%- endif -%}
-    >
-      {{- country -}}
-    </option>
-  {%- endfor -%}
-{%- endcapture -%}
-
-{%- render 'select', class: 'w-[120px] h-[1.3em]', options: options -%}
+  <input type='submit' value='Update'>
+{% endform %}

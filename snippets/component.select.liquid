@@ -48,6 +48,10 @@
   unless translated_label contains 'translation missing:'
     assign label = translated_label
   endunless
+  assign translated_placeholder = placeholder | t
+  unless translated_placeholder contains 'translation missing:'
+    assign placeholder = translated_placeholder
+  endunless
 %}
 
 <div class='relative after:absolute after:bg-[url("icon.select-black.svg")] after:w-[18px] after:h-4 after:pointer-events-none after:right-1 after:bottom-3 {{ container_class }}'>
@@ -58,7 +62,7 @@
   {% endif %}
   <select
     id='{{ id }}'
-    class='{{ select_class }}'
+    class='{{ select_class }} invalid:text-grey-3'
     name='{{ name }}'
     {{ attributes }}
     autocorrect='{{ autocorrect }}'
@@ -67,7 +71,7 @@
     {% endif %}
   >
     {% if placeholder -%}
-      <option class='{{ placeholder_class }}' disabled selected>
+      <option class='{{ placeholder_class }}' value="" disabled selected>
         {{ placeholder }}
         {%- if requiredStar -%}*{%- endif -%}
       </option>

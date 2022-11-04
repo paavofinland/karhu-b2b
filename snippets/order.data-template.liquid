@@ -1,0 +1,42 @@
+<template data-orders-table-row>
+  <tr class='border-b border-grey-5'>
+    <td data-order-number class='py-7'></td>
+    <td data-date class='py-7'></td>
+    <td data-payment-status class='py-7'></td>
+    <td data-order-status class='py-7'></td>
+    <td data-price class='py-7'></td>
+    <td class='py-7'>
+      <button class='underline'>View details</button>
+    </td>
+  </tr>
+</template>
+<template data-orders-block>
+  <div class='grid grid-cols-2 gap-4 py-10 border-b border-grey-5'>
+    <div>
+      <p class='text-heading-7'>{{- 'customer.account.orders.number' | t -}}</p>
+      <p data-order-number></p>
+    </div>
+    <div>
+      <p class='text-heading-7'>{{- 'customer.account.orders.date' | t -}}</p>
+      <p data-date></p>
+    </div>
+    <div>
+      <p class='text-heading-7'>{{- 'customer.account.orders.payment_status' | t -}}</p>
+      <p data-payment-status></p>
+    </div>
+    <div>
+      <p class='text-heading-7'>{{- 'customer.account.orders.order_status' | t -}}</p>
+      <p data-order-status></p>
+    </div>
+    <div>
+      <p class='text-heading-7'>{{- 'customer.account.orders.total' | t -}}</p>
+      <p data-price></p>
+    </div>
+    <div>
+      <p class='text-heading-7'>{{- 'customer.account.orders.invoice' | t -}}</p>
+      <button class='underline'>
+        {{- 'customer.account.orders.view_details' | t -}}
+      </button>
+    </div>
+  </div>
+</template>

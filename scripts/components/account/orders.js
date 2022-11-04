@@ -1,27 +1,95 @@
 import choozy from '../../lib/choozy';
-import waitToLoad from '../../lib/waitToLoad';
 
-export default window.component(async node => {
-  await waitToLoad('Keen slider');
+export default window.component(async (node, ctx) => {
+  const {
+    selectCustomer,
+    ordersContainer,
+    noOrders,
+    customerSelectText,
+    ordersTable,
+    ordersTableRow,
+    ordersBlockContainer,
+    ordersBlock,
+  } = choozy(node, null);
 
-  const { orderSlider } = choozy(node, null);
+  let storeData = {};
 
-  if (orderSlider) {
-    [].concat(orderSlider).forEach(slider => {
-      const keen = new KeenSlider(slider, {
-        breakpoints: {
-          '(min-width: 1024px)': {
-            slides: {
-              perView: 5.5,
-              spacing: 16,
-            },
-          },
-        },
-        slides: {
-          perView: 2.8,
-          spacing: 8,
-        },
-      });
+  const getCustomerOrders = async e => {
+    const { store, customerSecret, customerId } = storeData;
+    const query = new URLSearchParams({
+      store,
+      secret: customerSecret,
+      customerId,
+      selectedCustomerId: e?.target.value || '',
     });
+
+    return fetch(`${process.env.API_URL}/customer/get-store-customer-orders?${query}`).then(
+      async res => {
+        if (res.status === 200) return res.json();
+        console.error(`Could not fetch customer orders [${(await res.json()).message}]`);
+        return [];
+      }
+    );
+  };
+
+  const appendHtmlWithOrders = ({ container, containerItem, orderList }) => {
+    // eslint-disable-next-line no-param-reassign
+    container.innerHTML = '';
+    const fragment = document.createDocumentFragment();
+    orderList.forEach(order => {
+      const newElement = containerItem.content.cloneNode(true);
+      Object.keys(order).forEach(prop => {
+        const value = order[prop];
+        const elements = [].concat(choozy(newElement)[prop]).filter(Boolean);
+        elements.forEach(element => {
+          // eslint-disable-next-line no-param-reassign
+          element.innerText = value;
+        });
+      });
+      fragment.appendChild(newElement);
+    });
+    container.appendChild(fragment);
+  };
+
+  const onSelectCustomer = async e => {
+    const orderList = await getCustomerOrders(e);
+    if (customerSelectText) {
+      customerSelectText.classList.add('hidden');
+    }
+    if (!orderList.length) {
+      noOrders.classList.remove('hidden');
+      return;
+    }
+    ordersContainer.classList.remove('hidden');
+    appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
+    appendHtmlWithOrders({
+      container: ordersBlockContainer,
+      containerItem: ordersBlock,
+      orderList,
+    });
+  };
+
+  const appendCustomerSelect = data => {
+    const documentFragment = document.createDocumentFragment();
+    data.forEach(customer => {
+      const option = document.createElement('option');
+      option.value = customer.id;
+      option.innerText = customer.name;
+      documentFragment.appendChild(option);
+    });
+    selectCustomer.appendChild(documentFragment);
+  };
+
+  if (selectCustomer) {
+    selectCustomer.addEventListener('change', onSelectCustomer);
+    ctx.on('agent-stores:received', (_state, { data }) => {
+      appendCustomerSelect(data);
+    });
+  } else {
+    onSelectCustomer();
   }
+
+  ctx.on('store-data:send', (_state, { data }) => {
+    storeData = data;
+  });
 });

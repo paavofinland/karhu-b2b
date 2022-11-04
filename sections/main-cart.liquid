@@ -38,7 +38,10 @@
               </div>
               <div class='flex justify-between mt-1 lg:mt-2'>
                 <p class='text-body-xs'>
-                  <span class='text-grey-3'>Qty: </span>
+                  <span class='text-grey-3'>
+                    {{- cart.product_item.quantity -}}
+                    :
+                  </span>
                   {{- item.quantity -}}
                 </p>
                 <div>
@@ -47,9 +50,11 @@
                     data-id='{{- item.id -}}'
                     class='mr-2 underline'
                   >
-                    Edit
+                    {{- cart.product_item.edit -}}
                   </button>
-                  <a class='underline' href='{{ item.url_to_remove }}'>Remove</a>
+                  <a class='underline' href='{{ item.url_to_remove }}'>
+                    {{- cart.product_item.remove -}}
+                  </a>
                 </div>
               </div>
             </div>

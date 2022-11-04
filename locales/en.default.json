@@ -54,7 +54,8 @@
     "product_item": {
       "size": "Size:",
       "remove": "Remove",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "edit": "Edit"
     }
   },
   "customer": {

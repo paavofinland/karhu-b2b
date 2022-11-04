@@ -39,13 +39,19 @@
     <p>{{- product.metafields.color.value -}}</p>
     <p>{{- product.selected_or_first_available_variant.sku -}}</p>
   </div>
-  {%- render 'component.button',
-    style: 'primary',
-    icon: 'add',
-    text: 'collections.quick_add',
-    class: 'w-full grid grid-cols-[1fr_22px] items-center px-4 group',
-    icon_class: 'stroke-white group-hover:stroke-black'
-  -%}
+  {%- comment -%} TODO: implement quick add {%- endcomment -%}
+  {%- comment -%} <form method='post' action='/cart/add'>
+    <input type='hidden' name='id' value='{{ product.variants.first.id }}'>
+    <input type='hidden' type='number' id='quantity' name='quantity' value='1'>
+    {%- render 'component.button',
+      style: 'primary',
+      icon: 'add',
+      type: 'submit',
+      text: 'collections.quick_add',
+      class: 'w-full grid grid-cols-[1fr_22px] items-center px-4 group',
+      icon_class: 'stroke-white group-hover:stroke-black'
+    -%}
+  </form> {%- endcomment -%}
   {%- if product.compare_at_price_max > product.price -%}
     <span class='absolute text-detailed top-4 left-4 py-[3.5px] px-3 text-white bg-red-light rounded-[100px]'>
       -

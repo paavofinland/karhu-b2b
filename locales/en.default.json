@@ -45,15 +45,17 @@
       "count": "Cart ({{ count }})",
       "empty": "You cart is empty",
       "close": "Close",
-      "title": "Your cart",
+      "title": "Shopping bag",
       "continue_shopping": "Continue shopping",
       "item": "item",
-      "items": "items"
+      "items": "items",
+      "go_shopping": "Go shopping"
     },
     "product_item": {
       "size": "Size:",
       "remove": "Remove",
-      "quantity": "Quantity"
+      "quantity": "Quantity",
+      "edit": "Edit"
     }
   },
   "customer": {

@@ -47,20 +47,20 @@
 -%}
 
 {%- capture data_attributes -%}
-  {%- for l in locales -%}
-    {%- liquid
-      assign index = forloop.index0
-      assign s = sizes[index] | default: default_size
-    -%}
-    data-
-    {{- l }}="
-    {{- s -}}
-    "
-  {%- endfor -%}
+  {% comment %}
+     {%- for l in locales -%}
+      {%- liquid
+        assign index = forloop.index0
+        assign s = sizes[index] | default: default_size
+      -%}
+      data-
+      {{- l }}="
+      {{- s -}}
+      "
+    {%- endfor -%}
+  {% endcomment %}
 {%- endcapture -%}
 
-{%- if sizes %}
-  <span data-size {{ data_attributes -}}>
-    {{- default_size -}}
-  </span>
-{%- endif -%}
+<span data-size {{ data_attributes -}}>
+  {{- size -}}
+</span>

@@ -1728,17 +1728,12 @@ html {
   margin-bottom: 4rem;
 }
 
-<<<<<<< HEAD
 .mt-6 {
   margin-top: 1.5rem;
 }
 
-.mt-9 {
-  margin-top: 2.25rem;
-=======
 .mb-\[100px\] {
   margin-bottom: 100px;
->>>>>>> 0730b57 (feat: create order history block)
 }
 
 .mb-\[10px\] {
@@ -2230,15 +2225,6 @@ html {
   gap: 1.75rem;
 }
 
-<<<<<<< HEAD
-.gap-3 {
-  gap: 0.75rem;
-=======
-.gap-2 {
-  gap: 0.5rem;
->>>>>>> 0730b57 (feat: create order history block)
-}
-
 .gap-1 {
   gap: 0.25rem;
 }
@@ -2698,25 +2684,10 @@ html {
   padding-bottom: 1.25rem;
 }
 
-<<<<<<< HEAD
 .pt-12 {
   padding-top: 3rem;
 }
 
-.pb-9 {
-  padding-bottom: 2.25rem;
-}
-
-.pt-9 {
-  padding-top: 2.25rem;
-}
-
-.pr-4 {
-  padding-right: 1rem;
-}
-
-=======
->>>>>>> 0730b57 (feat: create order history block)
 .pb-10 {
   padding-bottom: 2.5rem;
 }
@@ -3450,18 +3421,6 @@ html {
   .lg\:z-0 {
     z-index: 0;
   }
-<<<<<<< HEAD
-  .lg\:col-span-2 {
-    grid-column: span 2 / span 2;
-  }
-  .lg\:row-start-2 {
-    grid-row-start: 2;
-=======
-  .lg\:my-0 {
-    margin-top: 0px;
-    margin-bottom: 0px;
->>>>>>> 0730b57 (feat: create order history block)
-  }
   .lg\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
@@ -3530,9 +3489,6 @@ html {
   }
   .lg\:mb-4 {
     margin-bottom: 1rem;
-  }
-  .lg\:mt-\[60px\] {
-    margin-top: 60px;
   }
   .lg\:mt-8 {
     margin-top: 2rem;
@@ -3760,7 +3716,6 @@ html {
     padding-left: 3rem;
     padding-right: 3rem;
   }
-<<<<<<< HEAD
   .lg\:py-8 {
     padding-top: 2rem;
     padding-bottom: 2rem;
@@ -3769,12 +3724,6 @@ html {
     padding-left: 4rem;
     padding-right: 4rem;
   }
-  .lg\:py-12 {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
-=======
->>>>>>> 0730b57 (feat: create order history block)
   .lg\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;

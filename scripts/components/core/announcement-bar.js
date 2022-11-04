@@ -7,8 +7,6 @@ export default window.component(async (node, ctx) => {
   const { select: customerSelect } = choozy(selectCustomer, null);
   const { customerId, customerSecret, store, selectedStoreCustomer } = node.dataset;
 
-  ctx.emit('store-data:send', { data: node.dataset });
-
   if (!customerId || !customerSecret || !store || !selectCustomer) return;
 
   ctx.on(LOADING_EVENT, (_, isLoading = true) => {
@@ -41,7 +39,7 @@ export default window.component(async (node, ctx) => {
     return fetch(`${process.env.API_URL}/customer/list-agent-stores?${query}`).then(async res => {
       if (res.status === 200) {
         const data = await res.json();
-        ctx.emit('agent-stores:received', { data });
+        ctx.emit('agent-stores:received', null, { data });
         return data;
       }
       console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
@@ -72,4 +70,6 @@ export default window.component(async (node, ctx) => {
     });
     ctx.emit(LOADING_EVENT, null, false);
   });
+
+  ctx.emit('store-data:send', null, { data: node.dataset });
 });

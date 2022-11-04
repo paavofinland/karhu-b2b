@@ -1,13 +1,5 @@
 import choozy from '../../lib/choozy';
 
-const orderPropertyNames = {
-  orderNumber: 'Order number',
-  date: 'Date',
-  paymentStatus: 'Payment Status',
-  orderStatus: 'Order Status',
-  price: 'Price',
-};
-
 export default window.component(async (node, ctx) => {
   const {
     selectCustomer,
@@ -15,6 +7,8 @@ export default window.component(async (node, ctx) => {
     noOrders,
     customerSelectText,
     ordersTable,
+    ordersTableRow,
+    ordersBlockContainer,
     ordersBlock,
   } = choozy(node, null);
 
@@ -29,7 +23,7 @@ export default window.component(async (node, ctx) => {
       selectedCustomerId: e?.target.value || '',
     });
 
-    return fetch(`${process.env.API_URL}/order/get-store-customer-orders?${query}`).then(
+    return fetch(`${process.env.API_URL}/customer/get-store-customer-orders?${query}`).then(
       async res => {
         if (res.status === 200) return res.json();
         console.error(`Could not fetch customer orders [${(await res.json()).message}]`);
@@ -38,64 +32,23 @@ export default window.component(async (node, ctx) => {
     );
   };
 
-  const createButtonElement = () => {
-    const button = document.createElement('button');
-    button.innerText = 'View details';
-    button.classList.add('underline');
-    return button;
-  };
-
-  const appendOrdersTable = orderList => {
+  const appendHtmlWithOrders = ({ container, containerItem, orderList }) => {
+    // eslint-disable-next-line no-param-reassign
+    container.innerHTML = '';
     const fragment = document.createDocumentFragment();
     orderList.forEach(order => {
-      const tr = document.createElement('tr');
-      Object.keys(orderPropertyNames).forEach(prop => {
-        const td = document.createElement('td');
-        td.innerText = order[prop];
-        td.classList.add('py-7');
-        tr.appendChild(td);
+      const newElement = containerItem.content.cloneNode(true);
+      Object.keys(order).forEach(prop => {
+        const value = order[prop];
+        const elements = [].concat(choozy(newElement)[prop]).filter(Boolean);
+        elements.forEach(element => {
+          // eslint-disable-next-line no-param-reassign
+          element.innerText = value;
+        });
       });
-
-      const td = document.createElement('td');
-      const button = createButtonElement();
-      td.appendChild(button);
-
-      td.classList.add('py-7');
-      tr.classList.add('border-b', 'border-grey-5');
-      tr.appendChild(td);
-      fragment.appendChild(tr);
+      fragment.appendChild(newElement);
     });
-    ordersTable.appendChild(fragment);
-  };
-
-  const appendOrdersBlock = orderList => {
-    const fragment = document.createDocumentFragment();
-    orderList.forEach(order => {
-      const div = document.createElement('div');
-      div.classList.add('grid', 'grid-cols-2', 'gap-4', 'py-10');
-      Object.entries(orderPropertyNames).forEach(([prop, value]) => {
-        const innerDiv = document.createElement('div');
-        const keyPlaceholder = document.createElement('p');
-        const dataPlaceholder = document.createElement('p');
-        dataPlaceholder.classList.add('text-heading-7');
-        dataPlaceholder.innerText = value;
-        keyPlaceholder.innerText = order[prop];
-        innerDiv.appendChild(dataPlaceholder);
-        innerDiv.appendChild(keyPlaceholder);
-        div.appendChild(innerDiv);
-      });
-
-      const innerDiv = document.createElement('div');
-      const p = document.createElement('p');
-      p.innerText = 'View details';
-      const button = createButtonElement();
-      innerDiv.appendChild(p);
-      innerDiv.appendChild(button);
-      div.appendChild(innerDiv);
-
-      fragment.appendChild(div);
-    });
-    ordersBlock.appendChild(fragment);
+    container.appendChild(fragment);
   };
 
   const onSelectCustomer = async e => {
@@ -108,8 +61,12 @@ export default window.component(async (node, ctx) => {
       return;
     }
     ordersContainer.classList.remove('hidden');
-    appendOrdersTable(orderList);
-    appendOrdersBlock(orderList);
+    appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
+    appendHtmlWithOrders({
+      container: ordersBlockContainer,
+      containerItem: ordersBlock,
+      orderList,
+    });
   };
 
   const appendCustomerSelect = data => {
@@ -125,14 +82,14 @@ export default window.component(async (node, ctx) => {
 
   if (selectCustomer) {
     selectCustomer.addEventListener('change', onSelectCustomer);
-    ctx.on('agent-stores:received', ({ data }) => {
+    ctx.on('agent-stores:received', (_state, { data }) => {
       appendCustomerSelect(data);
     });
   } else {
     onSelectCustomer();
   }
 
-  ctx.on('store-data:send', data => {
+  ctx.on('store-data:send', (_state, { data }) => {
     storeData = data;
   });
 });

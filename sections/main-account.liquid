@@ -23,18 +23,18 @@
   -%}
   <div class='flex flex-col lg:flex-row lg:gap-[60px] lg:p-[60px] lg:pb-0'>
     <div class='text-heading-7 border-b border-grey-5 lg:border-none'>
-      <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px]'>
+      <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px] overflow-auto'>
         {%- if agent -%}
-          <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3'>
+          <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
             <a data-links href='{{ routes.account_url }}'>{{- 'customer.account.customers' -}}</a>
           </li>
-          <li class='text-grey-4 lg:mb-3'>
+          <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
             <a data-links href='{{ routes.account_url | append: "?menu=carts" }}'>
               {{- 'customer.account.saved_carts' -}}
             </a>
           </li>
         {%- else -%}
-          <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3'>
+          <li class='{%- if template == 'address' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
             <a
               class='hidden lg:inline'
               href='{{ routes.account_url }}'
@@ -49,7 +49,7 @@
             </a>
           </li>
         {%- endif -%}
-        <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3'>
+        <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
           <a data-links href='{{ routes.account_addresses_url }}'>
             {{- 'customer.account.addresses.your_info' | t -}}
           </a>

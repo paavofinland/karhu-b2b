@@ -136,7 +136,8 @@
         "order_status": "Order status",
         "total": "Total",
         "invoice": "Invoice",
-        "view_previous_orders": "View previous orders"
+        "view_previous_orders": "View previous orders",
+        "view_details": "View details"
       },
       "addresses": {
         "tab_title_mobile": "Personal information",

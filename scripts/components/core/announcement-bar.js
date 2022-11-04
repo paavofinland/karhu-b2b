@@ -7,7 +7,7 @@ export default window.component(async (node, ctx) => {
   const { select: customerSelect } = choozy(selectCustomer, null);
   const { customerId, customerSecret, store, selectedStoreCustomer } = node.dataset;
 
-  if (!customerId || !customerSecret || !store) return;
+  if (!customerId || !customerSecret || !store || !selectCustomer) return;
 
   ctx.on(LOADING_EVENT, (_, isLoading = true) => {
     selectCustomer.classList[isLoading ? 'add' : 'remove']('is-loading');
@@ -35,13 +35,19 @@ export default window.component(async (node, ctx) => {
     secret: customerSecret,
   });
 
-  const agentStores = await fetch(
-    `${process.env.API_URL}/customer/list-agent-stores?${query}`
-  ).then(async res => {
-    if (res.status === 200) return res.json();
-    console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
-    return [];
-  });
+  const getAgentStores = () => {
+    return fetch(`${process.env.API_URL}/customer/list-agent-stores?${query}`).then(async res => {
+      if (res.status === 200) {
+        const data = await res.json();
+        ctx.emit('agent-stores:received', null, { data });
+        return data;
+      }
+      console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
+      return [];
+    });
+  };
+
+  const agentStores = await getAgentStores();
 
   ctx.emit(LOADING_EVENT, null, false);
 
@@ -64,4 +70,6 @@ export default window.component(async (node, ctx) => {
     });
     ctx.emit(LOADING_EVENT, null, false);
   });
+
+  ctx.emit('store-data:send', null, { data: node.dataset });
 });

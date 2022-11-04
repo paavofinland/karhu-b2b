@@ -1,0 +1,26 @@
+<div data-orders-container class='hidden'>
+  <h5 class='text-heading-5 pb-5 border-b border-black'>
+    {{- 'customer.account.orders.title' | t -}}
+  </h5>
+  <table class='w-full hidden lg:table'>
+    <thead>
+      <tr class='text-heading-7 border-b border-grey-5'>
+        <td class='py-7'>{{- 'customer.account.orders.number' | t -}}</td>
+        <td class='py-7'>{{- 'customer.account.orders.date' | t -}}</td>
+        <td class='py-7'>{{- 'customer.account.orders.payment_status' | t -}}</td>
+        <td class='py-7'>{{- 'customer.account.orders.order_status' | t -}}</td>
+        <td class='py-7'>{{- 'customer.account.orders.total' | t -}}</td>
+        <td class='py-7'>{{- 'customer.account.orders.invoice' | t -}}</td>
+      </tr>
+    </thead>
+    <tbody data-orders-table></tbody>
+  </table>
+  <div data-orders-block-container class='block lg:hidden'></div>
+  {%- comment -%} TODO: Pagination for performance {%- endcomment -%}
+  {%- render 'component.button',
+    text: 'customer.account.orders.view_previous_orders',
+    style: 'secondary',
+    class: 'w-full mt-10 hidden'
+  -%}
+</div>
+{%- render 'order.data-template' -%}

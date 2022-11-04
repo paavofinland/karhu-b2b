@@ -1,4 +1,4 @@
-{%- include 'product.tags' -%}
+{%- include 'product.metafields' -%}
 {%- liquid
   assign navigation = linklists[settings.breadcrumbs] | default: null
 
@@ -14,15 +14,15 @@
     endunless
   endfor
 
-  assign currentProduct = product.handle
+  assign current_product = product.handle
 
   for block in section.blocks
     assign guide = block.settings.title
-    if guide == sizeGuide
+    if guide == size_guide
       assign sizeNote = block.settings.text | strip_html
     endif
     if block.type == 'size-guide'
-      if block.settings.title contains sizeGuide
+      if block.settings.title contains size_guide
         assign sizeGuideContent = pages[block.settings.size_guide_page]
       endif
     endif
@@ -31,11 +31,11 @@
 
 {%- for block in section.blocks -%}
   {%- assign guide = block.settings.title -%}
-  {%- if guide == sizeGuide -%}
+  {%- if guide == size_guide -%}
     {%- assign sizeNote = block.settings.text | strip_html -%}
   {%- endif -%}
   {% if block.type == 'size-guide' %}
-    {%- if block.settings.title contains sizeGuide -%}
+    {%- if block.settings.title contains size_guide -%}
       {%- assign sizeGuideContent = pages[block.settings.size_guide_page] -%}
     {%- endif -%}
   {%- endif -%}
@@ -66,23 +66,31 @@
         &nbsp;<span class='line-through'>{{- product.compare_at_price | money -}}</span>
       {%- endif -%}
     </p>
-    {%- render 'product.colors', currentProduct: currentProduct, familyTag: familyTag -%}
-    <form action='cart/add' method='POST' data-form-cart-add>
-      {%- render 'product-sizes' -%}
-      {%- render 'component.button',
-        text: 'products.product.add_to_cart',
-        style: 'primary',
-        size: 'lg',
-        type: 'submit',
-        class: 'w-full mt-10 disabled:cursor-not-allowed hover:disabled:bg-black hover:disabled:text-white',
-        attributes: 'data-add-to-cart-button disabled'
-      -%}
-    </form>
-    <div class='mt-8'>
-      {%- render 'product.accordion',
-        title: 'Description',
-        content: product.description,
-        group: 'description'
+    {%- render 'product.colors',
+      current_product: current_product,
+      family_metafield: family_metafield
+    -%}
+    {%- render 'product-sizes' -%}
+    {%- render 'component.button',
+      text: 'products.product.add_to_cart',
+      style: 'primary',
+      size: 'lg',
+      class: 'w-full mt-10'
+    -%}
+    <div class='mt-8 product-details'>
+      {%- if product.description != '' -%}
+        {%- render 'product.accordion',
+          title: 'products.product.details.description',
+          content: product.description,
+          group: 'description'
+        -%}
+      {%- endif -%}
+      {%- liquid
+        assign content = 'products.product.details.delivery_and_returns_content' | t
+        assign view_more_text = ''
+        if content != null
+          assign view_more_text = 'products.product.details.delivery_and_returns_more'
+        endif
       -%}
       {%- render 'product.accordion',
         title: 'products.product.details.delivery_and_returns',

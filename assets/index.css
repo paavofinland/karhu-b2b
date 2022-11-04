@@ -1553,13 +1553,12 @@ html {
   z-index: 10;
 }
 
-<<<<<<< HEAD
 .z-\[100\] {
   z-index: 100;
-=======
+}
+
 .z-\[10000\] {
   z-index: 10000;
->>>>>>> 7f86cf5 (feat: create cart page layout)
 }
 
 .z-\[1\] {
@@ -2291,13 +2290,6 @@ html {
   border-radius: 0.25rem;
 }
 
-<<<<<<< HEAD
-.rounded-full {
-  border-radius: 9999px;
-}
-
-=======
->>>>>>> 00a1cfa (wip: cart page sidebar)
 .rounded-\[100px\] {
   border-radius: 100px;
 }
@@ -2493,18 +2485,21 @@ html {
   background-color: currentColor;
 }
 
-<<<<<<< HEAD
-.bg-dark {
-  background-color: #0003;
-=======
 .bg-\[\#1E1E1E\] {
   --tw-bg-opacity: 1;
   background-color: rgb(30 30 30 / var(--tw-bg-opacity));
->>>>>>> 00a1cfa (wip: cart page sidebar)
+}
+
+.bg-dark {
+  background-color: #0003;
 }
 
 .bg-inherit {
   background-color: inherit;
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
 }
 
 .bg-opacity-0 {
@@ -2747,13 +2742,12 @@ html {
   padding-top: 3.5rem;
 }
 
-<<<<<<< HEAD
-.pl-7 {
-  padding-left: 1.75rem;
-=======
 .pb-6 {
   padding-bottom: 1.5rem;
->>>>>>> 6553585 (wip: create empty cart page layout)
+}
+
+.pl-7 {
+  padding-left: 1.75rem;
 }
 
 .pt-\[100\%\] {
@@ -3326,6 +3320,15 @@ html {
   stroke: #000000;
 }
 
+.is-active\:pointer-events-auto.is-active {
+  pointer-events: auto;
+}
+
+.is-active\:-translate-x-0.is-active {
+  --tw-translate-x: -0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .is-active\:border-grey-5.is-active {
   --tw-border-opacity: 1;
   border-color: rgb(219 219 219 / var(--tw-border-opacity));
@@ -3347,6 +3350,10 @@ html {
 
 .is-active\:text-inherit.is-active {
   color: inherit;
+}
+
+.is-active\:opacity-100.is-active {
+  opacity: 1;
 }
 
 .is-active\:opacity-40.is-active {
@@ -3432,24 +3439,15 @@ html {
   .lg\:left-\[initial\] {
     left: initial;
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
-  .lg\:top-6 {
-    top: 1.5rem;
-  }
-  .lg\:top-8 {
-    top: 2rem;
-  }
-=======
->>>>>>> 6553585 (wip: create empty cart page layout)
-=======
   .lg\:right-7 {
     right: 1.75rem;
   }
   .lg\:top-7 {
     top: 1.75rem;
   }
->>>>>>> 7f86cf5 (feat: create cart page layout)
+  .lg\:top-8 {
+    top: 2rem;
+  }
   .lg\:top-\[50\%\] {
     top: 50%;
   }
@@ -3754,13 +3752,11 @@ html {
   .lg\:p-6 {
     padding: 1.5rem;
   }
-<<<<<<< HEAD
   .lg\:p-3 {
     padding: 0.75rem;
-=======
+  }
   .lg\:p-8 {
     padding: 2rem;
->>>>>>> 7f86cf5 (feat: create cart page layout)
   }
   .lg\:p-content {
     padding: var(--content-padding);
@@ -3792,6 +3788,10 @@ html {
   .lg\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+  .lg\:py-20 {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
   }
   .lg\:pt-\[60px\] {
     padding-top: 60px;

@@ -1,84 +1,37 @@
-{%- comment -%}
-  Expected behaviour:
-    Renders country switcher
-
-  About:
-    Render a select list with country names
-
-  Optional:
-    - class: {String} Container classname
-{%- endcomment -%}
-
 {%- liquid
-  assign ISOcurrent = shop.permanent_domain | remove: 'karhu-b2b-' | remove: '.myshopify.com' | remove: ' '
-  assign ISOcodes = 'eu,us' | split: ','
-
-  if ISOcurrent == 'dev' or ISOcurrent == 'stage'
-    assign ISOcurrent = 'eu'
-  endif
-
-  assign url = 'country_url__'
-  assign url = url | append: ISOcurrent
-  assign currentURL = settings[url]
-
-  assign url = 'country_name__'
-  assign url = url | append: ISOcurrent
-  assign currentName = settings[url]
-
-  assign url = 'country_possesive__'
-  assign url = url | append: ISOcurrent
-  assign currentPossesive = settings[url]
-
-  capture countriesName
-    for iso in ISOcodes
-      assign name = 'country_name__'
-      assign name = name | append: iso
-      unless settings[name] == ''
-        echo settings[name]
-        echo ','
-      endunless
-    endfor
-  endcapture
-
-  capture countriesPossesive
-    for iso in ISOcodes
-      assign possesive = 'country_possesive__'
-      assign possesive = possesive | append: iso
-      unless settings[possesive] == ''
-        echo settings[possesive]
-        echo ','
-      endunless
-    endfor
-  endcapture
-
-  capture countriesURL
-    for iso in ISOcodes
-      assign url = 'country_url__'
-      assign url = url | append: iso
-      unless settings[name] == ''
-        echo settings[url]
-        echo ','
-      endunless
-    endfor
-  endcapture
-
-  assign countriesName = countriesName | split: ','
-  assign countriesURL = countriesURL | split: ','
-  assign countriesPossesive = countriesPossesive | split: ','
+  assign available_countries = shop.metafields.functions.countries.value | default: localization.available_countries
 -%}
 
 {%- capture options -%}
-  {%- for country in countriesName -%}
-    {%- assign index = forloop.index | minus: 1 -%}
+  {% for country in available_countries %}
     <option
-      data-url='{{- countriesURL[index] -}}?no-redirect'
-      {%- if country == currentName -%}
+      value='{{ country.iso_code }}'
+      {%- if country.shopUrl and country.shopUrl != shop.url -%}
+        data-url='{{- country.shopUrl -}}'
+      {%- endif -%}
+      {%- if country.iso_code == localization.country.iso_code %}
         selected
       {%- endif -%}
     >
-      {{- country -}}
+      {{ country.name }} (
+      {{- country.currency.symbol -}}
+      )
     </option>
-  {%- endfor -%}
+  {% endfor %}
 {%- endcapture -%}
 
-{%- render 'select', class: 'w-[120px] h-[1.3em]', options: options -%}
+{%- capture select_attributes -%}
+  name="country_code" data-current="
+  {{- localization.country.iso_code -}}
+  "
+{%- endcapture -%}
+
+<section data-component='countrySelect'>
+  {% form 'localization' %}
+    {%- render 'select',
+      select_attributes: select_attributes,
+      class: 'w-[200px] h-[1.4em]',
+      options: options
+    -%}
+  {% endform %}
+</section>

@@ -6,7 +6,8 @@
   <div class='relative w-full cursor-pointer group-is-loading:hidden'>
     <select
       data-select
-      class='bg-inherit appearance-none w-full cursor-pointer'
+      {{ select_attributes }}
+      class='bg-inherit appearance-none w-full cursor-pointer h-full'
     >
       {%- if placeholder != blank -%}
         <option selected disabled>{{- placeholder | t -}}</option>

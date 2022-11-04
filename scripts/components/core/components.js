@@ -6,6 +6,7 @@ import cartDrawer from './cart-drawer';
 import cartItem from './cart-item';
 import announcementBar from './announcement-bar';
 import modal from './modal';
+import countrySelect from './country-select';
 
 export default {
   sectionRendering,
@@ -16,4 +17,5 @@ export default {
   cartItem,
   announcementBar,
   modal,
+  countrySelect,
 };

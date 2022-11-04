@@ -1851,10 +1851,6 @@ html {
   height: 2rem;
 }
 
-.h-\[1\.3em\] {
-  height: 1.3em;
-}
-
 .h-\[2em\] {
   height: 2em;
 }
@@ -1951,8 +1947,8 @@ html {
   width: 2rem;
 }
 
-.w-\[120px\] {
-  width: 120px;
+.w-\[200px\] {
+  width: 200px;
 }
 
 .w-9 {

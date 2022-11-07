@@ -17,7 +17,8 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu": "header"
+          "menu": "header",
+          "clear_background": "index,collection,product"
         }
       },
       "cart-drawer": {
@@ -36,6 +37,19 @@
         "type": "announcement-bar",
         "settings": {
           "announcement_text": ""
+        }
+      },
+      "main-login": {
+        "type": "main-login",
+        "settings": {
+        }
+      },
+      "main-account": {
+        "type": "main-account",
+        "settings": {
+          "title": "My account",
+          "image": "shopify:\/\/shop_images\/Rectangle_305.png",
+          "desktop_image": "shopify:\/\/shop_images\/Image_6.png"
         }
       }
     },

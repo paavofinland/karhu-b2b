@@ -1,0 +1,70 @@
+<form data-component='collectionFilter' data-section-id="{{- section_id -}}">
+  <aside
+    class='absolute top-0 left-0 bottom-0 z-20 px-4 py-7 bg-white w-[313px] duration-300 -translate-x-[313px] filters_opened:translate-x-0 lg:translate-x-0 lg:z-0 lg:p-0 lg:w-[initial] lg:static lg:block min-w-[180px]'
+    data-filters
+  >
+    <button data-close-filters-btn class='text-grey-3 mb-[30px] lg:hidden'>
+      {{- 'collections.close' | t -}}
+    </button>
+    {%- liquid 
+      for filter in collection.filters
+        if filter.active_values.size > 0
+          assign filters_active = true
+          break
+        endif
+      endfor
+    -%}
+    {%- if filters_active -%}
+      <div class="mb-10">
+        <div class="flex justify-between items-center mb-3">
+          <p class='text-heading-7 font-medium'>Filter by</p>
+          <button data-clear-all-filters-btn class="cursor-pointer text-grey-3">Clear All</button>
+        </div>
+        <ul>
+          {%- for filter in collection.filters -%}
+            {%- for value in filter.active_values -%}
+              <li data-active-filter='Filter-{{ filter.label | escape }}-{{ forloop.index }}' class="flex justify-between items-center cursor-pointer">
+                <span>{{- filter.label -}}: {{ value.label -}}</span>
+                {%- render 'component.icon' type: 'close' class: 'w-4 h-4' -%}
+              </li>
+            {%- endfor -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+    {%- for filter in collection.filters -%}
+      <div class='mb-10'>
+        <div class="flex justify-between items-center mb-3">
+          <p class='text-heading-7 font-medium'>{{- filter.label -}}</p>
+          {%- if filter.active_values.size > 0 -%}
+            <button data-clear-filter="{{ filter.label | escape }}" class="cursor-pointer text-grey-3">Clear</button>
+          {%- endif -%}
+        </div>
+        <ul class='flex flex-col gap-2'>
+          {%- for value in filter.values -%}
+            <li class='relative'>
+              <label class="{%- if value.active and value.count != 0 -%} underline {%- endif -%}" for='Filter-{{ filter.label | escape }}-{{ forloop.index }}'>
+                {{- value.label -}}
+              </label>
+              <input
+                id='Filter-{{ filter.label | escape }}-{{ forloop.index }}'
+                type='checkbox'
+                name='{{ value.param_name }}'
+                value='{{ value.value }}'
+                data-input
+                {% if value.active and value.count != 0 %}
+                  checked
+                {% endif %}
+                {% if value.count == 0 %}
+                  disabled
+                {% endif %}
+                class='inset-0 opacity-0 absolute cursor-pointer'
+              >
+              </input>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endfor -%}
+  </aside>
+</form>

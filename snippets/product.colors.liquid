@@ -4,7 +4,7 @@
     <div class='group swiper is-loading' data-slider>
       <div class='swiper-wrapper flex items-center group-is-loading:overflow-hidden group-is-loading:gap-1'>
         {%- for product in collections.all.products -%}
-          {%- if product.metafields.data.family_tag contains family_metafield -%}
+          {%- if product.metafields.details.product_family contains family_metafield -%}
               {%- if product.available -%}
                 <div class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] opacity-60 {% unless product.handle == current_product -%}order-1 opacity-100{%- endunless -%}' data-slide>
                   {%- unless product.handle == current_product -%}

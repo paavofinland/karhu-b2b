@@ -1,1 +1,136 @@
-(()=>{"use strict";const e=async e=>fetch(e).then((e=>e.text())).then((e=>(new DOMParser).parseFromString(e,"text/html"))),t=e=>history.pushState({searchParams:e},"",`${window.location.pathname}${e.includes("?")?e:"?".concat(e)}`),n="[data-input]",o=window.component(((o,r)=>{const i=()=>{const t=o.querySelector("[data-clear-all-filters-btn]");t&&t.addEventListener("click",(async t=>{t.preventDefault(),r.emit("product:loading",null,{isLoading:!0});const n=await e(`${window.location.origin+window.location.pathname}?section_id=${o.dataset.sectionId}`);window.app.emit(["filter:render"],{html:n,uri:""})}))};i();const a=()=>{o.querySelectorAll(n).forEach((t=>t.addEventListener("change",(t=>{var n;r.emit("product:loading",null,{isLoading:!0}),n=o,(async(t,n)=>{const o=await e(`${window.location.origin+window.location.pathname}?section_id=${n.dataset.sectionId}&${t}`);window.app.emit(["filter:render"],{html:o,uri:t})})(new URLSearchParams(new FormData(t.target.closest("form"))).toString(),n)}))))};a();const c=()=>{o.querySelectorAll("[data-active-filter]").forEach((e=>e.addEventListener("click",(e=>{o.querySelector(`#${e.currentTarget.dataset.activeFilter}[data-input]`).click()}))))};c();const l=()=>{o.querySelectorAll("[data-clear-filter]").forEach((e=>e.addEventListener("click",(e=>{e.preventDefault();const t=e.currentTarget.dataset.clearFilter,n=o.querySelectorAll(`[data-input][id*='${t}']`);n.forEach((e=>{e.checked=!1}));const r=new Event("change");n[0].dispatchEvent(r)}))))};l(),r.on("filter:render",(({html:e,uri:n})=>{r.emit("product:update",null,{html:e}),((e,t)=>{o.querySelector(e).innerHTML=t.querySelector(e).innerHTML})("[data-filters-form]",e),i(),a(),c(),l(),t(n),r.emit("product:loading",null,{isLoading:!1}),window.app.mount()}))})),r=e=>{let t,n;const o=window.location.search.substring(1).split("&");for(t=0;t<o.length;t++)if(n=o[t].split("="),n[0]===e)return parseInt(n[1],0);return 1},i={collectionFilter:o,mainCollection:window.component(((n,o)=>{const{overlay:i,openFilterBtn:a,closeFiltersBtn:c,loadMore:l,productGrid:s}=function(e=document.body,t){const n=[...e.querySelectorAll(t?`[class*="${t}"]`:"*")],o=t?"classList":"dataset";return n.reduce(((e,n)=>([].slice.call(t?n[o]:Object.entries(n[o])).forEach((o=>{let r;t&&o.slice(0,t.length)===t?r=o.slice(t.length,o.length):t||([r]=o),r&&(e[r]=e.hasOwnProperty(r)?e[r].constructor===Array?e[r].concat(n):[e[r],n]:n)})),e)),{})}(n,null),d=document.getElementsByTagName("body")[0],u="[data-product-grid]";o.on("product:update",((e,{html:t})=>{n.querySelector(u).innerHTML=t.querySelector(u).innerHTML}));const p=e=>{e.preventDefault(),d.classList.toggle("overflow-hidden"),n.classList.toggle("filters_opened")};a.addEventListener("click",p),c.addEventListener("click",p),i.addEventListener("click",p);const w=async t=>{const n=r("page"),o=t||n+1,i=new URLSearchParams(window.location.search);i.set("page",o);const a=i.toString(),c=await e(`${window.location.origin+window.location.pathname}?section_id=main-collection&${a}`);if(l.classList.add("opacity-0"),c.querySelector("[data-empty]"))return;const s=1===o;window.app.emit(["product:render"],{html:c,uri:a,addProducts:!s})},m=new IntersectionObserver((e=>{e.forEach((async e=>{e.isIntersecting&&(l.classList.remove("active"),w())}))}),{rootMargin:"0px",threshold:0});l&&m.observe(l),1!==r("page")&&window.addEventListener("load",(()=>{w(1),setTimeout((()=>window.scrollTo(0,0)),100)})),o.on("product:render",(({html:e,uri:n,addProducts:o=!1})=>{o?s.innerHTML+=e.querySelector(u).innerHTML:s.innerHTML=e.querySelector(u).innerHTML,t(n),window.app.mount()})),o.on("product:loading",((e,{isLoading:t})=>{n.classList[t?"add":"remove"]("pointer-events-none","opacity-50")}))}))};window.app.add(i),window.app.mount()})();
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./scripts/components/collection/collection-filter.js":
+/*!************************************************************!*\
+  !*** ./scripts/components/collection/collection-filter.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./scripts/components/collection/utils.js\");\n\n\nconst sections = {\n  filters: '[data-filters]',\n  filtersForm: '[data-filters-form]',\n  input: '[data-input]',\n  clearAll: '[data-clear-all-filters-btn]',\n  activeFilter: '[data-active-filter]',\n  clearFilter: '[data-clear-filter]',\n};\n\nconst fetchCollectionSection = async (searchParams, section) => {\n  const collectionHtml = await (0,_utils__WEBPACK_IMPORTED_MODULE_0__.fetchHtml)(\n    `${window.location.origin + window.location.pathname}?section_id=${\n      section.dataset.sectionId\n    }&${searchParams}`\n  );\n  window.app.emit(['filter:render'], { html: collectionHtml, uri: searchParams });\n};\n\nconst onChangeFilter = (event, section) => {\n  const formFilters = new URLSearchParams(new FormData(event.target.closest('form'))).toString();\n  fetchCollectionSection(formFilters, section);\n};\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.component((node, ctx) => {\n  const clearListener = () => {\n    const clearAllBtn = node.querySelector(sections.clearAll);\n    if (clearAllBtn) {\n      clearAllBtn.addEventListener('click', async e => {\n        e.preventDefault();\n        ctx.emit('product:loading', null, { isLoading: true });\n        const filterHtmlRender = await (0,_utils__WEBPACK_IMPORTED_MODULE_0__.fetchHtml)(\n          `${window.location.origin + window.location.pathname}?section_id=${\n            node.dataset.sectionId\n          }`\n        );\n        window.app.emit(['filter:render'], { html: filterHtmlRender, uri: '' });\n      });\n    }\n  };\n  clearListener();\n\n  const updateSection = (section, html) => {\n    // eslint-disable-next-line no-param-reassign\n    node.querySelector(section).innerHTML = html.querySelector(section).innerHTML;\n  };\n\n  const updateFilterControls = () => {\n    node.querySelectorAll(sections.input).forEach(input =>\n      input.addEventListener('change', e => {\n        ctx.emit('product:loading', null, { isLoading: true });\n        onChangeFilter(e, node);\n      })\n    );\n  };\n\n  updateFilterControls();\n\n  const updateActiveFiltersControls = () => {\n    node.querySelectorAll(sections.activeFilter).forEach(filter =>\n      filter.addEventListener('click', e => {\n        node.querySelector(`#${e.currentTarget.dataset.activeFilter}${sections.input}`).click();\n      })\n    );\n  };\n\n  updateActiveFiltersControls();\n\n  const updateClearFiltersControls = () => {\n    node.querySelectorAll(sections.clearFilter).forEach(clearBtn =>\n      clearBtn.addEventListener('click', e => {\n        e.preventDefault();\n        const filterName = e.currentTarget.dataset.clearFilter;\n        const filtersToClear = node.querySelectorAll(`${sections.input}[id*='${filterName}']`);\n        filtersToClear.forEach(filter => {\n          // eslint-disable-next-line no-param-reassign\n          filter.checked = false;\n        });\n        const event = new Event('change');\n        filtersToClear[0].dispatchEvent(event);\n      })\n    );\n  };\n\n  updateClearFiltersControls();\n\n  ctx.on('filter:render', ({ html, uri }) => {\n    ctx.emit('product:update', null, { html });\n    updateSection(sections.filtersForm, html);\n\n    clearListener();\n    updateFilterControls();\n    updateActiveFiltersControls();\n    updateClearFiltersControls();\n    (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updateURLHash)(uri);\n    ctx.emit('product:loading', null, { isLoading: false });\n    window.app.mount();\n  });\n}));\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/collection-filter.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/collection/components.js":
+/*!*****************************************************!*\
+  !*** ./scripts/components/collection/components.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _collection_filter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collection-filter */ \"./scripts/components/collection/collection-filter.js\");\n/* harmony import */ var _main_collection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main-collection */ \"./scripts/components/collection/main-collection.js\");\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  collectionFilter: _collection_filter__WEBPACK_IMPORTED_MODULE_0__.default,\n  mainCollection: _main_collection__WEBPACK_IMPORTED_MODULE_1__.default,\n});\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/components.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/collection/main-collection.js":
+/*!**********************************************************!*\
+  !*** ./scripts/components/collection/main-collection.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _lib_choozy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/choozy */ \"./scripts/lib/choozy.js\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ \"./scripts/components/collection/utils.js\");\n\n\n\nconst getParameter = paramName => {\n  const searchString = window.location.search.substring(1);\n  let i;\n  let val;\n  const params = searchString.split('&');\n\n  for (i = 0; i < params.length; i++) {\n    val = params[i].split('=');\n    if (val[0] === paramName) {\n      return parseInt(val[1], 0);\n    }\n  }\n  return 1;\n};\n\n/* eslint-disable no-unused-vars */\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.component((node, ctx) => {\n  const { overlay, openFilterBtn, closeFiltersBtn, loadMore, productGrid } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(node, null);\n  const body = document.getElementsByTagName('body')[0];\n\n  const sections = {\n    productGrid: '[data-product-grid]',\n    empty: '[data-empty]',\n  };\n\n  ctx.on('product:update', (_state, { html }) => {\n    // eslint-disable-next-line no-param-reassign\n    node.querySelector(sections.productGrid).innerHTML = html.querySelector(\n      sections.productGrid\n    ).innerHTML;\n  });\n\n  const onToggleFiltersMenu = e => {\n    e.preventDefault();\n    body.classList.toggle('overflow-hidden');\n    node.classList.toggle('filters_opened');\n  };\n\n  openFilterBtn.addEventListener('click', onToggleFiltersMenu);\n\n  closeFiltersBtn.addEventListener('click', onToggleFiltersMenu);\n\n  overlay.addEventListener('click', onToggleFiltersMenu);\n\n  const renderMoreProducts = async setPageNum => {\n    const currentPage = getParameter('page');\n    const pageToQuery = setPageNum || currentPage + 1;\n\n    const queryParams = new URLSearchParams(window.location.search);\n    queryParams.set('page', pageToQuery);\n    const query = queryParams.toString();\n\n    const filterHtmlRender = await (0,_utils__WEBPACK_IMPORTED_MODULE_1__.fetchHtml)(\n      `${window.location.origin + window.location.pathname}?section_id=main-collection&${query}`\n    );\n\n    loadMore.classList.add('opacity-0');\n\n    if (filterHtmlRender.querySelector(sections.empty)) return;\n\n    const renderBefore = pageToQuery === 1;\n\n    window.app.emit(['product:render'], {\n      html: filterHtmlRender,\n      uri: query,\n      addProducts: !renderBefore,\n    });\n  };\n\n  const observer = new IntersectionObserver(\n    entries => {\n      entries.forEach(async entry => {\n        if (entry.isIntersecting) {\n          loadMore.classList.remove('active');\n          renderMoreProducts();\n        }\n      });\n    },\n    {\n      rootMargin: '0px',\n      threshold: 0,\n    }\n  );\n\n  if (loadMore) {\n    observer.observe(loadMore);\n  }\n\n  if (getParameter('page') !== 1) {\n    window.addEventListener('load', () => {\n      renderMoreProducts(1);\n      setTimeout(() => window.scrollTo(0, 0), 100);\n    });\n  }\n\n  ctx.on('product:render', ({ html, uri, addProducts = false }) => {\n    if (addProducts) {\n      productGrid.innerHTML += html.querySelector(sections.productGrid).innerHTML;\n    } else {\n      productGrid.innerHTML = html.querySelector(sections.productGrid).innerHTML;\n    }\n\n    (0,_utils__WEBPACK_IMPORTED_MODULE_1__.updateURLHash)(uri);\n    window.app.mount();\n  });\n\n  ctx.on('product:loading', (_state, { isLoading }) => {\n    node.classList[isLoading ? 'add' : 'remove']('pointer-events-none', 'opacity-50');\n  });\n}));\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/main-collection.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/collection/utils.js":
+/*!************************************************!*\
+  !*** ./scripts/components/collection/utils.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"fetchHtml\": () => (/* binding */ fetchHtml),\n/* harmony export */   \"updateURLHash\": () => (/* binding */ updateURLHash),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst fetchHtml = async url =>\n  fetch(url)\n    .then(response => response.text())\n    .then(responseText => new DOMParser().parseFromString(responseText, 'text/html'));\n\nconst updateURLHash = searchParams =>\n  // eslint-disable-next-line no-restricted-globals\n  history.pushState(\n    { searchParams },\n    '',\n    `${window.location.pathname}${\n      searchParams.includes('?') ? searchParams : '?'.concat(searchParams)\n    }`\n  );\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  fetchHtml,\n  updateURLHash,\n});\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/utils.js?");
+
+/***/ }),
+
+/***/ "./scripts/lib/choozy.js":
+/*!*******************************!*\
+  !*** ./scripts/lib/choozy.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* eslint-disable */\n\n/**\n * @param {Element} container \n * @param {string} prefix \n * @returns {Object.<string, Element | Array<Element>} components\n */\n /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(container = document.body, prefix) {\n  const elements = [...container.querySelectorAll(!prefix ? '*' : `[class*=\"${prefix}\"]`)];\n  const property = !prefix ? 'dataset' : 'classList';\n  return elements.reduce((res, el) => {\n    [].slice.call(!prefix ? Object.entries(el[property]) : el[property]).forEach(property => {\n      let key;\n      if (prefix && property.slice(0, prefix.length) === prefix)\n        key = property.slice(prefix.length, property.length);\n      else if (!prefix) [key] = property;\n      if (key) {\n        res[key] = res.hasOwnProperty(key)\n          ? res[key].constructor === Array\n            ? res[key].concat(el)\n            : [res[key], el]\n          : el;\n      }\n    });\n    return res;\n  }, {});\n}\n\n//# sourceURL=webpack://shopify-starter/./scripts/lib/choozy.js?");
+
+/***/ }),
+
+/***/ "./scripts/util/collection.js":
+/*!************************************!*\
+  !*** ./scripts/util/collection.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_collection_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/collection/components */ \"./scripts/components/collection/components.js\");\n\n\nwindow.app.add(_components_collection_components__WEBPACK_IMPORTED_MODULE_0__.default);\nwindow.app.mount();\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/util/collection.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./scripts/util/collection.js");
+/******/ 	
+/******/ })()
+;

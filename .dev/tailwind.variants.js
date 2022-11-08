@@ -6,4 +6,7 @@ module.exports = plugin(({ addVariant, e }) => {
 
   addVariant('is-loading', '&.is-loading');
   addVariant('group-is-loading', ':merge(.group).is-loading &');
+
+  addVariant('is-search', '&.is-search');
+  addVariant('group-is-search', ':merge(.group).is-search &');
 });

@@ -56,7 +56,7 @@
       <ul class='hidden lg:flex justify-center items-center gap-9 pl-content text-heading-7'>
         {%- if customer -%}
           <li class='cursor-pointer group'>
-            Search
+            <a href='{{- routes.search_url -}}'>Search</a>
             <span
               class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
             ></span>
@@ -99,7 +99,9 @@
       >
         <ul class='flex gap-9 py-5 px-4 text-heading-7 border-b border-grey-1'>
           {%- if customer -%}
-            <li>Search</li>
+            <li>
+              <a href='{{- routes.search_url -}}'>Search</a>
+            </li>
             <li>Bag (0)</li>
           {%- else -%}
             <li class='mx-auto'>

@@ -1,0 +1,54 @@
+<section data-component='search' data-section-id='{{ section.id }}'>
+  <div
+    data-search-container
+    class='group is-search:relative is-search:block fixed inset-0 bg-white z-50 flex items-center justify-center'
+  >
+    <form>
+      <input
+        data-search-input
+        class='text-center p-8 group-is-search:mb-4 group-is-search:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-1 group-is-search:text-heading-3'
+        placeholder='Search'
+        autocomplete='off'
+        autofocus
+        type='text'
+        name='q'
+      >
+    </form>
+  </div>
+  <div data-products-container class='container-content'>
+    <div class='mb-8'>
+      <p class='text-heading-7 text-grey-3'>
+        {%- if search.results_count == 0 -%}
+          No
+        {%- else -%}
+          {{- search.results_count }}
+        {%- endif -%}
+        &nbsp;results found
+      </p>
+    </div>
+    <div data-search-results class='grid grid-cols-4 gap-8 mb-8'>
+      {%- paginate search.results by 3 -%}
+        {%- for item in search.results -%}
+          <div>
+            <div class='aspect-square bg-grey-6 mb-2.5'>
+              {%- render 'component.image',
+                img: item.featured_image,
+                class: 'w-full h-full object-contain mix-blend-darken'
+              -%}
+            </div>
+            <div class='text-body-xs uppercase'>
+              <p>{{- item.title -}}</p>
+              <p class='text-grey-4'>{{- item.metafields.color.value -}}</p>
+              <p>{{- item.price | money -}}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endpaginate -%}
+    </div>
+    <div class="hidden" data-empty>Try clearing filters or changing your input</div>
+    <div data-load-more></div>
+  </div>
+  <div data-loader class='hidden h-10 mb-4'>
+    {%- render 'loading-indicator', class: 'h-10' -%}
+  </div>
+</section>

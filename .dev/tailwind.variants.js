@@ -6,4 +6,7 @@ module.exports = plugin(({ addVariant, e }) => {
 
   addVariant('is-loading', '&.is-loading');
   addVariant('group-is-loading', ':merge(.group).is-loading &');
+
+  addVariant('filters_opened', '&.filters_opened');
+  addVariant('group-filters_opened', ':merge(.group).filters_opened &');
 });

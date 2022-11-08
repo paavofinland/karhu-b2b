@@ -2,6 +2,7 @@ import { fetchHtml, updateURLHash } from './utils';
 
 const sections = {
   filters: '[data-filters]',
+  filtersForm: '[data-filters-form]',
   input: '[data-input]',
   clearAll: '[data-clear-all-filters-btn]',
   activeFilter: '[data-active-filter]',
@@ -28,6 +29,7 @@ export default window.component((node, ctx) => {
     if (clearAllBtn) {
       clearAllBtn.addEventListener('click', async e => {
         e.preventDefault();
+        ctx.emit('product:loading', null, { isLoading: true });
         const filterHtmlRender = await fetchHtml(
           `${window.location.origin + window.location.pathname}?section_id=${
             node.dataset.sectionId
@@ -83,13 +85,9 @@ export default window.component((node, ctx) => {
 
   updateClearFiltersControls();
 
-  ctx.on('product:loading', (_state, { isLoading }) => {
-    node.classList[isLoading ? 'add' : 'remove']('pointer-events-none', 'opacity-50');
-  });
-
   ctx.on('filter:render', ({ html, uri }) => {
     ctx.emit('product:update', null, { html });
-    updateSection(sections.filters, html);
+    updateSection(sections.filtersForm, html);
 
     clearListener();
     updateFilterControls();

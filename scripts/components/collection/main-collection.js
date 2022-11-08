@@ -18,7 +18,7 @@ const getParameter = paramName => {
 
 /* eslint-disable no-unused-vars */
 export default window.component((node, ctx) => {
-  const { filters, openFilterBtn, closeFiltersBtn, loadMore, productGrid } = choozy(node, null);
+  const { overlay, openFilterBtn, closeFiltersBtn, loadMore, productGrid } = choozy(node, null);
   const body = document.getElementsByTagName('body')[0];
 
   const sections = {
@@ -33,15 +33,17 @@ export default window.component((node, ctx) => {
     ).innerHTML;
   });
 
-  const onToggleFiltersMenu = () => {
+  const onToggleFiltersMenu = e => {
+    e.preventDefault();
     body.classList.toggle('overflow-hidden');
     node.classList.toggle('filters_opened');
-    filters.classList.toggle('filters_opened');
   };
 
   openFilterBtn.addEventListener('click', onToggleFiltersMenu);
 
   closeFiltersBtn.addEventListener('click', onToggleFiltersMenu);
+
+  overlay.addEventListener('click', onToggleFiltersMenu);
 
   const renderMoreProducts = async setPageNum => {
     const currentPage = getParameter('page');
@@ -103,5 +105,9 @@ export default window.component((node, ctx) => {
 
     updateURLHash(uri);
     window.app.mount();
+  });
+
+  ctx.on('product:loading', (_state, { isLoading }) => {
+    node.classList[isLoading ? 'add' : 'remove']('pointer-events-none', 'opacity-50');
   });
 });

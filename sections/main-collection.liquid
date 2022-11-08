@@ -29,8 +29,9 @@
 <div
   data-component='mainCollection'
   data-section-id='{{ section.id }}'
-  class='container filters_opened:after:absolute filters_opened:after:inset-0 filters_opened:after:z-10 filters_opened:after:bg-black filters_opened:after:opacity-40'
+  class='container group'
 >
+  <div data-overlay class="group-filters_opened:after:fixed group-filters_opened:after:inset-0 group-filters_opened:after:z-10 group-filters_opened:after:bg-black group-filters_opened:after:opacity-40"></div>
   <div class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-[60px]'>
     {%- render 'collection.filters', section_id: section.id -%}
     {%- render 'component.button',

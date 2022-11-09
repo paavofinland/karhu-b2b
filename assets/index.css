@@ -1830,25 +1830,10 @@ html {
   height: 2.5rem;
 }
 
-<<<<<<< HEAD
-.h-\[32\.875rem\] {
-  height: 32.875rem;
-}
-
-.h-\[256px\] {
-  height: 256px;
-}
-
-.h-\[404px\] {
-  height: 404px;
-}
-
 .h-\[120px\] {
   height: 120px;
 }
 
-=======
->>>>>>> main
 .h-4 {
   height: 1rem;
 }
@@ -3751,15 +3736,9 @@ html {
   .lg\:p-\[60px\] {
     padding: 60px;
   }
-<<<<<<< HEAD
-  .lg\:p-content {
-    padding: var(--content-padding);
-  }
   .lg\:p-8 {
     padding: 2rem;
   }
-=======
->>>>>>> main
   .lg\:p-14 {
     padding: 3.5rem;
   }
@@ -3772,11 +3751,6 @@ html {
   .lg\:p-3 {
     padding: 0.75rem;
   }
-<<<<<<< HEAD
-=======
-  .lg\:p-8 {
-    padding: 2rem;
-  }
   .lg\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
@@ -3785,7 +3759,6 @@ html {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
   }
->>>>>>> main
   .lg\:py-7 {
     padding-top: 1.75rem;
     padding-bottom: 1.75rem;
@@ -3864,18 +3837,12 @@ html {
     letter-spacing: -0.01em;
     font-weight: 700;
   }
-<<<<<<< HEAD
   .lg\:text-heading-1 {
     font-size: 12.5rem;
     line-height: 11.25rem;
     letter-spacing: -0.02em;
     font-weight: 700;
   }
-  .lg\:last-of-type\:mr-\[120px\]:last-of-type {
-    margin-right: 120px;
-  }
-=======
->>>>>>> main
   .group:hover .lg\:group-hover\:scale-105 {
     --tw-scale-x: 1.05;
     --tw-scale-y: 1.05;

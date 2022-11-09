@@ -1,9 +1,0 @@
-{%- assign familyTag = '' -%}
-
-{%- for tag in product.tags -%}
-  {%- if tag contains 'product-family' -%}
-    {%- assign familyTag = tag -%}
-  {%- elsif tag contains 'size-guide' -%}
-      {%- assign sizeGuide = tag -%}
-  {%- endif -%}
-{%- endfor -%}

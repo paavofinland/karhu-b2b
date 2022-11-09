@@ -1,4 +1,5 @@
 import { fetchHtml, updateURLHash } from './utils';
+import choozy from '../../lib/choozy';
 
 const sections = {
   filters: '[data-filters]',
@@ -24,6 +25,8 @@ const onChangeFilter = (event, section) => {
 };
 
 export default window.component((node, ctx) => {
+  const { filtersForm } = choozy(node);
+
   const clearListener = () => {
     const clearAllBtn = node.querySelector(sections.clearAll);
     if (clearAllBtn) {
@@ -40,11 +43,6 @@ export default window.component((node, ctx) => {
     }
   };
   clearListener();
-
-  const updateSection = (section, html) => {
-    // eslint-disable-next-line no-param-reassign
-    node.querySelector(section).innerHTML = html.querySelector(section).innerHTML;
-  };
 
   const updateFilterControls = () => {
     node.querySelectorAll(sections.input).forEach(input =>
@@ -87,7 +85,7 @@ export default window.component((node, ctx) => {
 
   ctx.on('filter:render', ({ html, uri }) => {
     ctx.emit('product:update', null, { html });
-    updateSection(sections.filtersForm, html);
+    filtersForm.innerHTML = choozy(html).filtersForm.innerHTML;
 
     clearListener();
     updateFilterControls();

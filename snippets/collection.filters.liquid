@@ -43,7 +43,7 @@
       </div>
     {%- endif -%}
     {%- for filter in collection.filters -%}
-      {%- unless filter.active_values.size == 0 -%}
+      {%- if filter.active_values.size > 0 or filters_active != true -%}
         <div class='mb-10'>
           <div class='flex justify-between items-center mb-3'>
             <p class='text-heading-7 font-medium'>{{- filter.label -}}</p>
@@ -82,7 +82,7 @@
             {%- endfor -%}
           </ul>
         </div>
-      {%- endunless -%}
+      {%- endif -%}
     {%- endfor -%}
   </form>
 </aside>

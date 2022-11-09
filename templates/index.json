@@ -6,8 +6,10 @@
         "4756b347-1ec5-4b5f-883d-bfbda2903985": {
           "type": "category",
           "settings": {
+            "lazyload_image": false,
             "image": "shopify:\/\/shop_images\/Image.png",
             "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "title_tag": "h2",
             "title": "New apparel collection",
             "button_text": "Shop Collection",
             "button_url": ""
@@ -16,8 +18,10 @@
         "73d6483a-d42f-48e0-acc9-26cf82d4d3bc": {
           "type": "category",
           "settings": {
+            "lazyload_image": false,
             "image": "shopify:\/\/shop_images\/Image.png",
             "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "title_tag": "h2",
             "title": "Another collection",
             "button_text": "Shop another collection",
             "button_url": ""
@@ -31,18 +35,51 @@
       "settings": {
       }
     },
-    "1660314562378c6867": {
-      "type": "text-image",
+    "6dc9aee5-4ddd-43c1-8649-8966cdd2ab2c": {
+      "type": "category-overview",
+      "blocks": {
+        "d6d45555-e243-4ac3-97d6-b490ae1cbe22": {
+          "type": "category",
+          "settings": {
+            "collection": "running",
+            "title": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "cd8c5e7b-2dfa-4ef0-a49a-bdcfc0c6bbd5": {
+          "type": "category",
+          "settings": {
+            "collection": "lifestyle",
+            "title": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        },
+        "e0e2214c-30c8-457f-8260-043bdb227b8e": {
+          "type": "category",
+          "settings": {
+            "collection": "order-list",
+            "title": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "d6d45555-e243-4ac3-97d6-b490ae1cbe22",
+        "cd8c5e7b-2dfa-4ef0-a49a-bdcfc0c6bbd5",
+        "e0e2214c-30c8-457f-8260-043bdb227b8e"
+      ],
       "settings": {
-        "eager": false,
-        "title": "",
-        "title_tag": "p",
-        "content": ""
+        "lazyload_image": false,
+        "title_tag": "h4",
+        "overlay_opacity": 20
       }
     }
   },
   "order": [
     "16603126701019178e",
-    "1660314562378c6867"
+    "6dc9aee5-4ddd-43c1-8649-8966cdd2ab2c"
   ]
 }

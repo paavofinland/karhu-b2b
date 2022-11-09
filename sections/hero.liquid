@@ -4,13 +4,15 @@
 
 <section
   data-component='hero'
-  class='container relative text-center text-white h-[32.875rem] lg:h-[50rem]'
+  class='container relative text-center text-white'
 >
   <div data-slider class='swiper'>
     <div class='swiper-wrapper flex overflow-hidden'>
       {% for slide in blocks %}
         {%- liquid
           assign s = slide.settings
+          assign img = s.image | default: s.desktop_image
+          assign desktop_img = s.desktop_image | default: s.image
         -%}
         <div data-slide class='swiper-slide'>
           <div class='absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-width-[30rem]'>
@@ -28,18 +30,21 @@
               %}
             {%- endif -%}
           </div>
-          {%- if s.image or s.desktop_image -%}
-            <div class='h-[32.875rem] lg:h-[50rem]'>
+          {%- if img -%}
+            <div class='max-h-[max(75vh,560px)] lg:max-h-[max(75vh,800px)]'>
               {% render 'component.image',
-                img: s.image,
+                img: img,
                 lazy: s.lazyload_image,
                 width: 1024,
-                class: 'h-full w-full object-cover lg:hidden'
+                aspect_ratio: 1.45,
+                class: 'w-full h-full object-cover lg:hidden'
               %}
               {% render 'component.image',
-                img: s.desktop_image,
+                img: desktop_img,
                 lazy: s.lazyload_image,
-                class: 'h-full w-full object-cover hidden lg:block'
+                width: 2560,
+                aspect_ratio: 0.55,
+                class: 'w-full h-full object-cover hidden lg:block'
               %}
             </div>
           {%- endif -%}

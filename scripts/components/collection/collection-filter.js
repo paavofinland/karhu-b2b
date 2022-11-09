@@ -52,7 +52,7 @@ export default window.component((node, ctx) => {
     );
   };
 
-  const setSidebarOpen = n => {
+  const toggleSidebar = n => {
     const { sidebar, overlay } = choozy(n);
     sidebar.classList.toggle('is-active');
     overlay.classList.toggle('is-active');
@@ -61,7 +61,7 @@ export default window.component((node, ctx) => {
   ctx.on('filter:render', ({ html, uri }) => {
     ctx.emit('product:update', null, { html });
     const filtersHtml = choozy(html).filters;
-    setSidebarOpen(filtersHtml);
+    toggleSidebar(filtersHtml);
     // eslint-disable-next-line no-param-reassign
     node.innerHTML = choozy(html).filters.innerHTML;
     updateURLHash(uri);
@@ -69,7 +69,10 @@ export default window.component((node, ctx) => {
     ctx.emit('product:loading', null, { isLoading: false });
   });
 
-  ctx.on('filters:toggle', () => setSidebarOpen(node));
+  ctx.on('filters:toggle', () => {
+    toggleSidebar(node);
+    document.body.classList.toggle('overflow-hidden');
+  });
 
   ctx.on('product:loading', (_, { isLoading }) => {
     choozy(node).filtersForm.classList[isLoading ? 'add' : 'remove']('is-loading');

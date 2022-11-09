@@ -29,9 +29,12 @@
   ></button>
   <div
     data-sidebar
-    class='fixed top-0 left-0 bottom-0 z-20 px-4 py-7 bg-white w-[min(90%,400px)] duration-300 -translate-x-full is-active:translate-x-0 lg:translate-x-0 lg:z-0 lg:p-0 lg:w-[initial] lg:static lg:block min-w-[180px]'
+    class='fixed top-0 left-0 bottom-0 z-20 px-4 py-7 bg-white h-full overflow-auto w-[min(90%,400px)] duration-300 -translate-x-full is-active:translate-x-0 lg:translate-x-0 lg:z-0 lg:p-0 lg:w-[initial] lg:static lg:block'
   >
-    <form data-filters-form class='is-loading:opacity-50 is-loading:pointer-events-none'>
+    <form
+      data-filters-form
+      class='is-loading:opacity-50 is-loading:pointer-events-none '
+    >
       <button data-toggle-filters-button type='button' class='text-grey-3 mb-[30px] lg:hidden'>
         {{- 'collections.close' | t -}}
       </button>

@@ -1,0 +1,121 @@
+<aside
+  data-component='collectionFilter'
+  data-filters
+  data-section-id='{{- section_id -}}'
+>
+  {%- liquid
+    assign filter_count = 0
+    for filter in collection.filters
+      assign filter_count = filter_count | plus: filter.active_values.size
+    endfor
+
+    assign button_text = 'Filter'
+    assign button_class = 'lg:hidden w-full is-active:bg-black is-active:text-white is-active:border-black'
+    assign button_attributes = 'data-toggle-filters-button data-button data-count="' | append: filter_count | append: '"'
+
+    if filter_count > 0
+      assign button_text = button_text | append: ' (' | append: filter_count | append: ')'
+      assign button_class = button_class | append: ' is-active'
+    endif
+
+    render 'component.button', text: button_text, style: 'primary_reversed', size: 'sm', class: button_class, attributes: button_attributes
+  -%}
+  <button
+    type='button'
+    tabindex='-1'
+    data-overlay
+    data-toggle-filters-button
+    class='fixed z-10 lg:hidden w-full h-full inset-0 bg-black opacity-0 bg-opacity-20 transition-opacity duration-500 pointer-events-none is-active:opacity-100 is-active:pointer-events-auto'
+  ></button>
+  <div
+    data-sidebar
+    class='fixed top-0 left-0 bottom-0 z-20 px-4 py-7 bg-white h-full overflow-auto w-[min(90%,400px)] duration-300 -translate-x-full is-active:translate-x-0 lg:translate-x-0 lg:z-0 lg:p-0 lg:w-[initial] lg:static lg:block'
+  >
+    <form
+      data-filters-form
+      class='is-loading:opacity-50 is-loading:pointer-events-none '
+    >
+      <button data-toggle-filters-button type='button' class='text-grey-3 mb-[30px] lg:hidden'>
+        {{- 'collections.close' | t -}}
+      </button>
+      {%- liquid
+        for filter in collection.filters
+          if filter.active_values.size > 0
+            assign filters_active = true
+            break
+          endif
+        endfor
+      -%}
+      {%- if filters_active -%}
+        <div class='mb-10'>
+          <div class='flex justify-between items-center mb-3'>
+            <p class='text-heading-7 font-medium'>{{- 'filters.filter_by' | t -}}</p>
+            <button data-clear-all-button type='button' class='cursor-pointer text-grey-3'>
+              {{- 'filters.clear_all' | t -}}
+            </button>
+          </div>
+          <div>
+            {%- for filter in collection.filters -%}
+              {%- for value in filter.active_values -%}
+                <label
+                  for='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
+                  class='flex justify-between items-center cursor-pointer'
+                >
+                  <span>
+                    {{- filter.label -}}
+                    : {{ value.label -}}
+                  </span>
+                  {%- render 'component.icon', type: 'close', class: 'w-4 h-4' -%}
+                </label>
+              {%- endfor -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+      {%- for filter in collection.filters -%}
+        {%- if filter.active_values.size > 0 or filters_active != true -%}
+          <div class='mb-10'>
+            <div class='flex justify-between items-center mb-3'>
+              <p class='text-heading-7 font-medium'>{{- filter.label -}}</p>
+              {%- if filter.active_values.size > 0 -%}
+                <button
+                  data-clear-button
+                  data-name='{{ filter.active_values[0].param_name }}'
+                  type='button'
+                  class='cursor-pointer text-grey-3'
+                >
+                  {{- 'filters.clear' | t -}}
+                </button>
+              {%- endif -%}
+            </div>
+            <ul class='flex flex-col gap-2'>
+              {%- for value in filter.values -%}
+                {% unless value.count == 0 %}
+                  <li class='relative'>
+                    <label
+                      class='cursor-pointer {% if value.active and value.count != 0 -%}underline{%- endif -%}'
+                      for='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
+                    >
+                      {{- value.label -}}
+                    </label>
+                    <input
+                      id='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
+                      type='checkbox'
+                      name='{{ value.param_name }}'
+                      value='{{ value.value }}'
+                      data-input
+                      {% if value.active and value.count != 0 %}
+                        checked
+                      {% endif %}
+                      class='inset-0 opacity-0 absolute cursor-pointer'
+                    >
+                  </li>
+                {% endunless %}
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </form>
+  </div>
+</aside>

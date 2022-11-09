@@ -22,6 +22,11 @@
     "quick_add": "Quick add",
     "collection_empty": "There are no products in this collection"
   },
+  "filters": {
+    "filter_by": "Filter by",
+    "clear_all": "Clear All",
+    "clear": "Clear" 
+  },
   "products": {
     "product": {
       "add_to_cart": "Add to cart",

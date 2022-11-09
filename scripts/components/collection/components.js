@@ -1,4 +1,4 @@
-import collectionFilter from './filter';
+import collectionFilter from './collection-filter';
 import mainCollection from './main-collection';
 
 export default {

@@ -1862,13 +1862,12 @@ html {
   height: 404px;
 }
 
-<<<<<<< HEAD
-.h-4 {
-  height: 1rem;
-=======
 .h-\[120px\] {
   height: 120px;
->>>>>>> cfcbc19 (chore: Compile source files ✨)
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .h-5 {
@@ -2035,15 +2034,6 @@ html {
 
 .min-w-\[110px\] {
   min-width: 110px;
-}
-
-<<<<<<< HEAD
-.min-w-\[340px\] {
-  min-width: 340px;
-=======
-.min-w-\[180px\] {
-  min-width: 180px;
->>>>>>> cfcbc19 (chore: Compile source files ✨)
 }
 
 .min-w-\[230px\] {

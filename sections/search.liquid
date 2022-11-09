@@ -6,7 +6,7 @@
     <form>
       <input
         data-search-input
-        class='text-center p-8 group-is-search:mb-4 group-is-search:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-1 group-is-search:text-heading-3'
+        class='text-center p-8 group-is-search:mb-8 group-is-search:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-1 group-is-search:text-heading-3'
         placeholder='Search'
         autocomplete='off'
         autofocus
@@ -15,9 +15,9 @@
       >
     </form>
   </div>
-  <div data-products-container class='container-content'>
-    <div class='mb-8'>
-      <p class='text-heading-7 text-grey-3'>
+  <div data-products-container class='container-content mb-8'>
+    <div class='mb-8 flex items-center justify-between'>
+      <p data-products-count class='text-heading-7 text-grey-3'>
         {%- if search.results_count == 0 -%}
           No
         {%- else -%}
@@ -25,11 +25,31 @@
         {%- endif -%}
         &nbsp;results found
       </p>
+
+      {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
+      {% liquid
+        capture options
+          for option in search.sort_options
+            echo '<option '
+            if option.value == sort_by
+              echo ' selected '
+            endif
+            echo ' value="' | append: option.value | append: '"'
+            echo '><span>Sort by: </span>' | append: option.name | append: '</option>'
+          endfor
+        endcapture
+      %}
+      {%- render 'component.select',
+        options: options,
+        container_class: 'min-w-[230px] border border-grey-4',
+        select_class: 'px-4 py-4 w-full appearance-none',
+        attributes: 'data-sort-by-options'
+      -%}
     </div>
-    <div data-search-results class='grid grid-cols-4 gap-8 mb-8'>
-      {%- paginate search.results by 3 -%}
+    <div data-search-results class='grid grid-cols-4 gap-8'>
+      {%- paginate search.results by 12 -%}
         {%- for item in search.results -%}
-          <div>
+          <a href='{{- item.url -}}' class='inline-block'>
             <div class='aspect-square bg-grey-6 mb-2.5'>
               {%- render 'component.image',
                 img: item.featured_image,
@@ -41,14 +61,14 @@
               <p class='text-grey-4'>{{- item.metafields.color.value -}}</p>
               <p>{{- item.price | money -}}</p>
             </div>
-          </div>
+          </a>
         {%- endfor -%}
       {%- endpaginate -%}
     </div>
-    <div class="hidden" data-empty>Try clearing filters or changing your input</div>
-    <div data-load-more></div>
+    <p class='hidden text-center mb-4' data-empty>Try clearing filters or changing your input</p>
+    <div class='absolute -bottom-[60px] right-0 left-0 h-[120px]' data-load-more></div>
   </div>
-  <div data-loader class='hidden h-10 mb-4'>
+  <div data-loader class='hidden h-10 mb-8'>
     {%- render 'loading-indicator', class: 'h-10' -%}
   </div>
 </section>

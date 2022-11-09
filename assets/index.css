@@ -1374,6 +1374,14 @@ html {
   right: -3rem;
 }
 
+.-bottom-0 {
+  bottom: -0px;
+}
+
+.-bottom-\[60px\] {
+  bottom: -60px;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -1741,6 +1749,14 @@ html {
   height: 1em;
 }
 
+.h-\[\] {
+  height: ;
+}
+
+.h-\[120px\] {
+  height: 120px;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1863,6 +1879,10 @@ html {
 
 .min-w-\[340px\] {
   min-width: 340px;
+}
+
+.min-w-\[230px\] {
+  min-width: 230px;
 }
 
 .max-w-0 {
@@ -2499,6 +2519,11 @@ html {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.py-\[12px\] {
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .pr-6 {
@@ -3282,6 +3307,10 @@ html {
 
 .group.is-search .group-is-search\:mb-4 {
   margin-bottom: 1rem;
+}
+
+.group.is-search .group-is-search\:mb-8 {
+  margin-bottom: 2rem;
 }
 
 .group.is-search .group-is-search\:border-b {

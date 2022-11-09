@@ -35,7 +35,7 @@
               echo ' selected '
             endif
             echo ' value="' | append: option.value | append: '"'
-            echo '><span>Sort by: </span>' | append: option.name | append: '</option>'
+            echo '>Sort by: ' | append: option.name | append: '</option>'
           endfor
         endcapture
       %}

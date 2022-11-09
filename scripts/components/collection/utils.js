@@ -9,7 +9,7 @@ export const updateURLHash = searchParams =>
     { searchParams },
     '',
     `${window.location.pathname}${
-      searchParams.includes('?') ? searchParams : '?'.concat(searchParams)
+      searchParams.includes('?') || !searchParams ? searchParams : '?'.concat(searchParams)
     }`
   );
 

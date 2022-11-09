@@ -20,7 +20,7 @@
       <div class='mb-10'>
         <div class='flex justify-between items-center mb-3'>
           <p class='text-heading-7 font-medium'>{{- 'filters.filter_by' | t -}}</p>
-          <button data-clear-all-filters-btn class='cursor-pointer text-grey-3'>
+          <button data-clear-all-button type='button' class='cursor-pointer text-grey-3'>
             {{- 'filters.clear_all' | t -}}
           </button>
         </div>
@@ -28,7 +28,7 @@
           {%- for filter in collection.filters -%}
             {%- for value in filter.active_values -%}
               <label
-                for='filter-{{ filter.label | escape }}-{{ value.value }}'
+                for='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
                 class='flex justify-between items-center cursor-pointer'
               >
                 <span>
@@ -49,7 +49,9 @@
             <p class='text-heading-7 font-medium'>{{- filter.label -}}</p>
             {%- if filter.active_values.size > 0 -%}
               <button
-                data-clear-filter='{{ filter.label | escape }}'
+                data-clear-button
+                data-name='{{ filter.active_values[0].param_name }}'
+                type='button'
                 class='cursor-pointer text-grey-3'
               >
                 {{- 'filters.clear' | t -}}
@@ -61,13 +63,13 @@
               {% unless value.count == 0 %}
                 <li class='relative'>
                   <label
-                    class='{%- if value.active and value.count != 0 -%} underline {%- endif -%}'
-                    for='filter-{{ filter.label | escape }}-{{ value.value }}'
+                    class='cursor-pointer {% if value.active and value.count != 0 -%}underline{%- endif -%}'
+                    for='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
                   >
                     {{- value.label -}}
                   </label>
                   <input
-                    id='filter-{{ filter.label | escape }}-{{ value.value }}'
+                    id='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
                     type='checkbox'
                     name='{{ value.param_name }}'
                     value='{{ value.value }}'

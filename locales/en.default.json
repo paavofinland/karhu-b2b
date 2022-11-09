@@ -54,7 +54,8 @@
       "continue_shopping": "Continue shopping",
       "item": "item",
       "items": "items",
-      "go_shopping": "Go shopping"
+      "go_shopping": "Go shopping",
+      "save_cart": "Save cart"
     },
     "product_item": {
       "size": "Size:",

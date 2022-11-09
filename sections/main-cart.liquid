@@ -2,7 +2,7 @@
 
 <section
   data-component='cart'
-  class='container px-4 mt-[83px] lg:mt-[128px] mb-[60px] lg:mb-[100px]'
+  class='container px-4 mt-[28px] lg:mt-[60px] mb-[60px] lg:mb-[100px]'
 >
   <div class='max-w-[720px] mx-auto'>
     <div class='flex lg:mb-10 flex-col lg:flex-row justify-between lg:items-center'>
@@ -29,7 +29,12 @@
                 class: 'aspect-square object-contain mix-blend-darken'
               -%}
             </div>
-            <div class='w-[fill-available] lg:self-center'>
+            <div
+              class='w-[fill-available] lg:self-center'
+              data-item
+              data-id='{{- item.id -}}'
+              data-quantity='{{- item.quantity -}}'
+            >
               <div class='flex justify-between'>
                 <p title='{{- item.title -}}' class='max-w-[190px] lg:max-w-[420px] mr-4 truncate'>
                   {{- item.title -}}
@@ -100,7 +105,12 @@
         </div>
         <div>
           <div class='flex gap-2 lg:gap-4'>
-            {%- render 'component.button', text: 'Share', style: 'secondary', class: 'w-full' -%}
+            {%- render 'component.button',
+              text: 'Share',
+              style: 'secondary',
+              class: 'w-full',
+              attributes: 'data-share-cart-btn'
+            -%}
             {%- render 'component.button', text: 'Save', style: 'secondary', class: 'w-full', attributes: 'data-save-cart-btn data-id="{{- item.id -}}"' -%}
           </div>
           {%- render 'component.button',
@@ -129,6 +139,6 @@
   {%- render 'component.popup',
     content_snippet: 'cart.save-popup.content',
     footer_snippet: 'cart.save-popup.footer',
-    title: 'Save cart'
+    title: 'cart.general.save_cart'
   -%}
 </section>

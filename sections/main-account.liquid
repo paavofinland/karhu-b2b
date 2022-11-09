@@ -1,8 +1,8 @@
 {%- include 'function.agent' -%}
 {%- liquid
   assign s = section.settings
-  assign image = s.image | default: collection.featured_image
-  assign desktop_image = s.desktop_image | default: collection.featured_image
+  assign image = s.image
+  assign desktop_image = s.desktop_image
 
   if request.path == '/account/addresses'
     assign template = 'address'
@@ -12,14 +12,13 @@
 -%}
 
 <div data-component='account' class='container'>
-  {%-
-    render 'component.header'
-    title_tag: 'h2'
-    title: s.title | default: collection.title
-    image: image
-    desktop_image: desktop_image
-    lazyload_image: false
-    class: 'h-[256px] lg:h-[468px]'
+  {%- render 'component.header',
+    title_tag: 'h2',
+    title: s.title,
+    image: image,
+    desktop_image: desktop_image,
+    lazyload_image: false,
+    class: 'max-h-[max(30vh,450px)] lg:max-h-[max(45vh,640px)]'
   -%}
   <div class='flex flex-col lg:flex-row lg:gap-[60px] lg:p-[60px] lg:pb-0'>
     <div class='text-heading-7 border-b border-grey-5 lg:border-none'>

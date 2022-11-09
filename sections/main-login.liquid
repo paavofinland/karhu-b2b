@@ -1,12 +1,22 @@
-{%- assign s = section.settings -%}
+{%- liquid
+  assign s = section.settings
+
+  assign img = s.image | default: s.desktop_image
+  assign desktop_img = s.desktop_image | default: s.image
+-%}
 
 <section class='lg:pt-0 flex flex-col-reverse lg:flex-row container' data-component='login'>
-  {%- if true -%}
-    <div class='lg:flex-1 h-[348px] lg:h-[752px] overflow-hidden'>
+  {%- if s.image -%}
+    <div class='lg:flex-1 overflow-hidden max-h-[max(100vh,500px)]'>
       {%- render 'component.image',
         img: s.image,
-        desktop_img: s.desktop_image,
-        class: 'w-full h-full object-cover object-top'
+        width: 1024,
+        class: 'w-full h-full object-cover object-top lg:hidden'
+      -%}
+      {%- render 'component.image',
+        img: s.desktop_image,
+        width: 1280,
+        class: 'w-full h-full object-cover object-top hidden lg:block'
       -%}
     </div>
   {%- endif -%}

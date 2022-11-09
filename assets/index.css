@@ -1517,6 +1517,10 @@ html {
   right: 1rem;
 }
 
+.-bottom-\[60px\] {
+  bottom: -60px;
+}
+
 .top-3 {
   top: 0.75rem;
 }
@@ -1680,12 +1684,12 @@ html {
   margin-top: 2rem;
 }
 
-.mb-9 {
-  margin-bottom: 2.25rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
+}
+
+.mb-9 {
+  margin-bottom: 2.25rem;
 }
 
 .mt-0 {
@@ -1824,6 +1828,10 @@ html {
 
 .h-10 {
   height: 2.5rem;
+}
+
+.h-\[120px\] {
+  height: 120px;
 }
 
 .h-4 {
@@ -2006,6 +2014,10 @@ html {
 
 .min-w-\[110px\] {
   min-width: 110px;
+}
+
+.min-w-\[230px\] {
+  min-width: 230px;
 }
 
 .min-w-\[340px\] {
@@ -2975,6 +2987,21 @@ html {
   transition-duration: 400ms;
 }
 
+.placeholder\:text-black::-moz-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-black:-ms-input-placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.placeholder\:text-black::placeholder {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
 .after\:pointer-events-none::after {
   content: var(--tw-content);
   pointer-events: none;
@@ -3232,6 +3259,11 @@ html {
   --tw-ring-color: transparent;
 }
 
+.focus-visible\:outline-none:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
 .disabled\:hidden:disabled {
   display: none;
 }
@@ -3259,6 +3291,14 @@ html {
 
 .is-active\:pointer-events-auto.is-active {
   pointer-events: auto;
+}
+
+.is-active\:relative.is-active {
+  position: relative;
+}
+
+.is-active\:block.is-active {
+  display: block;
 }
 
 .is-active\:-translate-x-0.is-active {
@@ -3317,12 +3357,32 @@ html {
   opacity: 0.4;
 }
 
+.group.is-active .group-is-active\:text-heading-5 {
+  font-family: GTAmericaCompressed, sans-serif;
+  text-transform: uppercase;
+}
+
+.group.is-active .group-is-active\:mb-4 {
+  margin-bottom: 1rem;
+}
+
 .group.is-active .group-is-active\:mb-7 {
   margin-bottom: 1.75rem;
 }
 
 .group.is-active .group-is-active\:h-\[var\(--innerHeight\)\] {
   height: var(--innerHeight);
+}
+
+.group.is-active .group-is-active\:border-b {
+  border-bottom-width: 1px;
+}
+
+.group.is-active .group-is-active\:text-heading-5 {
+  font-size: 1.5rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.01em;
+  font-weight: 700;
 }
 
 .is-loading\:pointer-events-none.is-loading {
@@ -3381,6 +3441,10 @@ html {
 }
 
 @media (min-width: 1024px) {
+  .lg\:text-heading-1 {
+    font-family: GTAmericaCompressed, sans-serif;
+    text-transform: uppercase;
+  }
   .lg\:text-heading-2 {
     font-family: GTAmericaCompressed, sans-serif;
     text-transform: uppercase;
@@ -3472,6 +3536,9 @@ html {
   }
   .lg\:mt-\[var\(--header-height\)\] {
     margin-top: var(--header-height);
+  }
+  .lg\:mb-8 {
+    margin-bottom: 2rem;
   }
   .lg\:mb-12 {
     margin-bottom: 3rem;
@@ -3669,6 +3736,9 @@ html {
   .lg\:p-\[60px\] {
     padding: 60px;
   }
+  .lg\:p-8 {
+    padding: 2rem;
+  }
   .lg\:p-14 {
     padding: 3.5rem;
   }
@@ -3680,9 +3750,6 @@ html {
   }
   .lg\:p-3 {
     padding: 0.75rem;
-  }
-  .lg\:p-8 {
-    padding: 2rem;
   }
   .lg\:py-12 {
     padding-top: 3rem;
@@ -3770,10 +3837,28 @@ html {
     letter-spacing: -0.01em;
     font-weight: 700;
   }
+  .lg\:text-heading-1 {
+    font-size: 12.5rem;
+    line-height: 11.25rem;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
   .group:hover .lg\:group-hover\:scale-105 {
     --tw-scale-x: 1.05;
     --tw-scale-y: 1.05;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+  .group.is-active .lg\:group-is-active\:text-heading-3 {
+    font-family: GTAmericaCompressed, sans-serif;
+    text-transform: uppercase;
+  }
+  .group.is-active .lg\:group-is-active\:mb-8 {
+    margin-bottom: 2rem;
+  }
+  .group.is-active .lg\:group-is-active\:text-heading-3 {
+    font-size: 3.75rem;
+    line-height: 3.75rem;
+    font-weight: 700;
   }
   .group.is-loading .group-is-loading\:lg\:\!w-\[calc\(25\%\)\] {
     width: calc(25%) !important;

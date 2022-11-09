@@ -1,0 +1,70 @@
+<section data-component='search' data-section-id='{{ section.id }}'>
+  <div
+    data-search-container
+    class='group is-active:relative is-active:block fixed inset-0 bg-white z-50 flex items-center justify-center'
+  >
+    <form>
+      <input
+        data-search-input
+        class='text-center p-4 group-is-active:mb-4 lg:p-8 lg:group-is-active:mb-8 group-is-active:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-3 group-is-active:text-heading-5 lg:text-heading-1 lg:group-is-active:text-heading-3'
+        placeholder='Search'
+        autocomplete='off'
+        autofocus
+        type='text'
+        name='q'
+      >
+    </form>
+  </div>
+  <div
+    data-products-container
+    class='container-content mb-4 lg:mb-8 is-loading:opacity-50 is-loading:pointer-events-none'
+  >
+    <div class='mb-4 lg:mb-8 flex items-center justify-between'>
+      <p data-products-count class='text-heading-7 text-grey-3'>
+        {%- if search.results_count == 0 -%}
+          No
+        {%- else -%}
+          {{- search.results_count }}
+        {%- endif -%}
+        &nbsp;results found
+      </p>
+
+      {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
+      {% liquid
+        capture options
+          for option in search.sort_options
+            echo '<option '
+            if option.value == sort_by
+              echo ' selected '
+            endif
+            echo ' value="' | append: option.value | append: '"'
+            echo '>Sort by: ' | append: option.name | append: '</option>'
+          endfor
+        endcapture
+      %}
+      {%- render 'component.select',
+        options: options,
+        container_class: 'min-w-[230px] border border-grey-4',
+        select_class: 'px-4 py-4 w-full appearance-none',
+        attributes: 'data-sort-by-options'
+      -%}
+    </div>
+    <div
+      data-search-results
+      class='grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+    >
+      {%- paginate search.results by 12 -%}
+        {%- for product in search.results -%}
+          {%- render 'component.product', product: product -%}
+        {%- endfor -%}
+      {%- endpaginate -%}
+    </div>
+    <p class='hidden text-body-xs text-center mb-4' data-empty>
+      Try clearing filters or changing your input
+    </p>
+    <div class='absolute -bottom-[60px] right-0 left-0 h-[120px]' data-load-more></div>
+  </div>
+  <div data-loader class='hidden h-10 mb-8'>
+    {%- render 'loading-indicator', class: 'h-10' -%}
+  </div>
+</section>

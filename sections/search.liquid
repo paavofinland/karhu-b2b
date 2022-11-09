@@ -1,12 +1,12 @@
 <section data-component='search' data-section-id='{{ section.id }}'>
   <div
     data-search-container
-    class='group is-search:relative is-search:block fixed inset-0 bg-white z-50 flex items-center justify-center'
+    class='group is-active:relative is-active:block fixed inset-0 bg-white z-50 flex items-center justify-center'
   >
     <form>
       <input
         data-search-input
-        class='text-center p-8 group-is-search:mb-8 group-is-search:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-1 group-is-search:text-heading-3'
+        class='text-center p-4 group-is-active:mb-4 lg:p-8 lg:group-is-active:mb-8 group-is-active:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-3 group-is-active:text-heading-5 lg:text-heading-1 lg:group-is-active:text-heading-3'
         placeholder='Search'
         autocomplete='off'
         autofocus
@@ -15,8 +15,11 @@
       >
     </form>
   </div>
-  <div data-products-container class='container-content mb-8'>
-    <div class='mb-8 flex items-center justify-between'>
+  <div
+    data-products-container
+    class='container-content mb-4 lg:mb-8 is-loading:opacity-50 is-loading:pointer-events-none'
+  >
+    <div class='mb-4 lg:mb-8 flex items-center justify-between'>
       <p data-products-count class='text-heading-7 text-grey-3'>
         {%- if search.results_count == 0 -%}
           No
@@ -46,26 +49,19 @@
         attributes: 'data-sort-by-options'
       -%}
     </div>
-    <div data-search-results class='grid grid-cols-4 gap-8'>
+    <div
+      data-search-results
+      class='grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+    >
       {%- paginate search.results by 12 -%}
-        {%- for item in search.results -%}
-          <a href='{{- item.url -}}' class='inline-block'>
-            <div class='aspect-square bg-grey-6 mb-2.5'>
-              {%- render 'component.image',
-                img: item.featured_image,
-                class: 'w-full h-full object-contain mix-blend-darken'
-              -%}
-            </div>
-            <div class='text-body-xs uppercase'>
-              <p>{{- item.title -}}</p>
-              <p class='text-grey-4'>{{- item.metafields.color.value -}}</p>
-              <p>{{- item.price | money -}}</p>
-            </div>
-          </a>
+        {%- for product in search.results -%}
+          {%- render 'component.product', product: product -%}
         {%- endfor -%}
       {%- endpaginate -%}
     </div>
-    <p class='hidden text-center mb-4' data-empty>Try clearing filters or changing your input</p>
+    <p class='hidden text-body-xs text-center mb-4' data-empty>
+      Try clearing filters or changing your input
+    </p>
     <div class='absolute -bottom-[60px] right-0 left-0 h-[120px]' data-load-more></div>
   </div>
   <div data-loader class='hidden h-10 mb-8'>

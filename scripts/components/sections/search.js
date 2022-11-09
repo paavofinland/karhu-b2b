@@ -1,28 +1,15 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable no-param-reassign */
 import choozy from '../../lib/choozy';
-import { debounce } from '../../lib/debounce';
+import debounce from '../../lib/debounce';
 import { fetchHtml, getParameter, updateURLHash } from '../../lib/html.utils';
 
-const sections = {
-  productsContainer: '[data-products-container]',
-  loader: '[data-loader]',
-  pagination: '[data-pagination]',
-  loadMore: '[data-load-more]',
-  searchResults: '[data-search-results]',
-  empty: '[data-empty]',
-  productsCount: '[data-products-count]',
-  sortByOptions: '[data-sort-by-options]',
-};
-
-const getQueryString = ({ page, sectionId = '', q, sortBy }) => {
+const getQueryString = ({ page, q, sortBy }) => {
   const queryParams = new URLSearchParams(window.location.search);
   queryParams.set('page', page);
   queryParams.set('q', q);
-  queryParams.set('sectionId', sectionId);
   queryParams.set('sort_by', sortBy);
-  queryParams.set('type', 'product');
-  return queryParams.toString();
+  return queryParams;
 };
 
 const replaceEmptyParams = ({ page, q, sortBy }) => {
@@ -36,7 +23,11 @@ const replaceEmptyParams = ({ page, q, sortBy }) => {
 const onSearch = sectionId =>
   debounce(async queryData => {
     const { page, q, sortBy } = replaceEmptyParams(queryData);
-    const query = getQueryString({ page, q, sectionId, sortBy });
+    const queryParams = getQueryString({ page, q, sortBy });
+    queryParams.set('sectionId', sectionId);
+    queryParams.set('type', 'product');
+    const query = queryParams.toString();
+
     const productsHtml = await fetchHtml(
       `${window.location.origin + window.location.pathname}?${query}`
     );
@@ -91,7 +82,8 @@ export default window.component(async (node, ctx) => {
   };
 
   const onStartLoadingState = () => {
-    const { searchResults, loader } = choozy(node, null);
+    const { searchResults, loader, empty } = choozy(node, null);
+    empty.classList.add('hidden');
     loader.classList.remove('hidden');
     searchResults.classList.add('hidden');
   };
@@ -103,14 +95,14 @@ export default window.component(async (node, ctx) => {
   };
 
   const initializeOnFirstRender = () => {
-    const loadMore = node.querySelector(sections.loadMore);
+    const { loadMore } = choozy(node, null);
     if (loadMore) {
       observer.observe(loadMore);
     }
   };
 
   const onInputSearch = value => {
-    searchContainer.classList[value ? 'add' : 'remove']('is-search');
+    searchContainer.classList[value ? 'add' : 'remove']('is-active');
 
     if (value) {
       onSearchProducts({ q: value, page: 1 });
@@ -118,10 +110,14 @@ export default window.component(async (node, ctx) => {
       return;
     }
 
-    updateURLHash(getQueryString({ page: 1, q: '', sortBy: sortByOptions.value }));
+    const uri = getQueryString({ page: 1, q: '', sortBy: sortByOptions.value }).toString();
+    updateURLHash(uri);
   };
 
   const onChangeSortBy = e => {
+    const { productsContainer } = choozy(node, null);
+    productsContainer.classList.add('is-loading');
+
     const sortBy = e.target.value;
     onSearchProducts({ q: searchInput.value, page: getParameter('page'), sortBy });
   };
@@ -131,11 +127,15 @@ export default window.component(async (node, ctx) => {
 
   ctx.on('search:render', (_state, { html, uri, requestedPage }) => {
     updateProductsCount(html);
-    const isEmpty = !html.querySelector(sections.searchResults).childNodes.length;
+
+    const { searchResults } = choozy(html, null);
+    const { empty, productsContainer } = choozy(node, null);
+    productsContainer.classList.remove('is-loading');
+    const isEmpty = !searchResults.childNodes.length;
     if (isEmpty) {
       if (requestedPage === 1) {
         clearSearchResults();
-        node.querySelector(sections.empty).classList.remove('hidden');
+        empty.classList.remove('hidden');
       }
       onEndLoadingState();
       return;
@@ -143,7 +143,7 @@ export default window.component(async (node, ctx) => {
 
     updateURLHash(uri);
     renderSearchData(html);
-    node.querySelector(sections.empty).classList.add('hidden');
+    empty.classList.add('hidden');
     if (requestedPage === 1) {
       initializeOnFirstRender();
       onEndLoadingState();
@@ -154,7 +154,7 @@ export default window.component(async (node, ctx) => {
   const currentPage = getParameter('page');
   const searchValue = getParameter('q');
   if ((currentPage && currentPage !== '1') || searchValue) {
-    searchContainer.classList.add('is-search');
+    searchContainer.classList.add('is-active');
     searchInput.value = searchValue;
     onInputSearch(searchValue);
     setTimeout(() => window.scrollTo(0, 0), 100);

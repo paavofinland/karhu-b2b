@@ -1,46 +1,53 @@
 {%- liquid
   assign s = section.settings
   assign blocks = section.blocks
-  assign slide_size_class = 'lg:h-[554px] lg:w-[400px]'
-  assign container_size_class = 'lg:justify-center'
-  if blocks.size >= 4
-    assign slide_size_class = 'lg:h-[524px] lg:w-[378px]'
-    assign container_size_class = 'lg:justify-between'
-  endif
 -%}
 
-<section data-component="categoryOverview" class="text-white pt-4 lg:pt-[60px]">
-  <div data-slider class="swiper">
-    <div id="category-overview" class="swiper-wrapper pl-4 lg:pl-[60px] {{ container_size_class -}}">
+<section data-component='categoryOverview' class='container text-white py-4 lg:p-content'>
+  <div data-slider class='swiper'>
+    <div
+      id='category-overview'
+      class='swiper-wrapper {{ container_size_class -}}'
+    >
       {%- for category in blocks -%}
         {%- liquid
           assign c = category.settings
         -%}
-        <div class="swiper-slide w-[250px] h-[348px] {{ slide_size_class }} mr-4 lg:mr-[60px] last-of-type:mr-8 lg:last-of-type:mr-[120px] bg-black">
-          <div class="absolute text-center z-10 left-1/2 -translate-x-1/2 bottom-8 lg:bottom-12 w-full">
-            <{{- s.title_tag }} class="text-heading-4 lg:text-heading-3 mb-[66px] lg:mb-[143px]">{{- c.title | default: c.collection.title -}}</{{- s.title_tag -}}>
-            {%- if c.button_url and c.button_text -%}
-              {%- render 'component.button'
-                text: c.button_text
-                href: c.button_url
-                class: "inline-block",
-                style: "transparent"
+        <div class='swiper-slide'>
+          <div class='w-full'>
+            {%- liquid
+              assign img = c.image | default: c.collection.featured_image
+              assign desktop_img = c.desktop_image | default: c.collection.featured_image
+              assign button_text = c.button_text | default: 'Shop now'
+              assign button_url = c.collection.url
+            -%}
+            {% render 'component.image',
+              img: img,
+              lazy: s.lazyload_image,
+              width: 340,
+              aspect_ratio: 1.385,
+              class: 'w-full h-full object-cover lg:hidden'
+            %}
+            {% render 'component.image',
+              img: desktop_img,
+              lazy: s.lazyload_image,
+              width: 840,
+              aspect_ratio: 1.385,
+              class: 'w-full h-full object-cover hidden lg:block'
+            %}
+          </div>
+          <div class='absolute inset-0 w-full h-full flex justify-center flex-col items-center py-9 px-4 lg:py-12 lg:px-6'>
+            <{{ s.title_tag }} class='text-heading-4 lg:text-heading-3 absolute'>
+              {{- c.title | default: c.collection.title -}}
+            </{{ s.title_tag }}>
+            {%- if button_url and button_text -%}
+              {%- render 'component.button',
+                text: button_text,
+                href: button_url,
+                class: 'inline-block mt-auto',
+                style: 'transparent'
               -%}
             {%- endif -%}
-          </div>
-          <div class='w-[250px] h-[348px] {{ slide_size_class }} after:opacity-[var(--overlayOpacity)] relative after:absolute after:inset-0 after:bg-black'
-            style='--overlayOpacity: {{- s.overlay_opacity | divided_by: 100.00 -}};'>
-            {%- liquid
-              assign image = c.image | default: c.collection.featured_image
-              assign desktop_image = c.desktop_image | default: c.collection.featured_image
-            -%}
-            {%- render 'component.image'
-              desktop_img: desktop_image
-              img: image
-              lazy: s.lazyload_image
-              class: "w-full h-full"
-              img_class: "object-cover"
-            -%}
           </div>
         </div>
       {%- endfor -%}

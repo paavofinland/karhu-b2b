@@ -1968,8 +1968,8 @@ html {
   width: 355px;
 }
 
-.w-\[313px\] {
-  width: 313px;
+.w-\[min\(90\%\2c 400px\)\] {
+  width: min(90%,400px);
 }
 
 .w-4 {
@@ -2018,10 +2018,6 @@ html {
 
 .min-w-\[110px\] {
   min-width: 110px;
-}
-
-.min-w-\[180px\] {
-  min-width: 180px;
 }
 
 .min-w-\[340px\] {
@@ -2095,8 +2091,8 @@ html {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.-translate-x-\[313px\] {
-  --tw-translate-x: -313px;
+.-translate-x-full {
+  --tw-translate-x: -100%;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
@@ -2479,6 +2475,10 @@ html {
 
 .bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}
+
+.bg-opacity-20 {
+  --tw-bg-opacity: 0.2;
 }
 
 .bg-opacity-0 {
@@ -3305,9 +3305,19 @@ html {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.is-active\:translate-x-0.is-active {
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .is-active\:border-grey-5.is-active {
   --tw-border-opacity: 1;
   border-color: rgb(219 219 219 / var(--tw-border-opacity));
+}
+
+.is-active\:border-black.is-active {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .is-active\:border-opacity-100.is-active {
@@ -3319,9 +3329,19 @@ html {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.is-active\:bg-black.is-active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .is-active\:text-black.is-active {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.is-active\:text-white.is-active {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .is-active\:text-inherit.is-active {
@@ -3344,12 +3364,20 @@ html {
   height: var(--innerHeight);
 }
 
+.is-loading\:pointer-events-none.is-loading {
+  pointer-events: none;
+}
+
 .is-loading\:items-center.is-loading {
   align-items: center;
 }
 
 .is-loading\:justify-center.is-loading {
   justify-content: center;
+}
+
+.is-loading\:opacity-50.is-loading {
+  opacity: 0.5;
 }
 
 .group.is-loading .group-is-loading\:flex {
@@ -3378,40 +3406,6 @@ html {
 
 .group.is-loading .group-is-loading\:overflow-hidden {
   overflow: hidden;
-}
-
-.group.filters_opened .group-filters_opened\:translate-x-0 {
-  --tw-translate-x: 0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-
-.group.filters_opened .group-filters_opened\:after\:fixed::after {
-  content: var(--tw-content);
-  position: fixed;
-}
-
-.group.filters_opened .group-filters_opened\:after\:inset-0::after {
-  content: var(--tw-content);
-  top: 0px;
-  right: 0px;
-  bottom: 0px;
-  left: 0px;
-}
-
-.group.filters_opened .group-filters_opened\:after\:z-10::after {
-  content: var(--tw-content);
-  z-index: 10;
-}
-
-.group.filters_opened .group-filters_opened\:after\:bg-black::after {
-  content: var(--tw-content);
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.group.filters_opened .group-filters_opened\:after\:opacity-40::after {
-  content: var(--tw-content);
-  opacity: 0.4;
 }
 
 @media (min-width: 768px) {
@@ -3738,6 +3732,9 @@ html {
   .lg\:p-\[60px\] {
     padding: 60px;
   }
+  .lg\:p-content {
+    padding: var(--content-padding);
+  }
   .lg\:p-14 {
     padding: 3.5rem;
   }
@@ -3752,9 +3749,6 @@ html {
   }
   .lg\:p-8 {
     padding: 2rem;
-  }
-  .lg\:p-content {
-    padding: var(--content-padding);
   }
   .lg\:py-7 {
     padding-top: 1.75rem;

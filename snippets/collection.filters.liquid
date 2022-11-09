@@ -24,11 +24,11 @@
             {{- 'filters.clear_all' | t -}}
           </button>
         </div>
-        <ul>
+        <div>
           {%- for filter in collection.filters -%}
             {%- for value in filter.active_values -%}
-              <li
-                data-active-filter='Filter-{{ filter.label | escape }}-{{ forloop.index }}'
+              <label
+                for='filter-{{ filter.label | escape }}-{{ value.value }}'
                 class='flex justify-between items-center cursor-pointer'
               >
                 <span>
@@ -36,10 +36,10 @@
                   : {{ value.label -}}
                 </span>
                 {%- render 'component.icon', type: 'close', class: 'w-4 h-4' -%}
-              </li>
+              </label>
             {%- endfor -%}
           {%- endfor -%}
-        </ul>
+        </div>
       </div>
     {%- endif -%}
     {%- for filter in collection.filters -%}
@@ -62,12 +62,12 @@
                 <li class='relative'>
                   <label
                     class='{%- if value.active and value.count != 0 -%} underline {%- endif -%}'
-                    for='Filter-{{ filter.label | escape }}-{{ forloop.index }}'
+                    for='filter-{{ filter.label | escape }}-{{ value.value }}'
                   >
                     {{- value.label -}}
                   </label>
                   <input
-                    id='Filter-{{ filter.label | escape }}-{{ forloop.index }}'
+                    id='filter-{{ filter.label | escape }}-{{ value.value }}'
                     type='checkbox'
                     name='{{ value.param_name }}'
                     value='{{ value.value }}'

@@ -3,10 +3,8 @@ import choozy from '../../lib/choozy';
 
 const sections = {
   filters: '[data-filters]',
-  filtersForm: '[data-filters-form]',
   input: '[data-input]',
   clearAll: '[data-clear-all-filters-btn]',
-  activeFilter: '[data-active-filter]',
   clearFilter: '[data-clear-filter]',
 };
 
@@ -55,16 +53,6 @@ export default window.component((node, ctx) => {
 
   updateFilterControls();
 
-  const updateActiveFiltersControls = () => {
-    node.querySelectorAll(sections.activeFilter).forEach(filter =>
-      filter.addEventListener('click', e => {
-        node.querySelector(`#${e.currentTarget.dataset.activeFilter}${sections.input}`).click();
-      })
-    );
-  };
-
-  updateActiveFiltersControls();
-
   const updateClearFiltersControls = () => {
     node.querySelectorAll(sections.clearFilter).forEach(clearBtn =>
       clearBtn.addEventListener('click', e => {
@@ -89,7 +77,6 @@ export default window.component((node, ctx) => {
 
     clearListener();
     updateFilterControls();
-    updateActiveFiltersControls();
     updateClearFiltersControls();
     updateURLHash(uri);
     ctx.emit('product:loading', null, { isLoading: false });

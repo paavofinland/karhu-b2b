@@ -10,10 +10,12 @@ export default window.component((node, ctx) => {
       input: inputElement,
       clearButton: clearButtonElement,
       clearAllButton,
+      toggleFiltersButton: toggleFiltersButtonElement,
     } = choozy(node);
 
     const inputs = [].concat(inputElement).filter(Boolean);
     const clearButtons = [].concat(clearButtonElement).filter(Boolean);
+    const toggleFiltersButtons = [].concat(toggleFiltersButtonElement).filter(Boolean);
 
     const applyFilters = async (reset = false) => {
       ctx.emit('product:loading', null, { isLoading: true });
@@ -25,17 +27,18 @@ export default window.component((node, ctx) => {
         }?section_id=${sectionId}&${searchParams}`
       );
 
-      window.app.emit(['filter:render'], { html: collectionHtml, uri: searchParams });
+      window.app.emit(['filter:render'], {
+        html: collectionHtml,
+        uri: searchParams,
+      });
     };
 
     if (clearAllButton) clearAllButton.addEventListener('click', () => applyFilters(true));
-
     inputs.forEach(input => input.addEventListener('change', () => applyFilters()));
-
-    clearButtons.forEach(clearButton =>
-      clearButton.addEventListener('click', () => {
+    clearButtons.forEach(b =>
+      b.addEventListener('click', () => {
         inputs
-          .filter(({ name }) => name === clearButton.dataset.name)
+          .filter(({ name }) => name === b.dataset.name)
           .forEach(input => {
             // eslint-disable-next-line no-param-reassign
             input.checked = false;
@@ -43,14 +46,33 @@ export default window.component((node, ctx) => {
         applyFilters();
       })
     );
+
+    toggleFiltersButtons.forEach(b =>
+      b.addEventListener('click', () => ctx.emit('filters:toggle'))
+    );
+  };
+
+  const setSidebarOpen = n => {
+    const { sidebar, overlay } = choozy(n);
+    sidebar.classList.toggle('is-active');
+    overlay.classList.toggle('is-active');
   };
 
   ctx.on('filter:render', ({ html, uri }) => {
     ctx.emit('product:update', null, { html });
-    choozy(node).filtersForm.innerHTML = choozy(html).filtersForm.innerHTML;
+    const filtersHtml = choozy(html).filters;
+    setSidebarOpen(filtersHtml);
+    // eslint-disable-next-line no-param-reassign
+    node.innerHTML = choozy(html).filters.innerHTML;
     updateURLHash(uri);
     init();
     ctx.emit('product:loading', null, { isLoading: false });
+  });
+
+  ctx.on('filters:toggle', () => setSidebarOpen(node));
+
+  ctx.on('product:loading', (_, { isLoading }) => {
+    choozy(node).filtersForm.classList[isLoading ? 'add' : 'remove']('is-loading');
   });
 
   init();

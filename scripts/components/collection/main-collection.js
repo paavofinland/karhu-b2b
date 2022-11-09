@@ -16,10 +16,8 @@ const getParameter = paramName => {
   return 1;
 };
 
-/* eslint-disable no-unused-vars */
 export default window.component((node, ctx) => {
-  const { overlay, openFilterBtn, closeFiltersBtn, loadMore, productGrid } = choozy(node, null);
-  const body = document.getElementsByTagName('body')[0];
+  const { loadMore, productGrid } = choozy(node);
 
   const sections = {
     productGrid: '[data-product-grid]',
@@ -28,22 +26,8 @@ export default window.component((node, ctx) => {
 
   ctx.on('product:update', (_state, { html }) => {
     // eslint-disable-next-line no-param-reassign
-    node.querySelector(sections.productGrid).innerHTML = html.querySelector(
-      sections.productGrid
-    ).innerHTML;
+    productGrid.innerHTML = choozy(html).productGrid.innerHTML;
   });
-
-  const onToggleFiltersMenu = e => {
-    e.preventDefault();
-    body.classList.toggle('overflow-hidden');
-    node.classList.toggle('filters_opened');
-  };
-
-  openFilterBtn.addEventListener('click', onToggleFiltersMenu);
-
-  closeFiltersBtn.addEventListener('click', onToggleFiltersMenu);
-
-  overlay.addEventListener('click', onToggleFiltersMenu);
 
   const renderMoreProducts = async setPageNum => {
     const currentPage = getParameter('page');
@@ -107,7 +91,7 @@ export default window.component((node, ctx) => {
     window.app.mount();
   });
 
-  ctx.on('product:loading', (_state, { isLoading }) => {
-    node.classList[isLoading ? 'add' : 'remove']('pointer-events-none', 'opacity-50');
+  ctx.on('product:loading', (_, { isLoading }) => {
+    choozy(node).productGrid.classList[isLoading ? 'add' : 'remove']('is-loading');
   });
 });

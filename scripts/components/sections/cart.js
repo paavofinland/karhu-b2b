@@ -3,7 +3,7 @@ import choozy from '../../lib/choozy';
 
 const getElementByDataId = id => element => element.dataset.id === id;
 
-export default window.component(async node => {
+export default window.component(async (node, ctx) => {
   const {
     editItemBtn,
     sidebar,
@@ -32,12 +32,12 @@ export default window.component(async node => {
     [].concat(closeSidebarBtn).forEach(btn => btn.addEventListener('click', onToggleSidebar));
   sidebarLayer.addEventListener('click', onToggleSidebar);
 
-  const onToggleSaveCartPopup = () => popup.classList.toggle('hidden');
+  const onOpenSaveCartPopup = () => ctx.emit('popup:open', null, 'save-cart');
+  const onCloseSaveCartPopup = () => ctx.emit('popup:close', null, 'save-cart');
 
-  saveCartBtn &&
-    [].concat(saveCartBtn).forEach(btn => btn.addEventListener('click', onToggleSaveCartPopup));
+  saveCartBtn && saveCartBtn.addEventListener('click', onOpenSaveCartPopup);
   closePopupBtn &&
-    [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onToggleSaveCartPopup));
+    [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onCloseSaveCartPopup));
 
   const getCopyData = () => {
     const { item: itemList, subtotal } = choozy(node, null);

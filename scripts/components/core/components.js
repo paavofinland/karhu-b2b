@@ -7,6 +7,7 @@ import cartItem from './cart-item';
 import modal from './modal';
 import countrySelect from './country-select';
 import storeSelect from './store-select';
+import popup from './popup';
 
 export default {
   sectionRendering,
@@ -18,4 +19,5 @@ export default {
   modal,
   countrySelect,
   storeSelect,
+  popup,
 };

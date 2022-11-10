@@ -40,7 +40,17 @@
                 class: 'w-full is-active:border-black',
                 attributes: 'data-share-cart-btn'
               -%}
-              {%- render 'component.button', text: 'Save', style: 'secondary', class: 'w-full', attributes: 'data-save-cart-btn data-id="{{- item.id -}}"' -%}
+              {%-
+                render 'component.button',
+                text: 'Save',
+                style: 'secondary',
+                class: 'w-full flex items-center justify-center gap-2 lg:gap-4 group is-active:bg-green-dark is-active:border-green-dark is-active:text-white',
+                attributes: 'data-save-cart-btn data-id="{{- item.id -}}"',
+                success_text: 'cart.general.cart_saved',
+                success_text_class: 'hidden group-is-active:inline',
+                success_icon: 'check',
+                success_icon_class: 'hidden group-is-active:inline'
+              -%}
             </div>
           {%- endif -%}
           {%- render 'component.button',

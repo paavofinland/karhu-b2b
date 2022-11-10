@@ -2,6 +2,13 @@
 import choozy from '../../lib/choozy';
 
 const getElementByDataId = id => element => element.dataset.id === id;
+const test = () => {
+  return new Promise((res, rej) => {
+    setTimeout(() => {
+      rej(new Error('error'));
+    }, 500);
+  });
+};
 
 export default window.component(async (node, ctx) => {
   const {
@@ -10,10 +17,19 @@ export default window.component(async (node, ctx) => {
     sidebarLayer,
     closeSidebarBtn,
     saveCartBtn,
-    popup,
-    closePopupBtn,
     shareCartBtn,
+    closePopupBtn,
+    saveCartPopupBtn,
+    cartInput,
+    errorMessage,
   } = choozy(node);
+
+  const setErrorState = message => {
+    const action = message ? 'add' : 'remove';
+    errorMessage.innerText = message;
+    errorMessage.classList[action]('is-active');
+    cartInput.classList[action]('is-active');
+  };
 
   const sidebarList = Array.isArray(sidebar) ? Array.from(sidebar) : [sidebar];
 
@@ -33,7 +49,10 @@ export default window.component(async (node, ctx) => {
   sidebarLayer.addEventListener('click', onToggleSidebar);
 
   const onOpenSaveCartPopup = () => ctx.emit('popup:open', null, 'save-cart');
-  const onCloseSaveCartPopup = () => ctx.emit('popup:close', null, 'save-cart');
+  const onCloseSaveCartPopup = () => {
+    ctx.emit('popup:close', null, 'save-cart');
+    setErrorState('');
+  };
 
   saveCartBtn && saveCartBtn.addEventListener('click', onOpenSaveCartPopup);
   closePopupBtn &&
@@ -69,4 +88,15 @@ export default window.component(async (node, ctx) => {
       await navigator.clipboard.writeText(url);
       onCopySuccess();
     });
+
+  saveCartPopupBtn.addEventListener('click', async () => {
+    setErrorState('');
+    try {
+      await test();
+      onCloseSaveCartPopup();
+      saveCartBtn.classList.add('is-active');
+    } catch (e) {
+      setErrorState(e.message);
+    }
+  });
 });

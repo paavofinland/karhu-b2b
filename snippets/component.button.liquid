@@ -98,9 +98,17 @@
     {%- render 'loading-indicator'
       class: loading_class
     -%}
-  {%- else -%}
-  {{- text -}}
   {%- endif -%}
+  {%- if success_icon -%}
+    {%- render 'component.icon'
+      type: success_icon,
+      class: success_icon_class
+    -%}
+  {%- endif -%}
+  {%- if success_text -%}
+    <span class="{{- success_text_class -}}">{{- success_text | t -}}</span>
+  {%- endif -%}
+  <span class='group-is-active:hidden'>{{- text -}}</span>
   {%- if icon -%}
     {%- render 'component.icon'
       type: icon

@@ -1,5 +1,7 @@
-{%- include 'product.metafields' -%}
 {%- liquid
+  assign family_metafield = product.metafields.details.product_family
+  assign size_guide = product.metafields.details.size_guide
+
   assign navigation = linklists[settings.breadcrumbs] | default: null
 
   for link in navigation.links
@@ -152,8 +154,8 @@
         {
           "type": "text",
           "id": "title",
-          "placeholder": "size_guide: one, size_guide: two",
-          "label": "Matching tag"
+          "placeholder": "one,two",
+          "label": "Matching metafields (Size Guide)"
         },
         {
           "type": "richtext",

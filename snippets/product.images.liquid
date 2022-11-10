@@ -31,6 +31,16 @@
           </div>
         </div>
       {%- endfor -%}
+      {%- if product.images.size == 0 -%}
+        <div
+          data-slide
+          class='swiper-slide group-is-loading:w-full'
+        >
+          <div class='relative pt-[100%] w-full bg-grey-6'>
+            {%- render 'image-placeholder' -%}
+          </div>
+        </div>
+      {%- endif -%}
     </div>
     {%- if enable_swiper == 1 -%}
       {%- render 'component.slider-button',

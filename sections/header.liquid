@@ -33,12 +33,11 @@
     '
   >
     <div class='container-content flex justify-between h-full border-opacity-[inherit] border-inherit xxl:border-x'>
-      <a href='/' class='h-min py-4 pr-content'>
-        {%- render 'component.icon',
-          type: 'karhu-header-logo',
-          class: 'w-[152px] h-6 lg:w-[177px] lg:h-7'
-        -%}
-      </a>
+      <div class='py-4 pr-content flex justify-between items-center'>
+        <a href='{{ shop.url }}'>
+          {%- render 'component.icon', type: 'karhu-header-logo', class: 'h-6 lg:h-7' -%}
+        </a>
+      </div>
       <ul class='hidden lg:flex flex-grow justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
         {%- if customer -%}
           {%- for link in headerMenu -%}

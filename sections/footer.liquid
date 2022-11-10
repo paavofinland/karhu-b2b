@@ -14,12 +14,9 @@
 <div class='w-full pt-[60px] lg:pt-10'></div>
 <footer class='border-t border-grey-1'>
   <div class='flex container'>
-    <div class='flex flex-col justify-center items-center flex-1 border-r border-grey-1 px-8 lg:pt-[135px] lg:pb-[120px]'>
+    <div class='flex flex-col justify-center items-center flex-1 border-r border-grey-1 p-8 lg:pt-[135px] lg:pb-[120px]'>
       <a href='{{- routes.root_url -}}'>
-        {%- render 'component.icon',
-          type: 'karhu-logo-footer',
-          class: 'w-[78px] h-[55px] lg:w-[120px] lg:h-[85px]'
-        -%}
+        {%- render 'component.icon', type: 'karhu-logo-footer', class: 'w-20 lg:w-32' -%}
       </a>
       <ul class='flex flex-wrap justify-center mt-12 lg:mt-9 gap-[30px] lg:gap-9'>
         {%- for s in socials -%}

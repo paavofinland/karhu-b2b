@@ -26,7 +26,7 @@
   "
 {%- endcapture -%}
 
-<section data-component='countrySelect'>
+<section data-component='countrySelect' class='{{- class -}}'>
   {% form 'localization' %}
     {%- render 'select',
       select_attributes: select_attributes,

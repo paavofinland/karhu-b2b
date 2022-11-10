@@ -1,15 +1,23 @@
 {%- include 'function.agent' -%}
 {%- liquid
   assign announcement_text = section.settings.announcement_text
+  assign agent = agent
 -%}
 
 <div
   data-component='announcementBar'
-  class='bg-black text-white text-detailed py-3 {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'
+  class='bg-black text-white text-detailed py-3 justify-center items-center {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'
 >
-  <div class='container-content-wide flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
-    {% comment %} TODO: Hide for agents once we have switching by customer currency (hide with css to the redirect form stuff still works ✨) {% endcomment %}
-    {%- render 'country-select' -%}
+  <div class='container-content-wide h-4 flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
+    {%- liquid
+      if agent
+        assign agent_hidden_class = ' hidden'
+      endif
+
+      assign country_select_class = 'absolute' | append: agent_hidden_class
+
+      render 'country-select', class: country_select_class
+    -%}
 
     {%- if announcement_text != blank and agent == false -%}
       <p class='flex-1 text-center'>
@@ -24,7 +32,7 @@
     {%- endif -%}
 
     {%- if customer -%}
-      <a href='/account' class='flex-1 text-right hidden md:block'>
+      <a href='/account' class='ml-auto text-right hidden md:block'>
         {{- 'general.header.account' | t -}}
       </a>
     {%- endif -%}

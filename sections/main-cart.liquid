@@ -9,15 +9,17 @@
       <h4 class='text-heading-4 lg:text-heading-3 mb-7 lg:mb-0'>
         {{- 'cart.general.title' | t -}}
       </h4>
-      {%- if agent -%}
-        {%- render 'component.select',
-          options: null,
-          placeholder_class: 'text-grey-3',
-          container_class: 'border border-grey-4 w-full lg:max-w-[300px] mb-7 lg:mb-0',
-          select_class: 'px-4 py-[18px] w-full appearance-none',
-          placeholder: 'Select Saved Cart'
-        -%}
-      {%- endif -%}
+      {% comment %}
+         {%- if agent -%}
+          {%- render 'component.select',
+            options: null,
+            placeholder_class: 'text-grey-3',
+            container_class: 'border border-grey-4 w-full lg:max-w-[300px] mb-7 lg:mb-0',
+            select_class: 'px-4 py-[18px] w-full appearance-none',
+            placeholder: 'Select Saved Cart'
+          -%}
+        {%- endif -%}
+      {% endcomment %}
     </div>
     {%- if cart.items.size > 0 -%}
       <div class='text-body-sm'>

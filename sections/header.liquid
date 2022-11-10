@@ -32,13 +32,13 @@
       {% if clearBackground -%}{{- textBorderClasses }} -mb-[var(--header-height)]{%- else -%}is-active{%- endif -%}
     '
   >
-    <div class='container-content flex justify-between h-full border-opacity-[inherit] border-inherit xxl:border-x'>
-      <div class='py-4 pr-content flex justify-between items-center'>
+    <div class='container-content flex justify-center items-center h-full border-opacity-[inherit] border-inherit xxl:border-x'>
+      <div class='py-4 pr-content mr-auto flex h-full justify-between items-center border-r border-inherit'>
         <a href='{{ shop.url }}'>
           {%- render 'component.icon', type: 'karhu-header-logo', class: 'h-6 lg:h-7' -%}
         </a>
       </div>
-      <ul class='hidden lg:flex flex-grow justify-center items-center gap-[60px] border-x border-inherit text-heading-7'>
+      <ul class='hidden lg:flex lg:absolute h-full justify-center items-center gap-[60px] text-heading-7'>
         {%- if customer -%}
           {%- for link in headerMenu -%}
             <li class='group'>
@@ -52,7 +52,7 @@
           {%- endfor -%}
         {%- endif -%}
       </ul>
-      <ul class='hidden lg:flex justify-center items-center gap-9 pl-content text-heading-7'>
+      <ul class='hidden lg:flex justify-center ml-auto border-l border-inherit h-full items-center gap-9 pl-content text-heading-7'>
         {%- if customer -%}
           <li class='cursor-pointer group'>
             <a href='{{- routes.search_url -}}'>Search</a>

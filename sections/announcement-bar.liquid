@@ -1,21 +1,17 @@
 {%- include 'function.agent' -%}
 {%- liquid
-  assign store = request.host | split: '.' | first | split: '-' | last
   assign announcement_text = section.settings.announcement_text
+  assign agent = agent
 -%}
 
 <div
   data-component='announcementBar'
-  data-customer-id='{{- customer.id -}}'
-  data-customer-secret='{{- customer.metafields.functions.secret -}}'
-  data-store='{{- store -}}'
-  data-selected-store-customer='{{- customer.metafields.agent.selected_store_customer -}}'
-  class='bg-black text-white text-detailed py-3 {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'
+  class='bg-black text-white text-detailed py-3 justify-center items-center {% if announcement_text == blank and agent == false -%}hidden lg:flex{%- else -%}flex{%- endif -%}'
 >
-  {{ customer.metafield }}
-  <div class='container-content-wide flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
-    {% comment %} TODO: Hide for agents once we have switching by customer currency (hide with css to the redirect form stuff still works ✨) {% endcomment %}
-    {%- render 'country-select' -%}
+  <div class='container-content-wide h-4 flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
+    {%- liquid
+      render 'country-select', class: 'mr-auto', agent: agent
+    -%}
 
     {%- if announcement_text != blank and agent == false -%}
       <p class='flex-1 text-center'>
@@ -25,16 +21,12 @@
 
     {%- if agent -%}
       <div class='absolute mx-auto'>
-        {%- render 'select',
-          placeholder: 'general.header.select_customer',
-          attributes: 'data-select-customer',
-          class: 'w-[110px] h-[1.4em]'
-        -%}
+        {% render 'store-select' %}
       </div>
     {%- endif -%}
 
     {%- if customer -%}
-      <a href='/account' class='flex-1 text-right hidden md:block'>
+      <a href='/account' class='ml-auto text-right hidden md:block'>
         {{- 'general.header.account' | t -}}
       </a>
     {%- endif -%}

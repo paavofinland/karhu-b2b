@@ -4,10 +4,10 @@ import accordion from './accordion';
 import header from './header';
 import cartDrawer from './cart-drawer';
 import cartItem from './cart-item';
-import announcementBar from './announcement-bar';
 import modal from './modal';
 import countrySelect from './country-select';
 import popup from './popup';
+import storeSelect from './store-select';
 
 export default {
   sectionRendering,
@@ -16,8 +16,8 @@ export default {
   header,
   cartDrawer,
   cartItem,
-  announcementBar,
   modal,
   countrySelect,
   popup,
+  storeSelect,
 };

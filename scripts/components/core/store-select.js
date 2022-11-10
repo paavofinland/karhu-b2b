@@ -47,6 +47,7 @@ export default window.component(async (node, ctx) => {
       }
       option.value = customer.id;
       option.innerText = customer.name;
+      option.setAttribute('data-country-code', customer.countryCode);
       documentFragment.appendChild(option);
     });
     customerSelect.appendChild(documentFragment);
@@ -79,13 +80,14 @@ export default window.component(async (node, ctx) => {
     await fetch(
       `${process.env.API_URL}/customer/set-selected-store?${query}&storeCustomerId=${e.target.value}`
     ).then(async r => {
-      if (r.status === 201) {
-        window.location.reload();
-      } else {
+      if (r.status !== 201) {
         console.error(`Could not set selected store [${(await r.json()).message}]`);
       }
     });
     ctx.emit(LOADING_EVENT, null, false);
+    ctx.emit('store:change', null, {
+      countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
+    });
   });
 
   await loadAgentStores();

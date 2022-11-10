@@ -23,10 +23,15 @@
 {%- capture select_attributes -%}
   name="country_code" data-current="
   {{- localization.country.iso_code -}}
+  " data-default="
+  {{- customer.metafields.store.country_code -}}
   "
 {%- endcapture -%}
 
-<section data-component='countrySelect' class='{{- class -}}'>
+<section
+  data-component='countrySelect'
+  class='{{- class }} {% if agent == false -%}hidden{%- endif -%}'
+>
   {% form 'localization' %}
     {%- render 'select',
       select_attributes: select_attributes,

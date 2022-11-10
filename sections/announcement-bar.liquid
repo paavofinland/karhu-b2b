@@ -10,13 +10,7 @@
 >
   <div class='container-content-wide h-4 flex {% if agent -%}justify-center{%- else -%}justify-between{%- endif %}'>
     {%- liquid
-      if agent
-        assign agent_hidden_class = ' hidden'
-      endif
-
-      assign country_select_class = 'absolute' | append: agent_hidden_class
-
-      render 'country-select', class: country_select_class
+      render 'country-select', class: 'mr-auto', agent: agent
     -%}
 
     {%- if announcement_text != blank and agent == false -%}

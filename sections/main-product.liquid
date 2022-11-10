@@ -72,13 +72,17 @@
       current_product: current_product,
       family_metafield: family_metafield
     -%}
-    {%- render 'product-sizes' -%}
-    {%- render 'component.button',
-      text: 'products.product.add_to_cart',
-      style: 'primary',
-      size: 'lg',
-      class: 'w-full mt-10'
-    -%}
+    <form data-form-cart-add>
+      {%- render 'product-sizes' -%}
+      {%- render 'component.button',
+        text: 'products.product.add_to_cart',
+        style: 'primary',
+        size: 'lg',
+        class: 'w-full mt-10',
+        attributes: 'data-add-to-cart-button',
+        type: 'submit'
+      -%}
+    </form>
     <div class='mt-8 product-details'>
       {%- if product.description != '' -%}
         {%- render 'product.accordion',

@@ -60,8 +60,14 @@
     "product_item": {
       "size": "Size:",
       "remove": "Remove",
-      "quantity": "Quantity",
+      "quantity": "Qty",
       "edit": "Edit"
+    }
+  },
+  "share": {
+    "general": {
+      "title": "Shared shopping bag",
+      "add_to_bag": "Add to bag"
     }
   },
   "customer": {

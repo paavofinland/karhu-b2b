@@ -1,6 +1,9 @@
 {%- liquid
+  include 'function.agent'
   assign s = section.settings
   assign year = 'today' | date: '%Y'
+
+  assign agent = agent
 
   capture socials_string
     for s in settings
@@ -11,6 +14,7 @@
   endcapture
   assign socials = socials_string | split: ','
 -%}
+
 <div class='w-full pt-[60px] lg:pt-10'></div>
 <footer class='border-t border-grey-1'>
   <div class='flex container'>
@@ -64,7 +68,7 @@
       {% endif %}
     </div>
   </div>
-  {%- render 'component.footer-bar', is_menu: false -%}
+  {%- render 'component.footer-bar', is_menu: false, agent: agent -%}
 </footer>
 
 {% schema %}

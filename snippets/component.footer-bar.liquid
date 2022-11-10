@@ -23,7 +23,9 @@
 
 <div class='bg-black text-white '>
   <div class='container-content flex justify-between text-detailed items-center py-3 px-4 lg:px-5'>
-    {%- render 'country-select', class: switcher_class -%}
+    {%- if agent -%}
+      {%- render 'country-select', class: switcher_class -%}
+    {%- endif -%}
     {%- if customer -%}
       <a href='/account' class='{{- account_link_class -}}'>Account</a>
     {%- endif -%}

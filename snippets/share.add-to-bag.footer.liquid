@@ -1,0 +1,17 @@
+<div class='flex gap-2'>
+  {%- render 'component.button',
+    text: 'share.add_to_bag.cancel',
+    style: 'secondary',
+    class: 'w-full',
+    attributes: 'data-close-popup-btn'
+  -%}
+  {%- render 'component.button',
+    text: 'share.add_to_bag.add_to_bag',
+    style: 'primary',
+    class: 'w-full group',
+    attributes: 'data-add-to-bag-popup-btn'
+    has_loading_state: true,
+    loading_class: 'hidden group-is-active:flex',
+    text_loading_class: 'group-is-active:hidden'
+  -%}
+</div>

@@ -68,6 +68,12 @@
     "general": {
       "title": "Shared shopping bag",
       "add_to_bag": "Add to bag"
+    },
+    "add_to_bag": {
+      "title": "Overwriting shopping bag",
+      "cancel": "Cancel",
+      "content": "This action will overwrite the items currently in your shopping bag, would you like to proceed?",
+      "add_to_bag": "Add to bag"
     }
   },
   "customer": {

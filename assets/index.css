@@ -3204,6 +3204,14 @@ html {
   margin-bottom: 1.75rem;
 }
 
+.group.is-active .group-is-active\:flex {
+  display: flex;
+}
+
+.group.is-active .group-is-active\:hidden {
+  display: none;
+}
+
 .group.is-active .group-is-active\:h-\[var\(--innerHeight\)\] {
   height: var(--innerHeight);
 }
@@ -3388,6 +3396,9 @@ html {
   }
   .lg\:mr-10 {
     margin-right: 2.5rem;
+  }
+  .lg\:mt-4 {
+    margin-top: 1rem;
   }
   .lg\:block {
     display: block;

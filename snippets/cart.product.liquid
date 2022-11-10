@@ -17,7 +17,12 @@
     data-price='{{- item.price | money -}}'
     data-quantity='{{- item.quantity -}}'
     data-image='{{- item | image_url -}}'
+    data-data="{{item | json}}"
   >
+    {%- if shared -%}
+      <input data-input-id type="hidden" name="items[][id]" />
+      <input data-input-quantity type="hidden" name="items[][quantity]" />
+    {%- endif -%}
     <div class='flex justify-between'>
       <p
         data-title-elem

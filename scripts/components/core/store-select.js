@@ -1,16 +1,41 @@
 import choozy from '../../lib/choozy';
+import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const LOADING_EVENT = 'agent-stores:loading';
 
+const getAgentStores = async (store, customerId, customerSecret) => {
+  const query = new URLSearchParams({
+    store,
+    customerId,
+    secret: customerSecret,
+  });
+
+  return fetch(`${process.env.API_URL}/customer/list-agent-stores?${query}`).then(async res => {
+    if (res.status === 200) {
+      const data = await res.json();
+      return data;
+    }
+    console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
+    return [];
+  });
+};
+
 export default window.component(async (node, ctx) => {
+  const {
+    store: { store },
+    customer: {
+      secret: customerSecret,
+      selected_store_customer: selectedStoreCustomer,
+      id: customerId,
+    },
+  } = getLiquidVariables();
+
   const { selectCustomer } = choozy(node, null);
   const { select: customerSelect } = choozy(selectCustomer, null);
-  const { customerId, customerSecret, store, selectedStoreCustomer } = node.dataset;
-
-  if (!customerId || !customerSecret || !store || !selectCustomer) return;
 
   ctx.on(LOADING_EVENT, (_, isLoading = true) => {
-    selectCustomer.classList[isLoading ? 'add' : 'remove']('is-loading');
+    customerSelect.classList[isLoading ? 'add' : 'remove']('is-loading');
+    customerSelect.disabled = isLoading;
   });
 
   const appendSelect = data => {
@@ -35,28 +60,20 @@ export default window.component(async (node, ctx) => {
     secret: customerSecret,
   });
 
-  const getAgentStores = () => {
-    return fetch(`${process.env.API_URL}/customer/list-agent-stores?${query}`).then(async res => {
-      if (res.status === 200) {
-        const data = await res.json();
-        ctx.emit('agent-stores:received', null, { data });
-        return data;
-      }
-      console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
-      return [];
-    });
+  const loadAgentStores = async () => {
+    const agentStores = await getAgentStores(store, customerId, customerSecret);
+
+    ctx.emit(LOADING_EVENT, null, false);
+    ctx.emit('agent-stores:received', null, { data: agentStores });
+
+    if (!agentStores.length) {
+      customerSelect.setAttribute('disabled', true);
+      return;
+    }
+
+    appendSelect(agentStores);
   };
 
-  const agentStores = await getAgentStores();
-
-  ctx.emit(LOADING_EVENT, null, false);
-
-  if (!agentStores.length) {
-    customerSelect.setAttribute('disabled', true);
-    return;
-  }
-
-  appendSelect(agentStores);
   customerSelect.addEventListener('change', async e => {
     ctx.emit(LOADING_EVENT, null, true);
     await fetch(
@@ -71,5 +88,5 @@ export default window.component(async (node, ctx) => {
     ctx.emit(LOADING_EVENT, null, false);
   });
 
-  ctx.emit('store-data:send', null, { data: node.dataset });
+  await loadAgentStores();
 });

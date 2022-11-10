@@ -1,0 +1,12 @@
+<script id='liquid-variables' type='application/json'>
+  {
+    "store": {
+      "store": "{{- request.host | split: '.' | first | split: '-' | last -}}"
+    },
+    "customer": {
+      "id": "{{- customer.id -}}",
+      "secret": "{{- customer.metafields.functions.secret -}}",
+      "selected_store_customer": "{{- customer.metafields.agent.selected_store_customer -}}"
+    }
+  }
+</script>

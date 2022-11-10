@@ -1,6 +1,12 @@
 import choozy from '../../lib/choozy';
+import getLiquidVariables from '../../lib/get-liquid-variables';
 
 export default window.component(async (node, ctx) => {
+  const {
+    store: { store },
+    customer: { secret: customerSecret, id: customerId },
+  } = getLiquidVariables();
+
   const {
     selectCustomer,
     ordersContainer,
@@ -10,12 +16,9 @@ export default window.component(async (node, ctx) => {
     ordersTableRow,
     ordersBlockContainer,
     ordersBlock,
-  } = choozy(node, null);
-
-  let storeData = {};
+  } = choozy(node);
 
   const getCustomerOrders = async e => {
-    const { store, customerSecret, customerId } = storeData;
     const query = new URLSearchParams({
       store,
       secret: customerSecret,
@@ -88,8 +91,4 @@ export default window.component(async (node, ctx) => {
   } else {
     onSelectCustomer();
   }
-
-  ctx.on('store-data:send', (_state, { data }) => {
-    storeData = data;
-  });
 });

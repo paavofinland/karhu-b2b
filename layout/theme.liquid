@@ -45,6 +45,8 @@
         <meta name='description' content='{{ page_description | escape }}'>
       {% endif %}
 
+      {%- render 'liquid-variables' -%}
+
       {% comment %} Add the right preload fonts {% endcomment %}
       <link
         rel='preload'

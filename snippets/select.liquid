@@ -1,13 +1,12 @@
 <div
   {{ attributes }}
-  class='group flex gap-4 justify-between is-loading:justify-center is-loading:items-center flex-none {{ class -}}'
+  class='flex gap-4 justify-between cursor-pointer flex-none {{ class -}}'
 >
-  {%- render 'loading-indicator', class: 'hidden h-[1em] group-is-loading:flex' -%}
-  <div class='relative w-full cursor-pointer group-is-loading:hidden'>
+  <div class='relative w-full'>
     <select
       data-select
       {{ select_attributes }}
-      class='bg-inherit appearance-none w-full cursor-pointer h-full'
+      class='bg-inherit appearance-none cursor-pointer w-full h-full is-loading:animate-pulse is-loading:cursor-wait'
     >
       {%- if placeholder != blank -%}
         <option selected disabled>{{- placeholder | t -}}</option>

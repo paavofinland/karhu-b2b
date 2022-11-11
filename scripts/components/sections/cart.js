@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const getElementByDataId = id => element => element.dataset.id === id;
 
@@ -16,6 +17,8 @@ export default window.component(async (node, ctx) => {
     cartInput,
     errorMessage,
   } = choozy(node);
+
+  const storeData = getLiquidVariables();
 
   const setErrorState = message => {
     const action = message ? 'add' : 'remove';
@@ -82,22 +85,35 @@ export default window.component(async (node, ctx) => {
       onCopySuccess();
     });
 
-  let storeData = {};
-
-  const saveCart = () => {
-    const { store, customerSecret, customerId } = storeData;
-    const query = new URLSearchParams({
+  const getSaveCartQuery = () => {
+    const {
+      store: { store },
+      customer: { secret, id: customerId },
+    } = storeData;
+    return new URLSearchParams({
       store,
-      secret: customerSecret,
+      secret,
       customerId,
     });
+  };
 
+  const getCartItems = () => {
+    const { item } = choozy(node, null);
+    return [].concat(item).map(productEl => {
+      const { id, quantity } = productEl.dataset;
+      return { id, quantity };
+    });
+  };
+
+  const saveCart = () => {
+    const query = getSaveCartQuery();
+    const cartItems = getCartItems();
     return fetch(`${process.env.API_URL}/customer/save-cart?${query}`, {
       method: 'POST',
       body: JSON.stringify({
-        name: 'cart name 12',
+        name: cartInput.value,
         udpated_at: new Date(),
-        line_items_ids: ['123', '321', '222'],
+        line_items: cartItems,
       }),
     }).then(async res => {
       const data = await res.json();
@@ -108,18 +124,36 @@ export default window.component(async (node, ctx) => {
     });
   };
 
+  const toggleRenderState = () => {
+    saveCartPopupBtn.classList.toggle('is-active');
+    document.body.classList.toggle('pointer-events-none');
+  };
+
+  const onToggleSaveCartBtnState = () => {
+    saveCartBtn.classList.toggle('is-active');
+    saveCartBtn.toggleAttribute('disabled');
+  };
+
   saveCartPopupBtn.addEventListener('click', async () => {
+    if (!cartInput.value) {
+      setErrorState('Please fill in a name');
+      return;
+    }
+
+    toggleRenderState();
     setErrorState('');
     try {
       await saveCart();
       onCloseSaveCartPopup();
-      saveCartBtn.classList.add('is-active');
+      cartInput.value = '';
+      onToggleSaveCartBtnState();
+      setTimeout(() => {
+        onToggleSaveCartBtnState();
+      }, 1000);
     } catch (e) {
       setErrorState(e.message);
+    } finally {
+      toggleRenderState();
     }
-  });
-
-  ctx.on('store-data:send', (_state, { data }) => {
-    storeData = data;
   });
 });

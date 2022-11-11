@@ -9,8 +9,6 @@ export default window.component(async (node, ctx) => {
 
   if (!customerId || !customerSecret || !store || !selectCustomer) return;
 
-  ctx.emit('store-data:send', null, { data: node.dataset });
-
   ctx.on(LOADING_EVENT, (_, isLoading = true) => {
     selectCustomer.classList[isLoading ? 'add' : 'remove']('is-loading');
   });

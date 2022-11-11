@@ -99,7 +99,10 @@ export default window.component(async (node, ctx) => {
   ctx.emit('data:render', null, JSON.parse(copyData));
 
   const onOpenAddToBagPopup = () => ctx.emit('popup:open', null, 'add-to-bag');
-  const onCloseAddToBagPopup = () => ctx.emit('popup:close', null, 'add-to-bag');
+  const onCloseAddToBagPopup = e => {
+    e.preventDefault();
+    ctx.emit('popup:close', null, 'add-to-bag');
+  };
 
   addToBagBtn && addToBagBtn.addEventListener('click', onOpenAddToBagPopup);
   closePopupBtn &&

@@ -54,13 +54,26 @@
       "continue_shopping": "Continue shopping",
       "item": "item",
       "items": "items",
-      "go_shopping": "Go shopping"
+      "go_shopping": "Go shopping",
+      "save_cart": "Save cart"
     },
     "product_item": {
       "size": "Size:",
       "remove": "Remove",
-      "quantity": "Quantity",
+      "quantity": "Qty",
       "edit": "Edit"
+    }
+  },
+  "share": {
+    "general": {
+      "title": "Shared shopping bag",
+      "add_to_bag": "Add to bag"
+    },
+    "add_to_bag": {
+      "title": "Overwriting shopping bag",
+      "cancel": "Cancel",
+      "content": "This action will overwrite the items currently in your shopping bag, would you like to proceed?",
+      "add_to_bag": "Add to bag"
     }
   },
   "customer": {

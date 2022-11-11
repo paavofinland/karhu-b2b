@@ -1,7 +1,7 @@
-<div data-popup class='hidden fixed inset-0 z-[10000] px-4'>
-  <div class='z-10 fixed inset-0 bg-[#1E1E1E] opacity-50'></div>
+<div data-component="popup" data-popup="{{- type -}}" class='hidden fixed inset-0 z-[10000] px-4'>
+  <div data-popup-overlay="overlay" class='z-10 fixed inset-0 bg-[#1E1E1E] opacity-50'></div>
   <div class='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-white min-w-[340px] lg:min-w-[480px] p-4 pt-7 lg:p-8'>
-    <p class='text-heading-5'>Title</p>
+    <p class='text-heading-5'>{{- title | t -}}</p>
     <button data-close-popup-btn class='w-6 h-6 absolute top-3 right-3'>
       {%- render 'component.icon', type: 'close', class: 'inline h-6 w-6' -%}
     </button>
@@ -9,12 +9,16 @@
       {% case content_snippet %}
         {% when 'cart.save-popup.content' %}
           {%- render 'cart.save-popup.content' -%}
+        {% when 'share.add-to-bag.content' %}
+          {%- render 'share.add-to-bag.content' -%}
       {% endcase %}
     </div>
     <div>
       {% case footer_snippet %}
         {% when 'cart.save-popup.footer' %}
           {%- render 'cart.save-popup.footer' -%}
+        {% when 'share.add-to-bag.footer' %}
+          {%- render 'share.add-to-bag.footer' -%}
       {% endcase %}
     </div>
   </div>

@@ -1,0 +1,41 @@
+<section
+  data-component='shareCart'
+  class='container px-4 mt-[28px] lg:mt-[60px] mb-[60px] lg:mb-[100px]'
+>
+  <form data-add-to-bag-form>
+    <div data-section class='max-w-[720px] mx-auto hidden'>
+      <div class='flex lg:mb-10 flex-col lg:flex-row justify-between lg:items-center'>
+        <h4 class='text-heading-4 lg:text-heading-3 mb-7 lg:mb-0'>
+          {{- 'share.general.title' | t -}}
+        </h4>
+      </div>
+      <div class='text-body-sm'>
+        <div data-product-container></div>
+        {%- comment -%} <div class='flex justify-between text-body-lg my-10 lg:mt-[60px]'>
+          <p>Subtotal</p>
+          <p data-subtotal></p>
+        </div> {%- endcomment -%}
+        <div>
+          {%- render 'component.button',
+            text: 'share.general.add_to_bag',
+            style: 'primary',
+            class: 'w-full',
+            attributes: 'data-add-to-bag-btn'
+          -%}
+        </div>
+      </div>
+    </div>
+    <div data-loader>
+      {%- render 'loading-indicator' -%}
+    </div>
+    {%- render 'component.popup',
+      content_snippet: 'share.add-to-bag.content',
+      footer_snippet: 'share.add-to-bag.footer',
+      title: 'share.add_to_bag.title',
+      type: 'add-to-bag'
+    -%}
+  </form>
+  <template data-product-template>
+    {%- render 'cart.product', shared: true -%}
+  </template>
+</section>

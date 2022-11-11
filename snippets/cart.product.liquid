@@ -1,0 +1,66 @@
+<div class='flex justify-between gap-4 lg:gap-[60px] py-3 lg:py-5 first-of-type:pt-0 border-b border-b-grey-5'>
+  <div class='min-w-[62px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
+    {%- if item.image -%}
+      {%- render 'component.image',
+        img: item.image,
+        class: 'aspect-square object-contain mix-blend-darken'
+      -%}
+    {%- else -%}
+      <img class='aspect-square object-contain mix-blend-darken' data-image-elem>
+    {%- endif -%}
+  </div>
+  <div
+    class='w-[fill-available] lg:self-center'
+    data-item
+    data-id='{{- item.id -}}'
+    data-title='{{- item.title -}}'
+    data-price='{{- item.price | money -}}'
+    data-quantity='{{- item.quantity -}}'
+    data-image='{{- item | image_url -}}'
+    data-data='{{item | json}}'
+  >
+    {%- if shared -%}
+      <input data-input-id type='hidden' name='items[][id]'>
+      <input data-input-quantity type='hidden' name='items[][quantity]'>
+    {%- endif -%}
+    <div class='flex justify-between'>
+      <p
+        data-title-elem
+        title='{{- item.title -}}'
+        class='max-w-[190px] lg:max-w-[420px] mr-4 truncate'
+      >
+        {{- item.title -}}
+      </p>
+      {%- unless shared -%}
+        <p data-price-elem>
+          {{- item.price | money -}}
+        </p>
+      {%- endunless -%}
+    </div>
+    <div class='flex justify-between mt-1 lg:mt-2'>
+      <p class='text-body-xs'>
+        <span class='text-grey-3'>
+          {{- 'cart.product_item.quantity' | t -}}
+          :
+        </span>
+        <span data-quantity-elem>
+          {{- item.quantity -}}
+        </span>
+      </p>
+      {%- unless shared -%}
+        <div>
+          <button
+            data-edit-item-btn
+            data-id='{{- item.id -}}'
+            class='mr-2 underline'
+          >
+            {{- 'cart.product_item.edit' | t -}}
+          </button>
+          <a class='underline' href='{{ item.url_to_remove }}'>
+            {{- 'cart.product_item.remove' | t -}}
+          </a>
+        </div>
+      {%- endunless -%}
+    </div>
+  </div>
+</div>

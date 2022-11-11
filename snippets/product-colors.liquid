@@ -1,8 +1,9 @@
+{%- assign color_count = 0 -%}
 {%- capture color_slides -%}
   {%- for product in collections.all.products -%}
     {%- if product.metafields.details.product_family contains family_metafield -%}
         {%- if product.available -%}
-          <div class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] opacity-60 {% unless product.handle == current_product -%}order-1 opacity-100{%- endunless -%}' data-slide>
+          <div data-slide class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] opacity-60 {% unless product.handle == current_product -%}order-1 opacity-100{%- endunless -%}' data-slide>
             {%- unless product.handle == current_product -%}
               <a href='{{- product.url -}}' >
             {%- endunless -%}
@@ -16,6 +17,7 @@
               </a>
             {%- endunless -%}
           </div>
+          {%- assign color_count = color_count | plus: 1 -%}
         {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
@@ -35,9 +37,15 @@
         attributes: 'data-prev disabled',
         class: 'hidden lg:block -left-12'
       -%}
+      {%- liquid 
+        assign next_attributes = 'data-next'
+        if color_count <= 5
+          assign next_attributes = next_attributes | append: ' disabled'
+        endif
+        -%}
       {%- render 'component.slider-button',
         icon_type: 'arrow-right',
-        attributes: 'data-next',
+        attributes: next_attributes,
         class: 'hidden lg:block -right-12'
       -%}
     </div>

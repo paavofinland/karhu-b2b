@@ -2,13 +2,6 @@
 import choozy from '../../lib/choozy';
 
 const getElementByDataId = id => element => element.dataset.id === id;
-const test = () => {
-  return new Promise((res, rej) => {
-    setTimeout(() => {
-      rej(new Error('error'));
-    }, 500);
-  });
-};
 
 export default window.component(async (node, ctx) => {
   const {
@@ -89,14 +82,44 @@ export default window.component(async (node, ctx) => {
       onCopySuccess();
     });
 
+  let storeData = {};
+
+  const saveCart = () => {
+    const { store, customerSecret, customerId } = storeData;
+    const query = new URLSearchParams({
+      store,
+      secret: customerSecret,
+      customerId,
+    });
+
+    return fetch(`${process.env.API_URL}/customer/save-cart?${query}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: 'cart name 12',
+        udpated_at: new Date(),
+        line_items_ids: ['123', '321', '222'],
+      }),
+    }).then(async res => {
+      const data = await res.json();
+      if (res.status === 200) {
+        return data;
+      }
+      throw new Error(data.message);
+    });
+  };
+
   saveCartPopupBtn.addEventListener('click', async () => {
     setErrorState('');
     try {
-      await test();
+      await saveCart();
       onCloseSaveCartPopup();
       saveCartBtn.classList.add('is-active');
     } catch (e) {
       setErrorState(e.message);
     }
+  });
+
+  ctx.on('store-data:send', (_state, { data }) => {
+    storeData = data;
   });
 });

@@ -25,6 +25,7 @@
     - label_class: {String} Additional class for label
     - attributes: {String} Additional attributes you want to add, like data-attributes
     - requiredStar: {Boolean} Display 'required' star in placeholder
+    - has_error: {Boolean} Should display error message
 
   Usage:
     {% liquid
@@ -106,4 +107,7 @@
     spellcheck='{{ spellcheck }}'
     {{ attributes }}
   >
+  {%- if has_error -%}
+    <p data-error-message class='mt-3 text-red-light hidden peer-invalid:block'></p>
+  {%- endif -%}
 </div>

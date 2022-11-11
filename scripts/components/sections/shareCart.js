@@ -1,9 +1,10 @@
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import getLiquidVariables from '../../lib/get-liquid-variables';
 
-const checkCopyData = () => {
+const getSharedData = () => {
   const url = new URL(window.location.href);
-  return url.searchParams.get('data');
+  return { agentId: url.searchParams.get('agentId'), cartName: url.searchParams.get('cartName') };
 };
 
 const onHandleError = error => {
@@ -26,6 +27,17 @@ const updateCart = body =>
     .then(response => response.json())
     .catch(onHandleError);
 
+const getCartProducts = query => {
+  return fetch(`${process.env.API_URL}/customer/get-cart-products?${query}`).then(async res => {
+    const responseData = await res.json();
+    if (res.status === 200) return responseData;
+    console.error(`Error§ [${(await res.json()).message}]`);
+    throw new Error(responseData.message);
+  });
+};
+
+const storeData = getLiquidVariables();
+
 export default window.component(async (node, ctx) => {
   const {
     productTemplate,
@@ -38,38 +50,38 @@ export default window.component(async (node, ctx) => {
     addToBagForm,
   } = choozy(node);
 
-  const renderDataInContainer = renderData => {
+  const getQueryParams = () => {
+    const {
+      store: { store },
+      customer: { secret, id: customerId },
+    } = storeData;
+    const { agentId, cartName } = getSharedData();
+    return new URLSearchParams({
+      store,
+      secret,
+      customerId,
+      agentId,
+      cartName,
+    });
+  };
+
+  const renderDataInContainer = products => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    renderData.forEach(
-      ({
-        title,
-        // price,
-        quantity,
-        image,
-        id,
-      }) => {
-        const newProductElem = productTemplate.content.cloneNode(true);
-        const {
-          titleElem,
-          // priceElem,
-          quantityElem,
-          imageElem,
-          item,
-          inputId,
-          inputQuantity,
-        } = choozy(newProductElem, null);
-        item.dataset.id = id;
-        titleElem.innerText = title;
-        titleElem.setAttribute('title', title);
-        // priceElem.innerText = price;
-        quantityElem.innerText = quantity;
-        imageElem.src = image;
-        inputId.value = id;
-        inputQuantity.value = quantity;
-        fragment.appendChild(newProductElem);
-      }
-    );
+    products.forEach(({ title, price, quantity, image, id }) => {
+      const newProductElem = productTemplate.content.cloneNode(true);
+      const { titleElem, priceElem, quantityElem, imageElem, item, inputId, inputQuantity } =
+        choozy(newProductElem, null);
+      item.dataset.id = id;
+      titleElem.innerText = title;
+      titleElem.setAttribute('title', title);
+      priceElem.innerText = price;
+      quantityElem.innerText = quantity;
+      imageElem.src = image;
+      inputId.value = id;
+      inputQuantity.value = quantity;
+      fragment.appendChild(newProductElem);
+    });
     productContainer.appendChild(fragment);
   };
 
@@ -78,25 +90,22 @@ export default window.component(async (node, ctx) => {
     section.classList.remove('hidden');
   });
 
-  ctx.on(
-    'data:render',
-    (
-      _state,
-      {
-        // subtotal: subtotalValue,
-        items,
-      }
-    ) => {
-      // const { subtotal } = choozy(node, null);
-      // subtotal.innerText = subtotalValue;
-      renderDataInContainer(items);
+  ctx.on('data:render', async () => {
+    const query = getQueryParams();
+    try {
+      const { products, subtotal } = await getCartProducts(query);
+      renderDataInContainer(products);
+      const { subtotal: subtotalEl } = choozy(node, null);
+      subtotalEl.innerText = subtotal;
+    } catch (e) {
+      // handle error
+      console.log(e);
+    } finally {
       ctx.emit('cart:loaded');
-      ctx.emit('data:update', null, items);
     }
-  );
+  });
 
-  const copyData = checkCopyData();
-  ctx.emit('data:render', null, JSON.parse(copyData));
+  ctx.emit('data:render', null);
 
   const onOpenAddToBagPopup = () => ctx.emit('popup:open', null, 'add-to-bag');
   const onCloseAddToBagPopup = e => {

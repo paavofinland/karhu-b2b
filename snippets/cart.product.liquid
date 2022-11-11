@@ -13,11 +13,11 @@
     class='w-[fill-available] lg:self-center'
     data-item
     data-id='{{- item.id -}}'
+    data-product-id='{{- item.product_id -}}'
     data-title='{{- item.title -}}'
     data-price='{{- item.price | money -}}'
     data-quantity='{{- item.quantity -}}'
     data-image='{{- item | image_url -}}'
-    data-data='{{item | json}}'
   >
     {%- if shared -%}
       <input data-input-id type='hidden' name='items[][id]'>
@@ -31,11 +31,9 @@
       >
         {{- item.title -}}
       </p>
-      {%- unless shared -%}
-        <p data-price-elem>
-          {{- item.price | money -}}
-        </p>
-      {%- endunless -%}
+      <p data-price-elem>
+        {{- item.price | money -}}
+      </p>
     </div>
     <div class='flex justify-between mt-1 lg:mt-2'>
       <p class='text-body-xs'>

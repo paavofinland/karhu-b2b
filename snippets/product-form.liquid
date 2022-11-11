@@ -1,0 +1,37 @@
+<form data-component='productForm' class='mt-7'>
+  {%- render 'product-sizes' -%}
+  {%- capture button_content -%}
+    <div
+      data-state
+      class='absolute inset-0 w-full h-full flex items-center justify-center transition-transform duration-[inherit] group-is-loading:-translate-y-full group-is-active:hidden'
+    >
+      {{- 'products.product.add_to_cart' | t -}}
+    </div>
+    <div
+      data-state
+      class='absolute inset-0 w-full h-full flex items-center justify-center duration-[inherit] transition-transform translate-y-full group-is-loading:translate-y-0 group-is-active:-translate-y-full'
+    >
+      {%- render 'loading-indicator' -%}
+    </div>
+    <div
+      data-state
+      class='absolute inset-0 w-full h-full flex items-center justify-center duration-[inherit] transition-transform translate-y-full group-is-active:translate-y-0'
+    >
+      {{- 'products.product.added_to_cart' | t -}}
+    </div>
+  {%- endcapture -%}
+  <div class='mt-4'>
+    <p
+      data-error
+      class='text-red-light text-detailed mb-2 opacity-100 transition-all duration-300 translate-y-0 empty:opacity-0 empty:translate-y-2 h-4'
+    ></p>
+    {%- render 'component.button',
+      text: button_content,
+      style: 'primary',
+      size: 'lg',
+      class: 'group relative w-full overflow-hidden',
+      attributes: 'data-add-to-cart-button',
+      type: 'submit'
+    -%}
+  </div>
+</form>

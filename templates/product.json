@@ -7,5 +7,6 @@
       ],
       "settings": {}
     }
-  }
+  },
+  "order": ["main"]
 }

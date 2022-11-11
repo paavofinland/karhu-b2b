@@ -61,7 +61,10 @@
             ></span>
           </li>
           <li class='cursor-pointer group'>
-            Bag (0)
+            <a href='{{- routes.cart_url -}}'
+              >Bag&nbsp;
+              {%- render 'cart-count' -%}
+            </a>
             <span
               class='block max-w-0 group-hover:max-w-full transition-all duration-200 h-0.5 bg-current'
             ></span>
@@ -101,7 +104,12 @@
             <li>
               <a href='{{- routes.search_url -}}'>Search</a>
             </li>
-            <li>Bag (0)</li>
+            <li>
+              <a href='{{- routes.cart_url -}}'
+                >Bag&nbsp;
+                {%- render 'cart-count' -%}
+              </a>
+            </li>
           {%- else -%}
             <li class='mx-auto'>
               <a href='/'>

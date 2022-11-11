@@ -2,8 +2,8 @@
   assign default_size_index = 1
   assign size_locales = 'eu|us|uk' | split: '|'
 -%}
-<div data-component='productSizes' class='mt-7'>
-  <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-5'>
+<div>
+  <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-3'>
     <p>Select amount</p>
     {% comment %}
        <div class='flex lg:gap-2'>
@@ -59,7 +59,10 @@
           value='0'
           min='0'
           max='{{- quantity -}}'
-          pattern="^[0-9]*$"
+          pattern='^[0-9]*$'
+          {% unless quantity > 0 -%}
+            disabled
+          {%- endunless -%}
         >
       </fieldset>
     {%- endfor -%}

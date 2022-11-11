@@ -7,6 +7,7 @@ import cartItem from './cart-item';
 import modal from './modal';
 import countrySelect from './country-select';
 import storeSelect from './store-select';
+import cartCount from './cart-count';
 import popup from './popup';
 
 export default {
@@ -18,6 +19,7 @@ export default {
   cartItem,
   modal,
   countrySelect,
-  storeSelect,
   popup,
+  storeSelect,
+  cartCount,
 };

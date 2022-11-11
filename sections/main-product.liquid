@@ -43,10 +43,7 @@
   {%- endif -%}
 {%- endfor -%}
 
-<div
-  class='container grid grid-cols-1 lg:grid-cols-[1fr_min(40%,800px)]'
-  data-component='productForm'
->
+<div class='container grid grid-cols-1 lg:grid-cols-[1fr_min(40%,800px)]'>
   {%- render 'product.images' -%}
   <div class='py-7 px-4 lg:px-[60px] lg:pt-7 lg:pb-[100px] overflow-hidden lg:mt-[var(--header-height)]'>
     {%- render 'component.breadcrumbs',
@@ -68,17 +65,11 @@
         &nbsp;<span class='line-through'>{{- product.compare_at_price | money -}}</span>
       {%- endif -%}
     </p>
-    {%- render 'product.colors',
+    {%- render 'product-colors',
       current_product: current_product,
       family_metafield: family_metafield
     -%}
-    {%- render 'product-sizes' -%}
-    {%- render 'component.button',
-      text: 'products.product.add_to_cart',
-      style: 'primary',
-      size: 'lg',
-      class: 'w-full mt-10'
-    -%}
+    {%- render 'product-form' -%}
     <div class='mt-8 product-details'>
       {%- if product.description != '' -%}
         {%- render 'product.accordion',

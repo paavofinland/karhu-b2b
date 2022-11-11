@@ -58,8 +58,10 @@ export default window.component(async (node, ctx) => {
   };
 
   const onCopySuccess = () => {
-    shareCartBtn.innerText = 'Link Copied';
     shareCartBtn.classList.add('is-active');
+    setTimeout(() => {
+      shareCartBtn.classList.remove('is-active');
+    }, 2000);
   };
 
   shareCartBtn &&

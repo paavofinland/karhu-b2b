@@ -83,7 +83,7 @@
     assign tag = 'a'
     assign tag_extras = 'href="' | append: href | append: '"'
   else
-    assign type = type | default: "button"
+    assign type = type | default: 'button'
     assign tag = 'button'
     assign tag_extras = 'type="' | append: type | append: '"'
     if name != blank
@@ -95,16 +95,11 @@
 <{{ tag }} {{ tag_extras }} id='{{- id -}}' class='{{- classes -}}' {{ attributes -}}>
   {%- if has_loading_state -%}
     <span class='{{- text_loading_class -}}'>{{- text -}}</span>
-    {%- render 'loading-indicator'
-      class: loading_class
-    -%}
+    {%- render 'loading-indicator', class: loading_class -%}
   {%- else -%}
-  {{- text -}}
+    {{- text -}}
   {%- endif -%}
   {%- if icon -%}
-    {%- render 'component.icon'
-      type: icon
-      class: icon_class
-    -%}
+    {%- render 'component.icon', type: icon, class: icon_class -%}
   {%- endif -%}
 </{{ tag }}>

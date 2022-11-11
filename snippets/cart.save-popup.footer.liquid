@@ -8,7 +8,9 @@
   {%- render 'component.button',
     text: 'Save',
     style: 'primary',
-    class: 'w-full',
-    attributes: 'data-save-cart-popup-btn'
+    class: 'w-full group',
+    attributes: 'data-save-cart-popup-btn',
+    loading_class: 'hidden group-is-active:flex',
+    text_loading_class: 'group-is-active:hidden'
   -%}
 </div>

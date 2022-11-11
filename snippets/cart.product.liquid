@@ -17,11 +17,11 @@
     data-price='{{- item.price | money -}}'
     data-quantity='{{- item.quantity -}}'
     data-image='{{- item | image_url -}}'
-    data-data="{{item | json}}"
+    data-data='{{item | json}}'
   >
     {%- if shared -%}
-      <input data-input-id type="hidden" name="items[][id]" />
-      <input data-input-quantity type="hidden" name="items[][quantity]" />
+      <input data-input-id type='hidden' name='items[][id]'>
+      <input data-input-quantity type='hidden' name='items[][quantity]'>
     {%- endif -%}
     <div class='flex justify-between'>
       <p
@@ -31,9 +31,11 @@
       >
         {{- item.title -}}
       </p>
-      <p data-price-elem>
-        {{- item.price | money -}}
-      </p>
+      {%- unless shared -%}
+        <p data-price-elem>
+          {{- item.price | money -}}
+        </p>
+      {%- endunless -%}
     </div>
     <div class='flex justify-between mt-1 lg:mt-2'>
       <p class='text-body-xs'>

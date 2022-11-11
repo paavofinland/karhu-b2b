@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const getElementByDataId = id => element => element.dataset.id === id;
 
@@ -10,10 +11,21 @@ export default window.component(async (node, ctx) => {
     sidebarLayer,
     closeSidebarBtn,
     saveCartBtn,
-    popup,
     closePopupBtn,
     shareCartBtn,
+    saveCartPopupBtn,
+    cartInput,
+    errorMessage,
   } = choozy(node);
+
+  const storeData = getLiquidVariables();
+
+  const setErrorState = message => {
+    const action = message ? 'add' : 'remove';
+    errorMessage.innerText = message;
+    errorMessage.classList[action]('is-active');
+    cartInput.classList[action]('is-active');
+  };
 
   const sidebarList = Array.isArray(sidebar) ? Array.from(sidebar) : [sidebar];
 
@@ -33,7 +45,10 @@ export default window.component(async (node, ctx) => {
   sidebarLayer.addEventListener('click', onToggleSidebar);
 
   const onOpenSaveCartPopup = () => ctx.emit('popup:open', null, 'save-cart');
-  const onCloseSaveCartPopup = () => ctx.emit('popup:close', null, 'save-cart');
+  const onCloseSaveCartPopup = () => {
+    ctx.emit('popup:close', null, 'save-cart');
+    setErrorState('');
+  };
 
   saveCartBtn && saveCartBtn.addEventListener('click', onOpenSaveCartPopup);
   closePopupBtn &&
@@ -71,4 +86,76 @@ export default window.component(async (node, ctx) => {
       await navigator.clipboard.writeText(url);
       onCopySuccess();
     });
+
+  const getSaveCartQuery = () => {
+    const {
+      store: { store },
+      customer: { secret, id: customerId },
+    } = storeData;
+    return new URLSearchParams({
+      store,
+      secret,
+      customerId,
+    });
+  };
+
+  const getCartItems = () => {
+    const { item } = choozy(node, null);
+    return [].concat(item).map(productEl => {
+      const { id, quantity } = productEl.dataset;
+      return { id, quantity };
+    });
+  };
+
+  const saveCart = () => {
+    const query = getSaveCartQuery();
+    const cartItems = getCartItems();
+    return fetch(`${process.env.API_URL}/customer/save-cart?${query}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        name: cartInput.value,
+        udpated_at: new Date(),
+        line_items: cartItems,
+      }),
+    }).then(async res => {
+      const data = await res.json();
+      if (res.status === 200) {
+        return data;
+      }
+      throw new Error(data.message);
+    });
+  };
+
+  const toggleRenderState = () => {
+    saveCartPopupBtn.classList.toggle('is-active');
+    document.body.classList.toggle('pointer-events-none');
+  };
+
+  const onToggleSaveCartBtnState = () => {
+    saveCartBtn.classList.toggle('is-active');
+    saveCartBtn.toggleAttribute('disabled');
+  };
+
+  saveCartPopupBtn.addEventListener('click', async () => {
+    if (!cartInput.value) {
+      setErrorState('Please fill in a name');
+      return;
+    }
+
+    toggleRenderState();
+    setErrorState('');
+    try {
+      await saveCart();
+      onCloseSaveCartPopup();
+      cartInput.value = '';
+      onToggleSaveCartBtnState();
+      setTimeout(() => {
+        onToggleSaveCartBtnState();
+      }, 1000);
+    } catch (e) {
+      setErrorState(e.message);
+    } finally {
+      toggleRenderState();
+    }
+  });
 });

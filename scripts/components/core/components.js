@@ -6,9 +6,9 @@ import cartDrawer from './cart-drawer';
 import cartItem from './cart-item';
 import modal from './modal';
 import countrySelect from './country-select';
-import popup from './popup';
 import storeSelect from './store-select';
 import cartCount from './cart-count';
+import popup from './popup';
 
 export default {
   sectionRendering,

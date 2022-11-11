@@ -41,20 +41,35 @@ export default window.component(async (node, ctx) => {
   const renderDataInContainer = renderData => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    renderData.forEach(({ title, price, quantity, image, id }) => {
-      const newProductElem = productTemplate.content.cloneNode(true);
-      const { titleElem, priceElem, quantityElem, imageElem, item, inputId, inputQuantity } =
-        choozy(newProductElem, null);
-      item.dataset.id = id;
-      titleElem.innerText = title;
-      titleElem.setAttribute('title', title);
-      priceElem.innerText = price;
-      quantityElem.innerText = quantity;
-      imageElem.src = image;
-      inputId.value = id;
-      inputQuantity.value = quantity;
-      fragment.appendChild(newProductElem);
-    });
+    renderData.forEach(
+      ({
+        title,
+        // price,
+        quantity,
+        image,
+        id,
+      }) => {
+        const newProductElem = productTemplate.content.cloneNode(true);
+        const {
+          titleElem,
+          // priceElem,
+          quantityElem,
+          imageElem,
+          item,
+          inputId,
+          inputQuantity,
+        } = choozy(newProductElem, null);
+        item.dataset.id = id;
+        titleElem.innerText = title;
+        titleElem.setAttribute('title', title);
+        // priceElem.innerText = price;
+        quantityElem.innerText = quantity;
+        imageElem.src = image;
+        inputId.value = id;
+        inputQuantity.value = quantity;
+        fragment.appendChild(newProductElem);
+      }
+    );
     productContainer.appendChild(fragment);
   };
 
@@ -63,19 +78,31 @@ export default window.component(async (node, ctx) => {
     section.classList.remove('hidden');
   });
 
-  ctx.on('data:render', (_state, { subtotal: subtotalValue, items }) => {
-    const { subtotal } = choozy(node, null);
-    subtotal.innerText = subtotalValue;
-    renderDataInContainer(items);
-    ctx.emit('cart:loaded');
-    ctx.emit('data:update', null, items);
-  });
+  ctx.on(
+    'data:render',
+    (
+      _state,
+      {
+        // subtotal: subtotalValue,
+        items,
+      }
+    ) => {
+      // const { subtotal } = choozy(node, null);
+      // subtotal.innerText = subtotalValue;
+      renderDataInContainer(items);
+      ctx.emit('cart:loaded');
+      ctx.emit('data:update', null, items);
+    }
+  );
 
   const copyData = checkCopyData();
   ctx.emit('data:render', null, JSON.parse(copyData));
 
   const onOpenAddToBagPopup = () => ctx.emit('popup:open', null, 'add-to-bag');
-  const onCloseAddToBagPopup = () => ctx.emit('popup:close', null, 'add-to-bag');
+  const onCloseAddToBagPopup = e => {
+    e.preventDefault();
+    ctx.emit('popup:close', null, 'add-to-bag');
+  };
 
   addToBagBtn && addToBagBtn.addEventListener('click', onOpenAddToBagPopup);
   closePopupBtn &&

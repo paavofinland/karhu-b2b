@@ -3320,6 +3320,16 @@ html {
   border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
+.is-active\:border-green-dark.is-active {
+  --tw-border-opacity: 1;
+  border-color: rgb(63 178 124 / var(--tw-border-opacity));
+}
+
+.is-active\:border-red-light.is-active {
+  --tw-border-opacity: 1;
+  border-color: rgb(221 48 67 / var(--tw-border-opacity));
+}
+
 .is-active\:border-opacity-100.is-active {
   --tw-border-opacity: 1;
 }
@@ -3327,6 +3337,11 @@ html {
 .is-active\:bg-white.is-active {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
+.is-active\:bg-green-dark.is-active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 178 124 / var(--tw-bg-opacity));
 }
 
 .is-active\:bg-black.is-active {

@@ -17,25 +17,25 @@ const getParameter = paramName => {
 };
 
 export default window.component((node, ctx) => {
-  const { loadMore, productGrid } = choozy(node);
-
-  const sections = {
-    productGrid: '[data-product-grid]',
-    empty: '[data-empty]',
-  };
+  const { loadMore, sortByOptions, productGrid } = choozy(node);
 
   ctx.on('product:update', (_state, { html }) => {
     // eslint-disable-next-line no-param-reassign
     productGrid.innerHTML = choozy(html).productGrid.innerHTML;
   });
 
+  const getQueryParams = (pageToQuery, sortBy) => {
+    const queryParams = new URLSearchParams(window.location.search);
+    queryParams.set('page', pageToQuery);
+    queryParams.set('sort_by', sortBy);
+    return queryParams.toString();
+  };
+
   const renderMoreProducts = async setPageNum => {
     const currentPage = getParameter('page');
     const pageToQuery = setPageNum || currentPage + 1;
-
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set('page', pageToQuery);
-    const query = queryParams.toString();
+    const sortBy = sortByOptions.value;
+    const query = getQueryParams(pageToQuery, sortBy);
 
     const filterHtmlRender = await fetchHtml(
       `${window.location.origin + window.location.pathname}?section_id=main-collection&${query}`
@@ -43,7 +43,8 @@ export default window.component((node, ctx) => {
 
     loadMore.classList.add('opacity-0');
 
-    if (filterHtmlRender.querySelector(sections.empty)) return;
+    const { empty } = choozy(filterHtmlRender, null);
+    if (empty) return;
 
     const renderBefore = pageToQuery === 1;
 
@@ -81,10 +82,11 @@ export default window.component((node, ctx) => {
   }
 
   ctx.on('product:render', ({ html, uri, addProducts = false }) => {
+    const { productGrid: productGridToRender } = choozy(html, null);
     if (addProducts) {
-      productGrid.innerHTML += html.querySelector(sections.productGrid).innerHTML;
+      productGrid.innerHTML += productGridToRender.innerHTML;
     } else {
-      productGrid.innerHTML = html.querySelector(sections.productGrid).innerHTML;
+      productGrid.innerHTML = productGridToRender.innerHTML;
     }
 
     updateURLHash(uri);
@@ -94,4 +96,6 @@ export default window.component((node, ctx) => {
   ctx.on('product:loading', (_, { isLoading }) => {
     choozy(node).productGrid.classList[isLoading ? 'add' : 'remove']('is-loading');
   });
+
+  sortByOptions.addEventListener('change', () => renderMoreProducts(1));
 });

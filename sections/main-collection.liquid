@@ -34,6 +34,25 @@
   <div class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'>
     {%- render 'collection.filters', section_id: section.id -%}
     <div class='w-full'>
+      {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+      {% liquid
+        capture options
+          for option in collection.sort_options
+            echo '<option '
+            if option.value == sort_by
+              echo ' selected '
+            endif
+            echo ' value="' | append: option.value | append: '"'
+            echo '>Sort by: ' | append: option.name | append: '</option>'
+          endfor
+        endcapture
+      %}
+      {%- render 'component.select',
+        options: options,
+        container_class: 'min-w-[260px] lg:w-min ml-auto border border-grey-4 mb-7 lg:mb-10',
+        select_class: 'px-4 py-4 w-full appearance-none',
+        attributes: 'data-sort-by-options'
+      -%}
       <div
         class='grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px] is-loading:opacity-50 is-loading:pointer-events-none'
         data-product-grid

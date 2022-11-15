@@ -1,6 +1,9 @@
 <section data-component='orders'>
   {%- unless agent -%}
-    {%- render 'account.orders-data' -%}
+    <div data-orders class='group'>
+      {%- render 'account.orders-data' -%}
+      {%- render 'loading-indicator' class: 'hidden group-is-active:flex' -%}
+    </div>
     <div data-no-orders class='hidden'>
       <p class='mt-10'>{{- 'customer.account.orders.no_orders_yet' | t -}}</p>
       {%-
@@ -18,18 +21,19 @@
       label_class: 'text-heading-7',
       placeholder_class: 'text-grey-3',
       container_class: 'mb-3 max-w-[480px]',
-      select_class: 'px-4 py-[18px] mt-3 border border-grey-4 w-full appearance-none',
+      select_class: 'px-4 py-[18px] mt-3 border border-grey-4 w-full appearance-none cursor-wait is-active:cursor-auto',
       placeholder: 'Select customer',
-      attributes: 'data-select-customer'
+      attributes: 'data-select-customer disabled'
     -%}
-    <p data-customer-select-text class='mt-10 mb-[100px]'>
+    <p data-customer-select-text class='mt-10 mb-[100px] hidden'>
       {{- 'customer.account.orders.select_customer_info'| t -}}
     </p>
     <p data-no-orders class='mt-10 mb-[100px] hidden'>
       {{- 'customer.account.orders.customer_no_orders' | t -}}
     </p>
-    <div class='mt-7 lg:mt-[60px]'>
+    <div data-orders class='group mt-7 lg:mt-[60px]'>
       {%- render 'account.orders-data' -%}
+      {%- render 'loading-indicator' class: 'hidden group-is-active:flex' -%}
     </div>
   {%- endunless -%}
 </section>

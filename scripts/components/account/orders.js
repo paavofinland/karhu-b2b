@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
@@ -16,6 +17,7 @@ export default window.component(async (node, ctx) => {
     ordersTableRow,
     ordersBlockContainer,
     ordersBlock,
+    orders,
   } = choozy(node);
 
   const getCustomerOrders = async e => {
@@ -54,11 +56,17 @@ export default window.component(async (node, ctx) => {
     container.appendChild(fragment);
   };
 
+  const clearState = () => {
+    noOrders.classList.add('hidden');
+    ordersContainer.classList.add('hidden');
+    orders.classList.add('is-active');
+    customerSelectText && customerSelectText.classList.add('hidden');
+  };
+
   const onSelectCustomer = async e => {
+    clearState();
     const orderList = await getCustomerOrders(e);
-    if (customerSelectText) {
-      customerSelectText.classList.add('hidden');
-    }
+    orders.classList.remove('is-active');
     if (!orderList.length) {
       noOrders.classList.remove('hidden');
       return;
@@ -86,6 +94,9 @@ export default window.component(async (node, ctx) => {
   if (selectCustomer) {
     selectCustomer.addEventListener('change', onSelectCustomer);
     ctx.on('agent-stores:received', (_state, { data }) => {
+      selectCustomer.classList.add('is-active');
+      selectCustomer.removeAttribute('disabled');
+      customerSelectText.classList.remove('hidden');
       appendCustomerSelect(data);
     });
   } else {

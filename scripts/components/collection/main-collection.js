@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
 import { fetchHtml, updateURLHash } from './utils';
 
@@ -16,12 +17,69 @@ const getParameter = paramName => {
   return 1;
 };
 
+const updateCart = body =>
+  fetch(`${window.Shopify.routes.root}cart/add.js`, {
+    method: 'POST',
+    body,
+  })
+    .then(response => response.json())
+    .catch(e => {
+      throw new Error(e);
+    });
+
 export default window.component((node, ctx) => {
-  const { loadMore, sortByOptions, productGrid } = choozy(node);
+  const { loadMore, productGrid, sortByOptions, sidebarLayer } = choozy(node);
+
+  const toggleProductSidebar = id => {
+    const currentSidebar = document.querySelector(`[data-sidebar][data-id="${id}"]`);
+    currentSidebar.classList.toggle('is-active');
+    sidebarLayer.classList.toggle('is-active');
+    sidebarLayer.dataset.id = id;
+  };
+
+  const updateHandlers = () => {
+    const { quickAddBtn, closeSidebarBtn } = choozy(node);
+    (quickAddBtn || closeSidebarBtn) &&
+      [].concat(quickAddBtn, closeSidebarBtn).forEach(btn => {
+        btn.addEventListener('click', e => toggleProductSidebar(e.currentTarget.dataset.id));
+      });
+  };
+
+  const onUpdateCartSuccess = id => {
+    const quickAddBtn = document.querySelector(`[data-quick-add-btn][data-id="${id}"]`);
+    quickAddBtn.classList.add('is-active');
+    setTimeout(() => {
+      quickAddBtn.classList.remove('is-active');
+    }, 1500);
+  };
+
+  const updateAddToCartHanlders = () => {
+    const { addToCartBtn } = choozy(node);
+    addToCartBtn &&
+      [].concat(addToCartBtn).forEach(btn => {
+        btn.addEventListener('click', async e => {
+          const { id } = e.currentTarget.dataset;
+          const form = e.currentTarget.closest('form');
+          const formData = new FormData(form);
+          try {
+            await updateCart(formData);
+            onUpdateCartSuccess(id);
+          } catch (err) {
+            console.error(err.message);
+          } finally {
+            toggleProductSidebar(id);
+          }
+        });
+      });
+  };
+
+  sidebarLayer.addEventListener('click', e => toggleProductSidebar(e.currentTarget.dataset.id));
 
   ctx.on('product:update', (_state, { html }) => {
     // eslint-disable-next-line no-param-reassign
     productGrid.innerHTML = choozy(html).productGrid.innerHTML;
+    updateHandlers();
+    updateAddToCartHanlders();
   });
 
   const getQueryParams = (pageToQuery, sortBy) => {
@@ -90,6 +148,8 @@ export default window.component((node, ctx) => {
     }
 
     updateURLHash(uri);
+    updateHandlers();
+    updateAddToCartHanlders();
     window.app.mount();
     ctx.emit('product:loading', null, { isLoading: false });
   });
@@ -102,4 +162,7 @@ export default window.component((node, ctx) => {
     ctx.emit('product:loading', null, { isLoading: true });
     renderMoreProducts(1);
   });
+
+  updateHandlers();
+  updateAddToCartHanlders();
 });

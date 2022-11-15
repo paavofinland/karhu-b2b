@@ -25,7 +25,7 @@
       <div class='text-body-sm'>
         {%- for item in cart.items -%}
           {%- render 'cart.product', item: item, shared: false -%}
-          {%- render 'cart.product-sidebar', item: item -%}
+          {%- render 'product-sidebar', item: item -%}
         {%- endfor -%}
         <div class='flex justify-between text-body-lg my-10 lg:mt-[60px]'>
           <p>Subtotal</p>

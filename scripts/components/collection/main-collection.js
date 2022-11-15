@@ -91,11 +91,15 @@ export default window.component((node, ctx) => {
 
     updateURLHash(uri);
     window.app.mount();
+    ctx.emit('product:loading', null, { isLoading: false });
   });
 
   ctx.on('product:loading', (_, { isLoading }) => {
-    choozy(node).productGrid.classList[isLoading ? 'add' : 'remove']('is-loading');
+    choozy(node).container.classList[isLoading ? 'add' : 'remove']('is-loading');
   });
 
-  sortByOptions.addEventListener('change', () => renderMoreProducts(1));
+  sortByOptions.addEventListener('change', () => {
+    ctx.emit('product:loading', null, { isLoading: true });
+    renderMoreProducts(1);
+  });
 });

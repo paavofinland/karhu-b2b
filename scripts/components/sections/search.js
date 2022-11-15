@@ -39,7 +39,7 @@ const onSearch = sectionId =>
   });
 
 export default window.component(async (node, ctx) => {
-  const { searchInput, searchContainer, sortByOptions } = choozy(node, null);
+  const { searchInput, searchContainer, sortByOptions, closeSearch } = choozy(node, null);
 
   const onSearchProducts = onSearch(node.dataset.sectionId);
 
@@ -70,10 +70,14 @@ export default window.component(async (node, ctx) => {
     searchResults.insertAdjacentHTML('beforeEnd', newSearchResultsContent.innerHTML);
   };
 
-  const updateProductsCount = html => {
+  const getNewProductsCount = html => {
+    const { productsCount } = choozy(html, null);
+    return productsCount.innerText;
+  };
+
+  const updateProductsCount = countText => {
     const { productsCount } = choozy(node, null);
-    const { productsCount: newProductsCountContent } = choozy(html, null);
-    productsCount.innerHTML = newProductsCountContent.innerHTML;
+    productsCount.innerText = countText;
   };
 
   const clearSearchResults = () => {
@@ -110,6 +114,8 @@ export default window.component(async (node, ctx) => {
       return;
     }
 
+    clearSearchResults();
+    updateProductsCount('No results found');
     const uri = getQueryString({ page: 1, q: '', sortBy: sortByOptions.value }).toString();
     updateURLHash(uri);
   };
@@ -124,9 +130,11 @@ export default window.component(async (node, ctx) => {
 
   searchInput.addEventListener('input', e => onInputSearch(e.target.value));
   sortByOptions.addEventListener('change', onChangeSortBy);
+  closeSearch.addEventListener('click', () => searchContainer.classList.add('is-active'));
 
   ctx.on('search:render', (_state, { html, uri, requestedPage }) => {
-    updateProductsCount(html);
+    const countText = getNewProductsCount(html);
+    updateProductsCount(countText);
 
     const { searchResults } = choozy(html, null);
     const { empty, productsContainer } = choozy(node, null);

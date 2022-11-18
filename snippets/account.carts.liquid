@@ -30,7 +30,7 @@
     </thead>
     <tbody>
       {%- for cart in carts -%}
-        <tr data-cart='{{- cart.name -}}' class='border-b border-grey-5'>
+        <tr data-cart='{{- cart.id -}}' class='border-b border-grey-5'>
           <td class='py-7 truncate'>{{- cart.name -}}</td>
           <td class='py-7 px-2'>{{- cart.updated_at | date: '%b %e, %Y' -}}</td>
           <td class='py-7'>
@@ -50,7 +50,7 @@
     class='block is-active:opacity-50 is-active:pointer-events-none {% if carts.size > 0 -%} lg:hidden {%- endif -%}'
   >
     {%- for cart in carts -%}
-      <div data-cart='{{- cart.name -}}' class='py-10 border-b border-grey-5'>
+      <div data-cart='{{- cart.id -}}' class='py-10 border-b border-grey-5'>
         <div class='grid grid-cols-2 justify-between items-center mb-5'>
           <div>
             <p class='text-heading-7 mb-1'>{{- 'customer.account.carts.name' | t -}}</p>

@@ -26,6 +26,8 @@ export default window.component((node, ctx) => {
   const { deleteCartBtn, deleteCartPopupBtn, cart, cartsLength, container, empty, viewCartBtn } =
     choozy(node, null);
 
+  let currentCartId = null;
+
   const toggleLoadingDeleteState = e => {
     e.target.classList.toggle('is-active');
     document.body.classList.toggle('pointer-events-none');
@@ -38,19 +40,17 @@ export default window.component((node, ctx) => {
     return newCartCount;
   };
 
-  const removeCarts = cartName => {
-    const cartElemsToRemove = []
-      .concat(cart)
-      .filter(cartElem => cartElem.dataset.cart === cartName);
+  const removeCarts = cartId => {
+    const cartElemsToRemove = [].concat(cart).filter(cartElem => cartElem.dataset.cart === cartId);
     cartElemsToRemove.forEach(elem => elem.remove());
   };
 
-  const getQueryParams = cartName => {
+  const getQueryParams = cartId => {
     return new URLSearchParams({
       store,
       secret: customerSecret,
       customerId,
-      cartName: encodeURI(cartName),
+      cartId: encodeURI(cartId),
     });
   };
 
@@ -64,7 +64,7 @@ export default window.component((node, ctx) => {
   deleteCartBtn &&
     [].concat(deleteCartBtn).forEach(btn =>
       btn.addEventListener('click', e => {
-        node.dataset.currentCart = e.currentTarget.dataset.name;
+        currentCartId = e.currentTarget.dataset.name;
         ctx.emit('popup:open', null, 'delete-cart');
       })
     );
@@ -72,12 +72,12 @@ export default window.component((node, ctx) => {
   deleteCartPopupBtn &&
     [].concat(deleteCartPopupBtn).forEach(btn =>
       btn.addEventListener('click', async e => {
-        const cartName = node.dataset.currentCart;
-        const query = getQueryParams(cartName);
+        const cartId = currentCartId;
+        const query = getQueryParams(cartId);
         toggleLoadingDeleteState(e);
         try {
           await deleteCart(query);
-          removeCarts(cartName);
+          removeCarts(cartId);
           const newCartCount = updateCartCount();
           if (newCartCount === 0) {
             empty.classList.remove('hidden');
@@ -86,7 +86,7 @@ export default window.component((node, ctx) => {
         } catch (err) {
           console.log(err);
         } finally {
-          node.dataset.currentCart = '';
+          currentCartId = '';
           ctx.emit('popup:close', null, 'delete-cart');
           toggleLoadingDeleteState(e);
         }

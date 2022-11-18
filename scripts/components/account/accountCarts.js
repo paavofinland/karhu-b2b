@@ -57,7 +57,7 @@ export default window.component((node, ctx) => {
   viewCartBtn &&
     [].concat(viewCartBtn).forEach(btn =>
       btn.addEventListener('click', async e => {
-
+        console.log(e.target);
       })
     );
 

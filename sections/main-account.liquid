@@ -63,10 +63,13 @@
       </ul>
     </div>
     <div class='pt-7 px-4 pb-[60px] lg:p-0 lg:pb-[100px] w-full'>
-      {% if template == 'address' %}
-        {% render 'account.addresses' %}
-      {% else %}
-        {% render 'account.orders', agent: agent %}
+      {%- if template == 'address' -%}
+        {%- render 'account.addresses' -%}
+      {%- else -%}
+        {%- render 'account.orders', agent: agent -%}
+        {%- if agent -%}
+          {%- render 'account.carts' -%}
+        {%- endif -%}
       {% endif %}
     </div>
   </div>

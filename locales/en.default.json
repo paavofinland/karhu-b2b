@@ -213,6 +213,18 @@
           "cancel_button": "Cancel",
           "set_default": "Set as default address"
         }
+      },
+      "carts": {
+        "saved_carts": "Saved carts",
+        "empty": "You haven't saved any carts yet.",
+        "name": "Name",
+        "created_at": "Date created",
+        "view_cart": "View Cart",
+        "edit": "Edit",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "delete_cart": "Delete cart",
+        "delete_warning": "Are you sure you want to delete this cart?"
       }
     }
   }

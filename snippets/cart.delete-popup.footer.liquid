@@ -1,0 +1,16 @@
+<div class='flex gap-2'>
+  {%- render 'component.button',
+    text: 'customer.account.carts.cancel',
+    style: 'secondary',
+    class: 'w-full',
+    attributes: 'data-close-popup-btn'
+  -%}
+  {%- render 'component.button',
+    text: 'customer.account.carts.delete',
+    style: 'primary',
+    class: 'w-full group',
+    attributes: 'data-delete-cart-popup-btn',
+    loading_class: 'hidden group-is-active:flex',
+    text_loading_class: 'group-is-active:hidden'
+  -%}
+</div>

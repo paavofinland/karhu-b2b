@@ -54,11 +54,11 @@ export default window.component(async (node, ctx) => {
   closePopupBtn &&
     [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onCloseSaveCartPopup));
 
-  const getShareLink = (cartName = 'test6') => {
+  const getShareLink = (cartId = '') => {
     const {
       customer: { id: customerId },
     } = storeData;
-    return `${window.location.origin}/pages/share-cart?agentId=${customerId}&cartName=${cartName}`;
+    return `${window.location.origin}/pages/share-cart?agentId=${customerId}&cartId=${cartId}`;
   };
 
   const onCopySuccess = () => {
@@ -70,7 +70,7 @@ export default window.component(async (node, ctx) => {
 
   shareCartBtn &&
     shareCartBtn.addEventListener('click', async () => {
-      const url = getShareLink('test6');
+      const url = getShareLink('some_custom_id');
       await navigator.clipboard.writeText(url);
       onCopySuccess();
     });

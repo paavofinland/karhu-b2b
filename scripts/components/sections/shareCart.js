@@ -4,7 +4,7 @@ import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const getSharedData = () => {
   const url = new URL(window.location.href);
-  return { agentId: url.searchParams.get('agentId'), cartName: url.searchParams.get('cartName') };
+  return { agentId: url.searchParams.get('agentId'), cartId: url.searchParams.get('cartId') };
 };
 
 const onHandleError = error => {
@@ -55,13 +55,13 @@ export default window.component(async (node, ctx) => {
       store: { store },
       customer: { secret, id: customerId },
     } = storeData;
-    const { agentId, cartName } = getSharedData();
+    const { agentId, cartId } = getSharedData();
     return new URLSearchParams({
       store,
       secret,
       customerId,
       agentId,
-      cartName,
+      cartId,
     });
   };
 

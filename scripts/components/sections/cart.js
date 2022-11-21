@@ -18,7 +18,6 @@ export default window.component(async (node, ctx) => {
   const setErrorState = message => {
     const { cartInput, errorMessage } = choozy(node);
     errorMessage.innerText = message;
-    console.log(!message);
     cartInput.setAttribute('required', !message);
     cartInput.setAttribute('aria-invalid', !message);
   };
@@ -99,10 +98,18 @@ export default window.component(async (node, ctx) => {
 
   const getCartItems = () => {
     const { item } = choozy(node, null);
-    return [].concat(item).map(productEl => {
-      const { id, productId, quantity } = productEl.dataset;
-      return { id, productId, quantity };
-    });
+    return []
+      .concat(item)
+      .map(productEl => {
+        const { variant } = choozy(productEl, null);
+        const { productId } = productEl.dataset;
+        const variantsData = [].concat(variant).map(variantEl => {
+          const { name: id, value: quantity } = variantEl;
+          return { productId, id, quantity };
+        });
+        return variantsData;
+      })
+      .flat();
   };
 
   const saveCart = () => {

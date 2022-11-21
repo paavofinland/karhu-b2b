@@ -19,7 +19,7 @@ const clearCart = () =>
     .then(response => response.json())
     .catch(onHandleError);
 
-const updateCart = body =>
+const addToCart = body =>
   fetch(`${window.Shopify.routes.root}cart/add.js`, {
     method: 'POST',
     body,
@@ -65,23 +65,34 @@ export default window.component(async (node, ctx) => {
     });
   };
 
+  const renderVariantData = ({ quantity, id: variantId }, template, container) => {
+    const productSharedDataElem = template.content.cloneNode(true);
+    const { quantityElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
+    quantityElem.innerText = quantity;
+    inputId.value = variantId;
+    inputQuantity.value = quantity;
+    container.appendChild(productSharedDataElem);
+  };
+
+  const renderProductData = ({ title, image, price, id, variants }, fragment) => {
+    const newProductElem = productTemplate.content.cloneNode(true);
+    const { item, titleElem, priceElem, imageElem, quantityContainer, productSharedDataTemplate } =
+      choozy(newProductElem, null);
+    item.dataset.id = id;
+    titleElem.innerText = title;
+    titleElem.setAttribute('title', title);
+    priceElem.innerText = price;
+    imageElem.src = image;
+    variants.forEach(variant =>
+      renderVariantData(variant, productSharedDataTemplate, quantityContainer)
+    );
+    fragment.appendChild(newProductElem);
+  };
+
   const renderDataInContainer = products => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    products.forEach(({ title, price, quantity, image, id }) => {
-      const newProductElem = productTemplate.content.cloneNode(true);
-      const { titleElem, priceElem, quantityElem, imageElem, item, inputId, inputQuantity } =
-        choozy(newProductElem, null);
-      item.dataset.id = id;
-      titleElem.innerText = title;
-      titleElem.setAttribute('title', title);
-      priceElem.innerText = price;
-      quantityElem.innerText = quantity;
-      imageElem.src = image;
-      inputId.value = id;
-      inputQuantity.value = quantity;
-      fragment.appendChild(newProductElem);
-    });
+    products.forEach(product => renderProductData(product, fragment));
     productContainer.appendChild(fragment);
   };
 
@@ -123,7 +134,7 @@ export default window.component(async (node, ctx) => {
       document.body.classList.add('pointer-events-none');
       await clearCart();
       const formData = new FormData(addToBagForm);
-      await updateCart(formData);
+      await addToCart(formData);
       window.location.replace(`${window.location.origin}/cart`);
     });
 });

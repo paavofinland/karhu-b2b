@@ -9,15 +9,15 @@
       <img class='aspect-square object-contain mix-blend-darken' data-image-elem>
     {%- endif -%}
   </div>
+  {%- comment -%} TODO: update prices, quantity for share functionality {%- endcomment -%}
   <div
     class='w-[fill-available] lg:self-center'
     data-item
     data-id='{{- item.id -}}'
-    data-title='{{- item.title -}}'
+    data-title='{{- item.product.title -}}'
     data-price='{{- item.price | money -}}'
     data-quantity='{{- item.quantity -}}'
     data-image='{{- item | image_url -}}'
-    data-data='{{item | json}}'
   >
     {%- if shared -%}
       <input data-input-id type='hidden' name='items[][id]'>
@@ -26,10 +26,10 @@
     <div class='flex justify-between'>
       <p
         data-title-elem
-        title='{{- item.title -}}'
+        title='{{- item.product.title -}}'
         class='max-w-[190px] lg:max-w-[420px] mr-4 truncate'
       >
-        {{- item.title -}}
+        {{- item.product.title -}}
       </p>
       {%- unless shared -%}
         <p data-price-elem>
@@ -38,29 +38,26 @@
       {%- endunless -%}
     </div>
     <div class='flex justify-between mt-1 lg:mt-2'>
-      <p class='text-body-xs'>
-        <span class='text-grey-3'>
-          {{- 'cart.product_item.quantity' | t -}}
-          :
-        </span>
-        <span data-quantity-elem>
-          {{- item.quantity -}}
-        </span>
-      </p>
+      {%- for line_item in product_variants -%}
+        {%- render 'cart.quantity', item: line_item -%}
+      {%- endfor -%}
       {%- unless shared -%}
         <div>
           <button
             data-edit-item-btn
-            data-id='{{- item.id -}}'
+            data-id='{{- item.product_id -}}'
             class='mr-2 underline'
           >
             {{- 'cart.product_item.edit' | t -}}
           </button>
-          <a class='underline' href='{{ item.url_to_remove }}'>
+          <button data-remove-item-btn data-id='{{- item.product_id -}}' class='underline'>
             {{- 'cart.product_item.remove' | t -}}
-          </a>
+          </button>
         </div>
       {%- endunless -%}
     </div>
   </div>
+  <template data-quantity-template>
+    {%- render 'cart.quantity' -%}
+  </template>
 </div>

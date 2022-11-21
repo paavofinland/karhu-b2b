@@ -1,0 +1,21 @@
+<form data-update-sizes-form data-id='{{- item.product_id -}}'>
+  {%- render 'product-sizes',
+    product: item.product,
+    is_cart: true,
+    product_variants: product_variants
+  -%}
+  <p data-update-error-msg class="is-active:block hidden text-red-light mt-2"></p>
+  {%- assign attributes = 'data-update-order-btn data-id="'
+    | append: item.product_id
+    | append: '"'
+  -%}
+  {%- render 'component.button',
+    style: 'primary',
+    text: 'Update order',
+    class: 'w-full mt-4 group',
+    type: 'submit',
+    attributes: attributes,
+    loading_class: 'h-6 hidden group-is-active:flex',
+    text_loading_class: 'group-is-active:hidden'
+  -%}
+</form>

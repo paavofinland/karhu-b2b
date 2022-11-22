@@ -55,12 +55,12 @@
   endunless
 %}
 
-<div class='relative after:absolute after:bg-[url("icon.select-black.svg")] after:w-[18px] after:h-4 after:pointer-events-none after:right-1 after:top-1/2 after:-translate-y-1/2 {{ container_class }}'>
-  {% if label %}
-    <label for='{{ id }}' class='{{ label_class }}'>
-      {{- label -}}
-    </label>
-  {% endif %}
+{% if label %}
+  <label for='{{ id }}' class='{{ label_class }}'>
+    {{- label -}}
+  </label>
+{% endif %}
+<div class='relative after:absolute after:bg-[url("icon.select-black.svg")] after:w-[18px] after:h-4 after:pointer-events-none after:right-2 after:top-1/2 after:-translate-y-1/2 {{ container_class }}'>
   <select
     id='{{ id }}'
     class='{{ select_class }} invalid:text-grey-3'
@@ -72,7 +72,7 @@
     {% endif %}
   >
     {% if placeholder -%}
-      <option class='{{ placeholder_class }}' value="" disabled selected>
+      <option class='{{ placeholder_class }}' value='' selected>
         {{ placeholder }}
         {%- if requiredStar -%}*{%- endif -%}
       </option>

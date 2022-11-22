@@ -9,7 +9,7 @@ export default window.component(async (node, ctx) => {
   } = getLiquidVariables();
 
   const {
-    selectCustomer,
+    selectCustomer: selectCustomerContainer,
     ordersContainer,
     noOrders,
     customerSelectText,
@@ -19,6 +19,8 @@ export default window.component(async (node, ctx) => {
     ordersBlock,
     orders,
   } = choozy(node);
+
+  const { select: selectCustomer } = choozy(selectCustomerContainer);
 
   const getCustomerOrders = async e => {
     const query = new URLSearchParams({
@@ -56,28 +58,39 @@ export default window.component(async (node, ctx) => {
     container.appendChild(fragment);
   };
 
-  const clearState = () => {
+  const loading = () => {
     noOrders.classList.add('hidden');
     ordersContainer.classList.add('hidden');
     orders.classList.add('is-active');
-    customerSelectText && customerSelectText.classList.add('hidden');
+    customerSelectText.classList.add('hidden');
+    orders.classList.remove('hidden');
+  };
+
+  const reset = () => {
+    noOrders.classList.add('hidden');
+    customerSelectText.classList.remove('hidden');
+    orders.classList.add('hidden');
   };
 
   const onSelectCustomer = async e => {
-    clearState();
-    const orderList = await getCustomerOrders(e);
-    orders.classList.remove('is-active');
-    if (!orderList.length) {
-      noOrders.classList.remove('hidden');
-      return;
+    if (e.target.value === '') {
+      reset();
+    } else {
+      loading();
+      const orderList = await getCustomerOrders(e);
+      orders.classList.remove('is-active');
+      if (!orderList.length) {
+        noOrders.classList.remove('hidden');
+        return;
+      }
+      ordersContainer.classList.remove('hidden');
+      appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
+      appendHtmlWithOrders({
+        container: ordersBlockContainer,
+        containerItem: ordersBlock,
+        orderList,
+      });
     }
-    ordersContainer.classList.remove('hidden');
-    appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
-    appendHtmlWithOrders({
-      container: ordersBlockContainer,
-      containerItem: ordersBlock,
-      orderList,
-    });
   };
 
   const appendCustomerSelect = data => {
@@ -92,11 +105,18 @@ export default window.component(async (node, ctx) => {
   };
 
   if (selectCustomer) {
+    selectCustomer.classList.add('is-loading');
+    selectCustomer.disabled = true;
+
     selectCustomer.addEventListener('change', onSelectCustomer);
     ctx.on('agent-stores:received', (_state, { data }) => {
       selectCustomer.classList.add('is-active');
       selectCustomer.removeAttribute('disabled');
       customerSelectText.classList.remove('hidden');
+
+      selectCustomer.classList.remove('is-loading');
+      selectCustomer.disabled = false;
+
       appendCustomerSelect(data);
     });
   } else {

@@ -149,7 +149,7 @@
         },
         "view_order": "View Details",
         "select_customer": "Select customer",
-        "select_customer_info": "Select a customer to see any orders.",
+        "select_customer_info": "Select a customer to view orders.",
         "customer_no_orders": "This customer doesn't have any orders.",
         "number": "Order number",
         "date": "Date",

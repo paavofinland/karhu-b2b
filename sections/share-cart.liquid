@@ -20,6 +20,18 @@
           </p>
         </div>
         <div class='group-is-active:hidden'>
+          {%- capture button_content -%}
+            <span class='group-is-active:hidden'>{{- 'cart.general.share' | t -}}</span>
+            <span class='group-is-active:inline hidden'>
+              {{- 'cart.general.link_copied' | t -}}
+            </span>
+          {%- endcapture -%}
+            {%- render 'component.button',
+            text: button_content,
+            style: 'secondary',
+            class: 'group w-full is-active:border-black mb-2 lg:mb-4',
+            attributes: 'data-share-cart-btn'
+          -%}
           {%- render 'component.button',
             text: 'share.general.add_to_bag',
             style: 'primary',

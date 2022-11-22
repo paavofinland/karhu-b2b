@@ -46,22 +46,12 @@
           <div>
             {%- if agent -%}
               <div class='flex gap-2 lg:gap-4 mb-2 lg:mb-4'>
-                {%- comment -%} {%- render 'component.button',
-                  text: button_content,
-                  style: 'secondary',
-                  class: 'group w-full hidden is-active:border-black',
-                  attributes: 'data-share-cart-btn'
-                -%} {%- endcomment -%}
                 {%-
                   render 'component.button',
                   text: 'cart.general.save',
                   style: 'secondary',
-                  class: 'w-full flex items-center justify-center gap-2 lg:gap-4 group is-active:bg-green-dark is-active:border-green-dark is-active:text-white',
-                  attributes: 'data-save-cart-btn data-id="{{- item.id -}}"',
-                  success_text: 'cart.general.cart_saved',
-                  success_text_class: 'hidden group-is-active:inline',
-                  success_icon: 'check',
-                  success_icon_class: 'hidden group-is-active:inline'
+                  class: 'w-full flex items-center justify-center gap-2 lg:gap-4',
+                  attributes: 'data-save-cart-btn data-id="{{- item.id -}}"'
                 -%}
               </div>
             {%- endif -%}

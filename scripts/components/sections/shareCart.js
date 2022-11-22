@@ -49,6 +49,7 @@ export default window.component(async (node, ctx) => {
     addToBagForm,
     content,
     productsError,
+    shareCartBtn,
   } = choozy(node);
 
   const getQueryParams = () => {
@@ -70,7 +71,7 @@ export default window.component(async (node, ctx) => {
     const productSharedDataElem = template.content.cloneNode(true);
     const { quantityElem, sizeElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
     quantityElem.innerText = quantity;
-    sizeElem.innerText = `US ${title}:`;
+    sizeElem.innerText = `${title}:`;
     inputId.value = variantId;
     inputQuantity.value = quantity;
     container.appendChild(productSharedDataElem);
@@ -83,7 +84,9 @@ export default window.component(async (node, ctx) => {
     item.dataset.id = id;
     titleElem.innerText = title;
     titleElem.setAttribute('title', title);
-    priceElem.innerText = price.replace('.', ',');
+    priceElem.innerText = new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: 2,
+    }).format(price);
     imageElem.src = image;
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
@@ -110,7 +113,9 @@ export default window.component(async (node, ctx) => {
       renderDataInContainer(products);
       const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
       cartTitle.innerText = name;
-      subtotalEl.innerText = subtotal.toFixed(2).replace('.', ',');
+      subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
+        minimumFractionDigits: 2,
+      }).format(subtotal.toFixed(2));
     } catch (e) {
       content.classList.add('is-active');
       productsError.innerText = e.message;
@@ -131,13 +136,24 @@ export default window.component(async (node, ctx) => {
   closePopupBtn &&
     [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onCloseAddToBagPopup));
 
-  addToBagPopupBtn &&
-    addToBagPopupBtn.addEventListener('click', async () => {
-      addToBagPopupBtn.classList.add('is-active');
-      document.body.classList.add('pointer-events-none');
-      await clearCart();
-      const formData = new FormData(addToBagForm);
-      await addToCart(formData);
-      window.location.replace(`${window.location.origin}/cart`);
-    });
+  const onAddToBag = async () => {
+    addToBagPopupBtn.classList.add('is-active');
+    document.body.classList.add('pointer-events-none');
+    await clearCart();
+    const formData = new FormData(addToBagForm);
+    await addToCart(formData);
+    window.location.replace(`${window.location.origin}/cart`);
+  };
+
+  addToBagPopupBtn && addToBagPopupBtn.addEventListener('click', onAddToBag);
+
+  const onShareCart = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    shareCartBtn.classList.add('is-active');
+    setTimeout(() => {
+      shareCartBtn.classList.remove('is-active');
+    }, 2000);
+  };
+
+  shareCartBtn && shareCartBtn.addEventListener('click', onShareCart);
 });

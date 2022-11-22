@@ -9,13 +9,17 @@
           {{- 'share.general.title' | t -}}
         </h4>
       </div>
-      <div class='text-body-sm'>
+      <div data-content class='text-body-sm group'>
         <div data-product-container></div>
-        <div class='flex justify-between text-body-lg my-10 lg:mt-[60px]'>
+        <p data-products-error class='hidden group-is-active:block'></p>
+        <div class='flex group-is-active:hidden justify-between text-body-lg my-10 lg:mt-[60px]'>
           <p>Subtotal</p>
-          <p data-subtotal></p>
+          <p class="flex">
+            <span>{{- cart.currency.symbol -}}</span>
+            <span data-subtotal></span>
+          </p>
         </div>
-        <div>
+        <div class='group-is-active:hidden'>
           {%- render 'component.button',
             text: 'share.general.add_to_bag',
             style: 'primary',

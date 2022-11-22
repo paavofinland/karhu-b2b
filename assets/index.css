@@ -3320,6 +3320,10 @@ html {
   margin-bottom: 1.75rem;
 }
 
+.group.is-active .group-is-active\:block {
+  display: block;
+}
+
 .group.is-active .group-is-active\:inline {
   display: inline;
 }

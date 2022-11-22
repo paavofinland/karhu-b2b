@@ -21,8 +21,6 @@ export default window.component((node, ctx) => {
   const { state } = choozy(addToCartButton);
   const buttonStates = [].concat(state);
 
-  console.log(serverErrorMessage);
-
   const toggleButtonAnimations = (enable = true) => {
     buttonStates.forEach(s => {
       // eslint-disable-next-line no-param-reassign

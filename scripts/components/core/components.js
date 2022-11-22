@@ -9,6 +9,9 @@ import countrySelect from './country-select';
 import storeSelect from './store-select';
 import cartCount from './cart-count';
 import popup from './popup';
+import quickAddButton from './quick-add-button';
+import quickAddDrawer from './quick-add-drawer';
+import productForm from './product-form';
 
 export default {
   sectionRendering,
@@ -21,5 +24,8 @@ export default {
   countrySelect,
   popup,
   storeSelect,
+  quickAddButton,
+  quickAddDrawer,
   cartCount,
+  productForm,
 };

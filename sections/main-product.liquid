@@ -69,7 +69,7 @@
       current_product: current_product,
       family_metafield: family_metafield
     -%}
-    {%- render 'product-form' -%}
+    {%- render 'product-form', class: 'mt-7' -%}
     <div class='mt-8 product-details'>
       {%- if product.description != '' -%}
         {%- render 'product.accordion',

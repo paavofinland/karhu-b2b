@@ -1,0 +1,22 @@
+{%- liquid
+  assign attributes = "data-component='quickAddButton' data-product-handle='" | append: product.handle | append: "'"
+-%}
+
+{%- capture button_content -%}
+  <div class='absolute inset-0 w-full h-full flex items-center justify-center transition-transform duration-[inherit] group-is-loading:-translate-y-full group-is-active:hidden'>
+    {{- 'collections.quick_add' | t -}}
+  </div>
+  <div class='absolute inset-0 w-full h-full flex items-center justify-center duration-[inherit] transition-transform translate-y-full group-is-loading:translate-y-0 group-is-active:-translate-y-full'>
+    {%- render 'loading-indicator' -%}
+  </div>
+{%- endcapture -%}
+
+{%- render 'component.button',
+  style: 'primary',
+  type: 'button',
+  size: 'lg',
+  text: button_content,
+  class: 'relative overflow-hidden w-full items-center p-4 group',
+  icon_class: 'stroke-white group-hover:stroke-black',
+  attributes: attributes
+-%}

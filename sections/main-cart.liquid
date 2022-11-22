@@ -46,14 +46,12 @@
           <div>
             {%- if agent -%}
               <div class='flex gap-2 lg:gap-4 mb-2 lg:mb-4'>
-                {%- comment -%}
-                   {%- render 'component.button',
-                    text: button_content,
-                    style: 'secondary',
-                    class: 'group w-full hidden is-active:border-black',
-                    attributes: 'data-share-cart-btn'
-                  -%}
-                {%- endcomment -%}
+                {%- comment -%} {%- render 'component.button',
+                  text: button_content,
+                  style: 'secondary',
+                  class: 'group w-full hidden is-active:border-black',
+                  attributes: 'data-share-cart-btn'
+                -%} {%- endcomment -%}
                 {%-
                   render 'component.button',
                   text: 'cart.general.save',

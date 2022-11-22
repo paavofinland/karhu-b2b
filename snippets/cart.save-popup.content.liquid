@@ -5,10 +5,9 @@
     name: 'cart[name]',
     autocomplete: 'cart-name',
     label_class: 'hidden',
-    input_class: 'mt-0 px-4 py-[18px] border-grey-4 is-active:border-red-light',
-    required: true,
+    input_class: 'mt-0 px-4 py-[18px] border-grey-4 peer invalid:border-red-light',
     requiredStar: true,
-    attributes: 'data-cart-input'
+    attributes: 'data-cart-input',
+    has_error: true
   -%}
-  <p data-error-message class="hidden mt-3 text-red-light is-active:block"></p>
 </div>

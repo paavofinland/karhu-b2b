@@ -21,10 +21,10 @@ export default window.component(async (node, ctx) => {
   const storeData = getLiquidVariables();
 
   const setErrorState = message => {
-    const action = message ? 'add' : 'remove';
     errorMessage.innerText = message;
-    errorMessage.classList[action]('is-active');
-    cartInput.classList[action]('is-active');
+    console.log(!message);
+    cartInput.setAttribute('required', !message);
+    cartInput.setAttribute('aria-invalid', !message);
   };
 
   const sidebarList = Array.isArray(sidebar) ? Array.from(sidebar) : [sidebar];
@@ -54,22 +54,11 @@ export default window.component(async (node, ctx) => {
   closePopupBtn &&
     [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onCloseSaveCartPopup));
 
-  const getCopyData = () => {
-    const { item: itemList, subtotal } = choozy(node, null);
-    const data = {
-      subtotal: subtotal.dataset.subtotal,
-      items: [],
-    };
-    [].concat(itemList).forEach(itemElem => {
-      const { item, ...datasetParams } = itemElem.dataset;
-      data.items.push(datasetParams);
-    });
-    return data;
-  };
-
-  const getShareLink = data => {
-    const encodedData = encodeURIComponent(JSON.stringify(data));
-    return `${window.location.origin}/pages/share-cart?data=${encodedData}`;
+  const getShareLink = (cartId = '') => {
+    const {
+      customer: { id: customerId },
+    } = storeData;
+    return `${window.location.origin}/pages/share-cart?agentId=${customerId}&cartId=${cartId}`;
   };
 
   const onCopySuccess = () => {
@@ -81,8 +70,7 @@ export default window.component(async (node, ctx) => {
 
   shareCartBtn &&
     shareCartBtn.addEventListener('click', async () => {
-      const data = getCopyData();
-      const url = getShareLink(data);
+      const url = getShareLink('some_custom_id');
       await navigator.clipboard.writeText(url);
       onCopySuccess();
     });
@@ -102,8 +90,8 @@ export default window.component(async (node, ctx) => {
   const getCartItems = () => {
     const { item } = choozy(node, null);
     return [].concat(item).map(productEl => {
-      const { id, quantity } = productEl.dataset;
-      return { id, quantity };
+      const { id, productId, quantity } = productEl.dataset;
+      return { id, productId, quantity };
     });
   };
 
@@ -114,7 +102,7 @@ export default window.component(async (node, ctx) => {
       method: 'POST',
       body: JSON.stringify({
         name: cartInput.value,
-        udpated_at: new Date(),
+        updated_at: new Date(),
         line_items: cartItems,
       }),
     }).then(async res => {

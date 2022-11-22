@@ -1513,12 +1513,16 @@ html {
   top: 1rem;
 }
 
-.right-4 {
-  right: 1rem;
+.right-content-wide {
+  right: var(--content-padding-wide);
 }
 
 .-bottom-\[60px\] {
   bottom: -60px;
+}
+
+.right-4 {
+  right: 1rem;
 }
 
 .top-3 {
@@ -1940,6 +1944,10 @@ html {
   width: 2.5rem;
 }
 
+.w-4 {
+  width: 1rem;
+}
+
 .w-\[355px\] {
   width: 355px;
 }
@@ -1958,10 +1966,6 @@ html {
 
 .w-\[min\(90\%\2c 400px\)\] {
   width: min(90%,400px);
-}
-
-.w-4 {
-  width: 1rem;
 }
 
 .w-5 {
@@ -3000,19 +3004,19 @@ html {
   transition-duration: inherit;
 }
 
-.placeholder\:text-black::-moz-placeholder {
+.placeholder\:text-grey-3::-moz-placeholder {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(143 143 143 / var(--tw-text-opacity));
 }
 
-.placeholder\:text-black:-ms-input-placeholder {
+.placeholder\:text-grey-3:-ms-input-placeholder {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(143 143 143 / var(--tw-text-opacity));
 }
 
-.placeholder\:text-black::placeholder {
+.placeholder\:text-grey-3::placeholder {
   --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
+  color: rgb(143 143 143 / var(--tw-text-opacity));
 }
 
 .after\:pointer-events-none::after {
@@ -3556,17 +3560,17 @@ html {
   .lg\:left-\[initial\] {
     left: initial;
   }
-  .lg\:top-8 {
-    top: 2rem;
-  }
-  .lg\:right-8 {
-    right: 2rem;
+  .lg\:top-10 {
+    top: 2.5rem;
   }
   .lg\:right-7 {
     right: 1.75rem;
   }
   .lg\:top-7 {
     top: 1.75rem;
+  }
+  .lg\:top-8 {
+    top: 2rem;
   }
   .lg\:top-\[50\%\] {
     top: 50%;
@@ -3670,11 +3674,11 @@ html {
   .lg\:h-7 {
     height: 1.75rem;
   }
-  .lg\:h-12 {
-    height: 3rem;
-  }
   .lg\:h-\[600px\] {
     height: 600px;
+  }
+  .lg\:h-12 {
+    height: 3rem;
   }
   .lg\:h-fit {
     height: -webkit-fit-content;
@@ -3702,14 +3706,14 @@ html {
   .lg\:w-\[180px\] {
     width: 180px;
   }
-  .lg\:w-12 {
-    width: 3rem;
-  }
   .lg\:w-\[600px\] {
     width: 600px;
   }
   .lg\:w-\[initial\] {
     width: initial;
+  }
+  .lg\:w-12 {
+    width: 3rem;
   }
   .lg\:w-fit {
     width: -webkit-fit-content;
@@ -3823,9 +3827,6 @@ html {
   }
   .lg\:p-8 {
     padding: 2rem;
-  }
-  .lg\:p-4 {
-    padding: 1rem;
   }
   .lg\:p-14 {
     padding: 3.5rem;

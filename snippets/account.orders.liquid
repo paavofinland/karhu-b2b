@@ -1,10 +1,12 @@
 <section data-component='orders'>
   {%- unless agent -%}
-    {%- render 'account.orders-data' -%}
+    <div data-orders class='group'>
+      {%- render 'account.orders-data' -%}
+      {%- render 'loading-indicator', class: 'hidden group-is-active:flex py-6' -%}
+    </div>
     <div data-no-orders class='hidden'>
       <p class='mt-10'>{{- 'customer.account.orders.no_orders_yet' | t -}}</p>
-      {%-
-        render 'component.button',
+      {%- render 'component.button',
         text: 'customer.account.orders.shop_now_button',
         style: 'primary',
         class: 'mt-7 lg:mt-9 px-8 lg:px-12 inline-block',
@@ -12,24 +14,25 @@
       -%}
     </div>
   {%- else -%}
-    {%- render 'component.select',
-      id: 'selectCustomer',
-      label: 'customer.account.orders.select_customer',
-      label_class: 'text-heading-7',
-      placeholder_class: 'text-grey-3',
-      container_class: 'mb-3 max-w-[480px]',
-      select_class: 'px-4 py-[18px] mt-3 border border-grey-4 w-full appearance-none',
-      placeholder: 'Select customer',
-      attributes: 'data-select-customer'
+    <label class='text-heading-7 block mb-3'>
+      {{- 'customer.account.orders.select_customer' | t -}}
+    </label>
+    {%- render 'select',
+      placeholder: 'customer.account.orders.select_customer',
+      class: 'h-[4em] w-[500px] max-w-full text-black border-gray-4 border',
+      attributes: 'data-select-customer',
+      px: '1.25em',
+      allow_empty: true
     -%}
-    <p data-customer-select-text class='mt-10 mb-[100px]'>
-      {{- 'customer.account.orders.select_customer_info'| t -}}
+    <p data-customer-select-text class='mt-10 mb-[100px] hidden'>
+      {{- 'customer.account.orders.select_customer_info' | t -}}
     </p>
     <p data-no-orders class='mt-10 mb-[100px] hidden'>
       {{- 'customer.account.orders.customer_no_orders' | t -}}
     </p>
-    <div class='mt-7 lg:mt-[60px]'>
+    <div data-orders class='group mt-7 lg:mt-[60px]'>
       {%- render 'account.orders-data' -%}
+      {%- render 'loading-indicator', class: 'hidden group-is-active:flex py-6' -%}
     </div>
   {%- endunless -%}
 </section>

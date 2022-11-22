@@ -1,20 +1,32 @@
+{%- liquid
+  assign px = px | default: '0px'
+  assign py = py | default: '0px'
+-%}
+
 <div
   {{ attributes }}
-  class='flex gap-4 justify-between cursor-pointer flex-none {{ class -}}'
+  style='--select-padding-x: {{ px -}}; --select-padding-y: {{ py -}};'
+  class='relative flex gap-4 justify-between cursor-pointer flex-none {{ class -}}'
 >
-  <div class='relative w-full'>
-    <select
-      data-select
-      {{ select_attributes }}
-      class='bg-inherit appearance-none cursor-pointer w-full h-full is-loading:animate-pulse is-loading:cursor-wait'
-    >
-      {%- if placeholder != blank -%}
-        <option selected disabled>{{- placeholder | t -}}</option>
-      {%- endif -%}
-      {{ options -}}
-    </select>
-    <span
-      class="after:block after:h-full after:w-full after:bg-[url('icon.select.svg')] after:bg-no-repeat absolute w-[1em] top-0 bottom-0 right-0 pointer-events-none"
-    ></span>
-  </div>
+  <select
+    data-select
+    {{ select_attributes }}
+    class='bg-inherit appearance-none cursor-pointer text-inherit w-full h-full is-loading:animate-pulse is-loading:text-opacity-50 is-loading:cursor-wait px-[var(--select-padding-x)] py-[var(--select-padding-y)]'
+  >
+    {%- if placeholder != blank -%}
+      <option
+        value=''
+        selected
+        {% if allow_empty == blank -%}
+          disabled
+        {%- endif -%}
+      >
+        {{- placeholder | t -}}
+      </option>
+    {%- endif -%}
+    {{ options -}}
+  </select>
+  <span class='absolute top-0 bottom-0 right-[calc(var(--select-padding-x)/1.25)] flex flex-none justify-center pointer-events-none'>
+    {% render 'component.icon', type: 'select-arrow', class: 'w-[1em]' %}
+  </span>
 </div>

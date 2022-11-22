@@ -6,7 +6,7 @@
     <form>
       <input
         data-search-input
-        class='text-center p-4 group-is-active:mb-4 lg:p-8 lg:group-is-active:mb-8 group-is-active:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-black text-heading-3 group-is-active:text-heading-5 lg:text-heading-1 lg:group-is-active:text-heading-3'
+        class='text-center p-4 group-is-active:mb-4 lg:p-8 lg:group-is-active:mb-8 group-is-active:border-b border-b-grey-4 w-full focus-visible:outline-none placeholder:text-grey-3 text-heading-3 group-is-active:text-heading-5 lg:text-heading-1 lg:group-is-active:text-heading-3'
         placeholder='Search'
         autocomplete='off'
         autofocus
@@ -16,9 +16,9 @@
     </form>
     <button
       data-close-search
-      class='group-is-active:hidden absolute w-10 h-10 lg:w-12 lg:h-12 p-3 lg:p-4 top-4 right-4 lg:top-8 lg:right-8 border border-grey-5 rounded-full'
+      class='group-is-active:hidden absolute flex items-center justify-center p-4 top-4 lg:top-10 right-content-wide lg:right-content border border-grey-5 rounded-full'
     >
-      {%- render 'component.icon', type: 'close' -%}
+      {%- render 'component.icon', type: 'close', class: 'w-4' -%}
     </button>
   </div>
   <div

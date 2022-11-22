@@ -74,9 +74,5 @@ export default window.component((node, ctx) => {
     document.body.classList.toggle('overflow-hidden');
   });
 
-  ctx.on('product:loading', (_, { isLoading }) => {
-    choozy(node).filtersForm.classList[isLoading ? 'add' : 'remove']('is-loading');
-  });
-
   init();
 });

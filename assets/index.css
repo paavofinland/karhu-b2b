@@ -2012,6 +2012,10 @@ html {
   width: 110px;
 }
 
+.min-w-\[260px\] {
+  min-width: 260px;
+}
+
 .min-w-\[230px\] {
   min-width: 230px;
 }
@@ -3487,6 +3491,10 @@ html {
   opacity: 0.5;
 }
 
+.group.is-loading .group-is-loading\:pointer-events-none {
+  pointer-events: none;
+}
+
 .group.is-loading .group-is-loading\:hidden {
   display: none;
 }
@@ -3519,6 +3527,10 @@ html {
 
 .group.is-loading .group-is-loading\:overflow-hidden {
   overflow: hidden;
+}
+
+.group.is-loading .group-is-loading\:opacity-50 {
+  opacity: 0.5;
 }
 
 @media (min-width: 768px) {
@@ -3705,6 +3717,11 @@ html {
   }
   .lg\:w-\[180px\] {
     width: 180px;
+  }
+  .lg\:w-min {
+    width: -webkit-min-content;
+    width: -moz-min-content;
+    width: min-content;
   }
   .lg\:w-\[600px\] {
     width: 600px;

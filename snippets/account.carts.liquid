@@ -1,0 +1,82 @@
+{%- assign carts = customer.metafields.account.cart_templates.value -%}
+<section data-component='accountCarts' class='hidden'>
+  <div class='flex justify-between align-center border-b border-black pb-5'>
+    <h5 class='text-heading-5'>
+      {{- 'customer.account.carts.saved_carts' | t -}}
+    </h5>
+    <span>
+      (<span data-carts-length>
+        {%- liquid
+          if carts
+            echo carts.size
+          else
+            echo 0
+          endif
+        -%}
+      </span>
+      /10)
+    </span>
+  </div>
+  <table
+    data-container
+    class='w-full table-fixed hidden is-active:opacity-50 is-active:pointer-events-none {% if carts.size > 0 -%} lg:table {%- endif -%}'
+  >
+    <thead>
+      <tr class='text-heading-7 border-b border-grey-5'>
+        <td class='py-7'>{{- 'customer.account.carts.name' | t -}}</td>
+        <td class='py-7 px-2'>{{- 'customer.account.carts.created_at' | t -}}</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for cart in carts -%}
+        <tr data-cart='{{- cart.id -}}' class='border-b border-grey-5'>
+          <td class='py-7 truncate'>{{- cart.name -}}</td>
+          <td class='py-7 px-2'>{{- cart.updated_at | date: '%b %e, %Y' -}}</td>
+          <td class='py-7'>
+            <div class='flex justify-end gap-10 pr-[130px]'>
+              <button data-view-cart-btn class='underline'>{{- 'customer.account.carts.view_cart' | t -}}</button>
+              <button data-delete-cart-btn data-name='{{- cart.name -}}' class='underline'>
+                {{- 'customer.account.carts.delete' | t -}}
+              </button>
+            </div>
+          </td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+  <div
+    data-container
+    class='block is-active:opacity-50 is-active:pointer-events-none {% if carts.size > 0 -%} lg:hidden {%- endif -%}'
+  >
+    {%- for cart in carts -%}
+      <div data-cart='{{- cart.id -}}' class='py-10 border-b border-grey-5'>
+        <div class='grid grid-cols-2 justify-between items-center mb-5'>
+          <div>
+            <p class='text-heading-7 mb-1'>{{- 'customer.account.carts.name' | t -}}</p>
+            <p>{{- cart.name -}}</p>
+          </div>
+          <div>
+            <p class='text-heading-7 mb-1'>{{- 'customer.account.carts.created_at' | t -}}</p>
+            <p>{{- cart.updated_at | date: '%b %e, %Y' -}}</p>
+          </div>
+        </div>
+        <div>
+          <button data-view-cart-btn class='underline mr-5'>{{- 'customer.account.carts.view_cart' | t -}}</button>
+          <button data-delete-cart-btn data-name='{{- cart.name -}}' class='underline'>
+            {{- 'customer.account.carts.delete' | t -}}
+          </button>
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+  {%- render 'component.popup',
+    title: 'customer.account.carts.delete_cart',
+    content_snippet: 'cart.delete-popup.content',
+    footer_snippet: 'cart.delete-popup.footer',
+    type: 'delete-cart'
+  -%}
+  <p data-empty class='mt-10 {% if carts.size == 0 -%} block {%- else -%} hidden {%- endif -%}'>
+    {{- 'customer.account.carts.empty' | t -}}
+  </p>
+</section>

@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
 
 export default window.component((node, ctx) => {
-  const { popupOverlay } = choozy(node, null);
+  const { popupOverlay, closePopupBtn } = choozy(node, null);
 
   const onClosePopup = () => {
     node.classList.add('hidden');
@@ -26,4 +27,7 @@ export default window.component((node, ctx) => {
       onClosePopup();
     }
   });
+
+  closePopupBtn &&
+    [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onClosePopup));
 });

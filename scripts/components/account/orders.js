@@ -3,6 +3,10 @@ import choozy from '../../lib/choozy';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 export default window.component(async (node, ctx) => {
+  if (!window.location.search.includes('menu=carts')) {
+    node.classList.remove('hidden');
+  }
+
   const {
     store: { store },
     customer: { secret: customerSecret, id: customerId },

@@ -12,7 +12,7 @@
     {% render 'component.product', product: product %}
 {%- endcomment -%}
 
-<div class='relative'>
+<div class='relative max-w-full'>
   <a href='{{- product.url -}}' class='block w-full pt-[100%] bg-grey-6 relative'>
     {%- if product.featured_image -%}
       <div class='absolute inset-0 w-full h-full flex justify-center items-center'>
@@ -41,21 +41,7 @@
     <p>{{- product.metafields.color.value -}}</p>
     <p>{{- product.selected_or_first_available_variant.sku -}}</p>
   </div>
-  {%- assign quick_add_data = 'data-quick-add-btn data-id="' | append: product.id | append: '"' -%}
-  {%-
-    render 'component.button',
-    style: 'primary',
-    icon: 'add',
-    type: 'submit',
-    text: 'collections.quick_add',
-    class: 'group w-full grid grid-cols-[1fr_22px] items-center is-active:flex is-active:justify-center px-4 is-active:bg-green-dark is-active:border-green-dark is-active:text-white',
-    icon_class: 'group-is-active:hidden',
-    attributes: quick_add_data,
-    success_text: 'cart.general.cart_saved',
-    success_text_class: 'hidden group-is-active:inline',
-    success_icon: 'check',
-    success_icon_class: 'hidden mr-2 group-is-active:inline'
-  -%}
+  {% render 'quick-add-button', product: product %}
   {%- if product.compare_at_price_max > product.price -%}
     <span class='absolute text-detailed top-4 left-4 py-[3.5px] px-3 text-white bg-red-light rounded-[100px]'>
       -

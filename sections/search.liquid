@@ -47,13 +47,13 @@
       {%- render 'component.select',
         options: options,
         container_class: 'min-w-[230px] border border-grey-4',
-        select_class: 'px-4 py-4 w-full appearance-none',
+        select_class: 'px-4 py-4 w-full bg-transparent appearance-none',
         attributes: 'data-sort-by-options'
       -%}
     </div>
     <div
       data-search-results
-      class='grid grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+      class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
     >
       {%- paginate search.results by 12 -%}
         {%- for product in search.results -%}

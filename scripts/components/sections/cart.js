@@ -18,8 +18,8 @@ export default window.component(async (node, ctx) => {
   const setErrorState = message => {
     const { cartInput, errorMessage } = choozy(node);
     errorMessage.innerText = message;
-    cartInput.setAttribute('required', !message);
-    cartInput.setAttribute('aria-invalid', !message);
+    const isValid = Boolean(message || !errorMessage);
+    cartInput.setAttribute('aria-invalid', isValid);
   };
 
   const onToggleSidebar = e => {
@@ -219,6 +219,7 @@ export default window.component(async (node, ctx) => {
       shareCartPopupBtn,
       saveCartPopupBtn,
       updateSizesForm,
+      cartInput,
     } = choozy(node);
 
     editItemBtn &&
@@ -246,6 +247,10 @@ export default window.component(async (node, ctx) => {
       []
         .concat(updateSizesForm)
         .forEach(form => form.addEventListener('submit', onUpdateProductSizes));
+
+    cartInput.addEventListener('input', e => {
+      if (e.target.value) cartInput.setAttribute('aria-invalid', false);
+    });
   });
 
   ctx.emit('cart:update-handlers');

@@ -26,8 +26,6 @@ export default window.component((node, ctx) => {
   const { deleteCartBtn, deleteCartPopupBtn, cart, cartsLength, container, empty, viewCartBtn } =
     choozy(node, null);
 
-  let currentCartId = null;
-
   const toggleLoadingDeleteState = e => {
     e.target.classList.toggle('is-active');
     document.body.classList.toggle('pointer-events-none');
@@ -54,42 +52,40 @@ export default window.component((node, ctx) => {
     });
   };
 
-  viewCartBtn &&
-    [].concat(viewCartBtn).forEach(btn =>
-      btn.addEventListener('click', async e => {
-        console.log(e.target);
-      })
-    );
+  // viewCartBtn &&
+  //   [].concat(viewCartBtn).forEach(btn =>
+  //     btn.addEventListener('click', async e => {
+  //       console.log(e.target);
+  //     })
+  //   );
 
   deleteCartBtn &&
     [].concat(deleteCartBtn).forEach(btn =>
       btn.addEventListener('click', e => {
-        currentCartId = e.currentTarget.dataset.name;
+        deleteCartPopupBtn.dataset.id = e.currentTarget.dataset.id;
         ctx.emit('popup:open', null, 'delete-cart');
       })
     );
 
   deleteCartPopupBtn &&
-    [].concat(deleteCartPopupBtn).forEach(btn =>
-      btn.addEventListener('click', async e => {
-        const cartId = currentCartId;
-        const query = getQueryParams(cartId);
-        toggleLoadingDeleteState(e);
-        try {
-          await deleteCart(query);
-          removeCarts(cartId);
-          const newCartCount = updateCartCount();
-          if (newCartCount === 0) {
-            empty.classList.remove('hidden');
-            [].concat(container).forEach(elem => elem.remove());
-          }
-        } catch (err) {
-          console.log(err);
-        } finally {
-          currentCartId = '';
-          ctx.emit('popup:close', null, 'delete-cart');
-          toggleLoadingDeleteState(e);
+    deleteCartPopupBtn.addEventListener('click', async e => {
+      const cartId = deleteCartPopupBtn.dataset.id;
+      const query = getQueryParams(cartId);
+      toggleLoadingDeleteState(e);
+      try {
+        await deleteCart(query);
+        removeCarts(cartId);
+        const newCartCount = updateCartCount();
+        if (newCartCount === 0) {
+          empty.classList.remove('hidden');
+          [].concat(container).forEach(elem => elem.remove());
         }
-      })
-    );
+      } catch (err) {
+        console.log(err);
+      } finally {
+        deleteCartPopupBtn.dataset.id = '';
+        ctx.emit('popup:close', null, 'delete-cart');
+        toggleLoadingDeleteState(e);
+      }
+    });
 });

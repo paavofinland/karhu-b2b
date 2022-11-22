@@ -18,9 +18,17 @@ export default window.component((node, ctx) => {
     const toggleFiltersButtons = [].concat(toggleFiltersButtonElement).filter(Boolean);
 
     const applyFilters = async (reset = false) => {
+      const sortBy = new URLSearchParams(window.location.search).get('sort_by');
+      const persistedParams = sortBy ? { sort_by: sortBy } : {};
+      const filterParams = reset ? {} : Object.fromEntries(new FormData(filtersForm));
+
       ctx.emit('product:loading', null, { isLoading: true });
 
-      const searchParams = reset ? '' : new URLSearchParams(new FormData(filtersForm)).toString();
+      const searchParams = new URLSearchParams({
+        ...filterParams,
+        ...persistedParams,
+      }).toString();
+
       const collectionHtml = await fetchHtml(
         `${
           window.location.origin + window.location.pathname
@@ -59,6 +67,7 @@ export default window.component((node, ctx) => {
   };
 
   ctx.on('filter:render', ({ html, uri }) => {
+    console.log(uri);
     ctx.emit('product:update', null, { html });
     const filtersHtml = choozy(html).filters;
     toggleSidebar(filtersHtml);

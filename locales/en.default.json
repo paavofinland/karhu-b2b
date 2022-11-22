@@ -1,5 +1,6 @@
 {
   "general": {
+    "more_info": "More info",
     "search": {
       "search": "Search"
     },
@@ -21,7 +22,8 @@
   "collections": {
     "close": "Close",
     "quick_add": "Quick add",
-    "collection_empty": "There are no products in this collection"
+    "collection_empty": "There are no products in this collection",
+    "add_to_cart": "Add to cart"
   },
   "filters": {
     "filter_by": "Filter by",
@@ -58,7 +60,8 @@
       "items": "items",
       "go_shopping": "Go shopping",
       "save_cart": "Save cart",
-      "cart_saved": "Cart Saved"
+      "cart_saved": "Cart Saved",
+      "update_order": "Update order"
     },
     "product_item": {
       "size": "Size:",

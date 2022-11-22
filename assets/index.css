@@ -1844,10 +1844,6 @@ html {
   height: 4em;
 }
 
-.h-\[1em\] {
-  height: 1em;
-}
-
 .h-5 {
   height: 1.25rem;
 }
@@ -1876,6 +1872,10 @@ html {
 
 .h-\[2em\] {
   height: 2em;
+}
+
+.h-\[1em\] {
+  height: 1em;
 }
 
 .h-9 {
@@ -1960,10 +1960,6 @@ html {
   width: 500px;
 }
 
-.w-\[355px\] {
-  width: 355px;
-}
-
 .w-min {
   width: -webkit-min-content;
   width: -moz-min-content;
@@ -2000,6 +1996,10 @@ html {
   width: 60%;
 }
 
+.w-\[355px\] {
+  width: 355px;
+}
+
 .w-9 {
   width: 2.25rem;
 }
@@ -2032,16 +2032,16 @@ html {
   min-width: 230px;
 }
 
-.min-w-\[110px\] {
-  min-width: 110px;
-}
-
 .min-w-\[62px\] {
   min-width: 62px;
 }
 
 .min-w-\[340px\] {
   min-width: 340px;
+}
+
+.min-w-\[110px\] {
+  min-width: 110px;
 }
 
 .max-w-0 {
@@ -2066,6 +2066,10 @@ html {
 
 .max-w-\[190px\] {
   max-width: 190px;
+}
+
+.max-w-\[150px\] {
+  max-width: 150px;
 }
 
 .max-w-\[calc\(100\%\/3\.25\)\] {
@@ -2540,10 +2544,6 @@ html {
   fill: currentColor;
 }
 
-.stroke-white {
-  stroke: #FFFFFF;
-}
-
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -2757,10 +2757,6 @@ html {
   padding-bottom: 1.75rem;
 }
 
-.pt-6 {
-  padding-top: 1.5rem;
-}
-
 .pt-10 {
   padding-top: 2.5rem;
 }
@@ -2779,6 +2775,10 @@ html {
 
 .pt-\[100\%\] {
   padding-top: 100%;
+}
+
+.pt-6 {
+  padding-top: 1.5rem;
 }
 
 .pt-\[var\(--header-height\)\] {
@@ -3345,10 +3345,6 @@ html {
   max-width: 100%;
 }
 
-.group:hover .group-hover\:stroke-black {
-  stroke: #000000;
-}
-
 .is-active\:pointer-events-none.is-active {
   pointer-events: none;
 }
@@ -3369,14 +3365,22 @@ html {
   display: inline;
 }
 
-.is-active\:-translate-x-0.is-active {
-  --tw-translate-x: -0px;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+.is-active\:flex.is-active {
+  display: flex;
 }
 
 .is-active\:translate-x-0.is-active {
   --tw-translate-x: 0px;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.is-active\:-translate-x-0.is-active {
+  --tw-translate-x: -0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.is-active\:justify-center.is-active {
+  justify-content: center;
 }
 
 .is-active\:border-grey-5.is-active {
@@ -3613,12 +3617,6 @@ html {
   .lg\:top-10 {
     top: 2.5rem;
   }
-  .lg\:right-7 {
-    right: 1.75rem;
-  }
-  .lg\:top-7 {
-    top: 1.75rem;
-  }
   .lg\:top-8 {
     top: 2rem;
   }
@@ -3627,6 +3625,12 @@ html {
   }
   .lg\:bottom-\[initial\] {
     bottom: initial;
+  }
+  .lg\:right-7 {
+    right: 1.75rem;
+  }
+  .lg\:top-7 {
+    top: 1.75rem;
   }
   .lg\:left-content-wide {
     left: var(--content-padding-wide);
@@ -3761,14 +3765,14 @@ html {
     width: -moz-min-content;
     width: min-content;
   }
-  .lg\:w-\[600px\] {
-    width: 600px;
-  }
   .lg\:w-\[initial\] {
     width: initial;
   }
   .lg\:w-12 {
     width: 3rem;
+  }
+  .lg\:w-\[600px\] {
+    width: 600px;
   }
   .lg\:w-fit {
     width: -webkit-fit-content;
@@ -3798,6 +3802,9 @@ html {
   }
   .lg\:max-w-\[60rem\] {
     max-width: 60rem;
+  }
+  .lg\:max-w-\[330px\] {
+    max-width: 330px;
   }
   .lg\:max-w-screen-xl {
     max-width: 1280px;
@@ -3919,10 +3926,6 @@ html {
     padding-left: 60px;
     padding-right: 60px;
   }
-  .lg\:py-7 {
-    padding-top: 1.75rem;
-    padding-bottom: 1.75rem;
-  }
   .lg\:py-5 {
     padding-top: 1.25rem;
     padding-bottom: 1.25rem;
@@ -3934,6 +3937,10 @@ html {
   .lg\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
+  }
+  .lg\:py-7 {
+    padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
   }
   .lg\:pt-10 {
     padding-top: 2.5rem;
@@ -3962,17 +3969,14 @@ html {
   .lg\:pt-4 {
     padding-top: 1rem;
   }
-  .lg\:pt-5 {
-    padding-top: 1.25rem;
-  }
-  .lg\:pb-7 {
-    padding-bottom: 1.75rem;
-  }
   .lg\:pb-10 {
     padding-bottom: 2.5rem;
   }
   .lg\:pl-24 {
     padding-left: 6rem;
+  }
+  .lg\:pb-7 {
+    padding-bottom: 1.75rem;
   }
   .lg\:text-heading-3 {
     font-size: 3.75rem;

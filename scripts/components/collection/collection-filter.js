@@ -61,8 +61,8 @@ export default window.component((node, ctx) => {
   };
 
   const toggleSidebar = n => {
-    const { sidebar, overlay } = choozy(n);
-    sidebar.classList.toggle('is-active');
+    const { sidebarFilters, overlay } = choozy(n);
+    sidebarFilters.classList.toggle('is-active');
     overlay.classList.toggle('is-active');
   };
 

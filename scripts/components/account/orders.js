@@ -104,8 +104,6 @@ export default window.component(async (node, ctx) => {
       selectCustomer.classList.add('is-active');
       selectCustomer.removeAttribute('disabled');
 
-      if (customerSelectText) customerSelectText.classList.remove('hidden');
-
       selectCustomer.classList.remove('is-loading');
       selectCustomer.disabled = false;
 

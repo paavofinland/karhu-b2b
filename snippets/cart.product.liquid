@@ -9,7 +9,6 @@
       <img class='aspect-square object-contain mix-blend-darken' data-image-elem>
     {%- endif -%}
   </div>
-  {%- comment -%} TODO: update prices, quantity for share functionality {%- endcomment -%}
   <div
     class='w-[fill-available] lg:self-center'
     data-item
@@ -35,10 +34,15 @@
           {{- item.product.title -}}
         {%- endif -%}
       </p>
-      <p data-price-elem>
-        {%- if item.price -%}
-          {{- item.price | money -}}
+      <p>
+        {%- if shared -%}
+          <span>{{- cart.currency.symbol -}}</span>
         {%- endif -%}
+        <span data-price-elem>
+          {%- if item.price -%}
+            {{- item.price | money -}}
+          {%- endif -%}
+        </span>
       </p>
     </div>
     <div class='flex justify-between mt-1 lg:mt-2'>

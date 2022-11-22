@@ -1,7 +1,9 @@
 <div data-orders-container class='hidden'>
-  <h5 class='text-heading-5 pb-5 border-b border-black'>
-    {{- 'customer.account.orders.title' | t -}}
-  </h5>
+  {%- if include_title -%}
+    <h5 class='text-heading-5 pb-5 border-b border-black'>
+      {{- 'customer.account.orders.title' | t -}}
+    </h5>
+  {%- endif -%}
   <table class='w-full hidden lg:table'>
     <thead>
       <tr class='text-heading-7 border-b border-grey-5'>

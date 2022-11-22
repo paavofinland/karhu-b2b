@@ -1,11 +1,16 @@
 <section data-component='orders'>
   {%- unless agent -%}
+    <header class='pb-10'>
+      <h5 class='text-heading-5 pb-5 border-b border-black'>
+        {{- 'customer.account.orders.title' | t -}}
+      </h5>
+    </header>
     <div data-orders class='group'>
       {%- render 'account.orders-data' -%}
-      {%- render 'loading-indicator', class: 'hidden group-is-active:flex py-6' -%}
+      {%- render 'loading-indicator', class: 'hidden group-is-active:flex' -%}
     </div>
     <div data-no-orders class='hidden'>
-      <p class='mt-10'>{{- 'customer.account.orders.no_orders_yet' | t -}}</p>
+      <p>{{- 'customer.account.orders.no_orders_yet' | t -}}</p>
       {%- render 'component.button',
         text: 'customer.account.orders.shop_now_button',
         style: 'primary',
@@ -24,14 +29,14 @@
       px: '1.25em',
       allow_empty: true
     -%}
-    <p data-customer-select-text class='mt-10 mb-[100px] hidden'>
+    <p data-customer-select-text class='mt-10 mb-[100px]'>
       {{- 'customer.account.orders.select_customer_info' | t -}}
     </p>
     <p data-no-orders class='mt-10 mb-[100px] hidden'>
       {{- 'customer.account.orders.customer_no_orders' | t -}}
     </p>
     <div data-orders class='group mt-7 lg:mt-[60px]'>
-      {%- render 'account.orders-data' -%}
+      {%- render 'account.orders-data', include_title: true -%}
       {%- render 'loading-indicator', class: 'hidden group-is-active:flex py-6' -%}
     </div>
   {%- endunless -%}

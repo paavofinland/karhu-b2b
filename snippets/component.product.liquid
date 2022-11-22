@@ -12,7 +12,7 @@
     {% render 'component.product', product: product %}
 {%- endcomment -%}
 
-<div class='relative'>
+<div class='relative max-w-full'>
   <a href='{{- product.url -}}' class='block w-full pt-[100%] bg-grey-6 relative'>
     {%- if product.featured_image -%}
       <div class='absolute inset-0 w-full h-full flex justify-center items-center'>

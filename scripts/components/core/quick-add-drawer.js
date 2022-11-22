@@ -1,7 +1,7 @@
 import choozy from '../../lib/choozy';
 
 export default window.component((node, ctx) => {
-  const { drawer, backdrop } = choozy(node);
+  const { drawer, backdrop, content, closeButton } = choozy(node);
 
   let closeTimeout;
 
@@ -11,14 +11,15 @@ export default window.component((node, ctx) => {
   };
 
   ctx.on('quick-add:open', (_, { html }) => {
-    drawer.innerHTML = html;
+    content.innerHTML = html;
     drawer.classList.add('is-active');
     backdrop.classList.add('is-active');
     window.app.unmount();
     window.app.mount();
   });
 
-  backdrop.addEventListener('click', close);
+  [backdrop, closeButton].forEach(e => e.addEventListener('click', close));
+
   ctx.on('cart:update', () => {
     if (closeTimeout) clearTimeout(closeTimeout);
     closeTimeout = setTimeout(() => close(), 1000);

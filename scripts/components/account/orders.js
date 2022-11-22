@@ -20,14 +20,12 @@ export default window.component(async (node, ctx) => {
     orders,
   } = choozy(node);
 
-  const { select: selectCustomer } = choozy(selectCustomerContainer);
-
-  const getCustomerOrders = async e => {
+  const getCustomerOrders = async customer => {
     const query = new URLSearchParams({
       store,
       secret: customerSecret,
       customerId,
-      selectedCustomerId: e?.target.value || '',
+      selectedCustomerId: customer || '',
     });
 
     return fetch(`${process.env.API_URL}/customer/get-store-customer-orders?${query}`).then(
@@ -62,8 +60,9 @@ export default window.component(async (node, ctx) => {
     noOrders.classList.add('hidden');
     ordersContainer.classList.add('hidden');
     orders.classList.add('is-active');
-    customerSelectText.classList.add('hidden');
     orders.classList.remove('hidden');
+
+    if (customerSelectText) customerSelectText.classList.add('hidden');
   };
 
   const reset = () => {
@@ -72,12 +71,13 @@ export default window.component(async (node, ctx) => {
     orders.classList.add('hidden');
   };
 
-  const onSelectCustomer = async e => {
-    if (e.target.value === '') {
+  const onSelectCustomer = async customer => {
+    if (customer === '') {
       reset();
     } else {
+      console.log('loadddd');
       loading();
-      const orderList = await getCustomerOrders(e);
+      const orderList = await getCustomerOrders(customer);
       orders.classList.remove('is-active');
       if (!orderList.length) {
         noOrders.classList.remove('hidden');
@@ -93,31 +93,30 @@ export default window.component(async (node, ctx) => {
     }
   };
 
-  const appendCustomerSelect = data => {
-    const documentFragment = document.createDocumentFragment();
-    data.forEach(customer => {
-      const option = document.createElement('option');
-      option.value = customer.id;
-      option.innerText = customer.name;
-      documentFragment.appendChild(option);
-    });
-    selectCustomer.appendChild(documentFragment);
-  };
+  if (selectCustomerContainer) {
+    const { select: selectCustomer } = choozy(selectCustomerContainer);
 
-  if (selectCustomer) {
     selectCustomer.classList.add('is-loading');
     selectCustomer.disabled = true;
 
-    selectCustomer.addEventListener('change', onSelectCustomer);
+    selectCustomer.addEventListener('change', e => onSelectCustomer(e.target.value));
     ctx.on('agent-stores:received', (_state, { data }) => {
       selectCustomer.classList.add('is-active');
       selectCustomer.removeAttribute('disabled');
-      customerSelectText.classList.remove('hidden');
+
+      if (customerSelectText) customerSelectText.classList.remove('hidden');
 
       selectCustomer.classList.remove('is-loading');
       selectCustomer.disabled = false;
 
-      appendCustomerSelect(data);
+      const documentFragment = document.createDocumentFragment();
+      data.forEach(customer => {
+        const option = document.createElement('option');
+        option.value = customer.id;
+        option.innerText = customer.name;
+        documentFragment.appendChild(option);
+      });
+      selectCustomer.appendChild(documentFragment);
     });
   } else {
     onSelectCustomer();

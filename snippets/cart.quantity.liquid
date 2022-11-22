@@ -1,13 +1,7 @@
 <p class='text-body-xs'>
-  <span class='text-grey-3'>
-    {{- 'cart.product_item.quantity' | t -}}
+  <span data-size-elem class='text-grey-3'>
+    {{- item.variant.title -}}
     :
   </span>
-  <span data-quantity-elem>
-    {%- if item -%}
-      {{- item.variant.title -}}
-      :
-      {{- item.quantity -}}
-    {%- endif -%}
-  </span>
+  <span data-quantity-elem>{{- item.quantity -}}</span>
 </p>

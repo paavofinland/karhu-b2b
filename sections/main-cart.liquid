@@ -10,21 +10,13 @@
 >
   <div data-section>
     <div class='max-w-[720px] mx-auto'>
-      <div class='flex lg:mb-10 flex-col lg:flex-row justify-between lg:items-center'>
-        <h4 class='text-heading-4 lg:text-heading-3 mb-7 lg:mb-0'>
+      <div class='flex lg:mb-[60px] justify-between items-end mb-7'>
+        <h4 class='text-heading-4 lg:text-heading-3'>
           {{- 'cart.general.title' | t -}}
         </h4>
-        {% comment %}
-           {%- if agent -%}
-            {%- render 'component.select',
-              options: null,
-              placeholder_class: 'text-grey-3',
-              container_class: 'border border-grey-4 w-full lg:max-w-[300px] mb-7 lg:mb-0',
-              select_class: 'px-4 py-[18px] w-full appearance-none',
-              placeholder: 'Select Saved Cart'
-            -%}
-          {%- endif -%}
-        {% endcomment %}
+        <a class='underline' href='{{- routes.account_url -}}?menu=carts'>
+          {{- 'cart.general.view_saved_carts' | t -}}
+        </a>
       </div>
       {%- if cart.items.size > 0 -%}
         <div class='text-body-sm'>
@@ -54,19 +46,17 @@
           <div>
             {%- if agent -%}
               <div class='flex gap-2 lg:gap-4 mb-2 lg:mb-4'>
-                {%- capture button_content -%}
-                  <span class='group-is-active:hidden'>Share</span>
-                  <span class='group-is-active:inline hidden'>Link Copied</span>
-                {%- endcapture -%}
-                {%- render 'component.button',
-                  text: button_content,
-                  style: 'secondary',
-                  class: 'group w-full is-active:border-black',
-                  attributes: 'data-share-cart-btn'
-                -%}
+                {%- comment -%}
+                   {%- render 'component.button',
+                    text: button_content,
+                    style: 'secondary',
+                    class: 'group w-full hidden is-active:border-black',
+                    attributes: 'data-share-cart-btn'
+                  -%}
+                {%- endcomment -%}
                 {%-
                   render 'component.button',
-                  text: button_content,
+                  text: 'cart.general.save',
                   style: 'secondary',
                   class: 'w-full flex items-center justify-center gap-2 lg:gap-4 group is-active:bg-green-dark is-active:border-green-dark is-active:text-white',
                   attributes: 'data-save-cart-btn data-id="{{- item.id -}}"',
@@ -105,6 +95,11 @@
       footer_snippet: 'cart.save-popup.footer',
       title: 'cart.general.save_cart',
       type: 'save-cart'
+    -%}
+    {%- render 'component.popup',
+      footer_snippet: 'cart.save-popup-success.footer',
+      title: 'cart.general.cart_saved',
+      type: 'share-cart'
     -%}
   </div>
 </section>

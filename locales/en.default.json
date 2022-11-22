@@ -60,8 +60,12 @@
       "items": "items",
       "go_shopping": "Go shopping",
       "save_cart": "Save cart",
-      "cart_saved": "Cart Saved",
-      "update_order": "Update order"
+      "cart_saved": "Your shopping bag is saved",
+      "update_order": "Update order",
+      "save": "Save",
+      "share": "Share",
+      "link_copied": "Link Copied",
+      "view_saved_carts": "View saved carts"
     },
     "product_item": {
       "size": "Size:",

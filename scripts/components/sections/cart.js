@@ -33,8 +33,8 @@ export default window.component(async (node, ctx) => {
   };
 
   const onOpenSaveCartPopup = () => ctx.emit('popup:open', null, 'save-cart');
-  const onCloseSaveCartPopup = () => {
-    ctx.emit('popup:close', null, 'save-cart');
+  const onCloseSaveCartPopup = type => {
+    ctx.emit('popup:close', null, type);
     setErrorState('');
   };
 
@@ -46,15 +46,15 @@ export default window.component(async (node, ctx) => {
   };
 
   const onCopySuccess = () => {
-    const { shareCartBtn } = choozy(node);
-    shareCartBtn.classList.add('is-active');
+    const { shareCartPopupBtn } = choozy(node);
+    shareCartPopupBtn.classList.add('is-active');
     setTimeout(() => {
-      shareCartBtn.classList.remove('is-active');
+      shareCartPopupBtn.classList.remove('is-active');
     }, 2000);
   };
 
-  const onShareCart = async () => {
-    const url = getShareLink('some_custom_id');
+  const onShareCart = async e => {
+    const url = getShareLink(e.target.dataset.cartId);
     await navigator.clipboard.writeText(url);
     onCopySuccess();
   };
@@ -138,14 +138,8 @@ export default window.component(async (node, ctx) => {
     document.body.classList.toggle('pointer-events-none');
   };
 
-  const onToggleSaveCartLoadingState = () => {
-    const { saveCartBtn } = choozy(node);
-    saveCartBtn.classList.toggle('is-active');
-    saveCartBtn.toggleAttribute('disabled');
-  };
-
   const onClickSaveCart = async () => {
-    const { cartInput } = choozy(node);
+    const { cartInput, shareCartPopupBtn } = choozy(node);
     if (!cartInput.value) {
       setErrorState('Please fill in a name');
       return;
@@ -154,13 +148,11 @@ export default window.component(async (node, ctx) => {
     toggleSaveCartRenderState();
     setErrorState('');
     try {
-      await saveCart();
-      onCloseSaveCartPopup();
+      const { id: cartId } = await saveCart();
+      onCloseSaveCartPopup('save-cart');
+      ctx.emit('popup:open', null, 'share-cart');
+      shareCartPopupBtn.dataset.cartId = cartId;
       cartInput.value = '';
-      onToggleSaveCartLoadingState();
-      setTimeout(() => {
-        onToggleSaveCartLoadingState();
-      }, 1000);
     } catch (e) {
       setErrorState(e.message);
     } finally {
@@ -224,7 +216,7 @@ export default window.component(async (node, ctx) => {
       closeSidebarBtn,
       saveCartBtn,
       closePopupBtn,
-      shareCartBtn,
+      shareCartPopupBtn,
       saveCartPopupBtn,
       updateSizesForm,
     } = choozy(node);
@@ -237,9 +229,13 @@ export default window.component(async (node, ctx) => {
 
     saveCartBtn && saveCartBtn.addEventListener('click', onOpenSaveCartPopup);
     closePopupBtn &&
-      [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onCloseSaveCartPopup));
+      []
+        .concat(closePopupBtn)
+        .forEach(btn =>
+          btn.addEventListener('click', e => onCloseSaveCartPopup(e.currentTarget.dataset.type))
+        );
 
-    shareCartBtn && shareCartBtn.addEventListener('click', onShareCart);
+    shareCartPopupBtn && shareCartPopupBtn.addEventListener('click', onShareCart);
 
     removeItemBtn &&
       [].concat(removeItemBtn).forEach(btn => btn.addEventListener('click', onRemoveProduct));

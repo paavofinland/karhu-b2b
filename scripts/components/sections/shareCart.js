@@ -65,10 +65,11 @@ export default window.component(async (node, ctx) => {
     });
   };
 
-  const renderVariantData = ({ quantity, id: variantId }, template, container) => {
+  const renderVariantData = ({ quantity, id: variantId, title }, template, container) => {
     const productSharedDataElem = template.content.cloneNode(true);
-    const { quantityElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
+    const { quantityElem, sizeElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
     quantityElem.innerText = quantity;
+    sizeElem.innerText = `US ${title}:`;
     inputId.value = variantId;
     inputQuantity.value = quantity;
     container.appendChild(productSharedDataElem);
@@ -104,10 +105,11 @@ export default window.component(async (node, ctx) => {
   ctx.on('data:render', async () => {
     const query = getQueryParams();
     try {
-      const { products, subtotal } = await getCartProducts(query);
+      const { name, products, subtotal } = await getCartProducts(query);
       renderDataInContainer(products);
-      const { subtotal: subtotalEl } = choozy(node, null);
-      subtotalEl.innerText = subtotal;
+      const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
+      cartTitle.innerText = name;
+      subtotalEl.innerText = subtotal.toFixed(2).replace('.', ',');
     } catch (e) {
       // handle error
       console.log(e);

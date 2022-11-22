@@ -1,0 +1,20 @@
+<div class='flex gap-2 mt-7'>
+  {%- capture button_content -%}
+    <span class='group-is-active:hidden'>{{- 'cart.general.share' | t -}}</span>
+    <span class='group-is-active:inline hidden'>
+      {{- 'cart.general.link_copied' | t -}}
+    </span>
+  {%- endcapture -%}
+  {%- render 'component.button',
+    text: button_content,
+    style: 'secondary',
+    class: 'w-full group is-active:border-black is-active:bg-black is-active:text-white',
+    attributes: 'data-share-cart-popup-btn'
+  -%}
+  {%- render 'component.button',
+    text: 'Continue',
+    style: 'primary',
+    class: 'w-full group',
+    attributes: 'data-close-popup-btn data-type="share-cart"',
+  -%}
+</div>

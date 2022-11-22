@@ -31,7 +31,6 @@ const getCartProducts = query => {
   return fetch(`${process.env.API_URL}/customer/get-cart-products?${query}`).then(async res => {
     const responseData = await res.json();
     if (res.status === 200) return responseData;
-    console.error(`Error§ [${(await res.json()).message}]`);
     throw new Error(responseData.message);
   });
 };
@@ -48,6 +47,8 @@ export default window.component(async (node, ctx) => {
     closePopupBtn,
     addToBagPopupBtn,
     addToBagForm,
+    content,
+    productsError,
   } = choozy(node);
 
   const getQueryParams = () => {
@@ -82,7 +83,7 @@ export default window.component(async (node, ctx) => {
     item.dataset.id = id;
     titleElem.innerText = title;
     titleElem.setAttribute('title', title);
-    priceElem.innerText = price;
+    priceElem.innerText = price.replace('.', ',');
     imageElem.src = image;
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
@@ -111,8 +112,8 @@ export default window.component(async (node, ctx) => {
       cartTitle.innerText = name;
       subtotalEl.innerText = subtotal.toFixed(2).replace('.', ',');
     } catch (e) {
-      // handle error
-      console.log(e);
+      content.classList.add('is-active');
+      productsError.innerText = e.message;
     } finally {
       ctx.emit('cart:loaded');
     }

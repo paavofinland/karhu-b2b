@@ -17,11 +17,9 @@
 <div class='border-b-grey-5 border-b'>
   <ul class='container-content flex justify-center gap-9 py-6 lg:py-8 text-heading-5'>
     {%- for collection_data in collections -%}
-      {%- if collection_data.title != collection.title -%}
-        <li class='hover:underline'>
-          {{- collection_data.title | link_to: collection_data.url -}}
-        </li>
-      {%- endif -%}
+      <li class='hover:underline {% if collection_data.handle == collection.handle -%}underline{%- endif -%}'>
+        {{- collection_data.title | link_to: collection_data.url -}}
+      </li>
     {%- endfor -%}
   </ul>
 </div>
@@ -33,9 +31,9 @@
 >
   <div
     data-container
-    class='group is-loading:opacity-50 is-loading:pointer-events-none px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'
+    class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'
   >
-    {%- render 'collection.filters', section_id: section.id -%}
+    {%- render 'collection-filters' -%}
     <div class='w-full'>
       {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
       {% liquid
@@ -50,14 +48,17 @@
           endfor
         endcapture
       %}
-      {%- render 'component.select',
-        options: options,
-        container_class: 'min-w-[260px] lg:w-min ml-auto border border-grey-4 mb-7 lg:mb-10',
-        select_class: 'px-4 py-4 w-full bg-transparent appearance-none',
-        attributes: 'data-sort-by-options'
-      -%}
+      <div data-sort-by-container class='is-loading:opacity-50 is-loading:pointer-events-none'>
+        {%- render 'component.select',
+          options: options,
+          container_class: 'min-w-[260px] lg:w-min ml-auto border border-grey-4 mb-7 lg:mb-10 ',
+          select_class: 'px-4 py-4 w-full bg-transparent appearance-none',
+          attributes: 'data-sort-by-options'
+        -%}
+      </div>
+
       <div
-        class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+        class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px] is-loading:opacity-50 is-loading:pointer-events-none'
         data-product-grid
       >
         {% paginate collection.products by 15 %}
@@ -68,7 +69,6 @@
           {%- else -%}
             {% for product in collection.products %}
               {%- render 'component.product', product: product -%}
-              {%- render 'product-sidebar', item: product, is_collection: true -%}
             {% endfor %}
           {%- endif -%}
         {% endpaginate %}
@@ -76,10 +76,6 @@
       <div data-load-more></div>
     </div>
   </div>
-  <div
-    data-sidebar-layer
-    class='fixed transition-opacity w-full duration-300 h-full opacity-0 inset-0 bg-[#1E1E1E] bg-opacity-50 z-10 pointer-events-none is-active:pointer-events-auto is-active:opacity-100'
-  ></div>
 </div>
 
 {% render 'quick-add-drawer' %}

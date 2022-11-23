@@ -1549,6 +1549,10 @@ html {
   right: calc(var(--select-padding-x) / 1.25);
 }
 
+.isolate {
+  isolation: isolate;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -3557,10 +3561,6 @@ html {
   opacity: 0.5;
 }
 
-.group.is-loading .group-is-loading\:pointer-events-none {
-  pointer-events: none;
-}
-
 .group.is-loading .group-is-loading\:hidden {
   display: none;
 }
@@ -3593,10 +3593,6 @@ html {
 
 .group.is-loading .group-is-loading\:overflow-hidden {
   overflow: hidden;
-}
-
-.group.is-loading .group-is-loading\:opacity-50 {
-  opacity: 0.5;
 }
 
 @media (min-width: 640px) {

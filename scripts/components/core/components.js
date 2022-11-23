@@ -12,6 +12,8 @@ import popup from './popup';
 import quickAddButton from './quick-add-button';
 import quickAddDrawer from './quick-add-drawer';
 import productForm from './product-form';
+import cartEditDrawer from './cart-edit-drawer';
+import cartSave from './cart-save';
 
 export default {
   sectionRendering,
@@ -28,4 +30,6 @@ export default {
   quickAddDrawer,
   cartCount,
   productForm,
+  cartEditDrawer,
+  cartSave,
 };

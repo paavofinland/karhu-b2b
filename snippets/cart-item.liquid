@@ -1,4 +1,9 @@
-<div class='flex justify-between gap-4 lg:gap-[60px] py-3 lg:py-5 border-b border-b-grey-5 first-of-type:border-t first-of-type:border-t-grey-5'>
+<div
+  data-component='cartItem'
+  data-product-id='{{- item.product_id -}}'
+  data-item
+  class='flex justify-between gap-4 lg:gap-[60px] py-3 lg:py-5 border-b border-b-grey-5 first-of-type:border-t first-of-type:border-t-grey-5'
+>
   <div class='min-w-[62px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
     {%- if item.image -%}
       {%- render 'component.image',
@@ -9,11 +14,7 @@
       <img class='aspect-square object-contain mix-blend-darken' data-image-elem>
     {%- endif -%}
   </div>
-  <div
-    class='w-[fill-available] lg:self-center'
-    data-item
-    data-product-id='{{- item.product_id -}}'
-  >
+  <div class='w-[fill-available] lg:self-center'>
     {%- unless shared -%}
       {%- for line_item in product_variants -%}
         <input
@@ -54,15 +55,20 @@
       {%- unless shared -%}
         <div>
           <button
-            data-edit-item-btn
+            data-edit
             data-id='{{- item.product_id -}}'
             class='ml-auto underline block mb-1 lg:mb-2'
           >
             {{- 'cart.product_item.edit' | t -}}
           </button>
-          <button data-remove-item-btn data-id='{{- item.product_id -}}' class='ml-auto underline'>
-            {{- 'cart.product_item.remove' | t -}}
-          </button>
+          <form data-remove-form class='ml-auto '>
+            {%- for item in product_variants -%}
+              <input name='updates[{{- item.id -}}]' type='hidden' value='0'>
+            {%- endfor -%}
+            <button type='submit' class='underline'>
+              {{- 'cart.product_item.remove' | t -}}
+            </button>
+          </form>
         </div>
       {%- endunless -%}
     </div>

@@ -1,0 +1,33 @@
+<div data-component='cartSave' class='flex gap-2 lg:gap-4 mb-2 lg:mb-4'>
+  {%- render 'component.button',
+    text: 'cart.general.save',
+    style: 'secondary',
+    class: 'w-full flex items-center justify-center gap-2 lg:gap-4',
+    attributes: 'data-save-button'
+  -%}
+  {%- render 'component.popup',
+    content_snippet: 'cart.save-popup.content',
+    footer_snippet: 'cart.save-popup.footer',
+    title: 'cart.general.save_cart',
+    type: 'save-cart'
+  -%}
+  {%- render 'component.popup',
+    footer_snippet: 'cart.save-popup-success.footer',
+    title: 'cart.general.cart_saved',
+    type: 'share-cart'
+  -%}
+  <script data-line-items-json type='application/json'>
+    [
+        {%- for item in items -%}
+            {
+                "productId": "{{- item.product_id -}}",
+                "id": "{{- item.id -}}",
+                "quantity": "{{- item.quantity -}}"
+            }
+            {%- unless forloop.last -%}
+                ,
+            {%- endunless -%}
+        {%- endfor -%}
+    ]
+  </script>
+</div>

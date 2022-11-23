@@ -6,7 +6,8 @@
 <section
   data-component='cart'
   data-section-id='{{- section.id -}}'
-  class='container px-4 mt-[28px] lg:mt-[60px] mb-[60px] lg:mb-[100px]'
+  data-item-count='{{ cart.item_count }}'
+  class='container px-4 mt-[28px] lg:mt-[60px] mb-[60px] lg:mb-[100px] is-loading:opacity-50 is-loading:pointer-events-none'
 >
   <div data-section>
     <div class='max-w-[720px] mx-auto'>
@@ -22,17 +23,13 @@
         <div class='text-body-sm'>
           {%- for id in product_ids -%}
             {%- assign product_variants = cart.items | where: 'product_id', id | sort: 'title' -%}
-            <form data-remove-item-form data-id='{{- id -}}' class='hidden'>
-              {%- for item in product_variants -%}
-                <input name='updates[{{- item.id -}}]' type='hidden' value='0'>
-              {%- endfor -%}
-            </form>
-            {%- render 'cart.product',
+
+            {%- render 'cart-item',
               item: product_variants[0],
               product_variants: product_variants,
               shared: false
             -%}
-            {%- render 'cart.product-sidebar',
+            {%- render 'cart-edit-drawer',
               item: product_variants[0],
               product_variants: product_variants
             -%}
@@ -44,21 +41,16 @@
             </p>
           </div>
           <div>
-            {%- if agent -%}
-              <div class='flex gap-2 lg:gap-4 mb-2 lg:mb-4'>
-                {%-
-                  render 'component.button',
-                  text: 'cart.general.save',
-                  style: 'secondary',
-                  class: 'w-full flex items-center justify-center gap-2 lg:gap-4',
-                  attributes: 'data-save-cart-btn data-id="{{- item.id -}}"'
-                -%}
-              </div>
-            {%- endif -%}
+            {%- liquid
+              if agent
+                render 'cart-save', items: cart.items
+              endif
+            -%}
             {%- render 'component.button',
               text: 'Go to checkout',
               style: 'primary',
-              class: 'w-full'
+              class: 'w-full',
+              type: 'submit'
             -%}
           </div>
         </div>
@@ -74,20 +66,5 @@
         </div>
       {%- endif -%}
     </div>
-    <div
-      data-sidebar-layer
-      class='fixed transition-opacity w-full duration-300 h-full opacity-0 inset-0 bg-[#1E1E1E] bg-opacity-50 z-10 pointer-events-none is-active:pointer-events-auto is-active:opacity-100'
-    ></div>
-    {%- render 'component.popup',
-      content_snippet: 'cart.save-popup.content',
-      footer_snippet: 'cart.save-popup.footer',
-      title: 'cart.general.save_cart',
-      type: 'save-cart'
-    -%}
-    {%- render 'component.popup',
-      footer_snippet: 'cart.save-popup-success.footer',
-      title: 'cart.general.cart_saved',
-      type: 'share-cart'
-    -%}
   </div>
 </section>

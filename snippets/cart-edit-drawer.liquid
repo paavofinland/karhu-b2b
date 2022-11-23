@@ -1,0 +1,46 @@
+{%- capture content -%}
+  <div class='flex gap-4 lg:gap-7 border-b border-b-grey-4 pt-6 lg:pt-5 pb-5 lg:pb-7 mb-9'>
+    <div class='min-w-[110px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
+      {%- render 'component.image',
+        img: item.image,
+        class: 'aspect-square object-contain mix-blend-darken'
+      -%}
+    </div>
+    <div class='self-center'>
+      <p>{{- item.product.title -}}</p>
+      <p class='text-detailed text-grey-3'>{{- item.metafields.color.value -}}</p>
+      <p class='mt-2'>{{- item.price | money -}}</p>
+    </div>
+  </div>
+  <div class='flex flex-col justify-between'>
+    <form data-form>
+      {%- render 'product-sizes',
+        product: item.product,
+        is_cart: true,
+        product_variants: product_variants
+      -%}
+      <div class='mt-4'>
+        <p
+          data-update-error-msg
+          class='text-red-light text-detailed opacity-100 transition-all duration-300 translate-y-0 empty:opacity-0 empty:translate-y-2 h-4'
+        ></p>
+        {%- render 'component.button',
+          style: 'primary',
+          text: 'Update order',
+          class: 'w-full mt-2 group',
+          type: 'submit',
+          attributes: 'data-submit',
+          loading_class: 'h-6 hidden group-is-active:flex',
+          text_loading_class: 'group-is-active:hidden'
+        -%}
+      </div>
+    </form>
+  </div>
+{%- endcapture -%}
+
+{%- assign attributes = 'data-component="cartEditDrawer" data-product-id="'
+  | append: item.product_id
+  | append: '"'
+-%}
+
+{% render 'drawer', attributes: attributes, content: content %}

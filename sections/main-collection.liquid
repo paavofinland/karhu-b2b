@@ -17,11 +17,9 @@
 <div class='border-b-grey-5 border-b'>
   <ul class='container-content flex justify-center gap-9 py-6 lg:py-8 text-heading-5'>
     {%- for collection_data in collections -%}
-      {%- if collection_data.title != collection.title -%}
-        <li class='hover:underline'>
-          {{- collection_data.title | link_to: collection_data.url -}}
-        </li>
-      {%- endif -%}
+      <li class='hover:underline {% if collection_data.handle == collection.handle -%}underline{%- endif -%}'>
+        {{- collection_data.title | link_to: collection_data.url -}}
+      </li>
     {%- endfor -%}
   </ul>
 </div>

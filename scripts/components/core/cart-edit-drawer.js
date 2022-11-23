@@ -18,7 +18,7 @@ export default window.component((node, ctx) => {
     submit.classList[isLoading ? 'add' : 'remove']('is-active');
   });
 
-  [(backdrop, closeButton)].forEach(e =>
+  [backdrop, closeButton].forEach(e =>
     e.addEventListener('click', () => ctx.emit('cart-edit-drawer:toggle'))
   );
 
@@ -26,11 +26,7 @@ export default window.component((node, ctx) => {
     e.preventDefault();
     ctx.emit('cart:loading', null, true);
     const response = await updateCart(new FormData(e.target));
+    // TODO: Error handling?
     ctx.emit('cart:render');
   });
-
-  //   ctx.on('cart:update', () => {
-  //     if (closeTimeout) clearTimeout(closeTimeout);
-  //     closeTimeout = setTimeout(() => close(), 1000);
-  //   });
 });

@@ -2,8 +2,14 @@
   "sections": {
     "product-grid": {
       "type": "main-collection",
-      "settings": {}
+      "settings": {
+        "title": "",
+        "image": "shopify:\/\/shop_images\/Image_e1c13249-85f9-4dae-901c-2a056ec45611.jpg",
+        "desktop_image": "shopify:\/\/shop_images\/Image_688dfc02-956b-4e5e-8942-fead3aaf622e.jpg"
+      }
     }
   },
-  "order": ["product-grid"]
+  "order": [
+    "product-grid"
+  ]
 }

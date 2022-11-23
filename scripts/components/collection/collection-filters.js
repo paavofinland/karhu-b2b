@@ -64,7 +64,6 @@ export default window.component((node, ctx) => {
   const toggleSidebar = (n, open) => {
     const { sidebarFilters: s, overlay: o } = choozy(n);
     [s, o].forEach(e => e.classList[open ? 'add' : 'remove']('is-active'));
-    document.body.classList[open ? 'add' : 'remove']('overflow-hidden');
   };
 
   ctx.on('filter:render', ({ html, uri }) => {
@@ -85,5 +84,6 @@ export default window.component((node, ctx) => {
   ctx.on('filters:toggle', (_, open) => {
     isOpen = open;
     toggleSidebar(node, open);
+    document.body.classList[open ? 'add' : 'remove']('overflow-hidden');
   });
 });

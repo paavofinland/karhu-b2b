@@ -3,6 +3,7 @@ import choozy from '../../lib/choozy';
 import escKey from '../../lib/listeners';
 
 export default window.component(async (node, ctx) => {
+  return;
   const parent = node.parentNode;
   const el = node;
   const { toggle, clear, focusEl } = choozy(node, null);

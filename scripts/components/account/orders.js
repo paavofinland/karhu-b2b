@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
 import getLiquidVariables from '../../lib/get-liquid-variables';
@@ -51,8 +52,11 @@ export default window.component(async (node, ctx) => {
         const value = order[prop];
         const elements = [].concat(choozy(newElement)[prop]).filter(Boolean);
         elements.forEach(element => {
-          // eslint-disable-next-line no-param-reassign
-          element.innerText = value;
+          if (element instanceof HTMLAnchorElement) {
+            element.href = value;
+          } else {
+            element.innerText = value;
+          }
         });
       });
       fragment.appendChild(newElement);

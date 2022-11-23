@@ -43,6 +43,7 @@
           "settings": {
             "collection": "running",
             "image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -52,6 +53,8 @@
           "type": "category",
           "settings": {
             "collection": "lifestyle",
+            "image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
             "title": "",
             "button_text": "",
             "button_url": ""

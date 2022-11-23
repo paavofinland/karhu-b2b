@@ -36,9 +36,7 @@
           <td class='py-7'>
             <div class='flex justify-end gap-10 pr-[130px]'>
               <a
-                href='{{- routes.root_url -}}pages/share-cart?agentId=5686421684433&cartId={{- cart.id -}}'
-                data-view-cart-btn
-                data-id='{{- cart.id -}}'
+                href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer.id -}}&cartId={{- cart.id -}}'
                 class='underline mr-5'
               >
                 {{- 'customer.account.carts.view_cart' | t -}}
@@ -70,9 +68,7 @@
         </div>
         <div>
           <a
-            href='{{- routes.root_url -}}pages/share-cart?agentId=5686421684433&cartId={{- cart.id -}}'
-            data-view-cart-btn
-            data-id='{{- cart.id -}}'
+            href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer.id -}}&cartId={{- cart.id -}}'
             class='underline mr-5'
           >
             {{- 'customer.account.carts.view_cart' | t -}}

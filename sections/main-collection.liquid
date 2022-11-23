@@ -33,7 +33,7 @@
     data-container
     class='group is-loading:opacity-50 is-loading:pointer-events-none px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'
   >
-    {%- render 'collection.filters', section_id: section.id -%}
+    {%- render 'collection-filters' -%}
     <div class='w-full'>
       {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
       {% liquid

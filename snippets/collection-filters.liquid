@@ -1,7 +1,6 @@
 <aside
-  data-component='collectionFilter'
+  data-component='collectionFilters'
   data-filters
-  data-section-id='{{- section_id -}}'
 >
   {%- liquid
     assign filter_count = 0
@@ -58,7 +57,7 @@
             {%- for filter in collection.filters -%}
               {%- for value in filter.active_values -%}
                 <label
-                  for='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
+                  for='Filter-{{ filter.label | escape | handleize }}-{{ value.value | escape | handleize }}'
                   class='flex justify-between items-center cursor-pointer'
                 >
                   <span>
@@ -94,12 +93,12 @@
                   <li class='relative'>
                     <label
                       class='cursor-pointer {% if value.active and value.count != 0 -%}underline{%- endif -%}'
-                      for='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
+                      for='Filter-{{ filter.label | escape | handleize }}-{{ value.value | escape | handleize }}'
                     >
                       {{- value.label -}}
                     </label>
                     <input
-                      id='Filter-{{ filter.label | escape }}-{{ value.value | escape }}'
+                      id='Filter-{{ filter.label | escape | handleize }}-{{ value.value | escape | handleize }}'
                       type='checkbox'
                       name='{{ value.param_name }}'
                       value='{{ value.value }}'

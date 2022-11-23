@@ -68,7 +68,6 @@
           {%- else -%}
             {% for product in collection.products %}
               {%- render 'component.product', product: product -%}
-              {%- render 'product-sidebar', item: product, is_collection: true -%}
             {% endfor %}
           {%- endif -%}
         {% endpaginate %}
@@ -76,10 +75,6 @@
       <div data-load-more></div>
     </div>
   </div>
-  <div
-    data-sidebar-layer
-    class='fixed transition-opacity w-full duration-300 h-full opacity-0 inset-0 bg-[#1E1E1E] bg-opacity-50 z-10 pointer-events-none is-active:pointer-events-auto is-active:opacity-100'
-  ></div>
 </div>
 
 {% render 'quick-add-drawer' %}

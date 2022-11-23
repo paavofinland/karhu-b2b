@@ -2,95 +2,25 @@
 import choozy from '../../lib/choozy';
 import { fetchHtml, updateURLHash } from './utils';
 
-const getParameter = paramName => {
-  const searchString = window.location.search.substring(1);
-  let i;
-  let val;
-  const params = searchString.split('&');
+const getPage = () => Number(new URLSearchParams(window.location.search).get('page') || 1);
 
-  for (i = 0; i < params.length; i++) {
-    val = params[i].split('=');
-    if (val[0] === paramName) {
-      return parseInt(val[1], 0);
-    }
-  }
-  return 1;
+const getQueryParams = (pageToQuery, sortBy) => {
+  const queryParams = new URLSearchParams(window.location.search);
+  queryParams.set('page', pageToQuery);
+  queryParams.set('sort_by', sortBy);
+  return queryParams.toString();
 };
 
-const updateCart = body =>
-  fetch(`${window.Shopify.routes.root}cart/add.js`, {
-    method: 'POST',
-    body,
-  })
-    .then(response => response.json())
-    .catch(e => {
-      throw new Error(e);
-    });
-
 export default window.component((node, ctx) => {
-  const { loadMore, productGrid, sortByOptions, sidebarLayer } = choozy(node);
-
-  const toggleProductSidebar = id => {
-    const currentSidebar = document.querySelector(`[data-sidebar][data-id="${id}"]`);
-    currentSidebar.classList.toggle('is-active');
-    sidebarLayer.classList.toggle('is-active');
-    sidebarLayer.dataset.id = id;
-  };
-
-  const updateHandlers = () => {
-    const { quickAddBtn, closeSidebarBtn } = choozy(node);
-    (quickAddBtn || closeSidebarBtn) &&
-      [].concat(quickAddBtn, closeSidebarBtn).forEach(btn => {
-        btn.addEventListener('click', e => toggleProductSidebar(e.currentTarget.dataset.id));
-      });
-  };
-
-  const onUpdateCartSuccess = id => {
-    const quickAddBtn = document.querySelector(`[data-quick-add-btn][data-id="${id}"]`);
-    quickAddBtn.classList.add('is-active');
-    setTimeout(() => {
-      quickAddBtn.classList.remove('is-active');
-    }, 1500);
-  };
-
-  const updateAddToCartHanlders = () => {
-    const { addToCartBtn } = choozy(node);
-    addToCartBtn &&
-      [].concat(addToCartBtn).forEach(btn => {
-        btn.addEventListener('click', async e => {
-          const { id } = e.currentTarget.dataset;
-          const form = e.currentTarget.closest('form');
-          const formData = new FormData(form);
-          try {
-            await updateCart(formData);
-            onUpdateCartSuccess(id);
-          } catch (err) {
-            console.error(err.message);
-          } finally {
-            toggleProductSidebar(id);
-          }
-        });
-      });
-  };
-
-  sidebarLayer.addEventListener('click', e => toggleProductSidebar(e.currentTarget.dataset.id));
+  const { loadMore, productGrid, sortByOptions } = choozy(node);
 
   ctx.on('product:update', (_state, { html }) => {
     // eslint-disable-next-line no-param-reassign
     productGrid.innerHTML = choozy(html).productGrid.innerHTML;
-    updateHandlers();
-    updateAddToCartHanlders();
   });
 
-  const getQueryParams = (pageToQuery, sortBy) => {
-    const queryParams = new URLSearchParams(window.location.search);
-    queryParams.set('page', pageToQuery);
-    queryParams.set('sort_by', sortBy);
-    return queryParams.toString();
-  };
-
   const renderMoreProducts = async setPageNum => {
-    const currentPage = getParameter('page');
+    const currentPage = getPage();
     const pageToQuery = setPageNum || currentPage + 1;
     const sortBy = sortByOptions.value;
     const query = getQueryParams(pageToQuery, sortBy);
@@ -132,7 +62,7 @@ export default window.component((node, ctx) => {
     observer.observe(loadMore);
   }
 
-  if (getParameter('page') !== 1) {
+  if (getPage() !== 1) {
     window.addEventListener('load', () => {
       renderMoreProducts(1);
       setTimeout(() => window.scrollTo(0, 0), 100);
@@ -148,9 +78,6 @@ export default window.component((node, ctx) => {
     }
 
     updateURLHash(uri);
-    updateHandlers();
-    updateAddToCartHanlders();
-    window.app.mount();
     ctx.emit('product:loading', null, { isLoading: false });
   });
 
@@ -162,7 +89,4 @@ export default window.component((node, ctx) => {
     ctx.emit('product:loading', null, { isLoading: true });
     renderMoreProducts(1);
   });
-
-  updateHandlers();
-  updateAddToCartHanlders();
 });

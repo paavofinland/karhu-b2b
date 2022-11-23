@@ -21,7 +21,7 @@
       {%- if cart.items.size > 0 -%}
         <div class='text-body-sm'>
           {%- for id in product_ids -%}
-            {%- assign product_variants = cart.items | where: 'product_id', id -%}
+            {%- assign product_variants = cart.items | where: 'product_id', id | sort: 'title' -%}
             <form data-remove-item-form data-id='{{- id -}}' class='hidden'>
               {%- for item in product_variants -%}
                 <input name='updates[{{- item.id -}}]' type='hidden' value='0'>

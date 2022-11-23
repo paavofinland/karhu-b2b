@@ -186,7 +186,6 @@ export default window.component(async (node, ctx) => {
   const setUpdateErrorMessage = (elem, err) => {
     const { updateErrorMsg } = choozy(elem);
     updateErrorMsg.innerText = err.message;
-    updateErrorMsg.classList[err.message ? 'add' : 'remove']('is-active');
   };
 
   const onUpdateProductSizes = async e => {
@@ -208,7 +207,7 @@ export default window.component(async (node, ctx) => {
     }
   };
 
-  ctx.on('cart:update-handlers', () => {
+  const updateHandlers = () => {
     const {
       editItemBtn,
       removeItemBtn,
@@ -251,7 +250,9 @@ export default window.component(async (node, ctx) => {
     cartInput.addEventListener('input', e => {
       if (e.target.value) cartInput.setAttribute('aria-invalid', false);
     });
-  });
+  };
 
-  ctx.emit('cart:update-handlers');
+  ctx.on('cart:update-handlers', updateHandlers);
+
+  updateHandlers();
 });

@@ -1,1 +1,136 @@
-(()=>{"use strict";const t=async t=>fetch(t).then((t=>t.text())).then((t=>(new DOMParser).parseFromString(t,"text/html"))),e=t=>history.pushState({searchParams:t},"",`${window.location.pathname}${t.includes("?")||!t?t:"?".concat(t)}`);function n(t=document.body,e){const n=[...t.querySelectorAll(e?`[class*="${e}"]`:"*")],o=e?"classList":"dataset";return n.reduce(((t,n)=>([].slice.call(e?n[o]:Object.entries(n[o])).forEach((o=>{let a;e&&o.slice(0,e.length)===e?a=o.slice(e.length,o.length):e||([a]=o),a&&(t[a]=t.hasOwnProperty(a)?t[a].constructor===Array?t[a].concat(n):[t[a],n]:n)})),t)),{})}const o=window.component(((o,a)=>{const{sectionId:i}=o.dataset,r=()=>{const{filtersForm:e,input:r,clearButton:c,clearAllButton:s,toggleFiltersButton:d}=n(o),l=[].concat(r).filter(Boolean),u=[].concat(c).filter(Boolean),g=[].concat(d).filter(Boolean),w=async(n=!1)=>{const o=new URLSearchParams(window.location.search).get("sort_by"),r=o?{sort_by:o}:{},c=n?{}:Object.fromEntries(new FormData(e));a.emit("product:loading",null,{isLoading:!0});const s=new URLSearchParams({...c,...r}).toString(),d=await t(`${window.location.origin+window.location.pathname}?section_id=${i}&${s}`);window.app.emit(["filter:render"],{html:d,uri:s})};s&&s.addEventListener("click",(()=>w(!0))),l.forEach((t=>t.addEventListener("change",(()=>w())))),u.forEach((t=>t.addEventListener("click",(()=>{l.filter((({name:e})=>e===t.dataset.name)).forEach((t=>{t.checked=!1})),w()})))),g.forEach((t=>t.addEventListener("click",(()=>a.emit("filters:toggle")))))},c=t=>{const{sidebarFilters:e,overlay:o}=n(t);e.classList.toggle("is-active"),o.classList.toggle("is-active")};a.on("filter:render",(({html:t,uri:i})=>{console.log(i),a.emit("product:update",null,{html:t});const s=n(t).filters;c(s),o.innerHTML=n(t).filters.innerHTML,e(i),r(),a.emit("product:loading",null,{isLoading:!1})})),a.on("filters:toggle",(()=>{c(o),document.body.classList.toggle("overflow-hidden")})),r()})),a=t=>{let e,n;const o=window.location.search.substring(1).split("&");for(e=0;e<o.length;e++)if(n=o[e].split("="),n[0]===t)return parseInt(n[1],0);return 1},i={collectionFilter:o,mainCollection:window.component(((o,i)=>{const{loadMore:r,productGrid:c,sortByOptions:s,sidebarLayer:d}=n(o),l=t=>{document.querySelector(`[data-sidebar][data-id="${t}"]`).classList.toggle("is-active"),d.classList.toggle("is-active"),d.dataset.id=t},u=()=>{const{quickAddBtn:t,closeSidebarBtn:e}=n(o);(t||e)&&[].concat(t,e).forEach((t=>{t.addEventListener("click",(t=>l(t.currentTarget.dataset.id)))}))},g=()=>{const{addToCartBtn:t}=n(o);t&&[].concat(t).forEach((t=>{t.addEventListener("click",(async t=>{const{id:e}=t.currentTarget.dataset,n=t.currentTarget.closest("form"),o=new FormData(n);try{await(a=o,fetch(`${window.Shopify.routes.root}cart/add.js`,{method:"POST",body:a}).then((t=>t.json())).catch((t=>{throw new Error(t)}))),(t=>{const e=document.querySelector(`[data-quick-add-btn][data-id="${t}"]`);e.classList.add("is-active"),setTimeout((()=>{e.classList.remove("is-active")}),1500)})(e)}catch(t){console.error(t.message)}finally{l(e)}var a}))}))};d.addEventListener("click",(t=>l(t.currentTarget.dataset.id))),i.on("product:update",((t,{html:e})=>{c.innerHTML=n(e).productGrid.innerHTML,u(),g()}));const w=async e=>{const o=a("page"),i=e||o+1,c=((t,e)=>{const n=new URLSearchParams(window.location.search);return n.set("page",t),n.set("sort_by",e),n.toString()})(i,s.value),d=await t(`${window.location.origin+window.location.pathname}?section_id=main-collection&${c}`);r.classList.add("opacity-0");const{empty:l}=n(d,null);if(l)return;const u=1===i;window.app.emit(["product:render"],{html:d,uri:c,addProducts:!u})},h=new IntersectionObserver((t=>{t.forEach((async t=>{t.isIntersecting&&(r.classList.remove("active"),w())}))}),{rootMargin:"0px",threshold:0});r&&h.observe(r),1!==a("page")&&window.addEventListener("load",(()=>{w(1),setTimeout((()=>window.scrollTo(0,0)),100)})),i.on("product:render",(({html:t,uri:o,addProducts:a=!1})=>{const{productGrid:r}=n(t,null);a?c.innerHTML+=r.innerHTML:c.innerHTML=r.innerHTML,e(o),u(),g(),window.app.mount(),i.emit("product:loading",null,{isLoading:!1})})),i.on("product:loading",((t,{isLoading:e})=>{n(o).container.classList[e?"add":"remove"]("is-loading")})),s.addEventListener("change",(()=>{i.emit("product:loading",null,{isLoading:!0}),w(1)})),u(),g()}))};window.app.add(i),window.app.mount()})();
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./scripts/components/collection/collection-filter.js":
+/*!************************************************************!*\
+  !*** ./scripts/components/collection/collection-filter.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ \"./scripts/components/collection/utils.js\");\n/* harmony import */ var _lib_choozy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/choozy */ \"./scripts/lib/choozy.js\");\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.component((node, ctx) => {\n  const { sectionId } = node.dataset;\n\n  const init = () => {\n    const {\n      filtersForm,\n      input: inputElement,\n      clearButton: clearButtonElement,\n      clearAllButton,\n      toggleFiltersButton: toggleFiltersButtonElement,\n    } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_1__.default)(node);\n\n    const inputs = [].concat(inputElement).filter(Boolean);\n    const clearButtons = [].concat(clearButtonElement).filter(Boolean);\n    const toggleFiltersButtons = [].concat(toggleFiltersButtonElement).filter(Boolean);\n\n    const applyFilters = async (reset = false) => {\n      const sortBy = new URLSearchParams(window.location.search).get('sort_by');\n      const persistedParams = sortBy ? { sort_by: sortBy } : {};\n      const filterParams = reset ? {} : Object.fromEntries(new FormData(filtersForm));\n\n      ctx.emit('product:loading', null, { isLoading: true });\n\n      const searchParams = new URLSearchParams({\n        ...filterParams,\n        ...persistedParams,\n      }).toString();\n\n      const collectionHtml = await (0,_utils__WEBPACK_IMPORTED_MODULE_0__.fetchHtml)(\n        `${\n          window.location.origin + window.location.pathname\n        }?section_id=${sectionId}&${searchParams}`\n      );\n\n      window.app.emit(['filter:render'], {\n        html: collectionHtml,\n        uri: searchParams,\n      });\n    };\n\n    if (clearAllButton) clearAllButton.addEventListener('click', () => applyFilters(true));\n    inputs.forEach(input => input.addEventListener('change', () => applyFilters()));\n    clearButtons.forEach(b =>\n      b.addEventListener('click', () => {\n        inputs\n          .filter(({ name }) => name === b.dataset.name)\n          .forEach(input => {\n            // eslint-disable-next-line no-param-reassign\n            input.checked = false;\n          });\n        applyFilters();\n      })\n    );\n\n    toggleFiltersButtons.forEach(b =>\n      b.addEventListener('click', () => ctx.emit('filters:toggle'))\n    );\n  };\n\n  const toggleSidebar = n => {\n    const { sidebarFilters, overlay } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_1__.default)(n);\n    sidebarFilters.classList.toggle('is-active');\n    overlay.classList.toggle('is-active');\n  };\n\n  ctx.on('filter:render', ({ html, uri }) => {\n    console.log(uri);\n    ctx.emit('product:update', null, { html });\n    const filtersHtml = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_1__.default)(html).filters;\n    toggleSidebar(filtersHtml);\n    // eslint-disable-next-line no-param-reassign\n    node.innerHTML = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_1__.default)(html).filters.innerHTML;\n    (0,_utils__WEBPACK_IMPORTED_MODULE_0__.updateURLHash)(uri);\n    init();\n    ctx.emit('product:loading', null, { isLoading: false });\n  });\n\n  ctx.on('filters:toggle', () => {\n    toggleSidebar(node);\n    document.body.classList.toggle('overflow-hidden');\n  });\n\n  init();\n}));\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/collection-filter.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/collection/components.js":
+/*!*****************************************************!*\
+  !*** ./scripts/components/collection/components.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _collection_filter__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./collection-filter */ \"./scripts/components/collection/collection-filter.js\");\n/* harmony import */ var _main_collection__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./main-collection */ \"./scripts/components/collection/main-collection.js\");\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  collectionFilter: _collection_filter__WEBPACK_IMPORTED_MODULE_0__.default,\n  mainCollection: _main_collection__WEBPACK_IMPORTED_MODULE_1__.default,\n});\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/components.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/collection/main-collection.js":
+/*!**********************************************************!*\
+  !*** ./scripts/components/collection/main-collection.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _lib_choozy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/choozy */ \"./scripts/lib/choozy.js\");\n/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ \"./scripts/components/collection/utils.js\");\n/* eslint-disable no-unused-expressions */\n\n\n\nconst getParameter = paramName => {\n  const searchString = window.location.search.substring(1);\n  let i;\n  let val;\n  const params = searchString.split('&');\n\n  for (i = 0; i < params.length; i++) {\n    val = params[i].split('=');\n    if (val[0] === paramName) {\n      return parseInt(val[1], 0);\n    }\n  }\n  return 1;\n};\n\nconst updateCart = body =>\n  fetch(`${window.Shopify.routes.root}cart/add.js`, {\n    method: 'POST',\n    body,\n  })\n    .then(response => response.json())\n    .catch(e => {\n      throw new Error(e);\n    });\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.component((node, ctx) => {\n  const { loadMore, productGrid, sortByOptions, sidebarLayer } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(node);\n\n  const toggleProductSidebar = id => {\n    const currentSidebar = document.querySelector(`[data-sidebar][data-id=\"${id}\"]`);\n    currentSidebar.classList.toggle('is-active');\n    sidebarLayer.classList.toggle('is-active');\n    sidebarLayer.dataset.id = id;\n  };\n\n  const updateHandlers = () => {\n    const { quickAddBtn, closeSidebarBtn } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(node);\n    (quickAddBtn || closeSidebarBtn) &&\n      [].concat(quickAddBtn, closeSidebarBtn).forEach(btn => {\n        btn.addEventListener('click', e => toggleProductSidebar(e.currentTarget.dataset.id));\n      });\n  };\n\n  const onUpdateCartSuccess = id => {\n    const quickAddBtn = document.querySelector(`[data-quick-add-btn][data-id=\"${id}\"]`);\n    quickAddBtn.classList.add('is-active');\n    setTimeout(() => {\n      quickAddBtn.classList.remove('is-active');\n    }, 1500);\n  };\n\n  const updateAddToCartHanlders = () => {\n    const { addToCartBtn } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(node);\n    addToCartBtn &&\n      [].concat(addToCartBtn).forEach(btn => {\n        btn.addEventListener('click', async e => {\n          const { id } = e.currentTarget.dataset;\n          const form = e.currentTarget.closest('form');\n          const formData = new FormData(form);\n          try {\n            await updateCart(formData);\n            onUpdateCartSuccess(id);\n          } catch (err) {\n            console.error(err.message);\n          } finally {\n            toggleProductSidebar(id);\n          }\n        });\n      });\n  };\n\n  sidebarLayer.addEventListener('click', e => toggleProductSidebar(e.currentTarget.dataset.id));\n\n  ctx.on('product:update', (_state, { html }) => {\n    // eslint-disable-next-line no-param-reassign\n    productGrid.innerHTML = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(html).productGrid.innerHTML;\n    updateHandlers();\n    updateAddToCartHanlders();\n  });\n\n  const getQueryParams = (pageToQuery, sortBy) => {\n    const queryParams = new URLSearchParams(window.location.search);\n    queryParams.set('page', pageToQuery);\n    queryParams.set('sort_by', sortBy);\n    return queryParams.toString();\n  };\n\n  const renderMoreProducts = async setPageNum => {\n    const currentPage = getParameter('page');\n    const pageToQuery = setPageNum || currentPage + 1;\n    const sortBy = sortByOptions.value;\n    const query = getQueryParams(pageToQuery, sortBy);\n\n    const filterHtmlRender = await (0,_utils__WEBPACK_IMPORTED_MODULE_1__.fetchHtml)(\n      `${window.location.origin + window.location.pathname}?section_id=main-collection&${query}`\n    );\n\n    loadMore.classList.add('opacity-0');\n\n    const { empty } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(filterHtmlRender, null);\n    if (empty) return;\n\n    const renderBefore = pageToQuery === 1;\n\n    window.app.emit(['product:render'], {\n      html: filterHtmlRender,\n      uri: query,\n      addProducts: !renderBefore,\n    });\n  };\n\n  const observer = new IntersectionObserver(\n    entries => {\n      entries.forEach(async entry => {\n        if (entry.isIntersecting) {\n          loadMore.classList.remove('active');\n          renderMoreProducts();\n        }\n      });\n    },\n    {\n      rootMargin: '0px',\n      threshold: 0,\n    }\n  );\n\n  if (loadMore) {\n    observer.observe(loadMore);\n  }\n\n  if (getParameter('page') !== 1) {\n    window.addEventListener('load', () => {\n      renderMoreProducts(1);\n      setTimeout(() => window.scrollTo(0, 0), 100);\n    });\n  }\n\n  ctx.on('product:render', ({ html, uri, addProducts = false }) => {\n    const { productGrid: productGridToRender } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(html, null);\n    if (addProducts) {\n      productGrid.innerHTML += productGridToRender.innerHTML;\n    } else {\n      productGrid.innerHTML = productGridToRender.innerHTML;\n    }\n\n    (0,_utils__WEBPACK_IMPORTED_MODULE_1__.updateURLHash)(uri);\n    updateHandlers();\n    updateAddToCartHanlders();\n    window.app.mount();\n    ctx.emit('product:loading', null, { isLoading: false });\n  });\n\n  ctx.on('product:loading', (_, { isLoading }) => {\n    (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(node).container.classList[isLoading ? 'add' : 'remove']('is-loading');\n  });\n\n  sortByOptions.addEventListener('change', () => {\n    ctx.emit('product:loading', null, { isLoading: true });\n    renderMoreProducts(1);\n  });\n\n  updateHandlers();\n  updateAddToCartHanlders();\n}));\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/main-collection.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/collection/utils.js":
+/*!************************************************!*\
+  !*** ./scripts/components/collection/utils.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"fetchHtml\": () => (/* binding */ fetchHtml),\n/* harmony export */   \"updateURLHash\": () => (/* binding */ updateURLHash),\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst fetchHtml = async url =>\n  fetch(url)\n    .then(response => response.text())\n    .then(responseText => new DOMParser().parseFromString(responseText, 'text/html'));\n\nconst updateURLHash = searchParams =>\n  // eslint-disable-next-line no-restricted-globals\n  history.pushState(\n    { searchParams },\n    '',\n    `${window.location.pathname}${\n      searchParams.includes('?') || !searchParams ? searchParams : '?'.concat(searchParams)\n    }`\n  );\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  fetchHtml,\n  updateURLHash,\n});\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/collection/utils.js?");
+
+/***/ }),
+
+/***/ "./scripts/lib/choozy.js":
+/*!*******************************!*\
+  !*** ./scripts/lib/choozy.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* eslint-disable */\n\n/**\n * @param {Element} container \n * @param {string} prefix \n * @returns {Object.<string, Element | Array<Element>} components\n */\n /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(container = document.body, prefix) {\n  const elements = [...container.querySelectorAll(!prefix ? '*' : `[class*=\"${prefix}\"]`)];\n  const property = !prefix ? 'dataset' : 'classList';\n  return elements.reduce((res, el) => {\n    [].slice.call(!prefix ? Object.entries(el[property]) : el[property]).forEach(property => {\n      let key;\n      if (prefix && property.slice(0, prefix.length) === prefix)\n        key = property.slice(prefix.length, property.length);\n      else if (!prefix) [key] = property;\n      if (key) {\n        res[key] = res.hasOwnProperty(key)\n          ? res[key].constructor === Array\n            ? res[key].concat(el)\n            : [res[key], el]\n          : el;\n      }\n    });\n    return res;\n  }, {});\n}\n\n//# sourceURL=webpack://shopify-starter/./scripts/lib/choozy.js?");
+
+/***/ }),
+
+/***/ "./scripts/util/collection.js":
+/*!************************************!*\
+  !*** ./scripts/util/collection.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_collection_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/collection/components */ \"./scripts/components/collection/components.js\");\n\n\nwindow.app.add(_components_collection_components__WEBPACK_IMPORTED_MODULE_0__.default);\nwindow.app.mount();\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/util/collection.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./scripts/util/collection.js");
+/******/ 	
+/******/ })()
+;

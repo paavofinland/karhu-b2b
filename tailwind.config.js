@@ -111,6 +111,9 @@ module.exports = {
       xxl: '2560px',
     },
     extend: {
+      aria: {
+        invalid: 'invalid="true"',
+      },
       spacing: {
         content: 'var(--content-padding)',
         'content-wide': 'var(--content-padding-wide)',

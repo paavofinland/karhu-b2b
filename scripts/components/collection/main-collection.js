@@ -12,7 +12,7 @@ const getQueryParams = (pageToQuery, sortBy) => {
 };
 
 export default window.component((node, ctx) => {
-  const { loadMore, productGrid, sortByOptions } = choozy(node);
+  const { loadMore, productGrid, sortByOptions, sortByContainer, container } = choozy(node);
 
   ctx.on('product:update', (_state, { html }) => {
     // eslint-disable-next-line no-param-reassign
@@ -82,7 +82,9 @@ export default window.component((node, ctx) => {
   });
 
   ctx.on('product:loading', (_, { isLoading }) => {
-    choozy(node).container.classList[isLoading ? 'add' : 'remove']('is-loading');
+    [container, sortByContainer, productGrid].forEach(e =>
+      e.classList[isLoading ? 'add' : 'remove']('is-loading')
+    );
   });
 
   sortByOptions.addEventListener('change', () => {

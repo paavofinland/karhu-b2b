@@ -8,15 +8,19 @@ const remount = () => {
 
 export default window.component((node, ctx) => {
   const {
+    filtersForm,
     input: inputElement,
     clearButton: clearButtonElement,
     clearAllButton,
     toggleFiltersButton: toggleFiltersButtonElement,
+    sidebarFilters,
   } = choozy(node);
 
   const inputs = [].concat(inputElement).filter(Boolean);
   const clearButtons = [].concat(clearButtonElement).filter(Boolean);
   const toggleFiltersButtons = [].concat(toggleFiltersButtonElement).filter(Boolean);
+
+  let isOpen = sidebarFilters.classList.contains('is-active');
 
   const applyFilters = async form => {
     const sortBy = new URLSearchParams(window.location.search).get('sort_by');
@@ -53,17 +57,14 @@ export default window.component((node, ctx) => {
     })
   );
 
-  toggleFiltersButtons.forEach(b => b.addEventListener('click', () => ctx.emit('filters:toggle')));
+  toggleFiltersButtons.forEach(b =>
+    b.addEventListener('click', () => ctx.emit('filters:toggle', null, !isOpen))
+  );
 
-  const toggleSidebar = (n, forceOpen) => {
-    const { sidebarFilters, overlay } = choozy(n);
-    sidebarFilters.classList.toggle('is-active');
-    overlay.classList.toggle('is-active');
-
-    if (forceOpen) {
-      sidebarFilters.classList.add('is-active');
-      overlay.classList.add('is-active');
-    }
+  const toggleSidebar = (n, open) => {
+    const { sidebarFilters: s, overlay: o } = choozy(n);
+    [s, o].forEach(e => e.classList[open ? 'add' : 'remove']('is-active'));
+    document.body.classList[open ? 'add' : 'remove']('overflow-hidden');
   };
 
   ctx.on('filter:render', ({ html, uri }) => {
@@ -77,8 +78,12 @@ export default window.component((node, ctx) => {
     remount();
   });
 
-  ctx.on('filters:toggle', () => {
-    toggleSidebar(node);
-    document.body.classList.toggle('overflow-hidden');
+  ctx.on('product:loading', (_, { isLoading }) => {
+    filtersForm.classList[isLoading ? 'add' : 'remove']('is-loading');
+  });
+
+  ctx.on('filters:toggle', (_, open) => {
+    isOpen = open;
+    toggleSidebar(node, open);
   });
 });

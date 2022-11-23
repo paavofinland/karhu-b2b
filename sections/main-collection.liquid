@@ -31,7 +31,7 @@
 >
   <div
     data-container
-    class='group is-loading:opacity-50 is-loading:pointer-events-none px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'
+    class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'
   >
     {%- render 'collection-filters' -%}
     <div class='w-full'>
@@ -48,14 +48,17 @@
           endfor
         endcapture
       %}
-      {%- render 'component.select',
-        options: options,
-        container_class: 'min-w-[260px] lg:w-min ml-auto border border-grey-4 mb-7 lg:mb-10',
-        select_class: 'px-4 py-4 w-full bg-transparent appearance-none',
-        attributes: 'data-sort-by-options'
-      -%}
+      <div data-sort-by-container class='is-loading:opacity-50 is-loading:pointer-events-none'>
+        {%- render 'component.select',
+          options: options,
+          container_class: 'min-w-[260px] lg:w-min ml-auto border border-grey-4 mb-7 lg:mb-10 ',
+          select_class: 'px-4 py-4 w-full bg-transparent appearance-none',
+          attributes: 'data-sort-by-options'
+        -%}
+      </div>
+
       <div
-        class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
+        class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px] is-loading:opacity-50 is-loading:pointer-events-none'
         data-product-grid
       >
         {% paginate collection.products by 15 %}

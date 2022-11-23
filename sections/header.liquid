@@ -19,6 +19,7 @@
 
 <header
   data-component='header'
+  data-section-id='{{- section.id -}}'
   {% if clearBackground -%}
     data-clear
   {%- endif -%}
@@ -90,9 +91,9 @@
           </div>
         </div>
         {%- if customer -%}
-          <div>
+          <a href='{{- routes.cart_url -}}'>
             {%- render 'component.icon', type: 'cart' -%}
-          </div>
+          </a>
         {%- endif -%}
       </div>
       <nav

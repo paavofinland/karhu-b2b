@@ -19,6 +19,7 @@
       - size: {String} Add one of the predefined button sizes sm || lg
       - icon: {String} Icon type from 'component.icon'
       - icon_class: {String} Icon element classname
+      - icon_loading_class: {String} Icon loading element classname
       - has_loading_state: {Boolean} If button has loading state
       - loading_class: {String} Class for loading indicator
       - text_loading_class: {String} Class for text while loading
@@ -94,7 +95,7 @@
 
 <{{ tag }} {{ tag_extras }} id='{{- id -}}' class='{{- classes -}}' {{ attributes -}}>
   {%- if loading_class -%}
-    {%- render 'loading-indicator', class: loading_class -%}
+    {%- render 'loading-indicator', class: loading_class, icon_class: icon_loading_class -%}
   {%- endif -%}
   {%- if success_icon -%}
     {%- render 'component.icon', type: success_icon, class: success_icon_class -%}

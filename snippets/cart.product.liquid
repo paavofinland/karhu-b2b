@@ -1,4 +1,4 @@
-<div class='flex justify-between gap-4 lg:gap-[60px] py-3 lg:py-5 first-of-type:pt-0 border-b border-b-grey-5'>
+<div class='flex justify-between gap-4 lg:gap-[60px] py-3 lg:py-5 border-b border-b-grey-5 first-of-type:border-t first-of-type:border-t-grey-5'>
   <div class='min-w-[62px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
     {%- if item.image -%}
       {%- render 'component.image',
@@ -12,53 +12,69 @@
   <div
     class='w-[fill-available] lg:self-center'
     data-item
-    data-id='{{- item.id -}}'
     data-product-id='{{- item.product_id -}}'
-    data-title='{{- item.title -}}'
-    data-price='{{- item.price | money -}}'
-    data-quantity='{{- item.quantity -}}'
-    data-image='{{- item | image_url -}}'
   >
-    {%- if shared -%}
-      <input data-input-id type='hidden' name='items[][id]'>
-      <input data-input-quantity type='hidden' name='items[][quantity]'>
-    {%- endif -%}
+    {%- unless shared -%}
+      {%- for line_item in product_variants -%}
+        <input
+          data-variant
+          name='{{- line_item.id -}}'
+          type='hidden'
+          value='{{- line_item.quantity -}}'
+        >
+      {%- endfor -%}
+    {%- endunless -%}
     <div class='flex justify-between'>
       <p
         data-title-elem
-        title='{{- item.title -}}'
+        title='{%- if item.product.title -%}{{- item.product.title -}}{%- endif -%}'
         class='max-w-[190px] lg:max-w-[420px] mr-4 truncate'
       >
-        {{- item.title -}}
+        {%- if item.product.title -%}
+          {{- item.product.title -}}
+        {%- endif -%}
       </p>
-      <p data-price-elem>
-        {{- item.price | money -}}
+      <p>
+        {%- if shared -%}
+          <span>{{- cart.currency.symbol -}}</span>
+        {%- endif -%}
+        <span data-price-elem>
+          {%- if item.price -%}
+            {{- item.price | money -}}
+          {%- endif -%}
+        </span>
       </p>
     </div>
     <div class='flex justify-between mt-1 lg:mt-2'>
-      <p class='text-body-xs'>
-        <span class='text-grey-3'>
-          {{- 'cart.product_item.quantity' | t -}}
-          :
-        </span>
-        <span data-quantity-elem>
-          {{- item.quantity -}}
-        </span>
-      </p>
+      <div data-quantity-container class='grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3'>
+        {%- for line_item in product_variants -%}
+          {%- render 'cart.quantity', item: line_item -%}
+        {%- endfor -%}
+      </div>
       {%- unless shared -%}
         <div>
           <button
             data-edit-item-btn
-            data-id='{{- item.id -}}'
-            class='mr-2 underline'
+            data-id='{{- item.product_id -}}'
+            class='ml-auto underline block mb-1 lg:mb-2'
           >
             {{- 'cart.product_item.edit' | t -}}
           </button>
-          <a class='underline' href='{{ item.url_to_remove }}'>
+          <button data-remove-item-btn data-id='{{- item.product_id -}}' class='ml-auto underline'>
             {{- 'cart.product_item.remove' | t -}}
-          </a>
+          </button>
         </div>
       {%- endunless -%}
     </div>
   </div>
+  <template data-quantity-template>
+    {%- render 'cart.quantity' -%}
+  </template>
+  {%- if shared -%}
+    <template data-product-shared-data-template>
+      <input data-input-id type='hidden' name='items[][id]'>
+      <input data-input-quantity type='hidden' name='items[][quantity]'>
+      {%- render 'cart.quantity' -%}
+    </template>
+  {%- endif -%}
 </div>

@@ -19,7 +19,7 @@ const clearCart = () =>
     .then(response => response.json())
     .catch(onHandleError);
 
-const updateCart = body =>
+const addToCart = body =>
   fetch(`${window.Shopify.routes.root}cart/add.js`, {
     method: 'POST',
     body,
@@ -31,7 +31,6 @@ const getCartProducts = query => {
   return fetch(`${process.env.API_URL}/customer/get-cart-products?${query}`).then(async res => {
     const responseData = await res.json();
     if (res.status === 200) return responseData;
-    console.error(`Error§ [${(await res.json()).message}]`);
     throw new Error(responseData.message);
   });
 };
@@ -48,6 +47,9 @@ export default window.component(async (node, ctx) => {
     closePopupBtn,
     addToBagPopupBtn,
     addToBagForm,
+    content,
+    productsError,
+    shareCartBtn,
   } = choozy(node);
 
   const getQueryParams = () => {
@@ -65,23 +67,37 @@ export default window.component(async (node, ctx) => {
     });
   };
 
+  const renderVariantData = ({ quantity, id: variantId, title }, template, container) => {
+    const productSharedDataElem = template.content.cloneNode(true);
+    const { quantityElem, sizeElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
+    quantityElem.innerText = quantity;
+    sizeElem.innerText = `${title}:`;
+    inputId.value = variantId;
+    inputQuantity.value = quantity;
+    container.appendChild(productSharedDataElem);
+  };
+
+  const renderProductData = ({ title, image, price, id, variants }, fragment) => {
+    const newProductElem = productTemplate.content.cloneNode(true);
+    const { item, titleElem, priceElem, imageElem, quantityContainer, productSharedDataTemplate } =
+      choozy(newProductElem, null);
+    item.dataset.id = id;
+    titleElem.innerText = title;
+    titleElem.setAttribute('title', title);
+    priceElem.innerText = new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: 2,
+    }).format(price);
+    imageElem.src = image;
+    variants.forEach(variant =>
+      renderVariantData(variant, productSharedDataTemplate, quantityContainer)
+    );
+    fragment.appendChild(newProductElem);
+  };
+
   const renderDataInContainer = products => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    products.forEach(({ title, price, quantity, image, id }) => {
-      const newProductElem = productTemplate.content.cloneNode(true);
-      const { titleElem, priceElem, quantityElem, imageElem, item, inputId, inputQuantity } =
-        choozy(newProductElem, null);
-      item.dataset.id = id;
-      titleElem.innerText = title;
-      titleElem.setAttribute('title', title);
-      priceElem.innerText = price;
-      quantityElem.innerText = quantity;
-      imageElem.src = image;
-      inputId.value = id;
-      inputQuantity.value = quantity;
-      fragment.appendChild(newProductElem);
-    });
+    products.forEach(product => renderProductData(product, fragment));
     productContainer.appendChild(fragment);
   };
 
@@ -93,13 +109,16 @@ export default window.component(async (node, ctx) => {
   ctx.on('data:render', async () => {
     const query = getQueryParams();
     try {
-      const { products, subtotal } = await getCartProducts(query);
+      const { name, products, subtotal } = await getCartProducts(query);
       renderDataInContainer(products);
-      const { subtotal: subtotalEl } = choozy(node, null);
-      subtotalEl.innerText = subtotal;
+      const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
+      cartTitle.innerText = name;
+      subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
+        minimumFractionDigits: 2,
+      }).format(subtotal.toFixed(2));
     } catch (e) {
-      // handle error
-      console.log(e);
+      content.classList.add('is-active');
+      productsError.innerText = e.message;
     } finally {
       ctx.emit('cart:loaded');
     }
@@ -117,13 +136,24 @@ export default window.component(async (node, ctx) => {
   closePopupBtn &&
     [].concat(closePopupBtn).forEach(btn => btn.addEventListener('click', onCloseAddToBagPopup));
 
-  addToBagPopupBtn &&
-    addToBagPopupBtn.addEventListener('click', async () => {
-      addToBagPopupBtn.classList.add('is-active');
-      document.body.classList.add('pointer-events-none');
-      await clearCart();
-      const formData = new FormData(addToBagForm);
-      await updateCart(formData);
-      window.location.replace(`${window.location.origin}/cart`);
-    });
+  const onAddToBag = async () => {
+    addToBagPopupBtn.classList.add('is-active');
+    document.body.classList.add('pointer-events-none');
+    await clearCart();
+    const formData = new FormData(addToBagForm);
+    await addToCart(formData);
+    window.location.replace(`${window.location.origin}/cart`);
+  };
+
+  addToBagPopupBtn && addToBagPopupBtn.addEventListener('click', onAddToBag);
+
+  const onShareCart = async () => {
+    await navigator.clipboard.writeText(window.location.href);
+    shareCartBtn.classList.add('is-active');
+    setTimeout(() => {
+      shareCartBtn.classList.remove('is-active');
+    }, 2000);
+  };
+
+  shareCartBtn && shareCartBtn.addEventListener('click', onShareCart);
 });

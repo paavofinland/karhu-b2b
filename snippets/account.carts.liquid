@@ -35,8 +35,13 @@
           <td class='py-7 px-2'>{{- cart.updated_at | date: '%b %e, %Y' -}}</td>
           <td class='py-7'>
             <div class='flex justify-end gap-10 pr-[130px]'>
-              <button data-view-cart-btn class='underline'>{{- 'customer.account.carts.view_cart' | t -}}</button>
-              <button data-delete-cart-btn data-name='{{- cart.name -}}' class='underline'>
+              <a
+                href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer.id -}}&cartId={{- cart.id -}}'
+                class='underline mr-5'
+              >
+                {{- 'customer.account.carts.view_cart' | t -}}
+              </a>
+              <button data-delete-cart-btn data-id='{{- cart.id -}}' class='underline'>
                 {{- 'customer.account.carts.delete' | t -}}
               </button>
             </div>
@@ -62,8 +67,13 @@
           </div>
         </div>
         <div>
-          <button data-view-cart-btn class='underline mr-5'>{{- 'customer.account.carts.view_cart' | t -}}</button>
-          <button data-delete-cart-btn data-name='{{- cart.name -}}' class='underline'>
+          <a
+            href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer.id -}}&cartId={{- cart.id -}}'
+            class='underline mr-5'
+          >
+            {{- 'customer.account.carts.view_cart' | t -}}
+          </a>
+          <button data-delete-cart-btn data-id='{{- cart.id -}}' class='underline'>
             {{- 'customer.account.carts.delete' | t -}}
           </button>
         </div>

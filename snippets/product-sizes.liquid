@@ -1,6 +1,7 @@
 {%- liquid
   assign default_size_index = 1
   assign size_locales = 'eu|us|uk' | split: '|'
+  assign is_cart = is_cart | default: false
 -%}
 <div>
   <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-3'>
@@ -36,7 +37,7 @@
           assign label_prefix_class = label_prefix_class | append: 'bg-red-light'
         endif
       -%}
-      <fieldset class='flex flex-col gap-1 text-body-xs'>
+      <fieldset class='flex flex-col gap-1 text-body-xs {%- if quantity <= 0 and is_cart == false %} pointer-events-none {%- endif -%}'>
         <label for='{{- variant.id -}}'>
           <span class='inline-block {{ label_prefix_class }}'></span>
           {%- render 'locale-size-label',
@@ -45,24 +46,39 @@
             default_index: default_size_index
           -%}
         </label>
-        <input
-          type='hidden'
-          name='items[{{- forloop.index | minus: 1 -}}][id]'
-          value='{{- variant.id -}}'
-        >
+        {%- liquid
+          assign current_variant_quantity = 0
+          if is_cart
+            assign input_name = 'updates[' | append: variant.id | append: ']'
+            assign current_variant = product_variants | where: 'id', variant.id | first
+            if current_variant
+              assign current_variant_quantity = current_variant.quantity
+            endif
+          else
+            assign idx = forloop.index | minus: 1
+            assign input_name = 'items[' | append: idx | append: '][quantity]'
+          endif
+        -%}
+        {%- unless is_cart -%}
+          <input
+            type='hidden'
+            name='items[{{- forloop.index | minus: 1 -}}][id]'
+            value='{{- variant.id -}}'
+          >
+        {%- endunless -%}
         <input
           data-quantity-inputs
           id='{{- variant.id -}}'
-          name='items[{{- forloop.index | minus: 1 -}}][quantity]'
-          class='w-full appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0'
+          name='{{- input_name -}}'
+          class='w-full appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0 {%- if quantity <= 0 and is_cart == false %} bg-grey-6 {%- endif -%}'
           type='number'
-          value='0'
+          value='{{- current_variant_quantity -}}'
           min='0'
           max='{{- quantity -}}'
           pattern='^[0-9]*$'
-          {% unless quantity > 0 -%}
-            disabled
-          {%- endunless -%}
+          {%- if quantity <= 0 and is_cart == false -%}
+            readonly
+          {%- endif -%}
         >
       </fieldset>
     {%- endfor -%}

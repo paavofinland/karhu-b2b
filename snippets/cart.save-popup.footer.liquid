@@ -3,7 +3,7 @@
     text: 'Cancel',
     style: 'secondary',
     class: 'w-full',
-    attributes: 'data-close-popup-btn'
+    attributes: 'data-close-popup-btn data-type="save-cart"'
   -%}
   {%- render 'component.button',
     text: 'Save',
@@ -11,6 +11,7 @@
     class: 'w-full group',
     attributes: 'data-save-cart-popup-btn',
     loading_class: 'hidden group-is-active:flex',
+    icon_loading_class: 'h-6',
     text_loading_class: 'group-is-active:hidden'
   -%}
 </div>

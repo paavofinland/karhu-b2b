@@ -5,9 +5,10 @@
     name: 'cart[name]',
     autocomplete: 'cart-name',
     label_class: 'hidden',
-    input_class: 'mt-0 px-4 py-[18px] border-grey-4 peer invalid:border-red-light',
+    input_class: 'mt-0 px-4 py-[18px] border-grey-4 peer aria-invalid:border-red-light',
     requiredStar: true,
-    attributes: 'data-cart-input',
-    has_error: true
+    attributes: 'data-cart-input aria-required="true" aria-invalid="false" aria-describedby="name-error"',
+    has_error: true,
+    error_id: 'name-error'
   -%}
 </div>

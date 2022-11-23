@@ -1,7 +1,8 @@
+{%- assign icon_class = icon_class | default: 'h-[2em]' -%}
 <div class='relative flex items-center justify-center {{ class -}}'>
   <svg
     role='status'
-    class='animate-spin h-[2em] fill-current'
+    class='animate-spin fill-current {{ icon_class -}}'
     viewBox='0 0 100 100'
     enableBackground='new 0 0 0 0'
   >

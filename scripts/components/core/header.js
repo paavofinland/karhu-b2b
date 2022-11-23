@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import choozy from '../../lib/choozy';
 
 export default window.component(node => {

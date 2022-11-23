@@ -42,6 +42,7 @@
           "type": "category",
           "settings": {
             "collection": "running",
+            "image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
             "title": "",
             "button_text": "",
             "button_url": ""

@@ -30,7 +30,7 @@
   assign desktop_img = desktop_image | default: image
 -%}
 
-<div class='container relative flex items-center justify-center overflow-hidden {{ class -}}'>
+<div class='container isolate relative flex items-center justify-center overflow-hidden {{ class -}}'>
   <{{ title_tag }} class='text-heading-3 lg:text-heading-2 text-center text-white absolute z-10'>
     {{- title -}}
   </{{ title_tag }}>

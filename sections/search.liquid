@@ -1,7 +1,7 @@
 <section data-component='search' data-section-id='{{ section.id }}'>
   <div
     data-search-container
-    class='group is-active:relative is-active:block fixed inset-0 bg-white z-50 flex items-center justify-center'
+    class='group is-active:relative is-active:block is-active:z-auto fixed inset-0 bg-white z-50 flex items-center justify-center'
   >
     <form>
       <input
@@ -64,9 +64,14 @@
     <p class='hidden text-body-xs text-center mb-4' data-empty>
       Try clearing filters or changing your input
     </p>
-    <div class='absolute -bottom-[60px] right-0 left-0 h-[120px]' data-load-more></div>
+    <div
+      class='absolute -bottom-[60px] right-0 left-0 h-[120px] pointer-events-none'
+      data-load-more
+    ></div>
   </div>
   <div data-loader class='hidden h-10 mb-8'>
     {%- render 'loading-indicator', class: 'h-10' -%}
   </div>
 </section>
+
+{%- render 'drawer', attributes: 'data-component="quickAddDrawer"' -%}

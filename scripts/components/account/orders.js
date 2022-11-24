@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
 import getLiquidVariables from '../../lib/get-liquid-variables';
@@ -8,7 +9,7 @@ export default window.component(async (node, ctx) => {
   }
 
   const {
-    store: { store },
+    store: { store, currencies },
     customer: { secret: customerSecret, id: customerId },
   } = getLiquidVariables();
 
@@ -47,14 +48,26 @@ export default window.component(async (node, ctx) => {
     const fragment = document.createDocumentFragment();
     orderList.forEach(order => {
       const newElement = containerItem.content.cloneNode(true);
-      Object.keys(order).forEach(prop => {
-        const value = order[prop];
-        const elements = [].concat(choozy(newElement)[prop]).filter(Boolean);
-        elements.forEach(element => {
-          // eslint-disable-next-line no-param-reassign
-          element.innerText = value;
+      Object.keys(order)
+        .map(key => [key, order[key]])
+        .map(([key, value]) => {
+          if (key === 'currencyCode')
+            return [key, currencies.find(({ iso_code: code }) => code === value)?.symbol || value];
+
+          return [key, value];
+        })
+        .forEach(([key, value]) => {
+          []
+            .concat(choozy(newElement)[key])
+            .filter(Boolean)
+            .forEach(element => {
+              if (element instanceof HTMLAnchorElement) {
+                element.href = value;
+              } else {
+                element.innerText = value;
+              }
+            });
         });
-      });
       fragment.appendChild(newElement);
     });
     container.appendChild(fragment);
@@ -87,6 +100,7 @@ export default window.component(async (node, ctx) => {
         noOrders.classList.remove('hidden');
         return;
       }
+      console.log(orderList);
       ordersContainer.classList.remove('hidden');
       appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
       appendHtmlWithOrders({

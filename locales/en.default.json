@@ -163,7 +163,7 @@
         "payment_status": "Payment status",
         "order_status": "Order status",
         "total": "Total",
-        "invoice": "Invoice",
+        "details": "Details",
         "view_previous_orders": "View previous orders",
         "view_details": "View details"
       },

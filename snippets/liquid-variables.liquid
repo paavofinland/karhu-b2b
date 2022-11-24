@@ -1,7 +1,16 @@
 <script id='liquid-variables' type='application/json'>
   {
     "store": {
-      "store": "{{- request.host | split: '.' | first | split: '-' | last -}}"
+      "store": "{{- request.host | split: '.' | first | split: '-' | last -}}",
+      "currencies": [
+        {%- for currency in shop.enabled_currencies -%}
+          {
+            "iso_code": "{{- currency.iso_code -}}",
+            "symbol": "{{- currency.symbol -}}"
+          }
+          {%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
     },
     "customer": {
       "id": "{{- customer.id -}}",

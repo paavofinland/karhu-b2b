@@ -4,9 +4,12 @@
     <td data-date class='py-7'></td>
     <td data-payment-status class='py-7'></td>
     <td data-order-status class='py-7'></td>
-    <td data-price class='py-7'></td>
+    <td class='flex py-7'>
+      <span data-currency-code></span>
+      <span data-price></span>
+    </td>
     <td class='py-7'>
-      <button class='underline'>View details</button>
+      <a data-status-url target='_blank' class='underline'>View details</a>
     </td>
   </tr>
 </template>
@@ -30,13 +33,16 @@
     </div>
     <div>
       <p class='text-heading-7'>{{- 'customer.account.orders.total' | t -}}</p>
-      <p data-price></p>
+      <p class='flex'>
+        <span>{{- cart.currency.symbol -}}</span>
+        <span data-price></span>
+      </p>
     </div>
     <div>
-      <p class='text-heading-7'>{{- 'customer.account.orders.invoice' | t -}}</p>
-      <button class='underline'>
+      <p class='text-heading-7'>{{- 'customer.account.orders.details' | t -}}</p>
+      <a data-status-url target='_blank' class='underline'>
         {{- 'customer.account.orders.view_details' | t -}}
-      </button>
+      </a>
     </div>
   </div>
 </template>

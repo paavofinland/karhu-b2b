@@ -51,6 +51,28 @@
             -%}
           </div>
         </div>
+
+        {%- liquid
+          if agent
+            assign storeId = customer.metafields.agent.selected_store_customer
+          else
+            for tag in customer.tags
+              assign startsWith = tag | split: 'id:'
+              if startsWith[0] == blank
+                assign storeId = startsWith[1]
+              endif
+            endfor
+          endif
+        -%}
+        <input
+          data-store-id
+          required
+          class='hidden'
+          id='store'
+          type='text'
+          name='attributes[store_id]'
+          value='{{- storeId | default: 'INVALID_ORDER' -}}'
+        >
       {%- else -%}
         <div>
           <p class='mb-7 lg:mb-9'>{{- 'cart.general.empty' | t -}}</p>

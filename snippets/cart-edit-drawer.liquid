@@ -1,10 +1,12 @@
 {%- capture content -%}
   <div class='flex gap-4 lg:gap-7 border-b border-b-grey-4 pt-6 lg:pt-5 pb-5 lg:pb-7 mb-9'>
     <div class='min-w-[110px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
-      {%- render 'component.image',
-        img: item.image,
-        class: 'aspect-square object-contain mix-blend-darken'
-      -%}
+      {%- if item.image -%}
+        {%- render 'component.image',
+          img: item.image,
+          class: 'aspect-square object-contain mix-blend-darken'
+        -%}
+      {%- endif -%}
     </div>
     <div class='self-center'>
       <p>{{- item.product.title -}}</p>

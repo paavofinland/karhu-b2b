@@ -5,11 +5,11 @@
     <td data-payment-status class='py-7'></td>
     <td data-order-status class='py-7'></td>
     <td class='flex py-7'>
-      <span>{{- cart.currency.symbol -}}</span>
+      <span data-currency-code></span>
       <span data-price></span>
     </td>
     <td class='py-7'>
-      <a data-status-url target="_blank" class='underline'>View details</a>
+      <a data-status-url target='_blank' class='underline'>View details</a>
     </td>
   </tr>
 </template>
@@ -40,7 +40,7 @@
     </div>
     <div>
       <p class='text-heading-7'>{{- 'customer.account.orders.details' | t -}}</p>
-      <a data-status-url target="_blank" class='underline'>
+      <a data-status-url target='_blank' class='underline'>
         {{- 'customer.account.orders.view_details' | t -}}
       </a>
     </div>

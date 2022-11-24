@@ -5,7 +5,7 @@
       {{- 'customer.account.carts.saved_carts' | t -}}
     </h5>
     {%- if carts and carts.size > 0 -%}
-      <span>
+      <span data-carts-count>
         (<span data-carts-length>
           {{- carts.size -}}</span
         >/10)

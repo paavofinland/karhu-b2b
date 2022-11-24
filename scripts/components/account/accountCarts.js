@@ -23,8 +23,16 @@ export default window.component((node, ctx) => {
     customer: { secret: customerSecret, id: customerId },
   } = getLiquidVariables();
 
-  const { deleteCartBtn, deleteCartPopupBtn, cart, cartsLength, container, empty, viewCartBtn } =
-    choozy(node, null);
+  const {
+    deleteCartBtn,
+    deleteCartPopupBtn,
+    cart,
+    cartsLength,
+    cartsCount,
+    container,
+    empty,
+    viewCartBtn,
+  } = choozy(node, null);
 
   const toggleLoadingDeleteState = e => {
     e.target.classList.toggle('is-active');
@@ -34,7 +42,13 @@ export default window.component((node, ctx) => {
   const updateCartCount = () => {
     const cartCount = parseFloat(cartsLength.innerText);
     const newCartCount = cartCount - 1;
-    cartsLength.innerText = newCartCount;
+
+    if (newCartCount > 0) {
+      cartsLength.innerText = newCartCount;
+    } else {
+      cartsCount.classList.add('hidden');
+    }
+
     return newCartCount;
   };
 

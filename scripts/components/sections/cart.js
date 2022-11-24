@@ -1,7 +1,4 @@
-const remount = () => {
-  window.app.unmount();
-  window.app.mount();
-};
+import remount from '../../lib/remount';
 
 export default window.component(async (node, ctx) => {
   const { itemCount } = node.dataset;

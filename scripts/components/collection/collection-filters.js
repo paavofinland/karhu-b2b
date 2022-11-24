@@ -1,10 +1,6 @@
 import { updateURLHash } from './utils';
 import choozy from '../../lib/choozy';
-
-const remount = () => {
-  window.app.unmount();
-  window.app.mount();
-};
+import remount from '../../lib/remount';
 
 export default window.component((node, ctx) => {
   const {

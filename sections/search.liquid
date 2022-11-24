@@ -51,16 +51,19 @@
         attributes: 'data-sort-by-options'
       -%}
     </div>
-    <div
-      data-search-results
-      class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px]'
-    >
-      {%- paginate search.results by 12 -%}
-        {%- for product in search.results -%}
-          {%- render 'component.product', product: product -%}
-        {%- endfor -%}
-      {%- endpaginate -%}
-    </div>
+
+    {%- liquid 
+      capture products
+        paginate search.results by 12
+          for product in search.results
+            render 'component.product', product: product
+          endfor
+        endpaginate
+      endcapture
+
+      render 'product-grid', content: products, attributes: 'data-search-results' 
+    -%}
+
     <p class='hidden text-body-xs text-center mb-4' data-empty>
       Try clearing filters or changing your input
     </p>

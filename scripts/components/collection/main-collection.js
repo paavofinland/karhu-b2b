@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import remount from '../../lib/remount';
 import { fetchHtml, updateURLHash } from './utils';
 
 const getPage = () => Number(new URLSearchParams(window.location.search).get('page') || 1);
@@ -36,7 +37,7 @@ export default window.component((node, ctx) => {
 
     const renderBefore = pageToQuery === 1;
 
-    window.app.emit(['product:render'], {
+    window.app.emit('product:render', null, {
       html: filterHtmlRender,
       uri: query,
       addProducts: !renderBefore,
@@ -69,7 +70,7 @@ export default window.component((node, ctx) => {
     });
   }
 
-  ctx.on('product:render', ({ html, uri, addProducts = false }) => {
+  ctx.on('product:render', (_, { html, uri, addProducts = false }) => {
     const { productGrid: productGridToRender } = choozy(html, null);
     if (addProducts) {
       productGrid.innerHTML += productGridToRender.innerHTML;
@@ -77,8 +78,15 @@ export default window.component((node, ctx) => {
       productGrid.innerHTML = productGridToRender.innerHTML;
     }
 
+    // To reinit
+    []
+      .concat(choozy(productGrid).quickAddButton)
+      .filter(Boolean)
+      .forEach(button => button.setAttribute('data-component', 'quickAddButton'));
+
     updateURLHash(uri);
     ctx.emit('product:loading', null, { isLoading: false });
+    remount();
   });
 
   ctx.on('product:loading', (_, { isLoading }) => {

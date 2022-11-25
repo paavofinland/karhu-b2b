@@ -3,7 +3,7 @@
   assign customer_tags = customer.tags
   for tag in customer_tags
     if tag contains 'id:'
-      assign customer_external_id = tag
+      assign customer_external_id = tag | split: ':' | last
     endif
   endfor
 -%}

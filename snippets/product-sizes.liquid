@@ -37,7 +37,7 @@
           assign label_prefix_class = label_prefix_class | append: 'bg-red-light'
         endif
       -%}
-      <fieldset class='flex flex-col gap-1 text-body-xs {%- if quantity <= 0 and is_cart == false %} pointer-events-none {%- endif -%}'>
+      <fieldset class='flex flex-col gap-1 text-body-xs'>
         <label for='{{- variant.id -}}'>
           <span class='inline-block {{ label_prefix_class }}'></span>
           {%- render 'locale-size-label',
@@ -70,15 +70,11 @@
           data-quantity-inputs
           id='{{- variant.id -}}'
           name='{{- input_name -}}'
-          class='w-full appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0 {%- if quantity <= 0 and is_cart == false %} bg-grey-6 {%- endif -%}'
+          class='w-full appearance-none border border-grey-4 px-[13.5px] py-1.5 mt-0'
           type='number'
           value='{{- current_variant_quantity -}}'
           min='0'
-          max='{{- quantity -}}'
           pattern='^[0-9]*$'
-          {%- if quantity <= 0 and is_cart == false -%}
-            readonly
-          {%- endif -%}
         >
       </fieldset>
     {%- endfor -%}

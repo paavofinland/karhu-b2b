@@ -10,7 +10,8 @@
           }
           {%- unless forloop.last -%},{%- endunless -%}
         {%- endfor -%}
-      ]
+      ],
+      "store_currency": "{{- cart.currency.symbol -}}"
     },
     "customer": {
       "id": "{{- customer.id -}}",

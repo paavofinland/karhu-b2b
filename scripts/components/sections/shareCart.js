@@ -79,16 +79,24 @@ export default window.component(async (node, ctx) => {
     container.appendChild(productSharedDataElem);
   };
 
-  const renderProductData = ({ title, image, price, id, variants }, fragment) => {
+  const renderProductData = ({ title, image, price, id, variants, currency }, fragment) => {
     const newProductElem = productTemplate.content.cloneNode(true);
-    const { item, titleElem, priceElem, imageElem, quantityContainer, productSharedDataTemplate } =
-      choozy(newProductElem, null);
+    const {
+      item,
+      titleElem,
+      priceElem,
+      imageElem,
+      currencyElem,
+      quantityContainer,
+      productSharedDataTemplate,
+    } = choozy(newProductElem, null);
     item.dataset.id = id;
     titleElem.innerText = title;
     titleElem.setAttribute('title', title);
     priceElem.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(price);
+    currencyElem.innerText = currency;
     if (image) imageElem.src = image;
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
@@ -96,10 +104,10 @@ export default window.component(async (node, ctx) => {
     fragment.appendChild(newProductElem);
   };
 
-  const renderDataInContainer = products => {
+  const renderDataInContainer = (products, currency) => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    products.forEach(product => renderProductData(product, fragment));
+    products.forEach(product => renderProductData({ ...product, currency }, fragment));
     productContainer.appendChild(fragment);
   };
 
@@ -116,13 +124,14 @@ export default window.component(async (node, ctx) => {
     window.location = window.Shopify.routes.root;
 
   try {
-    const { name, products, subtotal } = await getCartProducts(query);
-    renderDataInContainer(products);
-    const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
+    const { name, products, subtotal, currency } = await getCartProducts(query);
+    renderDataInContainer(products, currency);
+    const { cartTitle, subtotal: subtotalEl, currency: currencyEl } = choozy(node, null);
     cartTitle.innerText = name;
     subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(subtotal.toFixed(2));
+    currencyEl.innerText = currency;
   } catch (e) {
     content.classList.add('is-active');
     productsError.innerText = e.message;

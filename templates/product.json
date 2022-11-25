@@ -2,11 +2,25 @@
   "sections": {
     "main": {
       "type": "main-product",
-      "blocks": {},
+      "blocks": {
+        "e832485b-4aa9-48c3-a148-29603174f82e": {
+          "type": "size-guide",
+          "settings": {
+            "title": "T-shirt",
+            "text": "<p>New to the Fusion 2.0? We recommend to order 0.5 up in size compared to your regular size.<\/p>",
+            "size_guide_page": "sizing-guide-t-shirt"
+          }
+        }
+      },
       "block_order": [
+        "e832485b-4aa9-48c3-a148-29603174f82e"
       ],
-      "settings": {}
+      "settings": {
+        "delivery_page": ""
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

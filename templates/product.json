@@ -18,11 +18,20 @@
             "text": "<p>New to the Albatross82? We recommend to order 0.5 up in size compared to your regular size.<\/p>",
             "size_guide_page": "sizing-guide-trainers"
           }
+        },
+        "5923baf1-77e1-49dc-a623-ecb8ab57fcc2": {
+          "type": "size-guide",
+          "settings": {
+            "title": "Sweatshirt",
+            "text": "<p>New to the L\/S T-shirt? We recommend to order 1 up in size compared to your regular size.<\/p>",
+            "size_guide_page": "sizing-guide-l-s-t-shirt"
+          }
         }
       },
       "block_order": [
         "e832485b-4aa9-48c3-a148-29603174f82e",
-        "fa770e7b-0b17-428d-99a9-f8a7f415ec70"
+        "fa770e7b-0b17-428d-99a9-f8a7f415ec70",
+        "5923baf1-77e1-49dc-a623-ecb8ab57fcc2"
       ],
       "settings": {
         "delivery_page": "delivery-page"

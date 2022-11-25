@@ -10,10 +10,19 @@
             "text": "<p>New to the Fusion 2.0? We recommend to order 0.5 up in size compared to your regular size.<\/p>",
             "size_guide_page": "sizing-guide-t-shirt"
           }
+        },
+        "fa770e7b-0b17-428d-99a9-f8a7f415ec70": {
+          "type": "size-guide",
+          "settings": {
+            "title": "Albatross82",
+            "text": "<p>New to the Albatross82? We recommend to order 0.5 up in size compared to your regular size.<\/p>",
+            "size_guide_page": "sizing-guide-trainers"
+          }
         }
       },
       "block_order": [
-        "e832485b-4aa9-48c3-a148-29603174f82e"
+        "e832485b-4aa9-48c3-a148-29603174f82e",
+        "fa770e7b-0b17-428d-99a9-f8a7f415ec70"
       ],
       "settings": {
         "delivery_page": "delivery-page"

@@ -30,8 +30,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "",
-          "navigation_second": ""
+          "navigation_first": "footer",
+          "navigation_second": "footer-menu-about"
         }
       },
       "announcement-bar": {

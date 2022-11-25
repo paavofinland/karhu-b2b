@@ -54,8 +54,8 @@
     -%}
     <h5 class='text-heading-5 mb-1'>{{- product.title -}}</h5>
     <div class='flex items-center justify-between text-grey-3 mb-1 uppercase'>
-      <p>{{- product.metafields.color.value -}}</p>
-      <p>{{- product.selected_or_first_available_variant.sku -}}</p>
+      <p>{{- product.metafields.details.color -}}</p>
+      <p>{{- product.metafields.details.sku -}}</p>
     </div>
     <p class='text-body'>
       <span class='{%- if product.compare_at_price -%} text-red-light {%- endif -%}'>

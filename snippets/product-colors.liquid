@@ -1,4 +1,5 @@
 {%- assign color_count = 0 -%}
+
 {%- capture color_slides -%}
   {%- for product in collections.all.products -%}
     {%- if product.metafields.details.product_family contains family_metafield -%}
@@ -7,12 +8,16 @@
             {%- unless product.handle == current_product -%}
               <a href='{{- product.url -}}' >
             {%- endunless -%}
-              {%- render 'component.image',
-                img: product.featured_image,
-                class: 'w-full mix-blend-darken',
-                width: 200,
-                aspect_ratio: 0.6
-              -%}
+              {%- if product.featured_image -%}
+                {%- render 'component.image',
+                  img: product.featured_image,
+                  class: 'w-full mix-blend-darken',
+                  width: 200,
+                  aspect_ratio: 0.6
+                -%}
+                {%- else -%}
+                <div class="bg-grey-6 w-[140px] h-[95px]"></div>
+              {%- endif -%}
             {%- unless product.handle == current_product -%} 
               </a>
             {%- endunless -%}

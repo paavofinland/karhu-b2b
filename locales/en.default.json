@@ -52,7 +52,7 @@
     "general": {
       "checkout": "Checkout",
       "count": "Cart ({{ count }})",
-      "empty": "You cart is empty",
+      "empty": "You cart is empty.",
       "close": "Close",
       "title": "Shopping bag",
       "continue_shopping": "Continue shopping",

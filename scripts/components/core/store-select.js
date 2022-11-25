@@ -47,7 +47,7 @@ export default window.component(async (node, ctx) => {
       }
       option.value = customer.id;
       option.innerText = customer.name;
-      option.setAttribute('data-country-code', customer.countryCode);
+      option.setAttribute('data-country-code', customer.countryCode || 'NL');
       documentFragment.appendChild(option);
     });
     customerSelect.appendChild(documentFragment);
@@ -86,6 +86,7 @@ export default window.component(async (node, ctx) => {
     });
     ctx.emit(LOADING_EVENT, null, false);
     ctx.emit('store:change', null, {
+      id: e.target.value,
       countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
     });
   });

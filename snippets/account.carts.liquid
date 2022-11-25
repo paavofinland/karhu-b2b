@@ -4,18 +4,13 @@
     <h5 class='text-heading-5'>
       {{- 'customer.account.carts.saved_carts' | t -}}
     </h5>
-    <span>
-      (<span data-carts-length>
-        {%- liquid
-          if carts
-            echo carts.size
-          else
-            echo 0
-          endif
-        -%}
+    {%- if carts and carts.size > 0 -%}
+      <span data-carts-count>
+        (<span data-carts-length>
+          {{- carts.size -}}</span
+        >/10)
       </span>
-      /10)
-    </span>
+    {%- endif -%}
   </div>
   <table
     data-container
@@ -32,7 +27,7 @@
       {%- for cart in carts -%}
         <tr data-cart='{{- cart.id -}}' class='border-b border-grey-5'>
           <td class='py-7 truncate'>{{- cart.name -}}</td>
-          <td class='py-7 px-2'>{{- cart.updated_at | date: '%b %e, %Y' -}}</td>
+          <td class='py-7 px-2'>{{- cart.updated_at | date: '%Y-%m-%d' -}}</td>
           <td class='py-7'>
             <div class='flex justify-end gap-10 pr-[130px]'>
               <a
@@ -86,7 +81,17 @@
     footer_snippet: 'cart.delete-popup.footer',
     type: 'delete-cart'
   -%}
-  <p data-empty class='mt-10 {% if carts.size == 0 -%} block {%- else -%} hidden {%- endif -%}'>
-    {{- 'customer.account.carts.empty' | t -}}
-  </p>
+
+  <div
+    data-empty
+    class='mt-10 {% if carts == blank or carts.size == 0 -%}block{%- else -%}hidden{%- endif -%} '
+  >
+    <p class='mb-7 lg:mb-9'>{{- 'customer.account.carts.empty' | t -}}</p>
+    {%- render 'component.button',
+      text: 'cart.general.go_shopping',
+      style: 'primary',
+      class: 'px-8 lg:px-12 block w-fit',
+      href: '/collections/all'
+    -%}
+  </div>
 </section>

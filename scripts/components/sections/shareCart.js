@@ -4,7 +4,9 @@ import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const getSharedData = () => {
   const url = new URL(window.location.href);
-  return { agentId: url.searchParams.get('agentId'), cartId: url.searchParams.get('cartId') };
+  const agentId = url.searchParams.get('agentId');
+  const cartId = url.searchParams.get('cartId');
+  return { ...(agentId && { agentId }), ...(cartId && { cartId }) };
 };
 
 const onHandleError = error => {
@@ -31,7 +33,7 @@ const getCartProducts = query => {
   return fetch(`${process.env.API_URL}/customer/get-cart-products?${query}`).then(async res => {
     const responseData = await res.json();
     if (res.status === 200) return responseData;
-    throw new Error(responseData.message);
+    throw new Error('Shared shopping bag could not be found. The link is invalid or has expired.');
   });
 };
 
@@ -87,7 +89,7 @@ export default window.component(async (node, ctx) => {
     priceElem.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(price);
-    imageElem.src = image;
+    if (image) imageElem.src = image;
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
     );
@@ -106,25 +108,27 @@ export default window.component(async (node, ctx) => {
     section.classList.remove('hidden');
   });
 
-  ctx.on('data:render', async () => {
-    const query = getQueryParams();
-    try {
-      const { name, products, subtotal } = await getCartProducts(query);
-      renderDataInContainer(products);
-      const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
-      cartTitle.innerText = name;
-      subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
-        minimumFractionDigits: 2,
-      }).format(subtotal.toFixed(2));
-    } catch (e) {
-      content.classList.add('is-active');
-      productsError.innerText = e.message;
-    } finally {
-      ctx.emit('cart:loaded');
-    }
-  });
+  const query = getQueryParams();
 
-  ctx.emit('data:render', null);
+  if (
+    !['agentId', 'cartId'].every(requiredParam => Array.from(query.keys()).includes(requiredParam))
+  )
+    window.location = window.Shopify.routes.root;
+
+  try {
+    const { name, products, subtotal } = await getCartProducts(query);
+    renderDataInContainer(products);
+    const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
+    cartTitle.innerText = name;
+    subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
+      minimumFractionDigits: 2,
+    }).format(subtotal.toFixed(2));
+  } catch (e) {
+    content.classList.add('is-active');
+    productsError.innerText = e.message;
+  } finally {
+    ctx.emit('cart:loaded');
+  }
 
   const onOpenAddToBagPopup = () => ctx.emit('popup:open', null, 'add-to-bag');
   const onCloseAddToBagPopup = e => {

@@ -9,8 +9,8 @@
   data-item-count='{{ cart.item_count }}'
   class='container px-4 mt-[28px] lg:mt-[60px] mb-[60px] lg:mb-[100px] is-loading:opacity-50 is-loading:pointer-events-none'
 >
-  <div data-section>
-    <div class='max-w-[720px] mx-auto'>
+  <section data-section>
+    <form action='{{ routes.cart_url }}' method='post' class='max-w-[720px] mx-auto'>
       <div class='flex lg:mb-[60px] justify-between items-end mb-7'>
         <h4 class='text-heading-4 lg:text-heading-3'>
           {{- 'cart.general.title' | t -}}
@@ -22,16 +22,11 @@
       {%- if cart.items.size > 0 -%}
         <div class='text-body-sm'>
           {%- for id in product_ids -%}
-            {%- assign product_variants = cart.items | where: 'product_id', id | sort: 'title' -%}
-
+            {%- assign product_variants = cart.items | where: 'product_id', id -%}
             {%- render 'cart-item',
               item: product_variants[0],
               product_variants: product_variants,
               shared: false
-            -%}
-            {%- render 'cart-edit-drawer',
-              item: product_variants[0],
-              product_variants: product_variants
             -%}
           {%- endfor -%}
           <div class='flex justify-between text-body-lg my-10 lg:mt-[60px]'>
@@ -48,12 +43,36 @@
             -%}
             {%- render 'component.button',
               text: 'Go to checkout',
+              tag: 'input',
+              attributes: 'name="checkout"',
               style: 'primary',
               class: 'w-full',
               type: 'submit'
             -%}
           </div>
         </div>
+
+        {%- liquid
+          if agent
+            assign storeId = customer.metafields.agent.selected_store_customer
+          else
+            for tag in customer.tags
+              assign startsWith = tag | split: 'id:'
+              if startsWith[0] == blank
+                assign storeId = startsWith[1]
+              endif
+            endfor
+          endif
+        -%}
+        <input
+          data-store-id
+          required
+          class='hidden'
+          id='store'
+          type='text'
+          name='attributes[store_id]'
+          value='{{- storeId | default: 'INVALID_ORDER' -}}'
+        >
       {%- else -%}
         <div>
           <p class='mb-7 lg:mb-9'>{{- 'cart.general.empty' | t -}}</p>
@@ -61,10 +80,23 @@
             text: 'cart.general.go_shopping',
             style: 'primary',
             class: 'px-8 lg:px-12 inline-block',
-            href: '/'
+            href: '/collections/all'
           -%}
         </div>
       {%- endif -%}
-    </div>
-  </div>
+    </form>
+    {%- for id in product_ids -%}
+      {%- assign product_variants = cart.items | where: 'product_id', id | sort: 'title' -%}
+      <form data-remove-form class='hidden'>
+        {%- for item in product_variants -%}
+          <input name='updates[{{- item.id -}}]' type='hidden' value='0'>
+        {%- endfor -%}
+        <input type='submit' id='submit-remove-{{- id -}}'>
+      </form>
+      {%- render 'cart-edit-drawer',
+        item: product_variants[0],
+        product_variants: product_variants
+      -%}
+    {%- endfor -%}
+  </section>
 </section>

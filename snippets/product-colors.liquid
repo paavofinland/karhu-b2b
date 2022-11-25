@@ -1,18 +1,23 @@
 {%- assign color_count = 0 -%}
+
 {%- capture color_slides -%}
   {%- for product in collections.all.products -%}
     {%- if product.metafields.details.product_family contains family_metafield -%}
         {%- if product.available -%}
-          <div data-slide class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] opacity-60 {% unless product.handle == current_product -%}order-1 opacity-100{%- endunless -%}' data-slide>
+          <div data-slide class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] {% if product.handle == current_product -%}order-1 opacity-100{%- else -%}opacity-60{%- endif -%}' data-slide>
             {%- unless product.handle == current_product -%}
               <a href='{{- product.url -}}' >
             {%- endunless -%}
-              {%- render 'component.image',
-                img: product.featured_image,
-                class: 'w-full mix-blend-darken',
-                width: 200,
-                aspect_ratio: 0.6
-              -%}
+              {%- if product.featured_image -%}
+                {%- render 'component.image',
+                  img: product.featured_image,
+                  class: 'w-full mix-blend-darken',
+                  width: 200,
+                  aspect_ratio: 0.6
+                -%}
+                {%- else -%}
+                <div class="bg-grey-6 w-[140px] h-[95px]"></div>
+              {%- endif -%}
             {%- unless product.handle == current_product -%} 
               </a>
             {%- endunless -%}

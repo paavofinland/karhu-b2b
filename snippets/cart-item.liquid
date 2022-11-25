@@ -56,19 +56,15 @@
         <div>
           <button
             data-edit
+            type='button'
             data-id='{{- item.product_id -}}'
             class='ml-auto underline block mb-1 lg:mb-2'
           >
             {{- 'cart.product_item.edit' | t -}}
           </button>
-          <form data-remove-form class='ml-auto '>
-            {%- for item in product_variants -%}
-              <input name='updates[{{- item.id -}}]' type='hidden' value='0'>
-            {%- endfor -%}
-            <button type='submit' class='underline'>
-              {{- 'cart.product_item.remove' | t -}}
-            </button>
-          </form>
+          <label for='submit-remove-{{- item.product_id -}}' class='underline cursor-pointer'>
+            {{- 'cart.product_item.remove' | t -}}
+          </label>
         </div>
       {%- endunless -%}
     </div>

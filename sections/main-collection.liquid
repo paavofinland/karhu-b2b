@@ -57,28 +57,28 @@
         -%}
       </div>
 
-      <div
-        class='grid grid-cols-[repeat(auto-fill,_minmax(288px,_1fr))] sm:grid-cols-[repeat(auto-fill,_minmax(300px,_1fr))] lg:grid-cols-[repeat(auto-fill,_minmax(400px,_1fr))] gap-7 lg:gap-[60px] is-loading:opacity-50 is-loading:pointer-events-none'
-        data-product-grid
-      >
-        {% paginate collection.products by 15 %}
+      {%- capture products -%}
+        {%- paginate collection.products by 12 -%}
           {%- if collection.products.size == 0 -%}
             <div>
               <p data-empty>{{- 'collections.collection_empty' | t -}}</p>
             </div>
           {%- else -%}
-            {% for product in collection.products %}
+            {%- for product in collection.products -%}
               {%- render 'component.product', product: product -%}
-            {% endfor %}
+            {%- endfor -%}
           {%- endif -%}
-        {% endpaginate %}
-      </div>
+        {%- endpaginate -%}
+      {%- endcapture -%}
+
+      {%- render 'product-grid', attributes: 'data-product-grid', content: products -%}
+
       <div data-load-more></div>
     </div>
   </div>
 </div>
 
-{% render 'drawer', attributes: 'data-component="quickAddDrawer"' %}
+{%- render 'drawer', attributes: 'data-component="quickAddDrawer"' -%}
 
 {% schema %}
 {

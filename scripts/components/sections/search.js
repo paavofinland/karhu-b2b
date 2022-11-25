@@ -3,6 +3,7 @@
 import choozy from '../../lib/choozy';
 import debounce from '../../lib/debounce';
 import { fetchHtml, getParameter, updateURLHash } from '../../lib/html.utils';
+import remount from '../../lib/remount';
 
 const getQueryString = ({ page, q, sortBy }) => {
   const queryParams = new URLSearchParams(window.location.search);
@@ -31,7 +32,7 @@ const onSearch = sectionId =>
     const productsHtml = await fetchHtml(
       `${window.location.origin + window.location.pathname}?${query}`
     );
-    window.app.emit(['search:render'], null, {
+    window.app.emit('search:render', null, {
       html: productsHtml,
       uri: query,
       requestedPage: page,
@@ -156,7 +157,8 @@ export default window.component(async (node, ctx) => {
       initializeOnFirstRender();
       onEndLoadingState();
     }
-    window.app.mount();
+
+    remount();
   });
 
   const currentPage = getParameter('page');

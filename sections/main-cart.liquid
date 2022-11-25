@@ -15,9 +15,11 @@
         <h4 class='text-heading-4 lg:text-heading-3'>
           {{- 'cart.general.title' | t -}}
         </h4>
-        <a class='underline' href='{{- routes.account_url -}}?menu=carts'>
-          {{- 'cart.general.view_saved_carts' | t -}}
-        </a>
+        {%- if agent -%}
+          <a class='underline' href='{{- routes.account_url -}}?menu=carts'>
+            {{- 'cart.general.view_saved_carts' | t -}}
+          </a>
+        {%- endif -%}
       </div>
       {%- if cart.items.size > 0 -%}
         <div class='text-body-sm'>
@@ -70,7 +72,7 @@
           class='hidden'
           id='store'
           type='text'
-          name='attributes[store_id]'
+          name='attributes[store]'
           value='{{- storeId | default: 'INVALID_ORDER' -}}'
         >
       {%- else -%}

@@ -1890,6 +1890,10 @@ html {
   height: 2em;
 }
 
+.h-\[95px\] {
+  height: 95px;
+}
+
 .h-9 {
   height: 2.25rem;
 }
@@ -2020,6 +2024,10 @@ html {
 
 .w-3\/5 {
   width: 60%;
+}
+
+.w-\[140px\] {
+  width: 140px;
 }
 
 .w-9 {

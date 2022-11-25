@@ -1593,6 +1593,10 @@ html {
   order: 1;
 }
 
+.order-2 {
+  order: 2;
+}
+
 .m-8 {
   margin: 2rem;
 }

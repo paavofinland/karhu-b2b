@@ -23,16 +23,8 @@ export default window.component((node, ctx) => {
     customer: { secret: customerSecret, id: customerId },
   } = getLiquidVariables();
 
-  const {
-    deleteCartBtn,
-    deleteCartPopupBtn,
-    cart,
-    cartsLength,
-    cartsCount,
-    container,
-    empty,
-    viewCartBtn,
-  } = choozy(node, null);
+  const { deleteCartBtn, deleteCartPopupBtn, cart, cartsLength, cartsCount, container, empty } =
+    choozy(node, null);
 
   const toggleLoadingDeleteState = e => {
     e.target.classList.toggle('is-active');

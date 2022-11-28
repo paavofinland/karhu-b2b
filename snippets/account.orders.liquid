@@ -1,13 +1,19 @@
-<section data-component='orders' data-is-agent='{{- agent -}}' class='hidden'>
+<section
+  data-component='orders'
+  {%- if agent -%}
+    data-is-agent='{{- agent -}}'
+  {%- endif -%}
+  class='hidden'
+>
   {%- unless agent -%}
-    <header class='pb-10'>
+    <header>
       <h5 class='text-heading-5 pb-5 border-b border-black'>
         {{- 'customer.account.orders.title' | t -}}
       </h5>
     </header>
     <div data-orders class='group'>
       {%- render 'account.orders-data' -%}
-      {%- render 'loading-indicator', class: 'hidden group-is-active:flex' -%}
+      {%- render 'loading-indicator', class: 'hidden pt-10 group-is-active:flex' -%}
     </div>
     <div data-no-orders class='hidden'>
       <p>{{- 'customer.account.orders.no_orders_yet' | t -}}</p>

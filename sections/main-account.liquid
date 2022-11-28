@@ -11,7 +11,13 @@
   endif
 -%}
 
-<div data-component='account' class='container'>
+<div
+  data-component='account'
+  class='container'
+  {%- if agent -%}
+    data-is-agent='{{- agent -}}'
+  {%- endif -%}
+>
   {%- render 'component.header',
     title_tag: 'h2',
     title: s.title,

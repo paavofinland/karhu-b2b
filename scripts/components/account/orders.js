@@ -4,7 +4,7 @@ import choozy from '../../lib/choozy';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 export default window.component(async (node, ctx) => {
-  if (!window.location.search.includes('menu=carts')) {
+  if (!window.location.search.includes('menu=carts') || !node.dataset.isAgent) {
     node.classList.remove('hidden');
   }
 

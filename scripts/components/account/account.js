@@ -69,8 +69,8 @@ export default window.component(node => {
       });
     });
 
-  if (window.location.href.includes('carts')) {
-    links.forEach(linkElem => {
+  if (window.location.href.includes('carts') && node.dataset.isAgent) {
+    [].concat(links).forEach(linkElem => {
       const isCartLink = linkElem.href.includes('carts');
       linkElem.parentNode.classList[isCartLink ? 'remove' : 'add']('text-grey-4');
     });

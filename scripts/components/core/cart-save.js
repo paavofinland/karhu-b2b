@@ -4,8 +4,12 @@ import getLiquidVariables from '../../lib/get-liquid-variables';
 export default window.component((node, ctx) => {
   const {
     store: { store },
-    customer: { secret, id: customerId },
+    customer: { secret, id: customerId, tags },
   } = getLiquidVariables();
+  const agentId = tags
+    .find(tag => tag.includes('id:'))
+    .split(':')
+    .pop();
 
   const {
     saveButton,
@@ -35,7 +39,7 @@ export default window.component((node, ctx) => {
 
   shareCartPopupBtn.addEventListener('click', async e => {
     const { cartId } = e.target.dataset;
-    const url = `${window.location.origin}/pages/share-cart?agentId=${customerId}&cartId=${cartId}`;
+    const url = `${window.location.origin}/pages/share-cart?agentId=${agentId}&cartId=${cartId}`;
     await navigator.clipboard.writeText(url);
     shareCartPopupBtn.classList.add('is-active');
     setTimeout(() => {
@@ -58,6 +62,7 @@ export default window.component((node, ctx) => {
       store,
       secret,
       customerId,
+      agentId,
     });
 
     return fetch(`${process.env.API_URL}/customer/save-cart?${query}`, {

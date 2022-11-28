@@ -1,4 +1,12 @@
-{%- assign carts = customer.metafields.account.cart_templates.value -%}
+{%- liquid
+  assign carts = customer.metafields.account.cart_templates.value
+  assign customer_tags = customer.tags
+  for tag in customer_tags
+    if tag contains 'id:'
+      assign customer_external_id = tag | split: ':' | last
+    endif
+  endfor
+-%}
 <section data-component='accountCarts' class='hidden'>
   <div class='flex justify-between align-center border-b border-black pb-5'>
     <h5 class='text-heading-5'>
@@ -31,7 +39,7 @@
           <td class='py-7'>
             <div class='flex justify-end gap-10 pr-[130px]'>
               <a
-                href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer.id -}}&cartId={{- cart.id -}}'
+                href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer_external_id -}}&cartId={{- cart.id -}}'
                 class='underline mr-5'
               >
                 {{- 'customer.account.carts.view_cart' | t -}}
@@ -63,7 +71,7 @@
         </div>
         <div>
           <a
-            href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer.id -}}&cartId={{- cart.id -}}'
+            href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer_external_id -}}&cartId={{- cart.id -}}'
             class='underline mr-5'
           >
             {{- 'customer.account.carts.view_cart' | t -}}

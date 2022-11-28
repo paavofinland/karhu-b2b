@@ -19,10 +19,12 @@
     {%- liquid
       assign contentForQuerystring = content_for_header
       assign pageUrl = contentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&'
-      assign pageQuerystring = pageUrl | split: '?' | last | url_param_escape
-      if pageQuerystring != ''
+      assign pageQuerystring = pageUrl | split: '?' | last | url_param_escape | strip
+
+      if pageQuerystring != blank
         assign pageQuerystring = '?' | append: pageQuerystring
       endif
+
       assign redirectParam = '?return_url=' | append: request.path | append: pageQuerystring
     -%}
     <meta content='0; url=/account/login{{- redirectParam -}}' http-equiv='refresh'>

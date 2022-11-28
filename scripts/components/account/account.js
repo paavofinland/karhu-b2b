@@ -12,8 +12,21 @@ export default window.component(node => {
     editAddresses,
     editAddressForm,
     makeDefaultButton,
-    links,
+    tabLink,
+    tab,
   } = choozy(node, null);
+
+  const tabs = [].concat(tab).filter(Boolean);
+  const tabLinks = [].concat(tabLink).filter(Boolean);
+  const availableTabSlugs = tabs.map(t => t.dataset.tab);
+  const urlTabSlug = new URLSearchParams(window.location.search).get('t');
+  const activeTabSlug =
+    urlTabSlug && availableTabSlugs.includes(urlTabSlug) ? urlTabSlug : availableTabSlugs[0];
+
+  tabs.forEach(t => t.classList[activeTabSlug === t.dataset.tab ? 'remove' : 'add']('hidden'));
+  tabLinks.forEach(l =>
+    l.classList[activeTabSlug === l.dataset.tabLink ? 'add' : 'remove']('is-active')
+  );
 
   const resetPage = e => {
     e.preventDefault();
@@ -68,11 +81,4 @@ export default window.component(node => {
         formElement.submit();
       });
     });
-
-  if (window.location.href.includes('carts') && node.dataset.isAgent) {
-    [].concat(links).forEach(linkElem => {
-      const isCartLink = linkElem.href.includes('carts');
-      linkElem.parentNode.classList[isCartLink ? 'remove' : 'add']('text-grey-4');
-    });
-  }
 });

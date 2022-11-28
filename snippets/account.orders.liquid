@@ -1,9 +1,7 @@
 <section
   data-component='orders'
-  {%- if agent -%}
-    data-is-agent='{{- agent -}}'
-  {%- endif -%}
   class='hidden'
+  {{ attributes -}}
 >
   {%- unless agent -%}
     <header>

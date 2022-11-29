@@ -10,7 +10,6 @@
     assign template = 'account'
   endif
 -%}
-
 <div
   data-component='account'
   class='container'
@@ -92,7 +91,7 @@
       {%- if template == 'address' -%}
         {%- render 'account.addresses' -%}
       {%- else -%}
-        {%- render 'account.orders', attributes: "data-tab='orders'" -%}
+        {%- render 'account.orders', attributes: "data-tab='orders'", agent: agent -%}
         {%- if agent -%}
           {%- render 'account.carts', attributes: "data-tab='carts'" -%}
         {%- endif -%}

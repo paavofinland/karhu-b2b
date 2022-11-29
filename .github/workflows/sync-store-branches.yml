@@ -37,13 +37,19 @@ jobs:
         with:
           node-version: 16
 
-      - name: Opening pull requests
-        strategy:
-          matrix:
-            branch: [karhu-b2b-eu, karhu-b2b-us]
+      - name: Opening pull request (EU)
         uses: tretuna/sync-branches@1.4.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FROM_BRANCH: 'main'
-          PULL_REQUEST_TITLE: 'sync: deploy changes to ${{ matrix.branch }}'
-          TO_BRANCH: 'store/${{ matrix.branch }}'
+          PULL_REQUEST_TITLE: 'sync: deploy changes to karhu-b2b-eu 🇪🇺'
+          TO_BRANCH: 'store/karhu-b2b-eu'
+
+      - name: Opening pull request (US)
+        uses: tretuna/sync-branches@1.4.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FROM_BRANCH: 'main'
+          PULL_REQUEST_TITLE: 'sync: deploy changes to karhu-b2b-us 🇺🇸'
+          TO_BRANCH: 'store/karhu-b2b-us'
+

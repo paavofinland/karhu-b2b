@@ -3,7 +3,7 @@ import getLiquidVariables from '../../lib/get-liquid-variables';
 
 export default window.component((node, ctx) => {
   const {
-    store: { store, store_currency: currency },
+    store: { store },
     customer: { secret, id: customerId, tags },
   } = getLiquidVariables();
   const agentId = tags
@@ -64,12 +64,11 @@ export default window.component((node, ctx) => {
       customerId,
       agentId,
     });
-console.log(currency)
+
     return fetch(`${process.env.API_URL}/customer/save-cart?${query}`, {
       method: 'POST',
       body: JSON.stringify({
         name: cartInput.value,
-        currency,
         updated_at: new Date(), // TODO: server side?
         line_items: JSON.parse(lineItemsJson.innerHTML),
       }),

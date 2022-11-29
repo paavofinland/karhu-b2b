@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
 import getLiquidVariables from '../../lib/get-liquid-variables';
@@ -69,6 +70,13 @@ export default window.component(async (node, ctx) => {
     });
   };
 
+  const getCurrencySymbol = currencyCode => {
+    const foundSymbol = storeData.store.currencies.find(
+      ({ iso_code }) => iso_code === currencyCode
+    );
+    return foundSymbol?.symbol || currencyCode;
+  };
+
   const renderVariantData = ({ quantity, id: variantId, title }, template, container) => {
     const productSharedDataElem = template.content.cloneNode(true);
     const { quantityElem, sizeElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
@@ -79,7 +87,7 @@ export default window.component(async (node, ctx) => {
     container.appendChild(productSharedDataElem);
   };
 
-  const renderProductData = ({ title, image, price, id, variants, currency }, fragment) => {
+  const renderProductData = ({ title, image, price, id, variants, currencySymbol }, fragment) => {
     const newProductElem = productTemplate.content.cloneNode(true);
     const {
       item,
@@ -96,7 +104,7 @@ export default window.component(async (node, ctx) => {
     priceElem.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(price);
-    currencyElem.innerText = currency;
+    currencyElem.innerText = currencySymbol;
     if (image) imageElem.src = image;
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
@@ -104,10 +112,10 @@ export default window.component(async (node, ctx) => {
     fragment.appendChild(newProductElem);
   };
 
-  const renderDataInContainer = (products, currency) => {
+  const renderDataInContainer = (products, currencySymbol) => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    products.forEach(product => renderProductData({ ...product, currency }, fragment));
+    products.forEach(product => renderProductData({ ...product, currencySymbol }, fragment));
     productContainer.appendChild(fragment);
   };
 
@@ -124,14 +132,15 @@ export default window.component(async (node, ctx) => {
     window.location = window.Shopify.routes.root;
 
   try {
-    const { name, products, subtotal, currency } = await getCartProducts(query);
-    renderDataInContainer(products, currency);
+    const { name, products, subtotal, currencyCode } = await getCartProducts(query);
+    const currencySymbol = getCurrencySymbol(currencyCode);
+    renderDataInContainer(products, currencySymbol);
     const { cartTitle, subtotal: subtotalEl, currency: currencyEl } = choozy(node, null);
     cartTitle.innerText = name;
     subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(subtotal.toFixed(2));
-    currencyEl.innerText = currency;
+    currencyEl.innerText = currencySymbol;
   } catch (e) {
     content.classList.add('is-active');
     productsError.innerText = e.message;

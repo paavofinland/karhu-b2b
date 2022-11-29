@@ -1,0 +1,49 @@
+name: Sync store branches
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync-branches:
+    runs-on: ubuntu-latest
+    name: Syncing branches
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install packages
+        run: npm ci
+
+      - name: Compile Assets
+        run: npm run build
+
+      - name: Commit and Push changes
+        uses: EndBug/add-and-commit@v7.2.1
+        with:
+          author_name: 'Shopify Wizard 🧙🏼‍♂️'
+          author_email: phill@askphill.com
+          message: 'chore: Compile source files ✨'
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Opening pull requests
+        strategy:
+          matrix:
+            branch: [karhu-b2b-eu, karhu-b2b-us]
+        uses: tretuna/sync-branches@1.4.0
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FROM_BRANCH: 'main'
+          PULL_REQUEST_TITLE: 'sync: deploy changes to ${{ matrix.branch }}'
+          TO_BRANCH: 'store/${{ matrix.branch }}'

@@ -42,7 +42,8 @@
           "type": "category",
           "settings": {
             "collection": "running",
-            "desktop_image": "shopify:\/\/shop_images\/Running.png",
+            "image": "shopify:\/\/shop_images\/Footwear_carousel_1070x_bdd8ee5b-c79f-4474-b2e2-ac8d32d305a3.webp",
+            "desktop_image": "shopify:\/\/shop_images\/Footwear_carousel_1070x_bdd8ee5b-c79f-4474-b2e2-ac8d32d305a3.webp",
             "title": "",
             "button_text": "",
             "button_url": ""

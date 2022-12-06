@@ -18,7 +18,7 @@
         "73d6483a-d42f-48e0-acc9-26cf82d4d3bc": {
           "type": "category",
           "settings": {
-            "lazyload_image": false,
+            "lazyload_image": true,
             "image": "shopify:\/\/shop_images\/Karhu_Mood_F803094_04.jpg",
             "desktop_image": "shopify:\/\/shop_images\/Karhu_Banner_Orienteering_02.jpg",
             "title_tag": "h2",

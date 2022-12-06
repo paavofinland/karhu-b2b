@@ -37,6 +37,7 @@
     },
     "6dc9aee5-4ddd-43c1-8649-8966cdd2ab2c": {
       "type": "category-overview",
+      "disabled": true,
       "blocks": {
         "d6d45555-e243-4ac3-97d6-b490ae1cbe22": {
           "type": "category",

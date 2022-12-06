@@ -20,7 +20,7 @@
           "settings": {
             "lazyload_image": true,
             "image": "shopify:\/\/shop_images\/Karhu_Mood_F803094_04.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Karhu_Banner_Orienteering_02.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/Karhu_Banner_Orienteering_NoLogo.jpg",
             "title_tag": "h2",
             "title": "Bestsellers",
             "button_text": "Shop Bestsellers",

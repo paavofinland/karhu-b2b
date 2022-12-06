@@ -18,7 +18,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu": "header",
+          "menu": "",
           "clear_background": "index,collection,product"
         }
       },
@@ -30,14 +30,14 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "footer",
-          "navigation_second": "footer-menu-about"
+          "navigation_first": "about-karhu",
+          "navigation_second": "help"
         }
       },
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "announcement_text": ""
+          "announcement_text": "Free Shipping on orders over 100 units"
         }
       },
       "main-login": {

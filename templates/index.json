@@ -7,10 +7,10 @@
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/Image.png",
-            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "image": "shopify:\/\/shop_images\/cheer_bear_group.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/cheer_bear_group.jpg",
             "title_tag": "h2",
-            "title": "New apparel collection",
+            "title": "",
             "button_text": "Shop Collection",
             "button_url": ""
           }
@@ -19,8 +19,6 @@
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/Image.png",
-            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
             "title_tag": "h2",
             "title": "Another collection",
             "button_text": "Shop another collection",
@@ -42,8 +40,6 @@
           "type": "category",
           "settings": {
             "collection": "running",
-            "image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -53,8 +49,6 @@
           "type": "category",
           "settings": {
             "collection": "lifestyle",
-            "image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
             "title": "",
             "button_text": "",
             "button_url": ""

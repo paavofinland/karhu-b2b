@@ -42,6 +42,8 @@
           "type": "category",
           "settings": {
             "collection": "running",
+            "image": "shopify:\/\/shop_images\/Homepage_collection_carousel_1070x_3d8db9e0-ee30-4170-bdcb-e3c55865e9a7.webp",
+            "desktop_image": "shopify:\/\/shop_images\/Homepage_collection_carousel_1070x_3d8db9e0-ee30-4170-bdcb-e3c55865e9a7.webp",
             "title": "",
             "button_text": "",
             "button_url": ""

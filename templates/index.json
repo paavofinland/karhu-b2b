@@ -63,8 +63,10 @@
         "e0e2214c-30c8-457f-8260-043bdb227b8e": {
           "type": "category",
           "settings": {
-            "collection": "order-list",
-            "title": "",
+            "collection": "all",
+            "image": "shopify:\/\/shop_images\/karhu-maatadvies-coef-men-1.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/karhu-maatadvies-coef-men-1.jpg",
+            "title": "Shop new",
             "button_text": "",
             "button_url": ""
           }

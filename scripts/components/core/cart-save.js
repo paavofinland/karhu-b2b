@@ -1,4 +1,5 @@
 import choozy from '../../lib/choozy';
+import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 export default window.component((node, ctx) => {
@@ -65,19 +66,17 @@ export default window.component((node, ctx) => {
       agentId,
     });
 
-    return fetch(`${process.env.API_URL}/customer/save-cart?${query}`, {
+    return fetchFunction(`/customer/save-cart?${query}`, {
       method: 'POST',
       body: JSON.stringify({
         name: cartInput.value,
         updated_at: new Date(), // TODO: server side?
         line_items: JSON.parse(lineItemsJson.innerHTML),
       }),
-    }).then(async res => {
-      const data = await res.json();
-      if (res.status === 200) {
-        return data;
-      }
-      throw new Error(data.message);
+    }).catch(async res => {
+      console.info('[unhandled error]');
+      console.info({ res });
+      throw new Error(res.message);
     });
   };
 

@@ -22,7 +22,7 @@ export default window.component((node, ctx) => {
       .includes(countryCode);
 
     if (!countryIsValid) {
-      console.warn(`🌎 Can't switch to invalid country [${countryCode}]`);
+      console.info(`🌎 Can't switch to invalid country [${countryCode}]`);
     } else if (currentCountryCode !== countryCode) {
       console.info(`🌎 Switching to [${countryCode}]`);
       select.value = countryCode;

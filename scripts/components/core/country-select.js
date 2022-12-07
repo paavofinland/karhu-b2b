@@ -3,10 +3,6 @@ import choozy from '../../lib/choozy';
 export default window.component((node, ctx) => {
   const { select } = choozy(node);
 
-  const urlCountryCode = new URLSearchParams(window.location.search).get('country_code');
-  const currentCountryCode = select.dataset.current;
-  const defaultCountryCode = select.dataset.default;
-
   const submit = () => {
     const selectedOption = select.options[select.selectedIndex];
     if (selectedOption.dataset.url) {
@@ -16,20 +12,30 @@ export default window.component((node, ctx) => {
     }
   };
 
-  if (defaultCountryCode && currentCountryCode !== defaultCountryCode) {
-    select.value = defaultCountryCode;
-    submit();
-  } else if (urlCountryCode && urlCountryCode !== currentCountryCode) {
-    select.value = urlCountryCode;
-    submit();
-  }
+  select.addEventListener('change', () => submit());
 
-  ctx.on('store:change', (_, { countryCode }) => {
-    if (countryCode !== currentCountryCode) {
+  // Handles country select based on URL or store customer
+  ctx.on('country:revalidate', (_, { countryCode: c }) => {
+    const currentCountryCode = select.dataset.current;
+    const countryCode = c || select.dataset.storeCustomer || select.dataset.current;
+
+    console.info(`🌎 Shopping in [${currentCountryCode}]`);
+
+    const countryIsValid = Array.from(select.options)
+      .map(({ value }) => value)
+      .includes(countryCode);
+
+    if (countryIsValid && currentCountryCode !== countryCode) {
+      console.info(`🌎 Switching to [${countryCode}]`);
       select.value = countryCode;
       submit();
+    } else {
+      console.warn(`🌎 Could not switch to [${countryCode}]`);
     }
   });
 
-  select.addEventListener('change', () => submit());
+  const urlCountryCode = new URLSearchParams(window.location.search).get('country_code');
+  ctx.emit('country:revalidate', null, {
+    ...(urlCountryCode ? { countryCode: urlCountryCode } : {}),
+  });
 });

@@ -1,5 +1,11 @@
 {%- liquid
   assign available_countries = shop.metafields.functions.countries.value | default: localization.available_countries
+
+  assign select_attributes = 'name="country_code"' | append: ' data-current="' | append: localization.country.iso_code | append: '"'
+
+  unless customer.tags contains 'agent'
+    assign select_attributes = select_attributes | append: ' data-store-customer="' | append: customer.metafields.store.country_code | append: '"'
+  endunless
 -%}
 
 {%- capture options -%}
@@ -18,14 +24,6 @@
       )
     </option>
   {% endfor %}
-{%- endcapture -%}
-
-{%- capture select_attributes -%}
-  name="country_code" data-current="
-  {{- localization.country.iso_code -}}
-  " data-default="
-  {{- customer.metafields.store.country_code -}}
-  "
 {%- endcapture -%}
 
 <section

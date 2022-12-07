@@ -85,8 +85,7 @@ export default window.component(async (node, ctx) => {
       }
     });
     ctx.emit(LOADING_EVENT, null, false);
-    ctx.emit('store:change', null, {
-      id: e.target.value,
+    ctx.emit('country:revalidate', null, {
       countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
     });
   });

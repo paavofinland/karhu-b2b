@@ -88,7 +88,6 @@ export default window.component(async (node, ctx) => {
     if (customer === '') {
       reset();
     } else {
-      console.log('loadddd');
       loading();
       const orderList = await getCustomerOrders(customer);
       orders.classList.remove('is-active');
@@ -96,7 +95,6 @@ export default window.component(async (node, ctx) => {
         noOrders.classList.remove('hidden');
         return;
       }
-      console.log(orderList);
       ordersContainer.classList.remove('hidden');
       appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
       appendHtmlWithOrders({

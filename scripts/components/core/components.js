@@ -1,5 +1,3 @@
-import sectionRendering from './section-rendering';
-import consoleLog from './console-log';
 import accordion from './accordion';
 import header from './header';
 import cartDrawer from './cart-drawer';
@@ -16,8 +14,6 @@ import cartEditDrawer from './cart-edit-drawer';
 import cartSave from './cart-save';
 
 export default {
-  sectionRendering,
-  consoleLog,
   accordion,
   header,
   cartDrawer,

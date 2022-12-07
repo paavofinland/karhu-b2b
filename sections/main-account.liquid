@@ -91,9 +91,9 @@
       {%- if template == 'address' -%}
         {%- render 'account.addresses' -%}
       {%- else -%}
-        {%- render 'account.orders', attributes: "data-tab='orders'", agent: agent -%}
+        {%- render 'account-orders', attributes: "data-tab='orders'", agent: agent -%}
         {%- if agent -%}
-          {%- render 'account.carts', attributes: "data-tab='carts'" -%}
+          {%- render 'account-cart-templates', attributes: "data-tab='carts'" -%}
         {%- endif -%}
       {% endif %}
     </div>

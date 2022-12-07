@@ -9,4 +9,4 @@ window.app = app;
 window.component = component;
 window.vendors = name => app.emit(`${name}:loaded`);
 
-app.on('mount', () => console.info('♻️ Remount'));
+app.on('mount', () => console.info('♻️ Mounting'));

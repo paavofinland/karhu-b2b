@@ -1,0 +1,32 @@
+{%- liquid
+  assign img = img | default: product.featured_image | default: item.image
+  assign tag = tag | default: 'div'
+  assign attributes = attributes | default: ''
+  assign class = class | default: ''
+  assign inner_class = class | default: ''
+  assign aspect_ratio = aspect_ratio | default: 1
+  assign image_class = 'w-full object-contain max-h-full mix-blend-darken max-w-full lg:max-w-screen-xl'
+-%}
+<{{ tag }}
+  {{ attributes }}
+  style='--aspect-padding:{{- aspect_ratio | times: 100 -}}%;'
+  class='block w-full pt-[var(--aspect-padding)] bg-grey-6 relative {{ class -}}'
+>
+  <div class='absolute inset-0 w-full h-full flex justify-center items-center {{ inner_class -}}'>
+    {%- if img -%}
+        {%- render 'component.image',
+          img: img,
+          width: width,
+          aspect_ratio: aspect_ratio,
+          class: image_class
+        -%}
+      </div>
+    {%- endif -%}
+    {%- if placeholder == true -%}
+      <img data-image class="{{- image_class -}}" loading="eager" />
+    {%- endif -%}
+    {%- if img == blank or placeholder == true -%}
+        {%- render 'component.icon', type: 'karhu-header-logo', class: 'w-3/5 opacity-20', attributes: 'data-image-placeholder' -%}
+    {%- endif -%}
+  </div>
+</{{ tag }}>

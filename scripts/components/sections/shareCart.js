@@ -93,7 +93,8 @@ export default window.component(async (node, ctx) => {
       item,
       titleElem,
       priceElem,
-      imageElem,
+      image: imageElem,
+      imagePlaceholder,
       currencyElem,
       quantityContainer,
       productSharedDataTemplate,
@@ -105,7 +106,10 @@ export default window.component(async (node, ctx) => {
       minimumFractionDigits: 2,
     }).format(price);
     currencyElem.innerText = currencySymbol;
-    if (image) imageElem.src = image;
+    if (image) {
+      imageElem.src = image;
+      imagePlaceholder.remove();
+    }
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
     );

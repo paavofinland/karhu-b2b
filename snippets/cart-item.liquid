@@ -4,15 +4,8 @@
   data-item
   class='flex justify-between gap-4 lg:gap-[60px] py-3 lg:py-5 border-b border-b-grey-5 first-of-type:border-t first-of-type:border-t-grey-5'
 >
-  <div class='min-w-[62px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
-    {%- if item.image -%}
-      {%- render 'component.image',
-        img: item.image,
-        class: 'aspect-square object-contain mix-blend-darken'
-      -%}
-    {%- else -%}
-      <img class='aspect-square object-contain mix-blend-darken' data-image-elem>
-    {%- endif -%}
+  <div class='min-w-[62px] lg:min-w-[120px] w-min'>
+    {%- render 'product-image', img: item.image, placeholder: shared -%}
   </div>
   <div class='w-[fill-available] lg:self-center'>
     {%- unless shared -%}

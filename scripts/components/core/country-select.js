@@ -15,27 +15,25 @@ export default window.component((node, ctx) => {
   select.addEventListener('change', () => submit());
 
   // Handles country select based on URL or store customer
-  ctx.on('country:revalidate', (_, { countryCode: c }) => {
+  ctx.on('country:revalidate', (_, { countryCode }) => {
     const currentCountryCode = select.dataset.current;
-    const countryCode = c || select.dataset.storeCustomer || select.dataset.current;
-
-    console.info(`🌎 Shopping in [${currentCountryCode}]`);
-
     const countryIsValid = Array.from(select.options)
       .map(({ value }) => value)
       .includes(countryCode);
 
-    if (countryIsValid && currentCountryCode !== countryCode) {
+    if (!countryIsValid) {
+      console.warn(`🌎 Can't switch to invalid country [${countryCode}]`);
+    } else if (currentCountryCode !== countryCode) {
       console.info(`🌎 Switching to [${countryCode}]`);
       select.value = countryCode;
       submit();
-    } else {
-      console.warn(`🌎 Could not switch to [${countryCode}]`);
     }
   });
 
+  console.info(`🌎 Shopping in [${select.dataset.current}]`);
+
   const urlCountryCode = new URLSearchParams(window.location.search).get('country_code');
   ctx.emit('country:revalidate', null, {
-    ...(urlCountryCode ? { countryCode: urlCountryCode } : {}),
+    countryCode: urlCountryCode || select.dataset.storeCustomer || select.dataset.current,
   });
 });

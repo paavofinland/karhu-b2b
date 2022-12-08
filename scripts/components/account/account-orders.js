@@ -1,6 +1,7 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 export default window.component(async (node, ctx) => {
@@ -29,13 +30,10 @@ export default window.component(async (node, ctx) => {
       selectedCustomerId: customer || '',
     });
 
-    return fetch(`${process.env.API_URL}/customer/get-store-customer-orders?${query}`).then(
-      async res => {
-        if (res.status === 200) return res.json();
-        console.error(`Could not fetch customer orders [${(await res.json()).message}]`);
-        return [];
-      }
-    );
+    return fetchFunction(`/customer/get-store-customer-orders?${query}`).catch(e => {
+      console.info('[unhandled error]');
+      return [];
+    });
   };
 
   const appendHtmlWithOrders = ({ container, containerItem, orderList }) => {
@@ -88,7 +86,6 @@ export default window.component(async (node, ctx) => {
     if (customer === '') {
       reset();
     } else {
-      console.log('loadddd');
       loading();
       const orderList = await getCustomerOrders(customer);
       orders.classList.remove('is-active');
@@ -96,7 +93,6 @@ export default window.component(async (node, ctx) => {
         noOrders.classList.remove('hidden');
         return;
       }
-      console.log(orderList);
       ordersContainer.classList.remove('hidden');
       appendHtmlWithOrders({ container: ordersTable, containerItem: ordersTableRow, orderList });
       appendHtmlWithOrders({

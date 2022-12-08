@@ -33,8 +33,14 @@
     data-container
     class='px-4 py-7 grid lg:grid-cols-[180px_1fr] gap-7 lg:gap-[60px] lg:p-content'
   >
-    {%- render 'collection-filters' -%}
-    <div class='w-full'>
+    {%- liquid
+      if collection.filters.size > 0
+        render 'collection-filters'
+      else
+        assign grid_span_class = ' col-span-2'
+      endif
+    -%}
+    <div class='w-full {{- grid_span_class -}}'>
       {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
       {% liquid
         capture options

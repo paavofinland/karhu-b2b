@@ -1,17 +1,8 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
-
-const deleteCart = query => {
-  return fetch(`${process.env.API_URL}/customer/delete-cart?${query}`, {
-    method: 'POST',
-  }).then(async res => {
-    console.log(res.status);
-    if (res.status === 202) return res;
-    throw new Error(res.message);
-  });
-};
 
 export default window.component((node, ctx) => {
   if (window.location.search.includes('menu=carts')) {
@@ -71,20 +62,20 @@ export default window.component((node, ctx) => {
       const cartId = deleteCartPopupBtn.dataset.id;
       const query = getQueryParams(cartId);
       toggleLoadingDeleteState(e);
-      try {
-        await deleteCart(query);
-        removeCarts(cartId);
-        const newCartCount = updateCartCount();
-        if (newCartCount === 0) {
-          empty.classList.remove('hidden');
-          [].concat(container).forEach(elem => elem.remove());
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        deleteCartPopupBtn.dataset.id = '';
-        ctx.emit('popup:close', null, 'delete-cart');
-        toggleLoadingDeleteState(e);
+
+      await fetchFunction(`/customer/delete-cart?${query}`, { method: 'POST' }).catch(e => {
+        console.info('[unhandled error]');
+      });
+
+      removeCarts(cartId);
+      const newCartCount = updateCartCount();
+      if (newCartCount === 0) {
+        empty.classList.remove('hidden');
+        [].concat(container).forEach(elem => elem.remove());
       }
+
+      deleteCartPopupBtn.dataset.id = '';
+      ctx.emit('popup:close', null, 'delete-cart');
+      toggleLoadingDeleteState(e);
     });
 });

@@ -18,10 +18,10 @@
   {%- if send_to_login -%}
     {%- liquid
       assign contentForQuerystring = content_for_header
-      assign pageUrl = contentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&'
+      assign pageUrl = contentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace_first: '\/', '' | replace: '%20', ' ' | replace: '\u0026', '&'
       assign pageQuerystring = pageUrl | split: '?' | last | url_param_escape | strip
 
-      if pageQuerystring != blank
+      if pageQuerystring != blank and pageQuerystring != ''
         assign pageQuerystring = '?' | append: pageQuerystring
       endif
 

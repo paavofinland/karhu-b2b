@@ -11,23 +11,16 @@
   Usage:
     {% render 'component.product', product: product %}
 {%- endcomment -%}
-
+{%- liquid
+  assign product_title_parts = product.title | split: '-'
+  assign product_title = product_title_parts | first | strip
+  assign product_color = product_title_parts | last | strip
+-%}
 <div class='relative max-w-full'>
-  <a href='{{- product.url -}}' class='block w-full pt-[100%] bg-grey-6 relative'>
-    {%- if product.featured_image -%}
-      <div class='absolute inset-0 w-full h-full flex justify-center items-center'>
-        {%- render 'component.image',
-          img: product.featured_image,
-          width: 1024,
-          class: 'w-full object-contain max-h-full mix-blend-darken'
-        -%}
-      </div>
-    {%- else -%}
-      {%- render 'image-placeholder' -%}
-    {%- endif -%}
-  </a>
+  {%- capture image_attributes -%}href='{{- product.url -}}'{%- endcapture -%}
+  {%- render 'product-image', tag: 'a', width: 1024, attributes: image_attributes -%}
   <div class='flex justify-between gap-2 mt-4'>
-    <p class='truncate' title='{{- product.title -}}'>{{- product.title -}}</p>
+    <p class='truncate' title='{{- product_title -}}'>{{- product_title -}}</p>
     <p>
       <span class='{%- if product.compare_at_price -%} text-red-light {%- endif -%}'>
         {{- product.price | money -}}
@@ -38,7 +31,7 @@
     </p>
   </div>
   <div class='flex justify-between mb-5 text-grey-3'>
-    <p>{{- product.metafields.details.color | default: '&nbsp;' -}}</p>
+    <p>{{- product.metafields.details.color | default: product_color | default: '&nbsp;' -}}</p>
     <p>{{- product.metafields.details.sku | default: '&nbsp;' -}}</p>
   </div>
   {% render 'quick-add-button', product: product %}

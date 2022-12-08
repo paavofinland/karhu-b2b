@@ -1,5 +1,7 @@
+/* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const getSharedData = () => {
@@ -30,10 +32,9 @@ const addToCart = body =>
     .catch(onHandleError);
 
 const getCartProducts = query => {
-  return fetch(`${process.env.API_URL}/customer/get-cart-products?${query}`).then(async res => {
-    const responseData = await res.json();
-    if (res.status === 200) return responseData;
-    throw new Error('Shared shopping bag could not be found. The link is invalid or has expired.');
+  return fetchFunction(`/customer/get-cart-products?${query}`).catch(e => {
+    console.info('[unhandled error]');
+    throw Error('Shared shopping bag could not be found. The link is invalid or has expired.');
   });
 };
 
@@ -69,6 +70,13 @@ export default window.component(async (node, ctx) => {
     });
   };
 
+  const getCurrencySymbol = currencyCode => {
+    const foundSymbol = storeData.store.currencies.find(
+      ({ iso_code }) => iso_code === currencyCode
+    );
+    return foundSymbol?.symbol || currencyCode;
+  };
+
   const renderVariantData = ({ quantity, id: variantId, title }, template, container) => {
     const productSharedDataElem = template.content.cloneNode(true);
     const { quantityElem, sizeElem, inputId, inputQuantity } = choozy(productSharedDataElem, null);
@@ -79,27 +87,39 @@ export default window.component(async (node, ctx) => {
     container.appendChild(productSharedDataElem);
   };
 
-  const renderProductData = ({ title, image, price, id, variants }, fragment) => {
+  const renderProductData = ({ title, image, price, id, variants, currencySymbol }, fragment) => {
     const newProductElem = productTemplate.content.cloneNode(true);
-    const { item, titleElem, priceElem, imageElem, quantityContainer, productSharedDataTemplate } =
-      choozy(newProductElem, null);
+    const {
+      item,
+      titleElem,
+      priceElem,
+      image: imageElem,
+      imagePlaceholder,
+      currencyElem,
+      quantityContainer,
+      productSharedDataTemplate,
+    } = choozy(newProductElem, null);
     item.dataset.id = id;
     titleElem.innerText = title;
     titleElem.setAttribute('title', title);
     priceElem.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(price);
-    if (image) imageElem.src = image;
+    currencyElem.innerText = currencySymbol;
+    if (image) {
+      imageElem.src = image;
+      imagePlaceholder.remove();
+    }
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
     );
     fragment.appendChild(newProductElem);
   };
 
-  const renderDataInContainer = products => {
+  const renderDataInContainer = (products, currencySymbol) => {
     productContainer.innerHTML = '';
     const fragment = document.createDocumentFragment();
-    products.forEach(product => renderProductData(product, fragment));
+    products.forEach(product => renderProductData({ ...product, currencySymbol }, fragment));
     productContainer.appendChild(fragment);
   };
 
@@ -116,13 +136,15 @@ export default window.component(async (node, ctx) => {
     window.location = window.Shopify.routes.root;
 
   try {
-    const { name, products, subtotal } = await getCartProducts(query);
-    renderDataInContainer(products);
-    const { cartTitle, subtotal: subtotalEl } = choozy(node, null);
+    const { name, products, subtotal, currencyCode } = await getCartProducts(query);
+    const currencySymbol = getCurrencySymbol(currencyCode);
+    renderDataInContainer(products, currencySymbol);
+    const { cartTitle, subtotal: subtotalEl, currency: currencyEl } = choozy(node, null);
     cartTitle.innerText = name;
     subtotalEl.innerText = new Intl.NumberFormat('de-DE', {
       minimumFractionDigits: 2,
     }).format(subtotal.toFixed(2));
+    currencyEl.innerText = currencySymbol;
   } catch (e) {
     content.classList.add('is-active');
     productsError.innerText = e.message;

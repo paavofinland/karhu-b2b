@@ -1,4 +1,5 @@
 import choozy from '../../lib/choozy';
+import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const LOADING_EVENT = 'agent-stores:loading';
@@ -10,12 +11,8 @@ const getAgentStores = async (store, customerId, customerSecret) => {
     secret: customerSecret,
   });
 
-  return fetch(`${process.env.API_URL}/customer/list-agent-stores?${query}`).then(async res => {
-    if (res.status === 200) {
-      const data = await res.json();
-      return data;
-    }
-    console.error(`Could not fetch agent stores [${(await res.json()).message}]`);
+  return fetchFunction(`/customer/list-agent-stores?${query}`).catch(e => {
+    console.info('[unhandled error]');
     return [];
   });
 };
@@ -67,6 +64,13 @@ export default window.component(async (node, ctx) => {
     ctx.emit(LOADING_EVENT, null, false);
     ctx.emit('agent-stores:received', null, { data: agentStores });
 
+    const countryCode = agentStores.find(({ id }) => id === selectedStoreCustomer)?.countryCode;
+    if (countryCode) {
+      ctx.emit('country:revalidate', null, {
+        countryCode,
+      });
+    }
+
     if (!agentStores.length) {
       customerSelect.setAttribute('disabled', true);
       return;
@@ -77,16 +81,11 @@ export default window.component(async (node, ctx) => {
 
   customerSelect.addEventListener('change', async e => {
     ctx.emit(LOADING_EVENT, null, true);
-    await fetch(
-      `${process.env.API_URL}/customer/set-selected-store?${query}&storeCustomerId=${e.target.value}`
-    ).then(async r => {
-      if (r.status !== 201) {
-        console.error(`Could not set selected store [${(await r.json()).message}]`);
-      }
-    });
+    await fetchFunction(`/customer/set-selected-store?${query}&storeCustomerId=${e.target.value}`, {
+      method: 'POST',
+    }).catch(e => console.info('[unhandled error]'));
     ctx.emit(LOADING_EVENT, null, false);
-    ctx.emit('store:change', null, {
-      id: e.target.value,
+    ctx.emit('country:revalidate', null, {
       countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
     });
   });

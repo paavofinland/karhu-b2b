@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable no-unused-expressions */
 import choozy from '../../lib/choozy';
+import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const getSharedData = () => {
@@ -31,10 +32,9 @@ const addToCart = body =>
     .catch(onHandleError);
 
 const getCartProducts = query => {
-  return fetch(`${process.env.API_URL}/customer/get-cart-products?${query}`).then(async res => {
-    const responseData = await res.json();
-    if (res.status === 200) return responseData;
-    throw new Error('Shared shopping bag could not be found. The link is invalid or has expired.');
+  return fetchFunction(`/customer/get-cart-products?${query}`).catch(e => {
+    console.info('[unhandled error]');
+    throw Error('Shared shopping bag could not be found. The link is invalid or has expired.');
   });
 };
 
@@ -93,7 +93,8 @@ export default window.component(async (node, ctx) => {
       item,
       titleElem,
       priceElem,
-      imageElem,
+      image: imageElem,
+      imagePlaceholder,
       currencyElem,
       quantityContainer,
       productSharedDataTemplate,
@@ -105,7 +106,10 @@ export default window.component(async (node, ctx) => {
       minimumFractionDigits: 2,
     }).format(price);
     currencyElem.innerText = currencySymbol;
-    if (image) imageElem.src = image;
+    if (image) {
+      imageElem.src = image;
+      imagePlaceholder.remove();
+    }
     variants.forEach(variant =>
       renderVariantData(variant, productSharedDataTemplate, quantityContainer)
     );

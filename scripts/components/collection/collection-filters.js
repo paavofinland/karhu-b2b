@@ -67,7 +67,7 @@ export default window.component((node, ctx) => {
     const filtersHtml = choozy(html).filters;
     toggleSidebar(filtersHtml, true);
     // eslint-disable-next-line no-param-reassign
-    node.outerHTML = filtersHtml.outerHTML;
+    node.innerHTML = filtersHtml.outerHTML;
     ctx.emit('product:loading', null, { isLoading: false });
     updateURLHash(uri);
     remount();

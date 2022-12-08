@@ -52,4 +52,3 @@ jobs:
           FROM_BRANCH: 'main'
           PULL_REQUEST_TITLE: 'sync: deploy changes to karhu-b2b-us 🇺🇸'
           TO_BRANCH: 'store/karhu-b2b-us'
-

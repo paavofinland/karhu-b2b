@@ -1,13 +1,11 @@
 {%- capture content -%}
   <div class='flex gap-4 lg:gap-7 border-b border-b-grey-4 pt-6 lg:pt-5 pb-5 lg:pb-7 mb-9'>
-    <div class='min-w-[110px] lg:min-w-[120px] w-min bg-grey-6 aspect-square'>
-      {%- if item.image -%}
-        {%- render 'component.image',
-          img: item.image,
-          class: 'aspect-square object-contain mix-blend-darken'
-        -%}
-      {%- endif -%}
-    </div>
+    <a
+      href='{{- product.url -}}'
+      class='relative w-[120px]'
+    >
+      {%- render 'product-image', img: product.images[0], width: 120 -%}
+    </a>
     <div class='self-center'>
       <p>{{- item.product.title -}}</p>
       <p class='text-detailed text-grey-3'>{{- item.metafields.color.value -}}</p>

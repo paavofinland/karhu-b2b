@@ -2,17 +2,9 @@
 <header class='border-b border-gray-4 pb-9 mb-9 flex flex-none items-center gap-4 lg:gap-6'>
   <a
     href='{{- product.url -}}'
-    class='relative shrink-0 w-[120px] h-[120px] overflow-hidden flex justify-center items-center bg-grey-6'
+    class='relative w-[120px]'
   >
-    {%- if product.images.size > 0 -%}
-      {%- render 'component.image',
-        img: product.images[0],
-        class: 'w-full mix-blend-darken',
-        width: 120
-      -%}
-    {%- else -%}
-      {%- render 'image-placeholder' -%}
-    {%- endif -%}
+    {%- render 'product-image', img: product.images[0], width: 120 -%}
   </a>
   <div>
     <h5 class='text-body-sm'>

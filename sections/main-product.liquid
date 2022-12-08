@@ -29,6 +29,10 @@
       endif
     endif
   endfor
+
+  assign product_title_parts = product.title | split: '-'
+  assign product_title = product_title_parts | first | strip
+  assign product_color = product_title_parts | last | strip
 -%}
 
 {%- for block in section.blocks -%}
@@ -52,9 +56,9 @@
       active_link: product,
       class: 'mb-7 text-detailed'
     -%}
-    <h5 class='text-heading-5 mb-1'>{{- product.title -}}</h5>
+    <h5 class='text-heading-5 mb-1'>{{- product_title -}}</h5>
     <div class='flex items-center justify-between text-grey-3 mb-1 uppercase'>
-      <p>{{- product.metafields.details.color -}}</p>
+      <p>{{- product.metafields.details.color | default: product_color -}}</p>
       <p>{{- product.metafields.details.sku -}}</p>
     </div>
     <p class='text-body'>

@@ -44,7 +44,6 @@ export default window.component(async (node, ctx) => {
     .filter(Boolean)
     .forEach(f =>
       f.addEventListener('submit', async e => {
-        console.log('go');
         e.preventDefault();
         ctx.emit('cart:loading', null, true);
         await updateCart(new FormData(e.target));

@@ -8,16 +8,7 @@
             {%- unless product.handle == current_product -%}
               <a href='{{- product.url -}}' >
             {%- endunless -%}
-              {%- if product.featured_image -%}
-                {%- render 'component.image',
-                  img: product.featured_image,
-                  class: 'w-full mix-blend-darken',
-                  width: 200,
-                  aspect_ratio: 0.6
-                -%}
-                {%- else -%}
-                <div class="bg-grey-6 w-[140px] h-[95px]"></div>
-              {%- endif -%}
+              {%- render 'product-image', img: product.featured_image, width: 200, variable: value, aspect_ratio: 0.6 -%}
             {%- unless product.handle == current_product -%} 
               </a>
             {%- endunless -%}

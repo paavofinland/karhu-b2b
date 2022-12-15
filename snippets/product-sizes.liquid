@@ -2,6 +2,13 @@
   assign default_size_index = 1
   assign size_locales = 'eu|us|uk' | split: '|'
   assign is_cart = is_cart | default: false
+
+  assign product_sizes = product.variants | map: 'option1'
+  capture sizes_string
+    render 'sort-sizes', sizes: product_sizes
+  endcapture
+
+  assign sizes = sizes_string | strip_newlines | split: ','
 -%}
 <div>
   <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-3'>
@@ -25,7 +32,8 @@
     {% endcomment %}
   </div>
   <div class='grid grid-cols-3 lg:grid-cols-4 gap-4'>
-    {%- for variant in product.variants -%}
+    {%- for size in sizes -%}
+      {%- assign variant = product.variants | where: 'option1', size | first -%}
       {%- liquid
         assign quantity = variant.inventory_quantity
         assign label_prefix_class = 'w-2 h-2 mr-2 rounded '

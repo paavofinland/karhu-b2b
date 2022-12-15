@@ -41,9 +41,22 @@
     </div>
     <div class='flex justify-between mt-1 lg:mt-2'>
       <div data-quantity-container class='grid grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3'>
-        {%- for line_item in product_variants -%}
-          {%- render 'cart.quantity', item: line_item -%}
-        {%- endfor -%}
+        {%- liquid
+          assign product_sizes = product_variants | map: 'variant' | map: 'option1'
+          capture sizes_string
+            render 'sort-sizes', sizes: product_sizes
+          endcapture
+
+          assign sizes = sizes_string | strip_newlines | split: ','
+
+          for size in sizes
+            for line_item in product_variants
+              if line_item.variant.option1 == size
+                render 'cart.quantity', item: line_item
+              endif
+            endfor
+          endfor
+        -%}
       </div>
       {%- unless shared -%}
         <div>

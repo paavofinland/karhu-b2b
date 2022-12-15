@@ -1,6 +1,7 @@
 {%- include 'function.agent' -%}
 {%- liquid
   assign product_ids = cart.items | map: 'product_id' | uniq
+  assign s = section.settings
 -%}
 
 <section
@@ -37,12 +38,48 @@
               {{- cart.total_price | money -}}
             </p>
           </div>
-          <div>
-            {%- liquid
-              if agent
-                render 'cart-save', items: cart.items
-              endif
-            -%}
+
+          <div class='flex flex-col gap-2 lg:gap-4'>
+            {%- if s.enable_note or s.enable_request_shipping_date -%}
+              <div class='flex flex-wrap gap-2 lg:gap-4'>
+                {%- if s.enable_note -%}
+                  <fieldset class='flex flex-col gap-1 grow'>
+                    <label class='text-body-xs' for='note'>Note</label>
+                    <input
+                      data-note-input
+                      id='note'
+                      type='text'
+                      name='note'
+                      value='{{- cart.note -}}'
+                      class='py-3 px-4 border border-black leading-none'
+                    >
+                  </fieldset>
+                {%- endif -%}
+                {%- if s.enable_request_shipping_date -%}
+                  <fieldset class='flex gap-1 flex-col grow lg:max-w-[200px]'>
+                    <label class='text-body-xs' for='requested_shipping_date'
+                      >Requested shipping date</label
+                    >
+                    {%- liquid
+                      assign unix_day = 86400
+                      assign unix_min = s.min_shipping_days | times: unix_day
+                      assign unix_max = s.max_shipping_days | times: unix_day
+                    -%}
+                    <input
+                      data-attribute-input
+                      name='attributes[Requested shipping date]'
+                      id='requested_shipping_date'
+                      class='py-3 px-4 border border-black leading-none'
+                      type='date'
+                      min='{{- "now" | date: "%s" | plus: unix_min | date: "%Y-%m-%d" -}}'
+                      max='{{- "now" | date: "%s" | plus: unix_max | date: "%Y-%m-%d" -}}'
+                      value='{{- cart.attributes['Requested shipping date'] -}}'
+                    >
+                  </fieldset>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
             {%- render 'component.button',
               text: 'Go to checkout',
               tag: 'input',
@@ -50,6 +87,11 @@
               style: 'primary',
               class: 'w-full',
               type: 'submit'
+            -%}
+            {%- liquid
+              if agent
+                render 'cart-save', items: cart.items
+              endif
             -%}
           </div>
         </div>
@@ -102,3 +144,43 @@
     {%- endfor -%}
   </section>
 </section>
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Requested shipping date"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_request_shipping_date",
+      "label": "Enable request shipping date",
+      "default": true
+    },
+    {
+      "type": "number",
+      "id": "min_shipping_days",
+      "label": "Min. shipping days",
+      "default": 14
+    },
+    {
+      "type": "number",
+      "id": "max_shipping_days",
+      "label": "Max. shipping days",
+      "default": 1095
+    },
+    {
+      "type": "header",
+      "content": "Note"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_note",
+      "label": "Enable order notes",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

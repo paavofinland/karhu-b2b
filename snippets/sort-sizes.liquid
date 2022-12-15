@@ -1,0 +1,70 @@
+{% comment %}
+  Outputs comma seperated sorted sizes
+
+  assign product_sizes = product.variants | map: 'option1'
+  capture sizes_string
+    render 'sort-sizes', sizes: product_sizes
+  endcapture
+
+  assign sizes = sizes_string | strip_newlines | split: ','
+{% endcomment %}
+{%- liquid
+  assign default_sizes = product.variants | map: 'option1'
+  assign sizes = sizes | default: default_sizes
+  assign sizes_letters_options = 'XXS,XXS/XS,XS,XS/S,S,S/M,M,M/L,L,L/XL,XL,XL/XXL,XXL,XXL/XXXL,XXXL' | split: ','
+
+  comment
+    sort letters (x, s, m, ...)
+  endcomment
+  assign temp_letter_sizes = ''
+  for size_letter in sizes_letters_options
+    for size in sizes
+      if size == size_letter
+        assign temp_letter_sizes = temp_letter_sizes | append: size | append: ','
+      endif
+    endfor
+  endfor
+
+  assign letter_sizes = temp_letter_sizes | split: ',' | compact
+
+  comment
+    sort numbers
+  endcomment
+  assign temp_sizes = ''
+  for size in sizes
+    unless letter_sizes contains size
+      assign size_x4 = size | times: 4 | round
+      assign temp_sizes = temp_sizes | append: size_x4 | append: ','
+    endunless
+  endfor
+
+  assign temp_sizes = temp_sizes | split: ',' | compact | sort
+  assign temp_number_sizes = ''
+
+  for size in temp_sizes
+    assign original_size = size | append: '.0' | divided_by: 4
+    assign decimal = original_size | split: '.' | last
+    if decimal == '0'
+      assign original_size = original_size | split: '.' | first
+    endif
+    assign temp_number_sizes = temp_number_sizes | append: original_size | append: ','
+  endfor
+
+  assign number_sizes = temp_number_sizes | split: ',' | compact
+
+  comment
+    catch other cases
+  endcomment
+  assign temp_other_sizes = ''
+  for size in sizes
+    unless number_sizes contains size or letter_sizes contains letter
+      assign temp_other_sizes = temp_other_sizes | append: size | append: ','
+    endunless
+  endfor
+
+  assign other_sizes = temp_other_sizes | split: ',' | compact | sort
+
+  echo letter_sizes | join: ','
+  echo number_sizes | join: ','
+  echo other_sizes | join: ','
+-%}

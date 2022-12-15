@@ -2,7 +2,7 @@
   <div data-popup-overlay='overlay' class='z-10 fixed inset-0 bg-[#1E1E1E] opacity-50'></div>
   <div class='fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-white min-w-[340px] lg:min-w-[480px] p-4 pt-7 lg:p-8'>
     <p class='text-heading-5'>{{- title | t -}}</p>
-    <button data-close-popup-btn class='w-6 h-6 absolute top-3 right-3'>
+    <button data-close-popup-btn type='button' class='w-6 h-6 absolute top-3 right-3'>
       {%- render 'component.icon', type: 'close', class: 'inline h-6 w-6' -%}
     </button>
     <div>

@@ -9,7 +9,15 @@ const updateCart = async payload =>
 
 export default window.component(async (node, ctx) => {
   const { itemCount } = node.dataset;
-  const { removeForm, storeId } = choozy(node);
+  const { removeForm, storeId, attributeInput, noteInput } = choozy(node);
+
+  const attributeInputs = [].concat(attributeInput).filter(Boolean);
+
+  [...attributeInputs, noteInput].forEach(input =>
+    input.addEventListener('blur', async e => {
+      await updateCart(new FormData(e.target.form));
+    })
+  );
 
   ctx.on('cart-edit-drawer:toggle', (_, id = false) =>
     node.classList[id === false ? 'add' : 'remove'](
@@ -46,6 +54,7 @@ export default window.component(async (node, ctx) => {
       f.addEventListener('submit', async e => {
         e.preventDefault();
         ctx.emit('cart:loading', null, true);
+        console.log(new FormData(e.target));
         await updateCart(new FormData(e.target));
         ctx.emit('cart:render');
       })

@@ -32,7 +32,13 @@
   </div>
   <div class='flex justify-between mb-5 text-grey-3'>
     <p>{{- product.metafields.details.color | default: product_color | default: '&nbsp;' -}}</p>
-    <p>{{- product.metafields.details.sku | default: '&nbsp;' -}}</p>
+    <p>
+      {{-
+        product.metafields.details.sku
+        | default: product.metafields.details.SKU
+        | default: '&nbsp;'
+      -}}
+    </p>
   </div>
   {% render 'quick-add-button', product: product %}
   {%- if product.compare_at_price_max > product.price -%}

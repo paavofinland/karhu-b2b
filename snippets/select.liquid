@@ -11,7 +11,7 @@
   <select
     data-select
     {{ select_attributes }}
-    class='bg-inherit appearance-none cursor-pointer text-inherit w-full h-full is-loading:animate-pulse is-loading:text-opacity-50 is-loading:cursor-wait px-[var(--select-padding-x)] py-[var(--select-padding-y)]'
+    class='{%- if select_class -%} {{- select_class -}} {%- else -%} bg-inherit {%- endif %} appearance-none cursor-pointer text-inherit w-full h-full is-loading:animate-pulse is-loading:text-opacity-50 is-loading:cursor-wait px-[var(--select-padding-x)] py-[var(--select-padding-y)]'
   >
     {%- if placeholder != blank -%}
       <option

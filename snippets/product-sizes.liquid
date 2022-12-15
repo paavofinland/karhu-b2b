@@ -33,13 +33,13 @@
   else
     assign temp_sizes = ''
     for size in sizes
-      assign size_x2 = size | times: 2 | round
+      assign size_x2 = size | times: 4 | round
       assign temp_sizes = temp_sizes | append: size_x2 | append: ','
     endfor
     assign temp_sizes = temp_sizes | split: ',' | sort
     assign sizes = ''
     for size in temp_sizes
-      assign original_size = size | append: '.0' | divided_by: 2
+      assign original_size = size | append: '.0' | divided_by: 4
       assign decimal = original_size | split: '.' | last
       if decimal == '0'
         assign original_size = original_size | split: '.' | first
@@ -49,6 +49,7 @@
     assign sizes = sizes | split: ','
   endif
 -%}
+
 <div>
   <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-3'>
     <p>Select amount</p>

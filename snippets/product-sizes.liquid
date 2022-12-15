@@ -3,53 +3,13 @@
   assign size_locales = 'eu|us|uk' | split: '|'
   assign is_cart = is_cart | default: false
 
-  assign sizes = product.variants | map: 'option1'
-  assign sizes_letters = 'X,S,M,L' | split: ','
-  assign sizes_letters_options = 'XXS,XXS/XS,XS,XS/S,S,S/M,M,M/L,L,L/XL,XL,XL/XXL,XXL,XXL/XXXL,XXXL' | split: ','
-  assign is_letter = false
+  assign product_sizes = product.variants | map: 'option1'
+  capture sizes_string
+    render 'sort-sizes', sizes: product_sizes
+  endcapture
 
-  for size in sizes
-    if is_letter
-      break
-    endif
-    for letter in sizes_letters
-      if size contains letter
-        assign is_letter = true
-        break
-      endif
-    endfor
-  endfor
-
-  if is_letter
-    assign temp_sizes = ''
-    for letter_size in sizes_letters_options
-      for size in sizes
-        if size == letter_size
-          assign temp_sizes = temp_sizes | append: size | append: ','
-        endif
-      endfor
-    endfor
-    assign sizes = temp_sizes | split: ','
-  else
-    assign temp_sizes = ''
-    for size in sizes
-      assign size_x2 = size | times: 4 | round
-      assign temp_sizes = temp_sizes | append: size_x2 | append: ','
-    endfor
-    assign temp_sizes = temp_sizes | split: ',' | sort
-    assign sizes = ''
-    for size in temp_sizes
-      assign original_size = size | append: '.0' | divided_by: 4
-      assign decimal = original_size | split: '.' | last
-      if decimal == '0'
-        assign original_size = original_size | split: '.' | first
-      endif
-      assign sizes = sizes | append: original_size | append: ','
-    endfor
-    assign sizes = sizes | split: ','
-  endif
+  assign sizes = sizes_string | strip_newlines | split: ','
 -%}
-
 <div>
   <div class='text-heading-7 text-grey-1 flex justify-between items-center mb-3'>
     <p>Select amount</p>

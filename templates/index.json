@@ -7,24 +7,24 @@
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/Image.png",
-            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "image": "shopify:\/\/shop_images\/mobile_a32aa8cf-8621-4525-9ffb-baa65590d50c.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/Lifestyle_banner_d38482be-f91d-4da0-9bdd-319e3587c88d.jpg",
             "title_tag": "h2",
-            "title": "New apparel collection",
+            "title": "Northern<br>Lights<br><br><br><br><br>",
             "button_text": "Shop Collection",
-            "button_url": ""
+            "button_url": "shopify:\/\/collections\/lifestyle"
           }
         },
         "73d6483a-d42f-48e0-acc9-26cf82d4d3bc": {
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/Image.png",
-            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "image": "shopify:\/\/shop_images\/7.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/7_22c35748-9da6-47bb-9671-9821b7f47189.jpg",
             "title_tag": "h2",
-            "title": "Another collection",
-            "button_text": "Shop another collection",
-            "button_url": ""
+            "title": "Ikoni trail",
+            "button_text": "Shop collection",
+            "button_url": "shopify:\/\/collections\/running"
           }
         }
       },

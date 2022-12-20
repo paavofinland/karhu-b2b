@@ -37,14 +37,13 @@
     },
     "6dc9aee5-4ddd-43c1-8649-8966cdd2ab2c": {
       "type": "category-overview",
-      "disabled": true,
       "blocks": {
         "d6d45555-e243-4ac3-97d6-b490ae1cbe22": {
           "type": "category",
           "settings": {
             "collection": "running",
-            "image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
+            "image": "shopify:\/\/shop_images\/running.png",
+            "desktop_image": "shopify:\/\/shop_images\/running.png",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -54,8 +53,8 @@
           "type": "category",
           "settings": {
             "collection": "lifestyle",
-            "image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
+            "image": "shopify:\/\/shop_images\/sneakers.png",
+            "desktop_image": "shopify:\/\/shop_images\/sneakers.png",
             "title": "",
             "button_text": "",
             "button_url": ""

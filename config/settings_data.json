@@ -18,7 +18,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu": "",
+          "menu": "main-menu",
           "clear_background": "index,collection,product"
         }
       },

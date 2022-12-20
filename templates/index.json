@@ -42,8 +42,8 @@
           "type": "category",
           "settings": {
             "collection": "lifestyle",
-            "image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
-            "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
+            "image": "shopify:\/\/shop_images\/lifestyle.png",
+            "desktop_image": "shopify:\/\/shop_images\/lifestyle.png",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -53,8 +53,8 @@
           "type": "category",
           "settings": {
             "collection": "running",
-            "image": "shopify:\/\/shop_images\/Footwear_carousel_1070x_bdd8ee5b-c79f-4474-b2e2-ac8d32d305a3.webp",
-            "desktop_image": "shopify:\/\/shop_images\/Footwear_carousel_1070x_bdd8ee5b-c79f-4474-b2e2-ac8d32d305a3.webp",
+            "image": "shopify:\/\/shop_images\/running_a0a6b2a1-e05d-4960-8113-d9a56177b610.png",
+            "desktop_image": "shopify:\/\/shop_images\/running_a0a6b2a1-e05d-4960-8113-d9a56177b610.png",
             "title": "",
             "button_text": "",
             "button_url": ""

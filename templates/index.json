@@ -19,11 +19,11 @@
           "type": "category",
           "settings": {
             "lazyload_image": true,
-            "image": "shopify:\/\/shop_images\/Karhu_Mood_F803094_04.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Karhu_Banner_Orienteering_NoLogo.jpg",
+            "image": "shopify:\/\/shop_images\/Mobile_750x1000_Karhu_Running_DUNE_and_TRAIL.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/5.jpg",
             "title_tag": "h2",
-            "title": "Bestsellers",
-            "button_text": "Shop Bestsellers",
+            "title": "IKONI TRAIL",
+            "button_text": "Shop Collection",
             "button_url": ""
           }
         }

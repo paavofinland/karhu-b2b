@@ -51,8 +51,8 @@
         "type": "main-account",
         "settings": {
           "title": "My account",
-          "image": "shopify:\/\/shop_images\/Rectangle_305.png",
-          "desktop_image": "shopify:\/\/shop_images\/Image_6.png"
+          "image": "shopify:\/\/shop_images\/mobile.png",
+          "desktop_image": "shopify:\/\/shop_images\/desktop.png"
         }
       }
     },

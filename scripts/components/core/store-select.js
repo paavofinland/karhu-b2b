@@ -64,10 +64,11 @@ export default window.component(async (node, ctx) => {
     ctx.emit(LOADING_EVENT, null, false);
     ctx.emit('agent-stores:received', null, { data: agentStores });
 
-    const countryCode = agentStores.find(({ id }) => id === selectedStoreCustomer)?.countryCode;
-    if (countryCode) {
+    const selectedStore = agentStores.find(({ id }) => id === selectedStoreCustomer);
+    if (selectedStore) {
       ctx.emit('country:revalidate', null, {
-        countryCode,
+        countryCode: selectedStore.countryCode,
+        storeCustomerId: selectedStore.id,
       });
     }
 
@@ -79,16 +80,33 @@ export default window.component(async (node, ctx) => {
     appendSelect(agentStores);
   };
 
-  customerSelect.addEventListener('change', async e => {
+  const updateStoreCustomer = async ({ countryCode, storeCustomerId }) => {
     ctx.emit(LOADING_EVENT, null, true);
-    await fetchFunction(`/customer/set-selected-store?${query}&storeCustomerId=${e.target.value}`, {
-      method: 'POST',
-    }).catch(e => console.info('[unhandled error]'));
+    await fetchFunction(
+      `/customer/set-selected-store?${query}&storeCustomerId=${storeCustomerId}`,
+      {
+        method: 'POST',
+      }
+    ).catch(() => console.info('[unhandled error]'));
     ctx.emit(LOADING_EVENT, null, false);
     ctx.emit('country:revalidate', null, {
-      countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
+      countryCode,
+      storeCustomerId,
     });
-  });
+  };
 
-  await loadAgentStores();
+  customerSelect.addEventListener('change', async e =>
+    updateStoreCustomer({
+      countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
+      storeCustomerId: e.target.value,
+    })
+  );
+
+  ctx.on('agent-stores:load', async (_, { storeCustomerId, countryCode }) => {
+    if (countryCode && storeCustomerId && storeCustomerId !== selectedStoreCustomer) {
+      await updateStoreCustomer({ countryCode, storeCustomerId });
+    }
+
+    await loadAgentStores();
+  });
 });

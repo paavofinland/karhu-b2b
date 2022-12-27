@@ -1,1 +1,136 @@
-(()=>{"use strict";function e(e=document.body,s){const i=[...e.querySelectorAll(s?`[class*="${s}"]`:"*")],n=s?"classList":"dataset";return i.reduce(((e,i)=>([].slice.call(s?i[n]:Object.entries(i[n])).forEach((n=>{let t;s&&n.slice(0,s.length)===s?t=n.slice(s.length,n.length):s||([t]=n),t&&(e[t]=e.hasOwnProperty(t)?e[t].constructor===Array?e[t].concat(i):[e[t],i]:i)})),e)),{})}const s=e=>new Promise((s=>{window?.hasLoaded?.scripts?.[e]?s():window.app.on(`${e}:loaded`,s)})),i={productImages:window.component((async i=>{const{slider:n,thumbnailSlider:t,prev:o,next:l}=e(i),{slides:r}=i.dataset;if(!n)return;await s("Swiper");const a={slidesPerView:3.25,watchSlidesProgress:!0,breakpoints:{1024:{slidesPerView:Math.max(Math.min(Number(r),9.5),5)}},on:{beforeInit(e){e.$el.removeClass("is-loading")}}},d=new Swiper(t,a);new Swiper(n,{resizeObserver:!0,thumbs:{swiper:d,multipleActiveThumbs:!1,slideThumbActiveClass:"is-active"},navigation:{nextEl:l,prevEl:o},on:{beforeInit(e){e.$el.removeClass("is-loading")}}})})),productColors:window.component((async i=>{const{slider:n,slide:t,prev:o,next:l}=e(i),r=[].concat(t).length;await s("Swiper"),r>3&&new Swiper(n,{slidesPerView:3.5,spaceBetween:4,on:{beforeInit(e){e.$el.removeClass("is-loading")},navigationNext(e){(e.slides.length-1)/2<=4&&e.slideTo(e.slides.length-1)},navigationPrev(e){(e.slides.length-1)/2<=4&&e.slideTo(0)}},breakpoints:{768:{slidesPerView:5.5},1024:{slidesPerView:4,navigation:{nextEl:l,prevEl:o}}}})}))};window.app.add(i),window.app.mount()})();
+/*
+ * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
+ * This devtool is neither made for production nor for readable output files.
+ * It uses "eval()" calls to create a separate source file in the browser devtools.
+ * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
+ * or disable the default devtool with "devtool: false".
+ * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
+ */
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./scripts/components/product/components.js":
+/*!**************************************************!*\
+  !*** ./scripts/components/product/components.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _product_images__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./product-images */ \"./scripts/components/product/product-images.js\");\n/* harmony import */ var _product_colors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./product-colors */ \"./scripts/components/product/product-colors.js\");\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n  productImages: _product_images__WEBPACK_IMPORTED_MODULE_0__.default,\n  productColors: _product_colors__WEBPACK_IMPORTED_MODULE_1__.default,\n});\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/product/components.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/product/product-colors.js":
+/*!******************************************************!*\
+  !*** ./scripts/components/product/product-colors.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _lib_waitToLoad__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/waitToLoad */ \"./scripts/lib/waitToLoad.js\");\n/* harmony import */ var _lib_choozy__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/choozy */ \"./scripts/lib/choozy.js\");\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.component(async node => {\n  const { slider, slide, prev, next } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_1__.default)(node);\n\n  const slides = [].concat(slide).length;\n  await (0,_lib_waitToLoad__WEBPACK_IMPORTED_MODULE_0__.default)('Swiper');\n\n  const desktopSlidesPerView = 4;\n\n  if (slides > 3) {\n    /** @type {import('swiper').SwiperOptions} */\n    const swiperConfig = {\n      slidesPerView: 3.5,\n      spaceBetween: 4,\n\n      on: {\n        beforeInit(s) {\n          s.$el.removeClass('is-loading');\n        },\n        navigationNext(s) {\n          // Slide to last\n          if ((s.slides.length - 1) / 2 <= desktopSlidesPerView) s.slideTo(s.slides.length - 1);\n        },\n        navigationPrev(s) {\n          // Slide to first\n          if ((s.slides.length - 1) / 2 <= desktopSlidesPerView) s.slideTo(0);\n        },\n      },\n      breakpoints: {\n        768: {\n          slidesPerView: 5.5,\n        },\n        1024: {\n          slidesPerView: desktopSlidesPerView,\n          navigation: {\n            nextEl: next,\n            prevEl: prev,\n          },\n        },\n      },\n    };\n\n    // eslint-disable-next-line no-undef, no-new\n    const a = new Swiper(slider, swiperConfig);\n  }\n}));\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/product/product-colors.js?");
+
+/***/ }),
+
+/***/ "./scripts/components/product/product-images.js":
+/*!******************************************************!*\
+  !*** ./scripts/components/product/product-images.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* harmony import */ var _lib_choozy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../lib/choozy */ \"./scripts/lib/choozy.js\");\n/* harmony import */ var _lib_waitToLoad__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../lib/waitToLoad */ \"./scripts/lib/waitToLoad.js\");\n\n\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (window.component(async node => {\n  const { slider, thumbnailSlider, prev, next } = (0,_lib_choozy__WEBPACK_IMPORTED_MODULE_0__.default)(node);\n  const { slides } = node.dataset;\n\n  if (!slider) return;\n\n  await (0,_lib_waitToLoad__WEBPACK_IMPORTED_MODULE_1__.default)('Swiper');\n\n  /** @type {import('swiper').SwiperOptions} */\n  const subSwiperOptions = {\n    slidesPerView: 3.25,\n    watchSlidesProgress: true,\n    breakpoints: {\n      1024: {\n        slidesPerView: Math.max(Math.min(Number(slides), 9.5), 5),\n      },\n    },\n    on: {\n      beforeInit(s) {\n        s.$el.removeClass('is-loading');\n      },\n    },\n  };\n\n  // eslint-disable-next-line no-undef\n  const subSwiper = new Swiper(thumbnailSlider, subSwiperOptions);\n\n  /** @type {import('swiper').SwiperOptions} */\n  const swiperOptions = {\n    resizeObserver: true,\n    thumbs: {\n      swiper: subSwiper,\n      multipleActiveThumbs: false,\n      slideThumbActiveClass: 'is-active',\n    },\n    navigation: {\n      nextEl: next,\n      prevEl: prev,\n    },\n    on: {\n      beforeInit(s) {\n        s.$el.removeClass('is-loading');\n      },\n    },\n  };\n\n  // eslint-disable-next-line no-undef, no-new\n  new Swiper(slider, swiperOptions);\n}));\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/components/product/product-images.js?");
+
+/***/ }),
+
+/***/ "./scripts/lib/choozy.js":
+/*!*******************************!*\
+  !*** ./scripts/lib/choozy.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n/* eslint-disable */\n\n/**\n * @param {Element} container \n * @param {string} prefix \n * @returns {Object.<string, Element | Array<Element>} components\n */\n /* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(container = document.body, prefix) {\n  const elements = [...container.querySelectorAll(!prefix ? '*' : `[class*=\"${prefix}\"]`)];\n  const property = !prefix ? 'dataset' : 'classList';\n  return elements.reduce((res, el) => {\n    [].slice.call(!prefix ? Object.entries(el[property]) : el[property]).forEach(property => {\n      let key;\n      if (prefix && property.slice(0, prefix.length) === prefix)\n        key = property.slice(prefix.length, property.length);\n      else if (!prefix) [key] = property;\n      if (key) {\n        res[key] = res.hasOwnProperty(key)\n          ? res[key].constructor === Array\n            ? res[key].concat(el)\n            : [res[key], el]\n          : el;\n      }\n    });\n    return res;\n  }, {});\n}\n\n//# sourceURL=webpack://shopify-starter/./scripts/lib/choozy.js?");
+
+/***/ }),
+
+/***/ "./scripts/lib/waitToLoad.js":
+/*!***********************************!*\
+  !*** ./scripts/lib/waitToLoad.js ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\nconst waitToLoad = scriptName =>\n  new Promise(res => {\n    if (window?.hasLoaded?.scripts?.[scriptName]) res();\n    else window.app.on(`${scriptName}:loaded`, res);\n  });\n\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (waitToLoad);\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/lib/waitToLoad.js?");
+
+/***/ }),
+
+/***/ "./scripts/util/product.js":
+/*!*********************************!*\
+  !*** ./scripts/util/product.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_product_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/product/components */ \"./scripts/components/product/components.js\");\n\n\nwindow.app.add(_components_product_components__WEBPACK_IMPORTED_MODULE_0__.default);\nwindow.app.mount();\n\n\n//# sourceURL=webpack://shopify-starter/./scripts/util/product.js?");
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	var __webpack_exports__ = __webpack_require__("./scripts/util/product.js");
+/******/ 	
+/******/ })()
+;

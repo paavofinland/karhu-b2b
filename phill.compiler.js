@@ -5,4 +5,5 @@ module.exports = [
   './scripts/util/product.js',
   './scripts/util/collection.js',
   './scripts/util/account.js',
+  './scripts/util/checkout.js',
 ];

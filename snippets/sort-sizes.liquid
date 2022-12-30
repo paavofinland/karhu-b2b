@@ -11,7 +11,7 @@
 {%- liquid
   assign default_sizes = product.variants | map: 'option1'
   assign sizes = sizes | default: default_sizes
-  assign sizes_letters_options = 'XXS,XXS/XS,XS,XS/S,S,S/M,M,M/L,L,L/XL,XL,XL/XXL,XXL,XXL/XXXL,XXXL' | split: ','
+  assign sizes_letters_options = 'XXS,XXS-XS,XXS/XS,XS,XS-S,XS/S,S,S/M,S-M,M,M/L,M-L,L,L/XL,L-XL,XL,XL/XXL,XL-XXL,XXL,XXL/XXXL,XXL-XXXL,XXXL' | split: ','
 
   comment
     sort letters (x, s, m, ...)
@@ -57,7 +57,7 @@
   endcomment
   assign temp_other_sizes = ''
   for size in sizes
-    unless number_sizes contains size or letter_sizes contains letter
+    unless number_sizes contains size or letter_sizes contains size
       assign temp_other_sizes = temp_other_sizes | append: size | append: ','
     endunless
   endfor

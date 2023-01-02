@@ -1,12 +1,11 @@
 import '../styles/main.css';
 import './lib/hmr';
-import { component } from 'picoapp';
+import { component, picoapp } from 'picoapp';
 
 import './async';
-import app from './app';
 
-window.app = app;
+window.app = picoapp({}, {});
 window.component = component;
-window.vendors = name => app.emit(`${name}:loaded`);
+window.vendors = name => window.app.emit(`${name}:loaded`);
 
 // app.on('mount', () => console.info('♻️ Mounting'));

@@ -12,19 +12,19 @@
             "title_tag": "h2",
             "title": "Northern<br>Lights<br><br><br><br><br>",
             "button_text": "Shop Collection",
-            "button_url": ""
+            "button_url": "shopify:\/\/collections\/lifestyle"
           }
         },
         "73d6483a-d42f-48e0-acc9-26cf82d4d3bc": {
           "type": "category",
           "settings": {
-            "lazyload_image": true,
+            "lazyload_image": false,
             "image": "shopify:\/\/shop_images\/7.jpg",
             "desktop_image": "shopify:\/\/shop_images\/7_22c35748-9da6-47bb-9671-9821b7f47189.jpg",
             "title_tag": "h2",
-            "title": "IKONI TRAIL",
-            "button_text": "Shop Collection",
-            "button_url": ""
+            "title": "Ikoni trail",
+            "button_text": "Shop collection",
+            "button_url": "shopify:\/\/collections\/running"
           }
         }
       },
@@ -68,7 +68,7 @@
             "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
             "title": "Shop new",
             "button_text": "",
-            "button_url": ""
+            "button_url": "shopify:\/\/collections"
           }
         }
       },

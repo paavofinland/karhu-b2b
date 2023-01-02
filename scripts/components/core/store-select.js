@@ -58,18 +58,25 @@ export default window.component(async (node, ctx) => {
     secret: customerSecret,
   });
 
+  const updateStoreCustomer = async (storeCustomerId, countryCode) => {
+    ctx.emit(LOADING_EVENT, null, true);
+    await fetchFunction(
+      `/customer/set-selected-store?${query}&storeCustomerId=${storeCustomerId}`,
+      {
+        method: 'POST',
+      }
+    ).catch(e => console.info('[unhandled error]'));
+    ctx.emit(LOADING_EVENT, null, false);
+    ctx.emit('country:revalidate', null, {
+      countryCode,
+    });
+  };
+
   const loadAgentStores = async () => {
     const agentStores = await getAgentStores(store, customerId, customerSecret);
 
     ctx.emit(LOADING_EVENT, null, false);
     ctx.emit('agent-stores:received', null, { data: agentStores });
-
-    const countryCode = agentStores.find(({ id }) => id === selectedStoreCustomer)?.countryCode;
-    if (countryCode) {
-      ctx.emit('country:revalidate', null, {
-        countryCode,
-      });
-    }
 
     if (!agentStores.length) {
       customerSelect.setAttribute('disabled', true);
@@ -77,18 +84,27 @@ export default window.component(async (node, ctx) => {
     }
 
     appendSelect(agentStores);
+
+    const storeCustomer = agentStores.find(({ id }) => id === selectedStoreCustomer);
+    if (!storeCustomer) {
+      const { id: defaultId, countryCode: defaultCountryCode } = agentStores[0];
+      updateStoreCustomer(defaultId, defaultCountryCode);
+      return;
+    }
+
+    const { countryCode } = storeCustomer;
+    if (countryCode)
+      ctx.emit('country:revalidate', null, {
+        countryCode,
+      });
   };
 
-  customerSelect.addEventListener('change', async e => {
-    ctx.emit(LOADING_EVENT, null, true);
-    await fetchFunction(`/customer/set-selected-store?${query}&storeCustomerId=${e.target.value}`, {
-      method: 'POST',
-    }).catch(e => console.info('[unhandled error]'));
-    ctx.emit(LOADING_EVENT, null, false);
-    ctx.emit('country:revalidate', null, {
-      countryCode: e.target.options[e.target.selectedIndex].dataset.countryCode,
-    });
-  });
+  customerSelect.addEventListener('change', async e =>
+    updateStoreCustomer(
+      e.target.value,
+      e.target.options[e.target.selectedIndex].dataset.countryCode
+    )
+  );
 
   await loadAgentStores();
 });

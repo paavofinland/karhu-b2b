@@ -18,7 +18,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu": "header",
+          "menu": "main-menu",
           "clear_background": "index,collection,product"
         }
       },
@@ -30,8 +30,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "footer",
-          "navigation_second": "footer-menu-about"
+          "navigation_first": "about-karhu",
+          "navigation_second": "help"
         }
       },
       "announcement-bar": {
@@ -43,16 +43,16 @@
       "main-login": {
         "type": "main-login",
         "settings": {
-          "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
-          "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg"
+          "image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
+          "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp"
         }
       },
       "main-account": {
         "type": "main-account",
         "settings": {
           "title": "My account",
-          "image": "shopify:\/\/shop_images\/Rectangle_305.png",
-          "desktop_image": "shopify:\/\/shop_images\/Image_6.png"
+          "image": "shopify:\/\/shop_images\/mobile.png",
+          "desktop_image": "shopify:\/\/shop_images\/desktop.png"
         }
       }
     },

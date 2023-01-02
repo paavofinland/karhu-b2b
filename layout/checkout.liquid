@@ -23,32 +23,49 @@
     </header>
 
     {{ order_summary_toggle }}
-    <div class="content" data-content>
-      <div class="wrap">
-        <div class="main">
-          <header class="main__header" role="banner">
+    <div class='content' data-content>
+      <div class='wrap'>
+        <div class='main'>
+          <header class='main__header' role='banner'>
             {{ content_for_logo }}
             {{ breadcrumb }}
             {{ alternative_payment_methods }}
           </header>
-          <main class="main__content" role="main">
+          <main class='main__content' role='main'>
             {{ content_for_layout }}
           </main>
-          <footer class="main__footer" role="contentinfo">
+          <footer class='main__footer' role='contentinfo'>
             {{ content_for_footer }}
           </footer>
         </div>
-        <aside class="sidebar" role="complementary">
-          <div class="sidebar__header">
+        <aside class='sidebar' role='complementary'>
+          <div class='sidebar__header'>
             {{ content_for_logo }}
           </div>
-          <div class="sidebar__content">
+          <div class='sidebar__content'>
             {{ content_for_order_summary }}
           </div>
         </aside>
       </div>
     </div>
 
+    <script id='liquid-variables' type='application/json'>
+      {
+        "payment_methods": {
+          "hide_credit_card": {{ settings['hide_credit_card'] | json }}
+        }
+      }
+    </script>
+
+    <script>
+      const checkoutStep = Shopify.Checkout.step.replace(/([-_][a-z])/g, group =>
+        group.toUpperCase().replace('-', '').replace('_', '')
+      );
+      document.querySelector('body').setAttribute('data-component', checkoutStep);
+    </script>
+
     {{ tracking_code }}
+    <script src='{{- 'index.js' | asset_url -}}' defer></script>
+    <script src='{{- 'checkout.js' | asset_url -}}' defer></script>
   </body>
 </html>

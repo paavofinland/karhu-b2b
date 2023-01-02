@@ -30,8 +30,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "about-karhu",
-          "navigation_second": "help"
+          "navigation_first": "",
+          "navigation_second": ""
         }
       },
       "announcement-bar": {
@@ -51,8 +51,8 @@
         "type": "main-account",
         "settings": {
           "title": "My account",
-          "image": "shopify:\/\/shop_images\/mobile.png",
-          "desktop_image": "shopify:\/\/shop_images\/desktop.png"
+          "image": "shopify:\/\/shop_images\/Rectangle_305.png",
+          "desktop_image": "shopify:\/\/shop_images\/Image_6.png"
         }
       }
     },

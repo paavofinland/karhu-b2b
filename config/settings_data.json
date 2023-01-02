@@ -18,7 +18,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu": "main-menu",
+          "menu": "header",
           "clear_background": "index,collection,product"
         }
       },
@@ -30,8 +30,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "",
-          "navigation_second": ""
+          "navigation_first": "footer",
+          "navigation_second": "footer-menu-about"
         }
       },
       "announcement-bar": {
@@ -43,8 +43,8 @@
       "main-login": {
         "type": "main-login",
         "settings": {
-          "image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
-          "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp"
+          "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+          "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg"
         }
       },
       "main-account": {

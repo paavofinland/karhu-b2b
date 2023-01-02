@@ -7,24 +7,24 @@
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/Image.png",
-            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "image": "shopify:\/\/shop_images\/mobile_a32aa8cf-8621-4525-9ffb-baa65590d50c.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/Lifestyle_banner_d38482be-f91d-4da0-9bdd-319e3587c88d.jpg",
             "title_tag": "h2",
-            "title": "New apparel collection",
+            "title": "Northern<br>Lights<br><br><br><br><br>",
             "button_text": "Shop Collection",
-            "button_url": ""
+            "button_url": "shopify:\/\/collections\/lifestyle"
           }
         },
         "73d6483a-d42f-48e0-acc9-26cf82d4d3bc": {
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/Image.png",
-            "desktop_image": "shopify:\/\/shop_images\/Image_1.png",
+            "image": "shopify:\/\/shop_images\/7.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/7_22c35748-9da6-47bb-9671-9821b7f47189.jpg",
             "title_tag": "h2",
-            "title": "Another collection",
-            "button_text": "Shop another collection",
-            "button_url": ""
+            "title": "Ikoni trail",
+            "button_text": "Shop collection",
+            "button_url": "shopify:\/\/collections\/running"
           }
         }
       },
@@ -38,23 +38,23 @@
     "6dc9aee5-4ddd-43c1-8649-8966cdd2ab2c": {
       "type": "category-overview",
       "blocks": {
-        "d6d45555-e243-4ac3-97d6-b490ae1cbe22": {
+        "cd8c5e7b-2dfa-4ef0-a49a-bdcfc0c6bbd5": {
           "type": "category",
           "settings": {
-            "collection": "running",
-            "image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Rectangle_679.jpg",
+            "collection": "lifestyle",
+            "image": "shopify:\/\/shop_images\/sneakers.png",
+            "desktop_image": "shopify:\/\/shop_images\/sneakers.png",
             "title": "",
             "button_text": "",
             "button_url": ""
           }
         },
-        "cd8c5e7b-2dfa-4ef0-a49a-bdcfc0c6bbd5": {
+        "d6d45555-e243-4ac3-97d6-b490ae1cbe22": {
           "type": "category",
           "settings": {
-            "collection": "lifestyle",
-            "image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Rectangle_678.jpg",
+            "collection": "running",
+            "image": "shopify:\/\/shop_images\/running.png",
+            "desktop_image": "shopify:\/\/shop_images\/running.png",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -64,15 +64,17 @@
           "type": "category",
           "settings": {
             "collection": "order-list",
-            "title": "",
+            "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+            "title": "SHOP NEW",
             "button_text": "",
-            "button_url": ""
+            "button_url": "shopify:\/\/collections"
           }
         }
       },
       "block_order": [
-        "d6d45555-e243-4ac3-97d6-b490ae1cbe22",
         "cd8c5e7b-2dfa-4ef0-a49a-bdcfc0c6bbd5",
+        "d6d45555-e243-4ac3-97d6-b490ae1cbe22",
         "e0e2214c-30c8-457f-8260-043bdb227b8e"
       ],
       "settings": {

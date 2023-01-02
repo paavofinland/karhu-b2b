@@ -51,7 +51,15 @@
         </aside>
       </div>
     </div>
+    <script>
+      const checkoutStep = Shopify.Checkout.step.replace(/([-_][a-z])/g, group =>
+        group.toUpperCase().replace('-', '').replace('_', '')
+      );
+      document.querySelector('body').setAttribute('data-component', checkoutStep);
+    </script>
 
     {{ tracking_code }}
+    <script src='{{- 'index.js' | asset_url -}}' defer></script>
+    <script src='{{- 'checkout.js' | asset_url -}}' defer></script>
   </body>
 </html>

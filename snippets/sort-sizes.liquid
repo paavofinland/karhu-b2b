@@ -11,7 +11,7 @@
 {%- liquid
   assign default_sizes = product.variants | map: 'option1'
   assign sizes = sizes | default: default_sizes
-  assign sizes_letters_options = 'XXS,XXS-XS,XXS/XS,XS,XS-S,XS/S,S,S/M,S-M,M,M/L,M-L,L,L/XL,L-XL,XL,XL/XXL,XL-XXL,XXL,XXL/XXXL,XXL-XXXL,XXXL' | split: ','
+  assign sizes_letters_options = 'XXS,XXS-XS,XXS/XS,XS,XS-S,XS/S,S,Small,S/M,S-M,M,Medium,M/L,M-L,L,Large,L/XL,L-XL,XL,XL/XXL,XL-XXL,XXL,XXL/XXXL,XXL-XXXL,XXXL' | downcase | split: ','
 
   comment
     sort letters (x, s, m, ...)
@@ -19,7 +19,8 @@
   assign temp_letter_sizes = ''
   for size_letter in sizes_letters_options
     for size in sizes
-      if size == size_letter
+      assign lowercase_size = size | downcase
+      if lowercase_size == size_letter
         assign temp_letter_sizes = temp_letter_sizes | append: size | append: ','
       endif
     endfor
@@ -32,7 +33,14 @@
   endcomment
   assign temp_sizes = ''
   for size in sizes
-    unless letter_sizes contains size
+    assign is_numeric = true
+    assign abs = size | abs
+    assign json = size | json
+    if abs == 0 and json != '"0"'
+      assign is_numeric = false
+    endif
+
+    unless letter_sizes contains size or is_numeric == false
       assign size_x4 = size | times: 4 | round
       assign temp_sizes = temp_sizes | append: size_x4 | append: ','
     endunless
@@ -64,7 +72,11 @@
 
   assign other_sizes = temp_other_sizes | split: ',' | compact | sort
 
-  echo letter_sizes | join: ','
-  echo number_sizes | join: ','
+  if letter_sizes.size > 0
+    echo letter_sizes | join: ',' | append: ','
+  endif
+  if number_sizes.size > 0
+    echo number_sizes | join: ',' | append: ','
+  endif
   echo other_sizes | join: ','
 -%}

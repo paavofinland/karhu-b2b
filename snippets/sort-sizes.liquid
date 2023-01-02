@@ -33,9 +33,6 @@
   endcomment
   assign temp_sizes = ''
   for size in sizes
-    comment
-      filter our non numberic
-    endcomment
     assign is_numeric = true
     assign abs = size | abs
     assign json = size | json

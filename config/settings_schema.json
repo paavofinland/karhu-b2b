@@ -18,159 +18,27 @@
     ]
   },
   {
-    "name": "Multistore setup",
-    "settings": [
-      {
-        "type": "header",
-        "content": "current store"
-      },
-      {
-        "type": "checkbox",
-        "id": "development_store",
-        "label": "Development store",
-        "info": "Check if the store is a development store"
-      },
-      {
-        "type": "header",
-        "content": "Europe"
-      },
-      {
-        "label": "Country name",
-        "id": "country_name__eu",
-        "type": "text",
-        "default": "Europe / €"
-      },
-      {
-        "label": "Country name",
-        "id": "country_possesive__eu",
-        "type": "text",
-        "default": "European"
-      },
-      {
-        "label": "Country link",
-        "id": "country_url__eu",
-        "type": "text",
-        "default": "https://karhu-b2b.com/"
-      },
-      {
-        "type": "header",
-        "content": "United States"
-      },
-      {
-        "label": "Country name",
-        "id": "country_name__us",
-        "type": "text",
-        "default": "United States / $"
-      },
-      {
-        "label": "Country name",
-        "id": "country_possesive__us",
-        "type": "text",
-        "default": "United States"
-      },
-      {
-        "label": "Country link",
-        "id": "country_url__us",
-        "type": "text",
-        "default": "https://us.karhu-b2b.com/"
-      }
-    ]
-  },
-  {
-    "name": "Social media",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Social media links"
-      },
-      {
-        "type": "text",
-        "id": "social_twitter_link",
-        "label": "Twitter"
-      },
-      {
-        "type": "text",
-        "id": "social_facebook_link",
-        "label": "Facebook"
-      },
-      {
-        "type": "text",
-        "id": "social_pinterest_link",
-        "label": "Pintrest"
-      },
-      {
-        "type": "text",
-        "id": "social_instagram_link",
-        "label": "Instagram"
-      },
-      {
-        "type": "text",
-        "id": "social_tiktok_link",
-        "label": "Tik tok"
-      },
-      {
-        "type": "text",
-        "id": "social_snapchat_link",
-        "label": "Snapchat link"
-      },
-      {
-        "type": "text",
-        "id": "social_youtube_link",
-        "label": "Youtube link"
-      }
-    ]
-  },
-  {
-    "name": "Payment icons",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Show Payment icons"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_ideal",
-        "label": "Ideal"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_klarna",
-        "label": "Klarna"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_paypal",
-        "label": "Paypal"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_mastercard",
-        "label": "Mastercard"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_visa",
-        "label": "Visa"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_googlepay",
-        "label": "Google pay"
-      },
-      {
-        "type": "checkbox",
-        "id": "payment_applepay",
-        "label": "Apple pay"
-      }
-    ]
-  },
-  {
     "name": "favicon",
     "settings": [
       {
         "type": "image_picker",
         "id": "favicon",
         "label": "favicon"
+      }
+    ]
+  },
+  {
+    "name": "Checkout Customisations",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Payment methods"
+      },
+      {
+        "type": "checkbox",
+        "id": "hide_credit_card",
+        "label": "Hide credit card",
+        "default": true
       }
     ]
   }

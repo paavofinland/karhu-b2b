@@ -51,6 +51,15 @@
         </aside>
       </div>
     </div>
+
+    <script id='liquid-variables' type='application/json'>
+      {
+        "payment_methods": {
+          "hide_credit_card": {{ settings['hide_credit_card'] | json }}
+        }
+      }
+    </script>
+
     <script>
       const checkoutStep = Shopify.Checkout.step.replace(/([-_][a-z])/g, group =>
         group.toUpperCase().replace('-', '').replace('_', '')

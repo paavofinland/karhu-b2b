@@ -7,8 +7,8 @@
           "type": "category",
           "settings": {
             "lazyload_image": false,
-            "image": "shopify:\/\/shop_images\/mobile_a32aa8cf-8621-4525-9ffb-baa65590d50c.jpg",
-            "desktop_image": "shopify:\/\/shop_images\/Lifestyle_banner_d38482be-f91d-4da0-9bdd-319e3587c88d.jpg",
+            "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
             "title_tag": "h2",
             "title": "Northern<br>Lights<br><br><br><br><br>",
             "button_text": "Shop Collection",
@@ -53,8 +53,8 @@
           "type": "category",
           "settings": {
             "collection": "running",
-            "image": "shopify:\/\/shop_images\/running_a0a6b2a1-e05d-4960-8113-d9a56177b610.png",
-            "desktop_image": "shopify:\/\/shop_images\/running_a0a6b2a1-e05d-4960-8113-d9a56177b610.png",
+            "image": "shopify:\/\/shop_images\/running.png",
+            "desktop_image": "shopify:\/\/shop_images\/running.png",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -63,10 +63,10 @@
         "e0e2214c-30c8-457f-8260-043bdb227b8e": {
           "type": "category",
           "settings": {
-            "collection": "all",
-            "image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
-            "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
-            "title": "Shop new",
+            "collection": "order-list",
+            "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+            "title": "SHOP NEW",
             "button_text": "",
             "button_url": "shopify:\/\/collections"
           }

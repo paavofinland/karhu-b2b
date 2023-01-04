@@ -12,7 +12,7 @@
     {% render 'component.product', product: product %}
 {%- endcomment -%}
 {%- liquid
-  assign product_title_parts = product.title | split: '-'
+  assign product_title_parts = product.title | split: ' - '
   assign product_title = product_title_parts | first | strip
   assign product_color = product_title_parts | last | strip
 -%}

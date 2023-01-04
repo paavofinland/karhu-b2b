@@ -1,23 +1,29 @@
-{%- assign color_count = 0 -%}
-
+{%- liquid
+  assign color_count = 0
+  assign found_handles_string = ''
+-%}
 {%- capture color_slides -%}
-  {%- for product in collections.all.products -%}
-    {%- if product.metafields.details.product_family == family_metafield -%}
-           {% comment %}   if product.available   {% endcomment %}
-          <div data-slide class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] {% if product.handle == current_product -%}order-1 opacity-60{%- else -%}order-2 opacity-100{%- endif -%}' data-slide>
-            {%- unless product.handle == current_product -%}
-              <a href='{{- product.url -}}' >
-            {%- endunless -%}
-              {%- render 'product-image', img: product.featured_image, width: 200, variable: value, aspect_ratio: 0.6 -%}
-            {%- unless product.handle == current_product -%} 
-              </a>
-            {%- endunless -%}
-          </div>
-          {%- assign color_count = color_count | plus: 1 -%}
-        {% comment %}
-         {%- endif -%}
-        {% endcomment %}
-    {%- endif -%}
+  {%- for collection in product.collections -%}
+    {%- paginate collection.products by 1000 -%}
+      {%- for product in collection.products -%}
+        {% comment %} Exclude duplicates {% endcomment %}
+        {%- assign found_handles = found_handles_string | split: ',' -%}
+        {%- unless found_handles contains product.handle -%}
+          {% comment %} Condition {% endcomment %}
+          {%- if product.metafields.details.product_family == family_metafield -%}
+            <div data-slide class='swiper-slide group-is-loading:!shrink-0 group-is-loading:!w-[calc(100%/3.5)] group-is-loading:lg:!w-[calc(25%)] {% if product.handle == current_product -%}order-1 opacity-60{%- else -%}order-2 opacity-100{%- endif -%}' data-slide>
+                <a {% unless product.handle == current_product -%}href='{{- product.url -}}'{%- endunless -%}>
+                  {%- render 'product-image', img: product.featured_image, width: 200, variable: value, aspect_ratio: 0.6, class: 'py-2' -%}
+                </a>
+            </div>
+            {%- liquid
+               assign color_count = color_count | plus: 1 
+                assign found_handles_string = found_handles_string | append: ',' | append: product.handle 
+            -%}
+          {%- endif -%}
+        {%- endunless -%}
+      {%- endfor -%}
+    {%- endpaginate -%}
   {%- endfor -%}
 {%- endcapture -%}
 
@@ -27,7 +33,7 @@
     <div class='relative'>
       <div class='group swiper is-loading' data-slider>
         <div class='swiper-wrapper flex items-center group-is-loading:overflow-hidden group-is-loading:gap-1'>
-            {{- color_slides -}}
+          {{- color_slides -}}
         </div>
       </div>
       {%- render 'component.slider-button',
@@ -35,12 +41,12 @@
         attributes: 'data-prev disabled',
         class: 'hidden lg:block -left-12'
       -%}
-      {%- liquid 
+      {%- liquid
         assign next_attributes = 'data-next'
         if color_count <= 5
           assign next_attributes = next_attributes | append: ' disabled'
         endif
-        -%}
+      -%}
       {%- render 'component.slider-button',
         icon_type: 'arrow-right',
         attributes: next_attributes,
@@ -49,4 +55,3 @@
     </div>
   </div>
 {%- endif -%}
-

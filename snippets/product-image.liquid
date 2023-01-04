@@ -14,19 +14,22 @@
 >
   <div class='absolute inset-0 w-full h-full flex justify-center items-center {{ inner_class -}}'>
     {%- if img -%}
-        {%- render 'component.image',
-          img: img,
-          width: width,
-          aspect_ratio: aspect_ratio,
-          class: image_class
-        -%}
-      </div>
+      {%- render 'component.image',
+        img: img,
+        width: width,
+        aspect_ratio: aspect_ratio,
+        class: image_class
+      -%}
     {%- endif -%}
     {%- if placeholder == true -%}
-      <img data-image class="{{- image_class -}}" loading="eager" />
+      <img data-image class='{{- image_class -}}' loading='eager'>
     {%- endif -%}
     {%- if img == blank or placeholder == true -%}
-        {%- render 'component.icon', type: 'karhu-header-logo', class: 'w-3/5 opacity-20', attributes: 'data-image-placeholder' -%}
+      {%- render 'component.icon',
+        type: 'karhu-header-logo',
+        class: 'w-3/5 opacity-20',
+        attributes: 'data-image-placeholder'
+      -%}
     {%- endif -%}
   </div>
 </{{ tag }}>

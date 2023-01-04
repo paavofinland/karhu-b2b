@@ -52,7 +52,7 @@
       <div class='group swiper flex overflow-hidden w-full is-loading' data-thumbnail-slider>
         <div class='swiper-wrapper flex items-center w-full h-full'>
           {%- for image in product.images -%}
-            <div class='swiper-slide cursor-pointer h-full w-full shrink-0 max-w-[calc(100%/3.25)] lg:max-w-[20%] group-is-loading:lg:!shrink bg-grey-6 is-active:opacity-40'>
+            <div class='swiper-slide cursor-pointer h-full w-full shrink-0 max-w-[calc(100%/3.25)] lg:max-w-[20%] group-is-loading:lg:!shrink bg-grey-6 is-active:opacity-40{%- if forloop.index0 == 0 %} is-active{%- endif -%}'>
               <div class='flex flex-none h-full items-center justify-center'>
                 {%- render 'component.image',
                   img: image,

@@ -12,13 +12,18 @@
     {% render 'component.product', product: product %}
 {%- endcomment -%}
 {%- liquid
-  assign product_title_parts = product.title | split: '-'
+  assign product_title_parts = product.title | split: ' - '
   assign product_title = product_title_parts | first | strip
   assign product_color = product_title_parts | last | strip
 -%}
 <div class='relative max-w-full'>
   {%- capture image_attributes -%}href='{{- product.url -}}'{%- endcapture -%}
-  {%- render 'product-image', tag: 'a', width: 1024, attributes: image_attributes -%}
+  {%- render 'product-image',
+    tag: 'a',
+    product: product,
+    width: 1024,
+    attributes: image_attributes
+  -%}
   <div class='flex justify-between gap-2 mt-4'>
     <p class='truncate' title='{{- product_title -}}'>{{- product_title -}}</p>
     <p>

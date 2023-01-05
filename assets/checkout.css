@@ -1437,14 +1437,6 @@ html {
   padding-right: var(--content-padding-wide);
 }
 
-.total-line--reduction, .section--payment-method, .order-summary__section--discount {
-  display: none;
-}
-
-.order-summary__section~.order-summary__section--discount~.order-summary__section--total-lines {
-  border-style: none;
-}
-
 .text-heading-1,
   .text-heading-2,
   .text-heading-3,
@@ -2366,6 +2358,10 @@ html {
 
 .border {
   border-width: 1px;
+}
+
+.border-0 {
+  border-width: 0px;
 }
 
 .border-b {

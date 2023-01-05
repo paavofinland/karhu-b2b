@@ -11,5 +11,11 @@ module.exports = plugin(({ addComponents }) => {
       '.container-content-wide': {
         '@apply container-content px-content-wide': {},
       },
+      '.total-line--reduction, .section--payment-method, .order-summary__section--discount': {
+        '@apply hidden': {},
+      },
+      '.order-summary__section~.order-summary__section--discount~.order-summary__section--total-lines': {
+        '@apply border-none': {},
+      }
     });
   })

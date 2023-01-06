@@ -1,0 +1,10 @@
+.total-line--reduction,
+.section--payment-method,
+.order-summary__section--discount {
+  display: none;
+}
+
+.order-summary__section ~ .order-summary__section--discount ~ .order-summary__section--total-lines {
+  border: none;
+}
+

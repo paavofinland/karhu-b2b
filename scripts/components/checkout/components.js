@@ -1,7 +1,7 @@
-import paymentMethod from './payment-method';
 import checkout from './checkout';
+import paymentMethod from './payment-method';
 
 export default {
-  paymentMethod,
   checkout,
+  paymentMethod,
 };

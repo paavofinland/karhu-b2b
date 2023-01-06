@@ -72,7 +72,7 @@
       const checkoutStep = Shopify.Checkout.step?.replace(/([-_][a-z])/g, group =>
         group.toUpperCase().replace('-', '').replace('_', '')
       );
-      document.querySelector('body').setAttribute('data-component', checkoutStep);
+      document.querySelector('div.content').setAttribute('data-component', checkoutStep);
       document.querySelector('body').setAttribute('data-component', 'checkout');
     </script>
 

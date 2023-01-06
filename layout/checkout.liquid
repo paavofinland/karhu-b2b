@@ -10,7 +10,7 @@
     <meta name='referrer' content='origin'>
 
     <title>{{ page_title }}</title>
-    {%- render 'head.style' -%}
+    {{ 'checkout.css' | asset_url | stylesheet_tag }}
 
     {{ content_for_header }}
 
@@ -57,7 +57,10 @@
       class='total-line--reduction section--payment-method order-summary__section--discount'
     ></div>
     {%- assign skip_payment_discount_code = 'FREE' -%}
-    {%- assign discount_application = checkout.discount_applications | where: 'title', skip_payment_discount_code | first -%}
+    {%- assign discount_application = checkout.discount_applications
+      | where: 'title', skip_payment_discount_code
+      | first
+    -%}
     <script id='liquid-variables' type='application/json'>
       {
         "skip_payment_discount_code": "{{- skip_payment_discount_code -}}",

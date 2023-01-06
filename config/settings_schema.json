@@ -70,20 +70,5 @@
         "label": "favicon"
       }
     ]
-  },
-  {
-    "name": "Checkout Customisations",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Payment methods"
-      },
-      {
-        "type": "checkbox",
-        "id": "hide_credit_card",
-        "label": "Hide credit card",
-        "default": true
-      }
-    ]
   }
 ]

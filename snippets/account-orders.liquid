@@ -1,13 +1,29 @@
+{%- liquid
+  assign sort_orders_values = 'CREATED_AT-1,CREATED_AT-0,ORDER_NUMBER-0,ORDER_NUMBER-1,TOTAL_PRICE-1,TOTAL_PRICE-0' | split: ','
+  assign sort_orders_labels = 'Date, new to old:Date, old to new:Order number, ascending:Order number, descending:Total order value, high to low:Total order value, low to high' | split: ':'
+  capture options
+    for sort_value in sort_orders_values
+      echo '<option value="' | append: sort_value | append: '">' | append: sort_orders_labels[forloop.index0] | append: '</option>'
+    endfor
+  endcapture
+-%}
+
 <section
   data-component='accountOrders'
   class='hidden'
   {{ attributes -}}
 >
   {%- unless agent -%}
-    <header>
-      <h5 class='text-heading-5 pb-5 border-b border-black'>
+    <header class='border-black border-b pb-5 flex justify-between items-end'>
+      <h5 class='text-heading-5'>
         {{- 'customer.account.orders.title' | t -}}
       </h5>
+      {%- render 'select',
+        class: 'h-[4em] w-[275px] max-w-full text-black border-gray-4 border',
+        select_attributes: 'data-select-order-sorting',
+        px: '1.25em',
+        options: options
+      -%}
     </header>
     <div data-orders class='group'>
       {%- render 'account.orders-data' -%}
@@ -23,16 +39,32 @@
       -%}
     </div>
   {%- else -%}
-    <label class='text-heading-7 block mb-3'>
-      {{- 'customer.account.orders.select_customer' | t -}}
-    </label>
-    {%- render 'select',
-      placeholder: 'customer.account.orders.select_customer',
-      class: 'h-[4em] w-[500px] max-w-full text-black border-gray-4 border',
-      attributes: 'data-select-customer',
-      px: '1.25em',
-      allow_empty: true
-    -%}
+    <div class='flex justify-between'>
+      <div>
+        <label class='text-heading-7 block mb-3'>
+          {{- 'customer.account.orders.select_customer' | t -}}
+        </label>
+        {%- render 'select',
+          placeholder: 'customer.account.orders.select_customer',
+          class: 'h-[4em] w-[500px] max-w-full text-black border-gray-4 border',
+          attributes: 'data-select-customer',
+          px: '1.25em',
+          allow_empty: true
+        -%}
+      </div>
+      <div>
+        <label class='text-heading-7 block mb-3'>
+          {{- 'customer.account.orders.sort_by' | t -}}
+        </label>
+        {%-
+          render 'select',
+          class: 'h-[4em] w-[275px] max-w-full text-black border-gray-4 border',
+          select_attributes: 'data-select-order-sorting',
+          px: '1.25em',
+          options: options,
+        -%}
+      </div>
+    </div>
     <p data-customer-select-text class='mt-10 mb-[100px]'>
       {{- 'customer.account.orders.select_customer_info' | t -}}
     </p>

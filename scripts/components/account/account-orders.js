@@ -47,7 +47,7 @@ export default window.component(async (node, ctx) => {
     return fetchFunction(`/customer/get-store-customer-orders?${query}`)
       .then(data => {
         return sortKey === PRICE_FILTER
-          ? data.sort((a, b) => sortOrderByPrice(a, b, Number(reverse)))
+          ? data.sort((a, b) => sortOrderByPrice(a, b, !!Number(reverse)))
           : data;
       })
       .catch(e => {

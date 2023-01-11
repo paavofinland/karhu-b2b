@@ -14,7 +14,7 @@
           assign img = s.image | default: s.desktop_image
           assign desktop_img = s.desktop_image | default: s.image
         -%}
-        <div data-slide class='swiper-slide'>
+        <div data-slide class='swiper-slide relative min-w-full'>
           <div class='absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-width-[30rem]'>
             {%- if s.title -%}
               <{{ s.title_tag }} class='text-heading-3 lg:text-heading-2'>
@@ -32,20 +32,20 @@
           </div>
           {%- if img -%}
             <div class='max-h-[max(75vh,560px)] lg:max-h-[max(75vh,800px)]'>
-              {% render 'component.image',
+              {%- render 'component.image',
                 img: img,
                 lazy: s.lazyload_image,
                 width: 1024,
                 aspect_ratio: 1.45,
                 class: 'w-full h-full object-cover lg:hidden'
-              %}
-              {% render 'component.image',
+              -%}
+              {%- render 'component.image',
                 img: desktop_img,
                 lazy: s.lazyload_image,
                 width: 2560,
                 aspect_ratio: 0.55,
                 class: 'w-full h-full object-cover hidden lg:block'
-              %}
+              -%}
             </div>
           {%- endif -%}
         </div>

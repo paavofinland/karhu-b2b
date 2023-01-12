@@ -8,7 +8,7 @@
     if template contains 'customers'
       assign send_to_login = false
     endif
-    if request.path == '/challenge'
+    if request.path contains '/challenge'
       assign send_to_login = false
     endif
     if request.design_mode == true

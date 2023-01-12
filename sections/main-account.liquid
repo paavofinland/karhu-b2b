@@ -4,7 +4,7 @@
   assign image = s.image
   assign desktop_image = s.desktop_image
 
-  if request.path == '/account/addresses'
+  if request.path contains '/account/addresses'
     assign template = 'address'
   else
     assign template = 'account'

@@ -156,6 +156,7 @@
         },
         "view_order": "View Details",
         "select_customer": "Select customer",
+        "sort_by": "Sort by",
         "select_customer_info": "Select a customer to view orders.",
         "customer_no_orders": "This customer doesn't have any orders.",
         "number": "Order number",

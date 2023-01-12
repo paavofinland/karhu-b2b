@@ -39,8 +39,15 @@
           <td class='py-7 px-2'>{{- cart.updated_at | date: '%Y-%m-%d' -}}</td>
           <td class='py-7'>
             <div class='flex justify-end gap-10 pr-[130px]'>
+              {%- liquid
+                assign root_url = routes.root_url
+                assign root_url_last_character = root_url | last
+                unless root_url_last_character == '/'
+                  assign root_url = root_url | append: '/'
+                endunless
+              -%}
               <a
-                href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer_external_id -}}&cartId={{- cart.id -}}'
+                href='{{- root_url -}}pages/share-cart?agentId={{- customer_external_id -}}&cartId={{- cart.id -}}'
                 class='underline mr-5'
               >
                 {{- 'customer.account.carts.view_cart' | t -}}

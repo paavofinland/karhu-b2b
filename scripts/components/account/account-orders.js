@@ -4,6 +4,8 @@ import choozy from '../../lib/choozy';
 import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
+const PRICE_FILTER = 'TOTAL_PRICE';
+
 export default window.component(async (node, ctx) => {
   const {
     store: { store, currencies },
@@ -12,6 +14,7 @@ export default window.component(async (node, ctx) => {
 
   const {
     selectCustomer: selectCustomerContainer,
+    selectOrderSorting,
     ordersContainer,
     noOrders,
     customerSelectText,
@@ -22,18 +25,35 @@ export default window.component(async (node, ctx) => {
     orders,
   } = choozy(node);
 
+  const sortOrderByPrice = (prevOrder, nextOrder, reverse) => {
+    const prevFormattedPrice = parseFloat(prevOrder.price.replaceAll('.', ''));
+    const nextFormattedPrice = parseFloat(nextOrder.price.replaceAll('.', ''));
+    return reverse
+      ? nextFormattedPrice - prevFormattedPrice
+      : prevFormattedPrice - nextFormattedPrice;
+  };
+
   const getCustomerOrders = async customer => {
+    const [sortKey, reverse] = selectOrderSorting.value.split('-');
     const query = new URLSearchParams({
       store,
       secret: customerSecret,
       customerId,
       selectedCustomerId: customer || '',
+      sortKey,
+      reverse,
     });
 
-    return fetchFunction(`/customer/get-store-customer-orders?${query}`).catch(e => {
-      console.info('[unhandled error]');
-      return [];
-    });
+    return fetchFunction(`/customer/get-store-customer-orders?${query}`)
+      .then(data => {
+        return sortKey === PRICE_FILTER
+          ? data.sort((a, b) => sortOrderByPrice(a, b, !!Number(reverse)))
+          : data;
+      })
+      .catch(e => {
+        console.info('[unhandled error]');
+        return [];
+      });
   };
 
   const appendHtmlWithOrders = ({ container, containerItem, orderList }) => {
@@ -125,7 +145,14 @@ export default window.component(async (node, ctx) => {
       });
       selectCustomer.appendChild(documentFragment);
     });
+
+    selectOrderSorting.addEventListener('change', () => {
+      onSelectCustomer(selectCustomer.value);
+    });
   } else {
     onSelectCustomer();
+    selectOrderSorting.addEventListener('change', () => {
+      onSelectCustomer();
+    });
   }
 });

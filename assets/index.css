@@ -1982,6 +1982,10 @@ html {
   width: fit-content;
 }
 
+.w-\[275px\] {
+  width: 275px;
+}
+
 .w-\[500px\] {
   width: 500px;
 }

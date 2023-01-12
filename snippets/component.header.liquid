@@ -34,18 +34,22 @@
   <{{ title_tag }} class='text-heading-3 lg:text-heading-2 text-center text-white absolute z-10'>
     {{- title -}}
   </{{ title_tag }}>
-  {%- render 'component.image',
-    img: img,
-    eager: eager,
-    width: 1024,
-    aspect_ratio: 1.05,
-    class: 'w-full h-full self-start object-cover object-center lg:hidden'
-  -%}
-  {%- render 'component.image',
-    img: desktop_img,
-    eager: eager,
-    aspect_ratio: 1.45,
-    width: 2560,
-    class: 'w-full h-full object-cover object-center hidden lg:block'
-  -%}
+  {%- if img -%}
+    {%- render 'component.image',
+      img: img,
+      eager: eager,
+      width: 1024,
+      aspect_ratio: 1.05,
+      class: 'w-full h-full self-start object-cover object-center lg:hidden'
+    -%}
+  {%- endif -%}
+  {%- if desktop_img -%}
+    {%- render 'component.image',
+      img: desktop_img,
+      eager: eager,
+      aspect_ratio: 1.45,
+      width: 2560,
+      class: 'w-full h-full object-cover object-center hidden lg:block'
+    -%}
+  {%- endif -%}
 </div>

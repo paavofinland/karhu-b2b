@@ -36,6 +36,7 @@ export default window.component(async node => {
 
   // eslint-disable-next-line no-undef
   const swiper = new Swiper(slider, swiperOptions);
+  slider.classList.add('is-loaded');
 
   return swiper;
 });

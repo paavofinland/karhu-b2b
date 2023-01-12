@@ -3,17 +3,17 @@
   assign blocks = section.blocks
 -%}
 
-<section data-component='categoryOverview' class='container text-white py-4 lg:p-content'>
+<section data-component='categoryOverview' class='container relative text-white py-4 lg:p-content'>
   <div data-slider class='swiper'>
     <div
       id='category-overview'
-      class='swiper-wrapper {{ container_size_class -}}'
+      class='swiper-wrapper lg:grid lg:grid-cols-3 lg:gap-x-[60px] [.is-loaded_&]:lg:flex [.is-loaded_&]:lg:gap-x-0 {{ container_size_class -}}'
     >
       {%- for category in blocks -%}
         {%- liquid
           assign c = category.settings
         -%}
-        <div class='swiper-slide'>
+        <div class='swiper-slide relative'>
           <div class='w-full'>
             {%- liquid
               assign img = c.image | default: c.collection.featured_image

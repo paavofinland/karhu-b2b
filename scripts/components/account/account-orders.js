@@ -62,8 +62,7 @@ export default window.component(async (node, ctx) => {
     const fragment = document.createDocumentFragment();
     orderList.forEach(order => {
       const newElement = containerItem.content.cloneNode(true);
-      Object.keys(order)
-        .map(key => [key, order[key]])
+      Object.entries(order)
         .map(([key, value]) => {
           if (key === 'currencyCode')
             return [key, currencies.find(({ iso_code: code }) => code === value)?.symbol || value];

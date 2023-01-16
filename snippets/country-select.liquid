@@ -10,10 +10,19 @@
 
 {%- capture options -%}
   {% for country in available_countries %}
+    {%- liquid
+      if shop.domain contains 'karhu-b2b'
+        assign url = country.shopUrl
+      else
+        assign url = country.customShopUrl
+      endif
+    -%}
     <option
       value='{{ country.iso_code }}'
-      {%- if country.shopUrl and country.shopUrl != shop.url -%}
-        data-url='{{- country.shopUrl -}}'
+      {%- if country.shopUrl and country.customShopUrl -%}
+        {%- unless country.shopUrl contains shop.domain or country.customShopUrl contains shop.domain -%}
+          data-url='{{- url -}}'
+        {%- endunless-%}
       {%- endif -%}
       {%- if country.iso_code == localization.country.iso_code %}
         selected

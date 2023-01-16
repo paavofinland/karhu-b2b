@@ -37,7 +37,7 @@
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "announcement_text": ""
+          "announcement_text": "Welcome to the new B2B portal!"
         }
       },
       "main-login": {

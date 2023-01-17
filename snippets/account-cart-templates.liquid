@@ -79,7 +79,7 @@
         </div>
         <div>
           <a
-            href='{{- routes.root_url -}}pages/share-cart?agentId={{- customer_external_id -}}&cartId={{- cart.id -}}'
+            href='{{ routes.root_url | split: '/' | slice: 1 | join: '' }}/pages/share-cart?agentId={{- customer_external_id -}}&cartId={{- cart.id -}}'
             class='underline mr-5'
           >
             {{- 'customer.account.carts.view_cart' | t -}}

@@ -12,8 +12,9 @@
   {% for country in available_countries %}
     <option
       value='{{ country.iso_code }}'
-      {%- if country.shopUrl and country.shopUrl != shop.url -%}
-        data-url='{{- country.shopUrl -}}'
+      {%- if country.store and country.store != settings.store -%}
+        {%- assign setting = 'store_' | append:  country.store | append: '_url' -%}
+          data-url='{{- settings[setting] -}}'
       {%- endif -%}
       {%- if country.iso_code == localization.country.iso_code %}
         selected

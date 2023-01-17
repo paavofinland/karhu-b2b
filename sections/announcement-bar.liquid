@@ -26,7 +26,10 @@
     {%- endif -%}
 
     {%- if customer -%}
-      <a href='{{ routes.root_url }}account' class='ml-auto text-right hidden md:block'>
+      <a
+        href='{{ routes.root_url | split: '/' | slice: 1 | join: '' }}/account'
+        class='ml-auto text-right hidden md:block'
+      >
         {{- 'general.header.account' | t -}}
       </a>
     {%- endif -%}

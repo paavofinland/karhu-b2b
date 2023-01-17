@@ -1,7 +1,7 @@
 <script id='liquid-variables' type='application/json'>
   {
     "store": {
-      "store": "{{- request.host | split: '.' | first | split: '-' | last -}}",
+      "store": "{{- settings.store -}}",
       "currencies": [
         {%- for currency in shop.enabled_currencies -%}
           {

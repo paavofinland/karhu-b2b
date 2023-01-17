@@ -10,11 +10,13 @@
 
 {%- capture options -%}
   {% for country in available_countries %}
+    {%- unless country.store != settings.store -%}
     <option
       value='{{ country.iso_code }}'
-      {%- if country.shopUrl and country.shopUrl != shop.url -%}
-        data-url='{{- country.shopUrl -}}'
-      {%- endif -%}
+        {%- if country.store and country.store != settings.store  -%}
+          {%- assign setting = 'store_' | append:  country.store | append: '_url' -%}
+            data-url='{{- settings[setting] -}}'
+        {%- endif -%}
       {%- if country.iso_code == localization.country.iso_code %}
         selected
       {%- endif -%}
@@ -23,6 +25,7 @@
       {{- country.currency.symbol -}}
       )
     </option>
+  {%- endunless -%}
   {% endfor %}
 {%- endcapture -%}
 

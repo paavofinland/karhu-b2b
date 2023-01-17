@@ -18,6 +18,35 @@
     ]
   },
   {
+    "name": "Stores",
+    "settings": [
+      {
+        "type": "text",
+        "id": "store",
+        "label": "Store",
+        "info": "Lowercase store indicator (eg. eu)"
+      },
+      {
+        "type": "header",
+        "content": "EU"
+      },
+      {
+        "type": "text",
+        "id": "store_eu_url",
+        "label": "URL"
+      },
+      {
+        "type": "header",
+        "content": "US"
+      },
+      {
+        "type": "text",
+        "id": "store_us_url",
+        "label": "URL"
+      }
+    ]
+  },
+  {
     "name": "Social media",
     "settings": [
       {

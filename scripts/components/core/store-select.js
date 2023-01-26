@@ -46,10 +46,22 @@ export default window.component(async (node, ctx) => {
       }
       option.value = customer.id;
       option.innerText = customer.name;
+      option.setAttribute('data-customer-select-option', '');
       option.setAttribute('data-country-code', customer.countryCode || 'NL');
       documentFragment.appendChild(option);
     });
     customerSelect.appendChild(documentFragment);
+  };
+
+  const updateSelectedOption = selectedStoreCustomer => {
+    const { customerSelectOption } = choozy(customerSelect, null);
+    const customerSelectOptionList = customerSelectOption ? [].concat(customerSelectOption) : [];
+    const selectedOption = customerSelectOptionList.find(
+      option => option.value === localStorage.getItem(SELECTED_STORE_CUSTOMER)
+    );
+    if (!selectedOption) return;
+    selectedOption.value = selectedStoreCustomer;
+    selectedOption.setAttribute('selected', true);
   };
 
   ctx.emit(LOADING_EVENT, null, true);
@@ -80,6 +92,7 @@ export default window.component(async (node, ctx) => {
     if (!storeCustomer) {
       const { id: defaultId, countryCode: defaultCountryCode } = agentStores[0];
       updateStoreCustomer(defaultId, defaultCountryCode);
+      updateSelectedOption(localStorage.getItem(SELECTED_STORE_CUSTOMER));
       return;
     }
 

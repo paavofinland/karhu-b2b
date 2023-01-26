@@ -3,6 +3,7 @@ import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const LOADING_EVENT = 'agent-stores:loading';
+const SELECTED_STORE_CUSTOMER = 'selectedStoreCustomer';
 
 const getAgentStores = async (store, customerId, customerSecret) => {
   const query = new URLSearchParams({
@@ -18,13 +19,14 @@ const getAgentStores = async (store, customerId, customerSecret) => {
 };
 
 export default window.component(async (node, ctx) => {
+  const selectedCustomerStore = localStorage.getItem(SELECTED_STORE_CUSTOMER);
+  if (selectedCustomerStore) {
+    ctx.emit('store:change', null, { id: selectedCustomerStore });
+  }
+
   const {
     store: { store },
-    customer: {
-      secret: customerSecret,
-      selected_store_customer: selectedStoreCustomer,
-      id: customerId,
-    },
+    customer: { secret: customerSecret, id: customerId },
   } = getLiquidVariables();
 
   const { selectCustomer } = choozy(node, null);
@@ -39,7 +41,7 @@ export default window.component(async (node, ctx) => {
     const documentFragment = document.createDocumentFragment();
     data.forEach(customer => {
       const option = document.createElement('option');
-      if (selectedStoreCustomer === customer.id) {
+      if (selectedCustomerStore === customer.id) {
         option.setAttribute('selected', true);
       }
       option.value = customer.id;
@@ -52,21 +54,9 @@ export default window.component(async (node, ctx) => {
 
   ctx.emit(LOADING_EVENT, null, true);
 
-  const query = new URLSearchParams({
-    store,
-    customerId,
-    secret: customerSecret,
-  });
-
   const updateStoreCustomer = async (storeCustomerId, countryCode) => {
-    ctx.emit(LOADING_EVENT, null, true);
-    await fetchFunction(
-      `/customer/set-selected-store?${query}&storeCustomerId=${storeCustomerId}`,
-      {
-        method: 'POST',
-      }
-    ).catch(e => console.info('[unhandled error]'));
-    ctx.emit(LOADING_EVENT, null, false);
+    localStorage.setItem(SELECTED_STORE_CUSTOMER, storeCustomerId);
+    ctx.emit('store:change', null, { id: storeCustomerId });
     ctx.emit('country:revalidate', null, {
       countryCode,
     });
@@ -85,12 +75,15 @@ export default window.component(async (node, ctx) => {
 
     appendSelect(agentStores);
 
-    const storeCustomer = agentStores.find(({ id }) => id === selectedStoreCustomer);
+    const storeCustomer = agentStores.find(({ id }) => id === selectedCustomerStore);
+
     if (!storeCustomer) {
       const { id: defaultId, countryCode: defaultCountryCode } = agentStores[0];
       updateStoreCustomer(defaultId, defaultCountryCode);
       return;
     }
+
+    ctx.emit('store:change', null, { id: storeCustomer.id });
 
     const { countryCode } = storeCustomer;
     if (countryCode)
@@ -99,12 +92,12 @@ export default window.component(async (node, ctx) => {
       });
   };
 
-  customerSelect.addEventListener('change', async e =>
+  customerSelect.addEventListener('change', async e => {
     updateStoreCustomer(
       e.target.value,
       e.target.options[e.target.selectedIndex].dataset.countryCode
-    )
-  );
+    );
+  });
 
   await loadAgentStores();
 });

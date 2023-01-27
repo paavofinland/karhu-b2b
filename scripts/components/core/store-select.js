@@ -20,9 +20,7 @@ const getAgentStores = async (store, customerId, customerSecret) => {
 
 export default window.component(async (node, ctx) => {
   const selectedCustomerStore = localStorage.getItem(SELECTED_STORE_CUSTOMER);
-  if (selectedCustomerStore) {
-    ctx.emit('store:change', null, { id: selectedCustomerStore });
-  }
+  if (selectedCustomerStore) ctx.emit('store:change', null, { id: selectedCustomerStore });
 
   const {
     store: { store },
@@ -53,17 +51,6 @@ export default window.component(async (node, ctx) => {
     customerSelect.appendChild(documentFragment);
   };
 
-  const updateSelectedOption = selectedStoreCustomer => {
-    const { customerSelectOption } = choozy(customerSelect, null);
-    const customerSelectOptionList = customerSelectOption ? [].concat(customerSelectOption) : [];
-    const selectedOption = customerSelectOptionList.find(
-      option => option.value === localStorage.getItem(SELECTED_STORE_CUSTOMER)
-    );
-    if (!selectedOption) return;
-    selectedOption.value = selectedStoreCustomer;
-    selectedOption.setAttribute('selected', true);
-  };
-
   ctx.emit(LOADING_EVENT, null, true);
 
   const updateStoreCustomer = async (storeCustomerId, countryCode) => {
@@ -91,8 +78,8 @@ export default window.component(async (node, ctx) => {
 
     if (!storeCustomer) {
       const { id: defaultId, countryCode: defaultCountryCode } = agentStores[0];
+      customerSelect.setAttribute('value', defaultId);
       updateStoreCustomer(defaultId, defaultCountryCode);
-      updateSelectedOption(localStorage.getItem(SELECTED_STORE_CUSTOMER));
       return;
     }
 

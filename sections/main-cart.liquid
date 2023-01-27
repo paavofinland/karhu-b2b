@@ -97,16 +97,14 @@
         </div>
 
         {%- liquid
-          if agent
-            assign storeId = customer.metafields.agent.selected_store_customer
-          else
+          unless agent
             for tag in customer.tags
               assign startsWith = tag | split: 'id:'
               if startsWith[0] == blank
                 assign storeId = startsWith[1]
               endif
             endfor
-          endif
+          endunless
         -%}
         <input
           data-store-id

@@ -53,14 +53,6 @@ export default window.component(async (node, ctx) => {
 
   ctx.emit(LOADING_EVENT, null, true);
 
-  const updateStoreCustomer = async (storeCustomerId, countryCode) => {
-    localStorage.setItem(SELECTED_STORE_CUSTOMER, storeCustomerId);
-    ctx.emit('store:change', null, { id: storeCustomerId });
-    ctx.emit('country:revalidate', null, {
-      countryCode,
-    });
-  };
-
   const loadAgentStores = async () => {
     const agentStores = await getAgentStores(store, customerId, customerSecret);
 
@@ -77,9 +69,9 @@ export default window.component(async (node, ctx) => {
     const storeCustomer = agentStores.find(({ id }) => id === selectedCustomerStore);
 
     if (!storeCustomer) {
-      const { id: defaultId, countryCode: defaultCountryCode } = agentStores[0];
+      const { id: defaultId } = agentStores[0];
       customerSelect.setAttribute('value', defaultId);
-      updateStoreCustomer(defaultId, defaultCountryCode);
+      customerSelect.dispatchEvent(new Event('change'));
       return;
     }
 
@@ -93,10 +85,14 @@ export default window.component(async (node, ctx) => {
   };
 
   customerSelect.addEventListener('change', async e => {
-    updateStoreCustomer(
-      e.target.value,
-      e.target.options[e.target.selectedIndex].dataset.countryCode
-    );
+    const storeCustomerId = e.target.value;
+    const { countryCode } = e.target.options[e.target.selectedIndex].dataset;
+
+    localStorage.setItem(SELECTED_STORE_CUSTOMER, storeCustomerId);
+    ctx.emit('store:change', null, { id: storeCustomerId });
+    ctx.emit('country:revalidate', null, {
+      countryCode,
+    });
   });
 
   await loadAgentStores();

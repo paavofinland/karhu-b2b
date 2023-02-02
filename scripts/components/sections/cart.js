@@ -9,7 +9,7 @@ const updateCart = async payload =>
 
 export default window.component(async (node, ctx) => {
   const { itemCount } = node.dataset;
-  const { removeForm, storeId, attributeInput, noteInput } = choozy(node);
+  const { removeForm, storeId, attributeInput, noteInput, goToCheckoutBtn } = choozy(node);
 
   const attributeInputs = [].concat(attributeInput).filter(Boolean);
 
@@ -44,7 +44,9 @@ export default window.component(async (node, ctx) => {
   });
 
   ctx.on('store:change', (_, { id }) => {
+    if (!id) return;
     storeId.setAttribute('value', id);
+    goToCheckoutBtn.removeAttribute('disabled');
   });
 
   []

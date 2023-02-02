@@ -1,8 +1,16 @@
 {
   "sections": {
     "main": {
-      "type": "main-cart"
+      "type": "main-cart",
+      "settings": {
+        "enable_request_shipping_date": true,
+        "min_shipping_days": 0,
+        "max_shipping_days": 1095,
+        "enable_note": true
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

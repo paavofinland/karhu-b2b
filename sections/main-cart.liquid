@@ -71,7 +71,7 @@
                       id='requested_shipping_date'
                       class='py-3 px-4 border border-black leading-none'
                       type='date'
-                      min='{{- "now" | date: "%s" | plus: unix_min | date: "%Y-%m-%d" -}}'
+                      min='{{- "now" | date: "%s" | date: "%Y-%m-%d" -}}'
                       max='{{- "now" | date: "%s" | plus: unix_max | date: "%Y-%m-%d" -}}'
                       value='{{- cart.attributes['Requested shipping date'] -}}'
                     >
@@ -83,9 +83,9 @@
             {%- render 'component.button',
               text: 'Go to checkout',
               tag: 'input',
-              attributes: 'name="checkout"',
+              attributes: 'name="checkout" disabled data-go-to-checkout-btn',
               style: 'primary',
-              class: 'w-full',
+              class: 'w-full disabled:cursor-not-allowed disabled:hover:bg-black disabled:hover:text-white',
               type: 'submit'
             -%}
             {%- liquid

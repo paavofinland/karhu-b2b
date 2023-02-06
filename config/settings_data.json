@@ -2,6 +2,8 @@
   "current": {
     "breadcrumbs": "navigation",
     "store": "eu",
+    "store_eu_url": "https:\/\/eub2b.karhu.com",
+    "store_us_url": "https:\/\/b2b.karhu.com",
     "social_twitter_link": "twitter",
     "social_facebook_link": "facebook",
     "social_pinterest_link": "",
@@ -19,7 +21,7 @@
       "header": {
         "type": "header",
         "settings": {
-          "menu": "main-menu",
+          "menu": "header",
           "clear_background": "index,collection,product"
         }
       },
@@ -31,29 +33,29 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "",
-          "navigation_second": ""
+          "navigation_first": "footer",
+          "navigation_second": "footer-menu-about"
         }
       },
       "announcement-bar": {
         "type": "announcement-bar",
         "settings": {
-          "announcement_text": "Free Shipping on orders over 100 units"
+          "announcement_text": "Welcome to the new B2B portal!"
         }
       },
       "main-login": {
         "type": "main-login",
         "settings": {
-          "image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
-          "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp"
+          "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+          "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg"
         }
       },
       "main-account": {
         "type": "main-account",
         "settings": {
           "title": "My account",
-          "image": "shopify:\/\/shop_images\/mobile.png",
-          "desktop_image": "shopify:\/\/shop_images\/desktop.png"
+          "image": "shopify:\/\/shop_images\/Rectangle_305.png",
+          "desktop_image": "shopify:\/\/shop_images\/Image_6.png"
         }
       }
     },

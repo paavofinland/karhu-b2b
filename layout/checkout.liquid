@@ -63,13 +63,6 @@
     -%}
     <script id='liquid-variables' type='application/json'>
       {
-        "store": {
-          "store": "{{- settings.store -}}"
-        },
-        "customer": {
-          "id": "{{- customer.id -}}",
-          "secret": "{{- customer.metafields.functions.secret -}}"
-        },
         "skip_payment_discount_code": "{{- skip_payment_discount_code -}}",
         "skip_payment_discount_applied": {%- if discount_application -%}true{%- else -%}false{%- endif -%}
       }

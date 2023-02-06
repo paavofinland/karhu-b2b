@@ -3,9 +3,7 @@ import fetchFunction from '../../lib/fetch-function';
 import getLiquidVariables from '../../lib/get-liquid-variables';
 
 const LOADING_EVENT = 'agent-stores:loading';
-export const SELECTED_STORE_CUSTOMER = 'selectedStoreCustomer';
-export const SELECTED_SHIPPING_ADDRESS = 'selectedShippingAddress';
-export const SELECTED_BILLING_ADDRESS = 'selectedBillingAddress';
+const SELECTED_STORE_CUSTOMER = 'selectedStoreCustomer';
 
 const getAgentStores = async (store, customerId, customerSecret) => {
   const query = new URLSearchParams({
@@ -91,8 +89,6 @@ export default window.component(async (node, ctx) => {
     const { countryCode } = e.target.options[e.target.selectedIndex].dataset;
 
     localStorage.setItem(SELECTED_STORE_CUSTOMER, storeCustomerId);
-    localStorage.removeItem(SELECTED_SHIPPING_ADDRESS);
-    localStorage.removeItem(SELECTED_BILLING_ADDRESS);
     ctx.emit('store:change', null, { id: storeCustomerId });
     ctx.emit('country:revalidate', null, {
       countryCode,

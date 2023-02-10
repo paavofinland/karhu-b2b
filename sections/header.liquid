@@ -139,6 +139,35 @@
       </nav>
     </div>
   </div>
+  <form data-clear-cart-form action='{{ routes.cart_url }}' method='post' class='hidden'>
+    <fieldset>
+      <input
+        data-note-input
+        id='note'
+        type='text'
+        name='note'
+        value=''
+      >
+    </fieldset>
+    <fieldset>
+      <input
+        data-attribute-input
+        name='attributes[Requested shipping date]'
+        id='requested_shipping_date'
+        type='date'
+        value=''
+      >
+    </fieldset>
+    <input
+      data-store-id
+      required
+      class='hidden'
+      id='store'
+      type='text'
+      name='attributes[store]'
+      value=''
+    >
+  </form>
 </header>
 
 {% schema %}

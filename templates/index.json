@@ -53,8 +53,8 @@
           "type": "category",
           "settings": {
             "collection": "running",
-            "image": "shopify:\/\/shop_images\/running_a0a6b2a1-e05d-4960-8113-d9a56177b610.png",
-            "desktop_image": "shopify:\/\/shop_images\/running_a0a6b2a1-e05d-4960-8113-d9a56177b610.png",
+            "image": "shopify:\/\/shop_images\/running.png",
+            "desktop_image": "shopify:\/\/shop_images\/running.png",
             "title": "",
             "button_text": "",
             "button_url": ""
@@ -64,8 +64,8 @@
           "type": "category",
           "settings": {
             "collection": "all",
-            "image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
-            "desktop_image": "shopify:\/\/shop_images\/Apparel_carousel_1070x_d3a62181-b504-4e06-b4d8-383eae235cf2.webp",
+            "image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/fjkcw-O4.jpg",
             "title": "Shop new",
             "button_text": "",
             "button_url": "shopify:\/\/collections"

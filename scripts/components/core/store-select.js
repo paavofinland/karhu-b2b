@@ -87,6 +87,7 @@ export default window.component(async (node, ctx) => {
   };
 
   customerSelect.addEventListener('change', async e => {
+    ctx.emit('cart:clear');
     const storeCustomerId = e.target.value;
     const { countryCode } = e.target.options[e.target.selectedIndex].dataset;
 

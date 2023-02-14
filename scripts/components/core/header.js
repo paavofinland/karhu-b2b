@@ -1,8 +1,10 @@
 /* eslint-disable no-param-reassign */
 import choozy from '../../lib/choozy';
+import { clearCart, updateCart } from '../../lib/cart';
 
-export default window.component(node => {
-  const { hamburger, hamburgerOpened, hamburgerClosed, mobileMenu, main } = choozy(node);
+export default window.component((node, ctx) => {
+  const { clearCartForm, hamburger, hamburgerOpened, hamburgerClosed, mobileMenu, main } =
+    choozy(node);
   const { clear } = node.dataset;
 
   const announcementBarHeight =
@@ -35,4 +37,11 @@ export default window.component(node => {
 
   setMobileMenuHeight();
   window.addEventListener('resize', setMobileMenuHeight);
+
+  ctx.on('cart:clear', async () => {
+    ctx.emit('cart:loading', null, true);
+    await clearCart();
+    await updateCart(clearCartForm);
+    ctx.emit('cart:render');
+  });
 });

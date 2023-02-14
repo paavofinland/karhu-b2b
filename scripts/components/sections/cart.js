@@ -1,11 +1,8 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
+import { updateCart } from '../../lib/cart';
 import choozy from '../../lib/choozy';
 import remount from '../../lib/remount';
-
-const updateCart = async payload =>
-  fetch(`${window.Shopify.routes.root}cart/update.js`, {
-    method: 'POST',
-    body: payload,
-  });
 
 export default window.component(async (node, ctx) => {
   const { itemCount } = node.dataset;

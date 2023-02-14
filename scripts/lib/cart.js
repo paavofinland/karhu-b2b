@@ -12,6 +12,12 @@ export function fetchCartMarkup() {
   }).then(res => res.json());
 }
 
+export const updateCart = async payload =>
+  fetch(`${window.Shopify.routes.root}cart/update.js`, {
+    method: 'POST',
+    body: payload,
+  });
+
 function changeAddon(id, quantity) {
   window.app.emit('cart:updating');
 
@@ -31,8 +37,6 @@ function changeAddon(id, quantity) {
 }
 
 export function clearCart() {
-  window.app.emit('cart:updating');
-
   return fetch(`${window.Phill.routes.cartClear}.js`, {
     method: 'POST',
     credentials: 'include',
@@ -43,7 +47,7 @@ export function clearCart() {
   })
     .then(r => r.json())
     .then(cart => {
-      window.app.emit(['cart:updated', 'cart:render'], { cart });
+      window.app.emit('cart:update', null, { count: 0 });
       return cart;
     });
 }

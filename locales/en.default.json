@@ -53,6 +53,7 @@
       "checkout": "Checkout",
       "count": "Cart ({{ count }})",
       "empty": "You cart is empty.",
+      "limit": "You cannot add more than 500 items to your cart",
       "close": "Close",
       "title": "Shopping bag",
       "continue_shopping": "Continue shopping",

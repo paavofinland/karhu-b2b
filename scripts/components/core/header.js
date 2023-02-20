@@ -38,10 +38,11 @@ export default window.component((node, ctx) => {
   setMobileMenuHeight();
   window.addEventListener('resize', setMobileMenuHeight);
 
-  ctx.on('cart:clear', async () => {
+  ctx.on('cart:clear', async (_, { onCartClearSuccess }) => {
     ctx.emit('cart:loading', null, true);
     await clearCart();
     await updateCart(clearCartForm);
     ctx.emit('cart:render');
+    onCartClearSuccess();
   });
 });

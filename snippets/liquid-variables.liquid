@@ -20,6 +20,11 @@
     "translations": {
       "server_error": "{{- 'general.server_error' | t -}}",
       "select_sizes_error": "{{- 'products.product.select_sizes_error' | t -}}"
-    }
+    },
+    "line_items": [
+      {%- for item in cart.items -%}
+        "{{- item.id -}}"{%- if cart.items.size != forloop.index -%},{%- endif -%}
+      {%- endfor -%}
+    ]
   }
 </script>

@@ -86,17 +86,22 @@ export default window.component(async (node, ctx) => {
       });
   };
 
-  customerSelect.addEventListener('change', async e => {
-    ctx.emit('cart:clear');
-    const storeCustomerId = e.target.value;
-    const { countryCode } = e.target.options[e.target.selectedIndex].dataset;
-
+  const onChangeStore = (storeCustomerId, countryCode) => {
     localStorage.setItem(SELECTED_STORE_CUSTOMER, storeCustomerId);
     localStorage.removeItem(SELECTED_SHIPPING_ADDRESS);
     localStorage.removeItem(SELECTED_BILLING_ADDRESS);
     ctx.emit('store:change', null, { id: storeCustomerId });
     ctx.emit('country:revalidate', null, {
       countryCode,
+    });
+  };
+
+  customerSelect.addEventListener('change', async e => {
+    const storeCustomerId = e.target.value;
+    const { countryCode } = e.target.options[e.target.selectedIndex].dataset;
+
+    ctx.emit('cart:clear', null, {
+      onCartClearSuccess: () => onChangeStore(storeCustomerId, countryCode),
     });
   });
 

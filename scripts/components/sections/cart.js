@@ -2,16 +2,25 @@
 /* eslint-disable no-return-assign */
 import { updateCart } from '../../lib/cart';
 import choozy from '../../lib/choozy';
+import getLiquidVariables from '../../lib/get-liquid-variables';
 import remount from '../../lib/remount';
 
 export default window.component(async (node, ctx) => {
   const { itemCount } = node.dataset;
   const { removeForm, storeId, attributeInput, noteInput, goToCheckoutBtn } = choozy(node);
+  const {
+    customer: { tags },
+  } = getLiquidVariables();
 
   const attributeInputs = [].concat(attributeInput).filter(Boolean);
 
+  const isAgent = tags.includes('agent');
+  if (!isAgent) {
+    goToCheckoutBtn.removeAttribute('disabled');
+  }
+
   [...attributeInputs, noteInput].forEach(input =>
-    input.addEventListener('blur', async e => {
+    input?.addEventListener('blur', async e => {
       await updateCart(new FormData(e.target.form));
     })
   );
@@ -41,7 +50,7 @@ export default window.component(async (node, ctx) => {
   });
 
   ctx.on('store:change', (_, { id }) => {
-    if (!id) return;
+    if (!id || !storeId || !goToCheckoutBtn) return;
     storeId.setAttribute('value', id);
     goToCheckoutBtn.removeAttribute('disabled');
   });

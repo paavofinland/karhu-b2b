@@ -39,7 +39,8 @@ export default window.component(async (node, ctx) => {
       store,
       secret: customerSecret,
       customerId,
-      selectedCustomerId: customer || '',
+      selectedCustomerId: customer?.id || '',
+      selectedCustomerShopifyId: customer?.shopifyId || '',
       sortKey,
       reverse,
     });
@@ -128,7 +129,13 @@ export default window.component(async (node, ctx) => {
     selectCustomer.classList.add('is-loading');
     selectCustomer.disabled = true;
 
-    selectCustomer.addEventListener('change', e => onSelectCustomer(e.target.value));
+    selectCustomer.addEventListener('change', e => {
+      const { value, options, selectedIndex } = e.target;
+      onSelectCustomer({
+        id: value,
+        shopifyId: options[selectedIndex].dataset.shopifyId,
+      });
+    });
     ctx.on('agent-stores:received', (_state, { data }) => {
       selectCustomer.classList.add('is-active');
       selectCustomer.removeAttribute('disabled');
@@ -140,6 +147,7 @@ export default window.component(async (node, ctx) => {
       data.forEach(customer => {
         const option = document.createElement('option');
         option.value = customer.id;
+        option.dataset.shopifyId = customer.shopifyId;
         option.innerText = customer.name;
         documentFragment.appendChild(option);
       });
@@ -147,7 +155,11 @@ export default window.component(async (node, ctx) => {
     });
 
     selectOrderSorting.addEventListener('change', () => {
-      onSelectCustomer(selectCustomer.value);
+      const { value, options, selectedIndex } = selectCustomer;
+      onSelectCustomer({
+        id: value,
+        shopifyId: options[selectedIndex].dataset.shopifyId,
+      });
     });
   } else {
     onSelectCustomer();

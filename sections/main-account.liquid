@@ -30,6 +30,14 @@
       <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px] overflow-auto'>
         {%- if agent -%}
           <li
+            class='text-grey-4 lg:mb-3 whitespace-nowrap'
+          >
+            <a
+              href='{{ customer.metafields.details.url }}'
+            >
+           NEW ORDER VIEW            </a>
+          </li>
+          <li
             data-tab-link='orders'
             class='text-grey-4 lg:mb-3 whitespace-nowrap is-active:text-black {% if template != 'address' -%}is-active{%- endif %}'
           >
@@ -55,14 +63,6 @@
             >
               {{- 'customer.account.saved_carts' | t -}}
             </a>
-          </li>
-           <li
-            class='text-grey-4 lg:mb-3 whitespace-nowrap'
-          >
-            <a
-              href='{{ customer.metafields.details.url }}'
-            >
-           NEW ORDER VIEW            </a>
           </li>
         {%- else -%}
           <li

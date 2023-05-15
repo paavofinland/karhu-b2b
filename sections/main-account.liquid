@@ -56,6 +56,14 @@
               {{- 'customer.account.saved_carts' | t -}}
             </a>
           </li>
+           <li
+            class='text-grey-4 lg:mb-3 whitespace-nowrap'
+          >
+            <a
+              href='{{ customer.metafields.details.url | append: "?t=carts" }}'
+            >
+           NEW ORDER VIEW            </a>
+          </li>
         {%- else -%}
           <li
             data-tab-link='orders'

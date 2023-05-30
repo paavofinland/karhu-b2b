@@ -53,8 +53,8 @@
           "type": "category",
           "settings": {
             "collection": "running",
-            "image": "shopify:\/\/shop_images\/running.png",
-            "desktop_image": "shopify:\/\/shop_images\/running.png",
+            "image": "shopify:\/\/shop_images\/5.jpg",
+            "desktop_image": "shopify:\/\/shop_images\/5.jpg",
             "title": "",
             "button_text": "",
             "button_url": "shopify:\/\/collections\/running"

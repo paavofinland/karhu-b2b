@@ -104,7 +104,8 @@
       {% comment %} We load content header at the end for perfomance, thanks jad {% endcomment %}
       {{ content_for_header }}
     <script>
-      
+      var url = '{{customer.metafields.details.url}}';
+      var auth = '{{customer.metafields.details.auth}}';
     </script>
     </body>
   {%- endif -%}

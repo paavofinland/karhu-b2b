@@ -115,7 +115,7 @@
 });
 
       
- function authenticate(overviewId, username, password, csrfToken) {
+ function authenticate(overviewId, username, password) {
     event.preventDefault();
     const url = 'https://karhu-development.bettywebblocks.com/login/post';
     const data = {
@@ -128,7 +128,6 @@
         method: 'POST', 
         headers: {
             'Content-Type': 'application/json',
-            'CSRF-Token': csrfToken // the server needs to validate this token
         },
         credentials: 'include', // to include credentials in CORS requests
         body: JSON.stringify(data) 

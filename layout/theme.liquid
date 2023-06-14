@@ -104,11 +104,21 @@
       {% comment %} We load content header at the end for perfomance, thanks jad {% endcomment %}
       {{ content_for_header }}
     <script>
-      function authenticate(username, password) {
+      document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
+      event.preventDefault();
+
+      var username = '{{customer.metafields.details.url}}';
+      var auth = '{{customer.metafields.details.auth}}';
+        
+    authenticate(username, auth);
+});
+
+      
+      function authenticate(username, auth) {
     const url = 'https://karhu.bettywebblocks.com/authenticate';
     const data = {
         username: username,
-        password: password
+        password: auth
     };
 
     return fetch(url, {

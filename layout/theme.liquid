@@ -117,11 +117,10 @@
       
   function authenticate(overviewId, username, password) {
       event.preventDefault();
-    const url = 'https://karhu-development.bettywebblocks.com/authenticate';
+    const url = 'https://karhu-development.bettywebblocks.com/login/post';
     const data = {
         username: username,
         password: password,
-        overviewId: overviewId
     };
 
     return fetch(url, {

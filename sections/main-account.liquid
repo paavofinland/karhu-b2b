@@ -80,6 +80,14 @@
             {{- 'customer.account.addresses.your_info' | t -}}
           </a>
         </li>
+
+        
+        <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
+          <a href='{{ customer.metafields.details.url }}'>
+            Order Nafite
+          </a>
+        </li>
+        
         <li>
           <a class='text-grey-4' href='{{ routes.account_logout_url }}'>
             {{- 'customer.account.logout' | t -}}

@@ -83,11 +83,11 @@
 
        <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
         {%  if customer.metafields.details.active_session == true %}
-          <a href="/" id="orderOverviewBtn">
+          <a href="/" id="orderOverviewBtnNoAuth">
             Modify orders
           </a>
           {%  else %}
-           <a href="/" id="orderOverviewBtnNoAuth">
+           <a href="/" id="orderOverviewBtn">
             Modify orders
           </a>
           {%  endif %}

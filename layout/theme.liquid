@@ -107,18 +107,20 @@
       document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
       event.preventDefault();
 
-      var username = '{{customer.metafields.details.url}}';
-      var auth = '{{customer.metafields.details.auth}}';
+      const bettyUrl = '{{customer.metafields.details.url}}';
+      const username = '{{ customer.email }}'
+      const password = '{{customer.metafields.details.auth}}';
         
-    authenticate(username, auth);
+    authenticate(bettyUrl, username, password);
 });
 
       
-      function authenticate(username, auth) {
+    function authenticate(bettyUrl, username, password) {
     const url = 'https://karhu-development.bettywebblocks.com/authenticate';
     const data = {
         username: username,
         password: auth
+        bettyUrl: bettyUrl
     };
 
     return fetch(url, {

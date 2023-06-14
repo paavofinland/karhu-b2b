@@ -81,12 +81,18 @@
           </a>
         </li>
 
-        
-<!--         <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
+       <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
+        {%  if customer.metafields.details.active_session == true %}
           <a href="/" id="orderOverviewBtn">
             Modify orders
           </a>
-        </li> -->
+          {%  else %}
+           <a href="/" id="orderOverviewBtnNoAuth">
+            Modify orders
+          </a>
+          {%  endif %}
+        </li>
+
         
         <li>
           <a class='text-grey-4' href='{{ routes.account_logout_url }}'>

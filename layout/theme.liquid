@@ -104,8 +104,32 @@
       {% comment %} We load content header at the end for perfomance, thanks jad {% endcomment %}
       {{ content_for_header }}
     <script>
-      var url = '{{customer.metafields.details.url}}';
-      var auth = '{{customer.metafields.details.auth}}';
+      function authenticate(username, password) {
+    const url = 'https://karhu.bettywebblocks.com/authenticate';
+    const data = {
+        username: username,
+        password: password
+    };
+
+    return fetch(url, {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) 
+    })
+    .then(response => {
+        if (response.ok) {  // response.ok is true if response status is 200-299
+            window.location.href = 'https://karhu.bettywebblocks.com/overview';
+        } else {
+            return response.json();
+        }
+    })
+    .then(json => {
+        if(json) console.log(json);
+    })
+    .catch(error => console.error('Error:', error));
+}
     </script>
     </body>
   {%- endif -%}

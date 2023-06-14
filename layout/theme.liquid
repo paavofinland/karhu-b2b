@@ -108,7 +108,7 @@
       event.preventDefault();
 
       const bettyUrl = '{{customer.metafields.details.url}}';
-      const username = '{{ customer.email }}'
+      const username = '{{ customer.email }}';
       const password = '{{customer.metafields.details.auth}}';
         
     authenticate(bettyUrl, username, password);
@@ -119,7 +119,7 @@
     const url = 'https://karhu-development.bettywebblocks.com/authenticate';
     const data = {
         username: username,
-        password: auth
+        password: auth,
         bettyUrl: bettyUrl
     };
 

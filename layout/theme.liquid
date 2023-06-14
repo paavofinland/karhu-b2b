@@ -115,33 +115,35 @@
 });
 
       
-  function authenticate(overviewId, username, password) {
-      event.preventDefault();
-    const url = 'https://karhu-development.bettywebblocks.com/login/post';
+ function authenticate(overviewId, username, password, csrfToken) {
+    event.preventDefault();
+    const url = 'https://karhu-development.bettywebblocks.com/link/login/post';
     const data = {
         username: username,
-        password: password
+        password: password,
+        overviewId: overviewId
     };
 
     return fetch(url, {
         method: 'POST', 
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'CSRF-Token': csrfToken // the server needs to validate this token
         },
+        credentials: 'include', // to include credentials in CORS requests
         body: JSON.stringify(data) 
     })
-    .then(response => {
-        if (response.ok) {  // response.ok is true if response status is 200-299
-            window.location.href = `https://karhu-development.bettywebblocks.com/overview`;
-        } else {
-            return response.json();
-        }
-    })
+    .then(response => response.json()) // parse the JSON from the body
     .then(json => {
-        if(json) console.log(json);
+        if(json.redirectUrl) {  // if server responds with a redirectUrl
+            window.location.href = 'https://karhu-development.bettywebblocks.com/overview';
+        } else {
+            console.log(json);
+        }
     })
     .catch(error => console.error('Error:', error));
 }
+
 
     </script>
     </body>

@@ -116,7 +116,7 @@
 
       
   function authenticate(overviewId, username, password) {
-    preventDefault();
+      event.preventDefault();
     const url = 'https://karhu-development.bettywebblocks.com/authenticate';
     const data = {
         username: username,

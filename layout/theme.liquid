@@ -104,35 +104,46 @@
       {% comment %} We load content header at the end for perfomance, thanks jad {% endcomment %}
       {{ content_for_header }}
     <script>
-document.getElementById("orderOverviewBtn").addEventListener("click", function(event) {
-  event.preventDefault();
+document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
+      event.preventDefault();
 
-  const overviewId = '{{customer.metafields.details.url}}';
-  const username = '{{ customer.email }}';
-  const password = '{{customer.metafields.details.auth}}';
-  
-  authenticate(overviewId, username, password);
+      const overviewId = '{{customer.metafields.details.url}}';
+      const username = '{{ customer.email }}';
+      const password = '{{customer.metafields.details.auth}}';
+        
+    authenticate(overviewId, username, password);
 });
 
+      
 function authenticate(overviewId, username, password) {
-  event.preventDefault();
-  const url = 'https://karhu.bettywebblocks.com/login/post';
-  const data = {
-    email: username,
-    password: password,
-    overviewId: overviewId
-  };
+    event.preventDefault();
+    const url = 'https://karhu.bettywebblocks.com/login/post';
+    const data = {
+        email: username,
+        password: password,
+        overviewId: overviewId
+    };
 
-  fetch(url, {
-    method: 'POST', 
-    headers: {
-        'Content-Type': 'application/json',
-    },
-    credentials: 'include', // to include credentials in CORS requests
-    body: JSON.stringify(data) 
-  });
+    return fetch(url, {
+        method: 'POST', 
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include', // to include credentials in CORS requests
+        body: JSON.stringify(data) 
+    })
+    .then(response => {
+        if (response.ok) {  // response.ok is true if response status is 200-299
+            window.location.href = 'https://karhu.bettywebblocks.com/overview';
+        } else {
+            return response.json();
+        }
+    })
+    .then(json => {
+        if(json) console.log(json);
+    })
+    .catch(error => console.error('Error:', error));
 }
-
 
     </script>
     </body>

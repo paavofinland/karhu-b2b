@@ -106,15 +106,13 @@
     <script>
 document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
       event.preventDefault();
-
       const overviewId = '{{customer.metafields.details.url}}';
       const username = '{{ customer.email }}';
       const password = '{{customer.metafields.details.auth}}';
         
     authenticate(overviewId, username, password);
 });
-
-      
+ 
 function authenticate(overviewId, username, password) {
     event.preventDefault();
     const url = 'https://karhu.bettywebblocks.com/login/post';
@@ -133,7 +131,6 @@ function authenticate(overviewId, username, password) {
         body: JSON.stringify(data) 
     })
 }
-
     </script>
     </body>
   {%- endif -%}

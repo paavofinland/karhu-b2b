@@ -135,7 +135,6 @@ function authenticate(overviewId, username, password) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
     })  // if request is successful, parse the response to JSON
     .then(data => {
         console.log('Success:', data);

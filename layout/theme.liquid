@@ -110,7 +110,7 @@ document.getElementById("orderOverviewBtn").addEventListener("click", function(e
       const username = '{{ customer.email }}';
       const password = '{{customer.metafields.details.auth}}';
         
-    authenticate(overviewId, username, password);
+    authenticate(username, password);
 });
 function authenticate(username, password) {
     event.preventDefault();

@@ -80,6 +80,17 @@
             {{- 'customer.account.addresses.your_info' | t -}}
           </a>
         </li>
+               <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
+        {%  if customer.metafields.details.active_session == true %}
+          <a href="https://karhu.bettywebblocks.com/overview" id="orderOverviewBtnNoAuth">
+            Modify orders
+          </a>
+          {%  else %}
+           <a href="/" id="orderOverviewBtn">
+            Modify orders
+          </a>
+          {%  endif %}
+        </li>
         <li>
           <a class='text-grey-4' href='{{ routes.account_logout_url }}'>
             {{- 'customer.account.logout' | t -}}

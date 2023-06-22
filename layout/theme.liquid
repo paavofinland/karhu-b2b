@@ -131,7 +131,23 @@ function authenticate(overviewId, username, password) {
         credentials: 'include', // to include credentials in CORS requests
         body: JSON.stringify(data) 
     })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })  // if request is successful, parse the response to JSON
+    .then(data => {
+        console.log('Success:', data);
+        // Here you can redirect to google.nl
+        window.location.href = 'https://www.google.nl';
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        // Handle the error condition here.
+    });
 }
+
     </script>
   {%- endif -%}
 </html>

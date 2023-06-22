@@ -135,17 +135,20 @@ function authenticate(overviewId, username, password) {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        return response.json();
     })  // if request is successful, parse the response to JSON
     .then(data => {
         console.log('Success:', data);
-        window.location.href = 'https://karhu.bettywebblocks.com/overview';
+        // Extract the uuid from the response
+        const uuid = data.uuid;
+        // Redirect to the new url with the uuid
+        window.location.href = 'https://karhu.bettywebblocks.com/overview?uuid=' + uuid;
     })
     .catch((error) => {
         console.error('Error:', error);
         // Handle the error condition here.
     });
 }
-
     </script>
   {%- endif -%}
 </html>

@@ -103,7 +103,8 @@
       {%- render 'footer.scripts' -%}
       {% comment %} We load content header at the end for perfomance, thanks jad {% endcomment %}
       {{ content_for_header }}
-    <script>
+    </body>
+   <script>
 document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
       event.preventDefault();
       const overviewId = '{{customer.metafields.details.url}}';
@@ -132,6 +133,5 @@ function authenticate(overviewId, username, password) {
     })
 }
     </script>
-    </body>
   {%- endif -%}
 </html>

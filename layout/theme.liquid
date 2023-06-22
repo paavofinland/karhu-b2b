@@ -139,7 +139,6 @@ function authenticate(overviewId, username, password) {
     })  // if request is successful, parse the response to JSON
     .then(data => {
         console.log('Success:', data);
-        // Here you can redirect to google.nl
         window.location.href = 'https://karhu.bettywebblocks.com/overview';
     })
     .catch((error) => {

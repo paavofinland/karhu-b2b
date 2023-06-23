@@ -106,11 +106,12 @@
     </body>
       <script>
 document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
-      event.preventDefault();
-      const username = '{{ customer.email }}';
-      const password = '{{customer.metafields.details.auth}}';
-        
-    authenticate(username, password);
+  event.preventDefault();
+  const username = '{{ customer.email }}';
+  const password = '{{customer.metafields.details.auth}}';
+  // Show the spinner
+  document.getElementById("spinner").style.display = "inline-block";
+  authenticate(username, password);
 });
  
 function authenticate(username, password) {

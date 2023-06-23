@@ -84,7 +84,7 @@
        <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
         {%  if customer.metafields.details.active_session == true %}
           <a href="https://karhu.bettywebblocks.com/overview?uuid={{customer.metafields.details.url}}" id="orderOverviewBtnNoAuth">
-            Modify orders
+            Modify orders <i id="spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
           </a>
           {%  else %}
            <a href="/" id="orderOverviewBtn">

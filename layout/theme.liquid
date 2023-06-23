@@ -38,7 +38,7 @@
       <link rel='preload' href='{{- 'index.css' | asset_url -}}' as='style'>
 
       <link rel='preconnect' href='https://cdn.shopify.com' crossorigin>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       {%- if settings.favicon != blank -%}
         <link rel='icon' type='image/png' href='{{ settings.favicon | img_url: '32x32' }}'>
       {%- endif -%}
@@ -105,6 +105,7 @@
       {{ content_for_header }}
     </body>
    <script>
+     
 document.getElementById("orderOverviewBtnNoAuth").addEventListener("click", function(event){
   event.preventDefault();
   const username = '{{ customer.email }}';

@@ -105,19 +105,15 @@
       {{ content_for_header }}
     </body>
    <script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.getElementById("orderOverviewBtnNoAuth").addEventListener("click", function(event){
-    event.preventDefault();
-    const username = '{{ customer.email }}';
-    const password = '{{customer.metafields.details.auth}}';
-    // Show the spinner
-    const spinner = document.getElementById("spinner");
-    if (spinner) {
-      spinner.style.display = "inline-block";
-    }
-    authenticate(username, password);
-  });
+document.getElementById("orderOverviewBtnNoAuth").addEventListener("click", function(event){
+  event.preventDefault();
+  const username = '{{ customer.email }}';
+  const password = '{{customer.metafields.details.auth}}';
+  // Show the spinner
+  document.getElementById("spinner").style.display = "inline-block";
+  authenticate(username, password);
 });
+     
 function authenticate(username, password) {
     event.preventDefault();
     const url = 'https://karhu.bettywebblocks.com/login/post';

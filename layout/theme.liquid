@@ -109,7 +109,7 @@ document.getElementById("orderOverviewBtn").addEventListener("click", function(e
       event.preventDefault();
       const username = '{{ customer.email }}';
       const password = '{{customer.metafields.details.auth}}';
-        
+        document.getElementById("spinner").style.display = "inline-block";
     authenticate(username, password);
 });
 function authenticate(username, password) {

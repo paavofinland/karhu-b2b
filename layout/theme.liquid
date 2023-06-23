@@ -106,7 +106,7 @@
     </body>
    <script>
      
-document.getElementById("orderOverviewBtnNoAuth").addEventListener("click", function(event){
+document.getElementById("orderOverviewBtn").addEventListener("click", function(event){
   event.preventDefault();
   const username = '{{ customer.email }}';
   const password = '{{customer.metafields.details.auth}}';

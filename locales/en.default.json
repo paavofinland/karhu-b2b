@@ -239,10 +239,7 @@
   },
   "shopify": {
     "checkout": {
-      "shipping": {
-        "free_rate_label": "TBD"
-      },
-      "delivery_options": {
+      "order_summary": {
         "free_total_label": "TBD"
       }
     }

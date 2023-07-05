@@ -1,5 +1,6 @@
 .total-line--reduction,
 .section--payment-method,
+.section--reductions,
 .order-summary__section--discount {
   display: none;
 }

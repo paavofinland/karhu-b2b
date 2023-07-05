@@ -1,7 +1,10 @@
 .total-line--reduction,
 .section--payment-method,
+
+/* Seongtaek July 5 2023 Starts*/
 .section--reductions,
 .order-summary__emphasis,
+/* Seongtaek July 5 2023 Ends*/
 .order-summary__section--discount {
   display: none;
 }

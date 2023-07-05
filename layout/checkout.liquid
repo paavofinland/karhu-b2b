@@ -52,13 +52,10 @@
         </aside>
       </div>
     </div>
- <!--
-   <div
-     class='total-line--reduction section--payment-method order-summary__section--discount'
-   ></div>
- -->
-	  
-	  
+
+    <div
+      class='total-line--reduction section--payment-method order-summary__section--discount'
+    ></div>
     {%- assign skip_payment_discount_code = 'FREE' -%}
     {%- assign discount_application = checkout.discount_applications
       | where: 'title', skip_payment_discount_code

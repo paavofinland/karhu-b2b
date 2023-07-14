@@ -241,6 +241,12 @@
     "checkout": {
       "order_summary": {
         "free_total_label": "TBD"
+      },
+      "delivery_options": {
+        "free_total_label": "TBD"
+      },
+      "shipping": {
+        "free_rate_label": "TBD"
       }
     }
   }

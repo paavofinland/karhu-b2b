@@ -45,7 +45,7 @@
 {%- liquid
   assign translated_text = text | t
 
-  unless translated_text contains 'translation missing:'
+  unless translated_text contains 'Translation missing:'
     assign text = translated_text
   endunless
 

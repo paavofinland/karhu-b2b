@@ -45,12 +45,12 @@
   assign autocomplete = autocomplete | default: 'off'
 
   assign translated_label = label | t
-  unless translated_label contains 'translation missing:'
+  unless translated_label contains 'Translation missing:'
     assign label = translated_label
   endunless
 
   assign translated_placeholder = placeholder | t
-  unless translated_placeholder contains 'translation missing:'
+  unless translated_placeholder contains 'Translation missing:'
     assign placeholder = translated_placeholder
   endunless
 %}

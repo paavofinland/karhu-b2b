@@ -68,7 +68,7 @@
             </a>
           </li>
         {%- else -%}
-          <li
+          <!-- <li
             data-tab-link='orders'
             class='lg:mb-3 whitespace-nowrap text-grey-4 is-active:text-black {% if template != 'address' -%}is-active{%- endif -%}'
           >
@@ -84,7 +84,18 @@
             >
               {{- 'customer.account.orders.tab_title_mobile' | t -}}
             </a>
-          </li>
+          </li> -->
+    <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
+        {%  if customer.metafields.details.active_session == true %}
+          <a href="https://karhu.bettywebblocks.com/overview?uuid={{customer.metafields.details.url}}" id="orderOverviewBtnNoAuth">
+            Orders
+          </a>
+          {%  else %}
+           <a href="/" id="orderOverviewBtn">
+            Orders   <i id="spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+          </a>
+          {%  endif %}
+        </li>
         {%- endif -%}
         <li class='{%- if template == 'account' -%} text-grey-4 {%- endif %} lg:mb-3 whitespace-nowrap'>
           <a href='{{ routes.account_addresses_url }}'>

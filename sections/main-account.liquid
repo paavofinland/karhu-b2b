@@ -29,7 +29,7 @@
     <div class='text-heading-7 border-b border-grey-5 lg:border-none'>
       <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px] overflow-auto'>
         {%- if agent -%}
-          <li
+          <!-- <li
             data-tab-link='orders'
             class='text-grey-4 lg:mb-3 whitespace-nowrap is-active:text-black {% if template != 'address' -%}is-active{%- endif %}'
           >
@@ -45,7 +45,18 @@
             >
               {{- 'customer.account.orders.tab_title_mobile' | t -}}
             </a>
-          </li>
+          </li> -->
+                     <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
+        {%  if customer.metafields.details.active_session == true %}
+          <a href="https://karhu.bettywebblocks.com/overview?uuid={{customer.metafields.details.url}}" id="orderOverviewBtnNoAuth">
+            Orders
+          </a>
+          {%  else %}
+           <a href="/" id="orderOverviewBtn">
+            Orders <i id="spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
+          </a>
+          {%  endif %}
+        </li>
           <li
             data-tab-link='carts'
             class='text-grey-4 lg:mb-3 whitespace-nowrap is-active:text-black'
@@ -79,17 +90,6 @@
           <a href='{{ routes.account_addresses_url }}'>
             {{- 'customer.account.addresses.your_info' | t -}}
           </a>
-        </li>
-               <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
-        {%  if customer.metafields.details.active_session == true %}
-          <a href="https://karhu.bettywebblocks.com/overview?uuid={{customer.metafields.details.url}}" id="orderOverviewBtnNoAuth">
-            Modify orders
-          </a>
-          {%  else %}
-           <a href="/" id="orderOverviewBtn">
-            Modify orders <i id="spinner" class="fa fa-spinner fa-spin" style="display:none"></i>
-          </a>
-          {%  endif %}
         </li>
         <li>
           <a class='text-grey-4' href='{{ routes.account_logout_url }}'>

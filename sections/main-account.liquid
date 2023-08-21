@@ -29,6 +29,23 @@
     <div class='text-heading-7 border-b border-grey-5 lg:border-none'>
       <ul class='flex gap-5 py-[18px] px-4 lg:p-0 lg:block lg:min-w-[180px] overflow-auto'>
         {%- if agent -%}
+                    <!-- <li
+            data-tab-link='orders'
+            class='text-grey-4 lg:mb-3 whitespace-nowrap is-active:text-black {% if template != 'address' -%}is-active{%- endif %}'
+          >
+            <a
+              class='hidden lg:inline'
+              href='{{ routes.account_url }}'
+            >
+              {{- 'customer.account.orders.tab_title_desktop' | t -}}
+            </a>
+            <a
+              class='lg:hidden inline'
+              href='{{ routes.account_url }}'
+            >
+              {{- 'customer.account.orders.tab_title_mobile' | t -}}
+            </a>
+          </li> -->
          <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
         {%  if customer.metafields.details.active_session == true %}
           <a href="https://karhu.bettywebblocks.com/overview?uuid={{customer.metafields.details.url}}" id="orderOverviewBtnNoAuth">
@@ -51,23 +68,6 @@
             </a>
           </li>
         {%- else -%}
-          <li
-            data-tab-link='orders'
-            class='lg:mb-3 whitespace-nowrap text-grey-4 is-active:text-black {% if template != 'address' -%}is-active{%- endif -%}'
-          >
-            <!-- <a
-              class='hidden lg:inline'
-              href='{{ routes.account_url }}'
-            >
-              {{- 'customer.account.orders.tab_title_desktop' | t -}}
-            </a> -->
-            <a
-              class='lg:hidden inline'
-              href='{{ routes.account_url }}'
-            >
-              {{- 'customer.account.orders.tab_title_mobile' | t -}}
-            </a>
-          </li>
           <li class='text-grey-4 lg:mb-3 whitespace-nowrap'>
         {%  if customer.metafields.details.active_session == true %}
           <a href="https://karhu.bettywebblocks.com/overview?uuid={{customer.metafields.details.url}}" id="orderOverviewBtnNoAuth">

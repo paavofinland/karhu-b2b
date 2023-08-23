@@ -113,6 +113,7 @@
       {%- if template == 'address' -%}
         {%- render 'account.addresses' -%}
       {%- else -%}
+         {%- render 'account.addresses' -%}
         {%- if agent -%}
           {%- render 'account-cart-templates', attributes: "data-tab='carts'" -%}
         {%- endif -%}

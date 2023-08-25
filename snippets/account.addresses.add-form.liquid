@@ -6,6 +6,7 @@
       <div class='max-w-[480px] text-body-xs'>
         {%-
           render 'component.input',
+          translate_placeholder: true,
           placeholder: 'customer.account.addresses.address_form.first_name',
           id: 'addressFirstName',
           name: 'address[first_name]',
@@ -17,6 +18,7 @@
         -%}
         {%-
           render 'component.input',
+          translate_placeholder: true,
           placeholder: 'customer.account.addresses.address_form.last_name',
           id: 'addressLastName',
           name: 'address[last_name]',
@@ -29,6 +31,7 @@
         -%}
         {%-
           render 'component.input',
+          translate_placeholder: true,
           placeholder: 'customer.account.addresses.address_form.company',
           id: 'addressCompany',
           name: 'address[company]',
@@ -38,6 +41,7 @@
         -%}
         {%-
           render 'component.input',
+          translate_placeholder: true,
           placeholder: 'customer.account.addresses.address_form.street_name',
           id: 'addressStreetName',
           name: 'address[address1]',
@@ -72,6 +76,7 @@
         -%}
         {%-
           render 'component.select',
+          translate_placeholder: true,
           name: 'address[country]',
           options: options,
           id: "AddressCountryNew",
@@ -86,6 +91,7 @@
         -%}
         {%-
           render 'component.input',
+          translate_placeholder: true,
           id: 'addressZip',
           name: 'address[zip]',
           placeholder: 'customer.account.addresses.address_form.zipcode',
@@ -98,6 +104,7 @@
         -%}
         {%-
           render 'component.input',
+          translate_placeholder: true,
           id: 'addressCity',
           name: 'address[city]',
           placeholder: 'customer.account.addresses.address_form.city',
@@ -110,6 +117,7 @@
         -%}
         {%-
           render 'component.input',
+          translate_placeholder: true,
           id: 'addressTelephone',
           name: 'address[phone]',
           placeholder: 'customer.account.addresses.address_form.phone',
@@ -120,6 +128,7 @@
         -%}
         {%-
           render 'component.checkbox',
+          translate: true,
           label: 'customer.account.addresses.add_address.set_default',
           id: 'address_default_address_new',
           name: 'address[default]',
@@ -129,6 +138,7 @@
         -%}
         <div class="flex flex-col lg:flex-row mt-[26px] lg:mt-[30px] items-center gap-4 lg:gap-10">
           {%- render 'component.button'
+            translate: true,
             type: 'submit'
             text: 'customer.account.addresses.add_address.submit_button'
             style: 'primary'

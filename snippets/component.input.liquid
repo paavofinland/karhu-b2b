@@ -59,18 +59,12 @@
   assign spellcheck = spellcheck | default: false
   assign required = required | default: false
 
-  assign translated_label = label | t
+  if translate and label != blank
+    assign label = label | t
+  endif
 
-  unless translated_label contains 'Translation missing:'
-    assign label = translated_label
-  endunless
-
-  if placeholder != blank
-    assign translated_placeholder = placeholder | t
-
-    unless translated_placeholder contains 'Translation missing:'
-      assign placeholder = translated_placeholder
-    endunless
+  if translate_placeholder and placeholder != blank
+    assign placeholder = placeholder | t
   endif
 -%}
 

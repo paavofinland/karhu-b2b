@@ -8,11 +8,10 @@
     assign attr = 'alt="' | append: link.title | append: '"'
   endif
 
-  assign translated_text = title | t
+  if translate and title != blank
+    assign title = title | t
+  endif
 
-  unless translated_text contains 'Translation missing:'
-    assign title = translated_text
-  endunless
   assign title = title | default: link.title
 -%}
 <{{- tag }}

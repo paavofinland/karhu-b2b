@@ -34,11 +34,9 @@
 {%- liquid
   assign required = required | default: false
 
-  assign translated_label = label | t
-
-  unless translated_label contains 'Translation missing:'
-    assign label = translated_label
-  endunless
+  if translate and label != blank
+    assign label = label | t
+  endif
 -%}
 
 <div class='flex items-center {{ container_class }}'>

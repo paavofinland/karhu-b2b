@@ -44,15 +44,13 @@
 {% liquid
   assign autocomplete = autocomplete | default: 'off'
 
-  assign translated_label = label | t
-  unless translated_label contains 'Translation missing:'
-    assign label = translated_label
-  endunless
+  if translate and label != blank
+    assign label = label | t
+  endif
 
-  assign translated_placeholder = placeholder | t
-  unless translated_placeholder contains 'Translation missing:'
-    assign placeholder = translated_placeholder
-  endunless
+  if translate_placeholder and placeholder != blank
+    assign placeholder = placeholder | t
+  endif
 %}
 
 {% if label %}

@@ -39,6 +39,7 @@
         {% form 'customer_address', address %}
           <div class='max-w-[480px] text-body-xs'>
             {%- render 'component.input',
+              translate_placeholder: true,
               id: 'addressFirstName',
               name: 'address[first_name]',
               placeholder: 'customer.account.addresses.address_form.first_name',
@@ -50,6 +51,7 @@
               requiredStar: true
             -%}
             {%- render 'component.input',
+              translate_placeholder: true,
               id: 'addressLastName',
               name: 'address[last_name]',
               placeholder: 'customer.account.addresses.address_form.last_name',
@@ -62,6 +64,7 @@
               requiredStar: true
             -%}
             {%- render 'component.input',
+              translate_placeholder: true,
               id: 'addressCompany',
               name: 'address[company]',
               placeholder: 'customer.account.addresses.address_form.company',
@@ -71,6 +74,7 @@
               input_class: 'mt-0 px-4 py-[18px] border-grey-4'
             -%}
             {%- render 'component.input',
+              translate_placeholder: true,
               id: 'addressStreetName',
               name: 'address[address1]',
               placeholder: 'customer.account.addresses.address_form.street_name',
@@ -106,6 +110,7 @@
               endcapture
             -%}
             {%- render 'component.select',
+              translate_placeholder: true,
               name: 'address[country]',
               options: options,
               id: 'AddressCountryNew',
@@ -119,6 +124,7 @@
               requiredStar: true
             -%}
             {%- render 'component.input',
+              translate_placeholder: true,
               id: 'addressZip',
               name: 'address[zip]',
               placeholder: 'customer.account.addresses.address_form.zipcode',
@@ -131,6 +137,7 @@
               requiredStar: true
             -%}
             {%- render 'component.input',
+              translate_placeholder: true,
               id: 'addressCity',
               name: 'address[city]',
               placeholder: 'customer.account.addresses.address_form.city',
@@ -144,6 +151,7 @@
             -%}
             {%-
               render 'component.input',
+              translate_placeholder: true,
               id: 'addressTelephone',
               name: 'address[phone]',
               placeholder: 'customer.account.addresses.address_form.phone',
@@ -158,6 +166,7 @@
                 assign edit_address_checkbox_id = 'address_default_address_edit_' | append: address.id
               %}
               {%- render 'component.checkbox',
+                translate: true,
                 label: 'customer.account.addresses.edit_address.set_default',
                 id: edit_address_checkbox_id,
                 name: 'address[default]',
@@ -169,6 +178,8 @@
           </div>
           <div class='flex flex-col lg:flex-row mt-[26px] lg:mt-[30px] items-center gap-4 lg:gap-10'>
             {%- render 'component.button',
+              placeholder: true,
+              translate: true,
               type: 'submit',
               text: 'customer.account.addresses.edit_address.submit_button',
               style: 'primary',

@@ -1,9 +1,7 @@
 {%- liquid
-  assign translated_text = title | t
-
-  unless translated_text contains 'Translation missing:'
-    assign title = translated_text
-  endunless
+  if translate and title != blank
+    assign title = title | t
+  endif
 -%}
 
 <div

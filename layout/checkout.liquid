@@ -69,6 +69,10 @@
         "customer": {
           "id": "{{- customer.id -}}",
           "secret": "{{- customer.metafields.functions.secret -}}"
+          {%- if customer.tags contains 'agent' -%}
+            ,
+            "agent": true
+          {%- endif %}
         },
         "skip_payment_discount_code": "{{- skip_payment_discount_code -}}",
         "skip_payment_discount_applied": {%- if discount_application -%}true{%- else -%}false{%- endif -%}

@@ -27,7 +27,7 @@
 
     {%- if customer -%}
       <a
-        href='{{ routes.root_url | split: '/' | slice: 1 | join: '' }}/account'
+        href='{{ routes.account_url }}'
         class='ml-auto text-right hidden md:block'
       >
         {{- 'general.header.account' | t -}}

@@ -1,20 +1,31 @@
-<div data-component='address' class="border-b border-grey-5 pb-10 pt-10">
-  {% if address == customer.default_address %} 
+<div data-component='address' class='border-b border-grey-5 pb-10 pt-10'>
+  {% if address == customer.default_address %}
     <h6 class='text-heading-6 mb-4 hidden lg:block'>
       {{- 'customer.account.addresses.address_details.edit' | t -}}
     </h6>
   {% endif -%}
-  <div class="flex justify-between">
-    <div class="flex flex-col gap-1">
-      <h7 class='text-heading-7 mb-[10px] lg:hidden'>{{- 'customer.account.addresses.page_title' | t -}}</h7>
+  <div class='flex justify-between'>
+    <div class='flex flex-col gap-1'>
+      <h7 class='text-heading-7 mb-[10px] lg:hidden'>
+        {{- 'customer.account.addresses.page_title' | t -}}
+      </h7>
       {%- if address.first_name or address.last_name -%}
-        <p>{{- address.first_name }}{{ address.last_name -}}</p>
+        <p>
+          {{- address.first_name }}
+          {%- if address.first_name and address.last_name -%}
+            {{- ' ' -}}
+          {%- endif -%}
+          {{- address.last_name -}}
+        </p>
       {%- endif -%}
       {%- if address.address1 != '' -%}
         <p>{{ address.address1 }}</p>
       {%- endif -%}
       {%- if address.zip != '' or address.city != '' -%}
-        <p>{{ address.zip }} {{ address.city }}</p>
+        <p>
+          {{ address.zip }}
+          {{ address.city }}
+        </p>
       {%- endif -%}
       {%- if address.country != '' -%}
         <p>{{ address.country }}</p>
@@ -23,19 +34,32 @@
         <p>{{ address.phone }}</p>
       {%- endif -%}
     </div>
-    <div class="flex flex-col items-end">
-      {% if address == customer.default_address %} 
+    <div class='flex flex-col items-end'>
+      {% if address == customer.default_address %}
         <p class='mb-[10px] lg:hidden'>
           {{- 'customer.account.addresses.address_details.default_address' | t -}}
         </p>
       {% endif -%}
       {% if address != customer.default_address %}
-        <button class="text-grey-3 underline mb-1" data-make-default-button data-address-id="{{- address.id -}}">{{- 'customer.account.addresses.address_details.make_default' | t -}}</button>
+        <button
+          class='text-grey-3 underline mb-1'
+          data-make-default-button
+          data-address-id='{{- address.id -}}'
+        >
+          {{- 'customer.account.addresses.address_details.make_default' | t -}}
+        </button>
       {% endif -%}
-      {% assign edit_button_attributes = "data-edit-address-button data-address-id='" | append: address.id | append: "'" %}
-      <button class="text-grey-3 underline mb-1" {{ edit_button_attributes -}}>{{- 'customer.account.addresses.address_details.edit' | t -}}</button>
+      {% assign edit_button_attributes = "data-edit-address-button data-address-id='"
+        | append: address.id
+        | append: "'"
+      %}
+      <button class='text-grey-3 underline mb-1' {{ edit_button_attributes -}}>
+        {{- 'customer.account.addresses.address_details.edit' | t -}}
+      </button>
       {% unless customer.addresses_count == 1 %}
-        <button class="text-grey-3 underline" data-delete-address-button>{{- 'customer.account.addresses.address_details.delete' | t -}}</button>
+        <button class='text-grey-3 underline' data-delete-address-button>
+          {{- 'customer.account.addresses.address_details.delete' | t -}}
+        </button>
 
         <form
           class='hidden'
@@ -54,22 +78,22 @@
         >
           <div class='relative bg-white mx-4 pt-14 px-8 pb-6 lg:p-14 lg:pb-10 opacity-0 group-open:opacity-100'>
             <button data-close-modal class='absolute top-4 right-4 p-3 lg:p-5'>
-              {%
-                render 'component.icon',
-                type: 'cross'
-              %}
+              {% render 'component.icon', type: 'cross' %}
             </button>
             <h1 class='text-3xl'>
               {{ 'customer.account.addresses.delete_address_confirmation.title' | t }}
             </h1>
             <p class='my-8'>
-              {{ 'customer.account.addresses.delete_address_confirmation.text' | t | newline_to_br }}
+              {{
+                'customer.account.addresses.delete_address_confirmation.text'
+                | t
+                | newline_to_br
+              }}
             </p>
             {% liquid
-              assign address_id_attribute = "data-delete-address-confirm data-address-id=" | append: address.id
+              assign address_id_attribute = 'data-delete-address-confirm data-address-id=' | append: address.id
             %}
-            {%
-              render 'component.button',
+            {% render 'component.button',
               translate: true,
               text: 'customer.account.addresses.delete_address_confirmation.button',
               type: 'submit',

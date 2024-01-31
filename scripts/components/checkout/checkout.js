@@ -20,10 +20,7 @@ const getStoreCustomerAddresses = async (store, customerId, customerSecret) => {
     storeId: localStorage.getItem(SELECTED_STORE_CUSTOMER),
   });
 
-  return fetchFunction(`/customer/get-store-customer-addresses?${query}`).catch(e => {
-    console.info('[unhandled error]');
-    return [];
-  });
+  return fetchFunction(`/customer/get-store-customer-addresses?${query}`);
 };
 
 const formatAddress = ({
@@ -60,7 +57,7 @@ export default window.component(node => {
     skip_payment_discount_code: discountCode,
     skip_payment_discount_applied: discountApplied,
     store: { store },
-    customer: { secret: customerSecret, id: customerId },
+    customer: { secret: customerSecret, id: customerId, agent = false },
   } = getLiquidVariables();
 
   const [totalSectionElement, billingAddress] = querySelect(node, [
@@ -113,22 +110,32 @@ export default window.component(node => {
       '[data-address-fields]',
     ]);
     if (!addressFields) return;
+
+    // loading state
     addressFields.style.opacity = '0.5';
     addressFields.style.pointerEvents = 'none';
     Array.from(addressSelector.children).forEach(childNode => {
       if (childNode.selected) {
         childNode.innerText = 'Please wait...';
-        childNode.removeAttribute('selected');
-        return;
+        childNode.toggleAttribute('disabled', true);
+        childNode.toggleAttribute('selected', true);
+      } else {
+        childNode.remove();
       }
-      childNode.remove();
     });
 
     getStoreCustomerAddresses(store, customerId, customerSecret)
       .then(addressList => appendAddressSelector(addressSelector, addressList))
       .finally(() => {
+        // reset loading state
         addressFields.style.opacity = '1';
         addressFields.style.pointerEvents = 'auto';
+      })
+      .catch(e => {
+        addressSelector.firstElementChild.innerText =
+          'Something went wrong, please enter your address manually.';
+        addressSelector.toggleAttribute('disabled', true);
+        console.error(e);
       });
 
     const updateAddressSelector = selectedAddress => {
@@ -153,20 +160,27 @@ export default window.component(node => {
     });
   };
 
-  updateAddressField();
+  if (agent) {
+    // get store customer addresses
+    updateAddressField();
 
-  new MutationObserver(mutationList => {
-    mutationList.forEach(mutation => {
-      const { type, addedNodes } = mutation;
-      if (type !== 'childList' || !addedNodes[0] || !addedNodes[0].dataset?.hasOwnProperty('step'))
-        return;
+    new MutationObserver(mutationList => {
+      mutationList.forEach(mutation => {
+        const { type, addedNodes } = mutation;
+        if (
+          type !== 'childList' ||
+          !addedNodes[0] ||
+          !addedNodes[0].dataset?.hasOwnProperty('step')
+        )
+          return;
 
-      updateAddressField();
+        updateAddressField();
+      });
+    }).observe(node, {
+      childList: true,
+      subtree: true,
     });
-  }).observe(node, {
-    childList: true,
-    subtree: true,
-  });
+  }
 
   const replaceTotalWithSubtotal = () => {
     const [subtotalElement, totalElement] = querySelect(node, [

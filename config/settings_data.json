@@ -1,6 +1,9 @@
 {
   "current": {
     "breadcrumbs": "navigation",
+    "store": "eu",
+    "store_eu_url": "eub2b.karhu.com",
+    "store_us_url": "b2b.karhu.com",
     "social_twitter_link": "twitter",
     "social_facebook_link": "facebook",
     "social_pinterest_link": "",
@@ -30,8 +33,8 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "navigation_first": "about-karhu",
-          "navigation_second": "help"
+          "navigation_first": "",
+          "navigation_second": ""
         }
       },
       "announcement-bar": {
